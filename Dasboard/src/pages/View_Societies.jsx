@@ -5,7 +5,7 @@ function ViewSocieties() {
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    axios.get('YOUR_API_ENDPOINT')
+    axios.get('http://localhost:8000/societies')
       .then(res => setData(res.data))
       .catch(err => console.log(err));
   }, []);

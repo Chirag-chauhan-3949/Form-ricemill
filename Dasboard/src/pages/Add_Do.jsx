@@ -20,13 +20,15 @@ const Add_Do = () => {
   });
 
   const [agreementOptions, setagreementOperations] = useState([]);
+  const [societiesOptions, setsocietiesOperations] = useState([]);
+  const [trucksOptions, settruckOperations] = useState([]);
 
   // Fetch data for the "Select Agreement" dropdown
   useEffect(() => {
     const fetchagreemnt = async () => {
       try {
         const agreement_response = await fetch(
-          "http://localhost:8000/agreements"
+          "http://localhost:8000/agreements-number"
         );
         if (agreement_response.ok) {
           const data = await agreement_response.json();
@@ -43,22 +45,44 @@ const Add_Do = () => {
   }, []);
   // Fetch data for "Society" dropdown
   useEffect(() => {
-    fetch("http://localhost:8000/societys")
-      .then((response) => response.json())
-      .then((data) => {
-        setDoData((prevState) => ({ ...prevState, societies: data }));
-      })
-      .catch((error) => console.error("Error fetching societies:", error));
+    const fetchsocieties = async () => {
+      try {
+        const societies_response = await fetch(
+          "http://localhost:8000/societies-names"
+        );
+        if (societies_response.ok) {
+          const data = await societies_response.json();
+          setsocietiesOperations(data);
+        } else {
+          console.error("Failed to fetch transporters");
+        }
+      } catch (error) {
+        console.error("Error:", error);
+      }
+    };
+
+    fetchsocieties();
   }, []);
 
   // Fetch data for "Truck Number" dropdown
   useEffect(() => {
-    fetch("http://localhost:8000/truck_numbers")
-      .then((response) => response.json())
-      .then((data) => {
-        setDoData((prevState) => ({ ...prevState, truckNumbers: data }));
-      })
-      .catch((error) => console.error("Error fetching truck numbers:", error));
+    const fetchtrucks = async () => {
+      try {
+        const trucks_response = await fetch(
+          "http://localhost:8000/truck_numbers"
+        );
+        if (trucks_response.ok) {
+          const data = await trucks_response.json();
+          settruckOperations(data);
+        } else {
+          console.error("Failed to fetch transporters");
+        }
+      } catch (error) {
+        console.error("Error:", error);
+      }
+    };
+
+    fetchtrucks();
   }, []);
 
   const handleInputChange = (e) => {
@@ -186,11 +210,10 @@ const Add_Do = () => {
             >
               {" "}
               <option value="">Select Agreement</option>
-              {doData.agreements &&
-                agreementOptions.agreements.map((agreement) => (
-                  <option key={agreement} value={agreement}>
-                    {agreement}
-                  </option>
+              {agreementOptions.map((agreement) => (
+                <option key={agreement} value={agreement}>
+                  {agreement}
+                </option>
                 ))}
             </select>
             <h2 className=" text-[14px] block subpixel-antialiased leading-6 text-gray-900">
@@ -318,12 +341,11 @@ const Add_Do = () => {
               value={doData.society}
               onChange={handleInputChange}
             >
-              <option value="">Select Society</option>
-              {doData.societies &&
-                doData.societies.map((society) => (
-                  <option key={society.id} value={society.id}>
-                    {society.name}
-                  </option>
+               <option value="">Select Society</option>
+              {societiesOptions.map((society) => (
+                <option key={society} value={society}>
+                  {society}
+                </option>
                 ))}
             </select>
             <h2 className="text-[14px] block subpixel-antialiased leading-6 text-gray-900">
@@ -345,11 +367,10 @@ const Add_Do = () => {
               onChange={handleInputChange}
             >
               <option value="">Select Truck Number</option>
-              {doData.truckNumbers &&
-                doData.truckNumbers.map((truckNumber) => (
-                  <option key={truckNumber.id} value={truckNumber.id}>
-                    {truckNumber.number}
-                  </option>
+              {trucksOptions.map((truckNumber) => (
+                <option key={truckNumber} value={truckNumber}>
+                  {truckNumber}
+                </option>
                 ))}
             </select>
             <h2 className="text-[14px] block subpixel-antialiased leading-6 text-gray-900">
