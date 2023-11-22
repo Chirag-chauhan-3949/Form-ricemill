@@ -14,35 +14,35 @@ const Sidebar = ({children}) => {
     const menuItem=[
         {
             path:"/Add_Do",
-            name:"Add_Do",
+            name:"Add Do",
             icon:<SiLibreoffice/>
         },
         {
             path:"./Add_Agreement",
-            name:"Add_Agreement",
+            name:"Add Agreement",
             icon:<PiNotebook/>
         },
         {
             path:"/Add_New_Society",
-            name:"Add_New_Society",
+            name:"Add New Society",
             icon:<FaBuildingWheat/>
         },
         {
             path:"/Add_New_Truck",
-            name:"Add_New_Truck",
+            name:"Add New Truck",
             icon:<FaTruckMoving/>
           
         },
         {
             path:"/Add_New_Transporter",
-            name:"Add_New_Transporter",
+            name:"Add New Transporter",
             icon:<RiHomeOfficeLine/>
             
             
         }
     ]
     return (
-        <div className="container">
+        <div>
            <div style={{width: isOpen ? "300px" : "50px"}} className="sidebar">
                <div className="top_section">
                    <div style={{marginLeft: isOpen ? "240px" : "0px"}} className="bars">
@@ -58,7 +58,9 @@ const Sidebar = ({children}) => {
                    ))
                }
            </div>
+        <div className="contain">
            <main className='flex items-center justify-center'>{children}</main>
+        </div>
         </div>
     );
 };

@@ -4,18 +4,23 @@
   text-decoration: none;
 }
 
-.container {
+.contain {
+  width: 100%;
+  height: 100vh;
   display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 main {
   width: 100%;
-  padding: 20px;
+  padding: 50px;
 }
 
 .sidebar {
   position: fixed;
-  background: #000000d7;
+  background: rgb(0, 91, 136);
+  font-weight: 600;
   color: #fff;
   height: 100vh;
   transition: all 0.5s;
@@ -44,13 +49,13 @@ main {
 }
 
 .link:hover {
-  background: rgb(189, 222, 243);
+  background: rgba(144, 207, 236, 0.856);
   color: #000;
   transition: all 0.5s;
 }
 
 .active {
-  background: rgb(189, 222, 243);
+  background: rgba(144, 207, 236, 0.856);
   color: #000;
 }
 

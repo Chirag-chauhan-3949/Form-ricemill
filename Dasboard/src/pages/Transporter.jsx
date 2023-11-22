@@ -1,19 +1,86 @@
-import React from 'react';
-const Add_New_Transporter = () => {
-    return (
-        <div className='ml-[400px] h-fit pb-6 w-8/12 border-[#000000] border-[20px] rounded'>
-        <h1 className='flex items-center justify-center font-mono font-bold tracking-normal text-3xl h-12 w-full bg-[#000000] text-[#ffffff]'>Add New Transporter</h1>
-        <form>
-          <fieldset className='m-10 '>
-            <label className=' text-lg' for='Name'>Transporter Name <span className=' text-red-900 font-bold '>(Required*)</span></label><br />            
-            <input className='border-black rounded border-[1px] h-9 w-[450px] mt-2 p-1 mb-7' required type="text" name='Name' id='Name'></input><br />
-            <label className=' text-lg' for='Distance'>Phone<span className=' text-red-900 font-bold '>(Required*)</span></label><br />            
-            <input className='border-black rounded border-[1px] h-9 w-[450px] mt-2 p-1 mb-7' required type="text" name='Name' id='Name'></input><br />
-            </fieldset>
-          <button className='ml-[45px] w-60 h-10 bg-black text-white rounded-[4px]'>Add New Transporter</button>
-        </form>
+import React, { useState } from 'react';
+
+const AddNewTransporter = () => {
+  const [transporterData, setTransporterData] = useState({
+    Name: '',
+    Phone: '',
+  });
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setTransporterData({
+      ...transporterData,
+      [name]: value,
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await fetch('http://localhost:8000/transporter/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(transporterData),
+      });
+
+      if (response.ok) {
+        console.log('Transporter added successfully');
+        // Optionally, you can handle success here (e.g., show a success message)
+      } else {
+        console.error('Failed to add transporter');
+        // Optionally, you can handle errors here (e.g., show an error message)
+      }
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
+
+  return (
+    <div className='shadow-md h-fit w-fit pb-6 rounded p-10'>
+      <h1 className='flex items-center justify-center font-bold tracking-normal text-3xl h-fit w-full bg-white text-[#005B88] leading-6'>
+        Add New Transporter
+      </h1>
+      <form onSubmit={handleSubmit}>
+        <fieldset className='m-10'>
+          <label className='block text-sm font-medium text-slate-700'>
+            Transporter Name{' '}
+            <span className='text-red-600 font-bold'>(Required*)</span>
+            <input
+              className='mt-1 block w-[30em] px-3 py-2 bg-white border border-slate-300 rounded-md text-sm shadow-sm focus:outline-none hover:border-sky-500 focus:border-sky-500 focus:ring-1 focus:ring-sky-500'
+              required
+              type='text'
+              name='Name'
+              value={transporterData.Name}
+              onChange={handleInputChange}
+            />
+          </label>
+          <br />
+
+          <label className='block text-sm font-large text-slate-700'>
+            Phone{' '}
+            <span className='text-red-600 font-bold'>(Required*)</span>
+            <input
+              className='mt-1 block w-full px-3 py-2 bg-white border border-slate-300 rounded-md text-sm shadow-sm focus:outline-none hover:border-sky-500 focus:border-sky-500 focus:ring-1 focus:ring-sky-500'
+              required
+              type='text'
+              name='Phone'
+              value={transporterData.Phone}
+              onChange={handleInputChange}
+            />
+          </label>
+        <button
+          type='submit'
+          className='hover:bg-sky-950 p-3 mt-4 w-fit h-fit bg-sky-600 text-white rounded-[4px]'
+        >
+          Add New Transporter
+        </button>
+        </fieldset>
+      </form>
     </div>
-    );
+  );
 };
 
-export default Add_New_Transporter;
+export default AddNewTransporter;
