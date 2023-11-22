@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const AddAgreement = () => {
   const [agreementData, setAgreementData] = useState({
@@ -34,13 +36,38 @@ const AddAgreement = () => {
 
       if (response.ok) {
         console.log('Agreement added successfully');
-        // Optionally, you can handle success here (e.g., show a success message)
+        toast.success('Agreement added successfully', {
+          position: 'top-right',
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
       } else {
         console.error('Failed to add agreement');
-        // Optionally, you can handle errors here (e.g., show an error message)
+        toast.error('Failed to add agreement', {
+          position: 'top-right',
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
       }
     } catch (error) {
       console.error('Error:', error);
+      toast.error('Error adding agreement', {
+        position: 'top-right',
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
     }
   };
 
@@ -53,7 +80,7 @@ const AddAgreement = () => {
         Add Government Agreements
       </h2>
       <form onSubmit={handleSubmit}>
-        <fieldset className='m-8 inline'>
+      <fieldset className='m-8 inline'>
           <legend className='font-bold'>Select Mill</legend>
           <div>
             <label className='p-2 hover:text-sky-500'>
@@ -182,6 +209,7 @@ const AddAgreement = () => {
           Add Agreement
         </button>
       </form>
+      <ToastContainer />
     </div>
   );
 };

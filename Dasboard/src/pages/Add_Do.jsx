@@ -1,93 +1,99 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 const Add_Do = () => {
-  const [doData, setDoData] = useState({
-    mill: '',
-    doDate: '',
-    doNumber: '',
-    selectAgreement: '',
-    motaWeight: '',
-    motaBardana: '',
-    patlaWeight: '',
-    patlaBardana: '',
-    sarnaWeight: '',
-    sarnaBardana: '',
-    totalWeight: '',
-    totalBardana: '',
-    society: '',
-    truckNumber: '',
-  });
-
-  // Fetch data for the "Select Agreement" dropdown
-  useEffect(() => {
-    fetch('http://localhost:8000/agreements')
-      .then(response => response.json())
-      .then(data => {
-        setDoData(prevState => ({ ...prevState, agreements: data }));
-      })
-      .catch(error => console.error('Error fetching agreements:', error));
-  }, []);
-
-// Fetch data for "Society" dropdown
-  useEffect(() => {
-    fetch('http://localhost:8000/societies')
-      .then(response => response.json())
-      .then(data => {
-        setDoData(prevState => ({ ...prevState, societies: data }));
-      })
-      .catch(error => console.error('Error fetching societies:', error));
-  }, []);
-  
-  // Fetch data for "Truck Number" dropdown
-  useEffect(() => {
-    fetch('http://localhost:8000/truckNumbers')
-      .then(response => response.json())
-      .then(data => {
-        setDoData(prevState => ({ ...prevState, truckNumbers: data }));
-      })
-      .catch(error => console.error('Error fetching truck numbers:', error));
-  }, []);
-  
-
-  const handleInputChange = (e) => {
-    const { name, value, type, checked } = e.target;
-  
-    setDoData((prevState) => ({
-      ...prevState,
-      [name]: type === 'checkbox' ? checked : value,
-    }));
-  };
-  
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    try {
-      const response = await fetch('http://localhost:8000/add_do', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(doData),
+    const [doData, setDoData] = useState({
+        mill: '',
+        doDate: '',
+        doNumber: '',
+        selectAgreement: '',
+        motaWeight: '',
+        motaBardana: '',
+        patlaWeight: '',
+        patlaBardana: '',
+        sarnaWeight: '',
+        sarnaBardana: '',
+        totalWeight: '',
+        totalBardana: '',
+        society: '',
+        truckNumber: '',
       });
-
-      if (response.ok) {
-        console.log('Do added successfully');
-      } else {
-        console.error('Failed to add Do');
-      }
-    } catch (error) {
-      console.error('Error:', error);
-    }
-  };
-
-  return (
-    <div className='h-full w-[40%] shadow-md p-5 rounded mt-[10%]'>
-       <h1 className='flex items-center mb-5 justify-center font-bold tracking-normal text-3xl h-fit w-full bg-white text-[#005B88] leading-6'>Add Agreement</h1>
+    
+      // Fetch data for the "Select Agreement" dropdown
+      useEffect(() => {
+        fetch('http://localhost:8000/agreements')
+          .then(response => response.json())
+          .then(data => {
+            setDoData(prevState => ({ ...prevState, agreements: data }));
+          })
+          .catch(error => console.error('Error fetching agreements:', error));
+      }, []);
+    
+    // Fetch data for "Society" dropdown
+      useEffect(() => {
+        fetch('http://localhost:8000/societies')
+          .then(response => response.json())
+          .then(data => {
+            setDoData(prevState => ({ ...prevState, societies: data }));
+          })
+          .catch(error => console.error('Error fetching societies:', error));
+      }, []);
+      
+      // Fetch data for "Truck Number" dropdown
+      useEffect(() => {
+        fetch('http://localhost:8000/truckNumbers')
+          .then(response => response.json())
+          .then(data => {
+            setDoData(prevState => ({ ...prevState, truckNumbers: data }));
+          })
+          .catch(error => console.error('Error fetching truck numbers:', error));
+      }, []);
+      
+    
+      const handleInputChange = (e) => {
+        const { name, value, type, checked } = e.target;
+      
+        setDoData((prevState) => ({
+          ...prevState,
+          [name]: type === 'checkbox' ? checked : value,
+        }));
+      };
+      
+    
+      const handleSubmit = async (e) => {
+        e.preventDefault();
+      
+        try {
+          const response = await fetch('http://localhost:8000/add_do', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(doData),
+          });
+      
+          if (response.ok) {
+            console.log('Do added successfully');
+            toast.success('Do added successfully', { position: 'top-right' });
+          } else {
+            console.error('Failed to add Do');
+            toast.error('Failed to add Do', { position: 'top-right' });
+          }
+        } catch (error) {
+          console.error('Error:', error);
+          toast.error('Error adding Do', { position: 'top-right' });
+        }
+      };
+      
+    
+    return (
+      <div className='h-full w-[40%] shadow-md p-5 rounded mt-[10%]'>
+        <h1 className='flex items-center mb-5 justify-center font-bold tracking-normal text-3xl h-fit w-full bg-white text-[#005B88] leading-6'>Add Agreement</h1>
         <h2 className='block subpixel-antialiased leading-6 text-gray-900'>Add Government Agreements</h2>
-      <form onSubmit={handleSubmit}>
-      <fieldset className='inline m-8'>
+        <ToastContainer />
+        <form onSubmit={handleSubmit}>
+        <fieldset className='inline m-8'>
                 <legend className='font-bold'>Select Mill</legend>
                 <div >
                      <label className='p-2 hover:text-sky-500'><input type="radio" name='mill' value="Purushottam" onChange={handleInputChange}/>{' '}Purushottam Rice Mill</label>
@@ -177,10 +183,11 @@ const Add_Do = () => {
 </label>
 
             </fieldset>
-        <button type='submit' className='m-5 hover:bg-sky-950 w-1/3 h-10 bg-sky-600 text-white rounded-[4px]'>Add Do</button>
-      </form>
-    </div>
-  );
-};
-
+          <button type='submit' className='m-5 hover:bg-sky-950 w-1/3 h-10 bg-sky-600 text-white rounded-[4px]'>
+            Add Do
+          </button>
+        </form>
+      </div>
+    );
+  };
 export default Add_Do;

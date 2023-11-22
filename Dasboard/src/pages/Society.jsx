@@ -1,4 +1,7 @@
+
 import React, { useState } from 'react';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const AddNewSociety = () => {
   const [societyData, setSocietyData] = useState({
@@ -29,13 +32,38 @@ const AddNewSociety = () => {
 
       if (response.ok) {
         console.log('Society added successfully');
-        // Optionally, you can handle success here (e.g., show a success message)
+        toast.success('Society added successfully', {
+          position: 'top-right',
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
       } else {
         console.error('Failed to add society');
-        // Optionally, you can handle errors here (e.g., show an error message)
+        toast.error('Failed to add society', {
+          position: 'top-right',
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
       }
     } catch (error) {
       console.error('Error:', error);
+      toast.error('Error adding society', {
+        position: 'top-right',
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
     }
   };
 
@@ -46,7 +74,7 @@ const AddNewSociety = () => {
       </h1>
       <form onSubmit={handleSubmit}>
         <fieldset className='m-8'>
-          <label className='block text-sm font-medium text-slate-700'>
+        <label className='block text-sm font-medium text-slate-700'>
             Society Name{' '}
             <span className='text-red-600 font-bold '>(Required*)</span>
             <input
@@ -94,6 +122,7 @@ const AddNewSociety = () => {
           Add New Society
         </button>
       </form>
+      <ToastContainer />
     </div>
   );
 };
