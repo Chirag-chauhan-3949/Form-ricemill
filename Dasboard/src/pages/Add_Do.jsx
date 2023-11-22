@@ -74,10 +74,8 @@ const Add_Do = () => {
 
       if (response.ok) {
         console.log('Do added successfully');
-        // Optionally, you can handle success here (e.g., show a success message)
       } else {
         console.error('Failed to add Do');
-        // Optionally, you can handle errors here (e.g., show an error message)
       }
     } catch (error) {
       console.error('Error:', error);

@@ -2,13 +2,13 @@ import React, { useState } from 'react';
 
 const AddAgreement = () => {
   const [agreementData, setAgreementData] = useState({
-    mill: '',
-    'Agreement-number': '',
+    'mill': '',
+    Agreement_number: '',
     Mota: '',
     Patla: '',
     Sarna: '',
-    'Lot-from': '',
-    'Lot-to': '',
+    Lot_from: '',
+    Lot_to: '',
     Total: 0,
   });
 
@@ -96,8 +96,8 @@ const AddAgreement = () => {
             <input
              className='mt-1 block w-80 px-3 py-2 bg-white border border-slate-300 rounded-md text-sm shadow-sm focus:outline-none hover:border-sky-500 focus:border-sky-500 focus:ring-1 focus:ring-sky-500'
               type='text'
-              name='Agreement-number'
-              value={agreementData['Agreement-number']}
+              name='Agreement_number'
+              value={agreementData.Agreement_number}
               onChange={handleInputChange}
             />
           </label>
@@ -108,8 +108,10 @@ const AddAgreement = () => {
               Mota <br />
               <input
                 className='mt-1 block w-full px-3 py-2 bg-white border border-slate-300 rounded-md text-sm shadow-sm focus:outline-none hover:border-sky-500 focus:border-sky-500 focus:ring-1 focus:ring-sky-500'
-                type="text"
+                type="number"
                 name="Mota"
+                value={agreementData.Mota}
+              onChange={handleInputChange}
               />
             </label>
           </div>
@@ -118,8 +120,10 @@ const AddAgreement = () => {
               Patla <br />
               <input
                 className='mt-1 block w-full px-3 py-2 bg-white border border-slate-300 rounded-md text-sm shadow-sm focus:outline-none hover:border-sky-500 focus:border-sky-500 focus:ring-1 focus:ring-sky-500'
-                type='text'
+                type='number'
                 name='Patla'
+                value={agreementData.Patla}
+              onChange={handleInputChange}
               />
             </label>
           </div>
@@ -128,8 +132,10 @@ const AddAgreement = () => {
               Sarna <br />
               <input
                 className='mt-1 block w-full px-3 py-2 bg-white border border-slate-300 rounded-md text-sm shadow-sm focus:outline-none hover:border-sky-500 focus:border-sky-500 focus:ring-1 focus:ring-sky-500'
-                type='text'
+                type='number'
                 name='Sarna'
+                value={agreementData.number}
+              onChange={handleInputChange}
               />
             </label>
           </div>
@@ -138,8 +144,10 @@ const AddAgreement = () => {
               Lot From <br />
               <input
                 className='mt-1 block w-full px-3 py-2 bg-white border border-slate-300 rounded-md text-sm shadow-sm focus:outline-none hover:border-sky-500 focus:border-sky-500 focus:ring-1 focus:ring-sky-500'
-                type='text'
-                name='Lot-from'
+                type='number'
+                name='Lot_from'
+                value={agreementData.Lot_from}
+              onChange={handleInputChange}
               />
             </label>
           </div>
@@ -148,8 +156,10 @@ const AddAgreement = () => {
               Lot To <br />
               <input
                 className='mt-1 block w-full px-3 py-2 bg-white border border-slate-300 rounded-md text-sm shadow-sm focus:outline-none hover:border-sky-500 focus:border-sky-500 focus:ring-1 focus:ring-sky-500'
-                type='text'
-                name='Lot-to'
+                type='number'
+                name='Lot_to'
+                value={agreementData.Lot_to}
+              onChange={handleInputChange}
               />
             </label>
           </div>
@@ -160,6 +170,8 @@ const AddAgreement = () => {
                 className='mt-1 block w-full px-3 py-2 bg-white border border-slate-300 rounded-md text-sm shadow-sm focus:outline-none hover:border-sky-500 focus:border-sky-500 focus:ring-1 focus:ring-sky-500'
                 type='number'
                 name='Total'
+                value={agreementData.Total}
+              onChange={handleInputChange}
               />
             </label>
           </div>
