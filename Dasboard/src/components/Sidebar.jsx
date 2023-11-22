@@ -98,7 +98,7 @@ const Sidebar = ({ children }) => {
           ))}
         </div>
         <div className="w-screen h-screen flex justify-center items-center">
-          <main className="flex items-center justify-center w-screen p-[50px]">
+          <main className=" h-screen flex items-center justify-center w-screen pl-[50px] py-[50px]">
             {children}
           </main>
         </div>

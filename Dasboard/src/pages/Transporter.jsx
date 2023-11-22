@@ -67,7 +67,7 @@ const AddNewTransporter = () => {
   };
 
   return (
-    <div className='shadow-md h-fit w-fit pb-6 rounded p-10'>
+    <div className='shadow-md bg-white h-fit w-fit pb-6 rounded p-10'>
       <h1 className='flex items-center justify-center font-bold tracking-normal text-3xl h-fit w-full bg-white text-[#005B88] leading-6'>
         Add New Transporter
       </h1>

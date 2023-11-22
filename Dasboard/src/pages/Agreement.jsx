@@ -72,7 +72,7 @@ const AddAgreement = () => {
   };
 
   return (
-    <div className='h-fit pb-6 w-1/2 shadow-md p-10 rounded'>
+    <div className='h-fit pb-6 w-1/2 bg-white shadow-md p-10 rounded'>
       <h1 className='flex items-center mb-5 justify-center font-bold tracking-normal text-3xl h-fit w-full bg-white text-[#005B88] leading-6'>
         Add Agreement
       </h1>

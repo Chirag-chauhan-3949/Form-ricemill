@@ -68,8 +68,8 @@ const AddNewSociety = () => {
   };
 
   return (
-    <div className='shadow-md h-fit w-fit pb-6 rounded'>
-      <h1 className='flex items-center justify-center font-bold tracking-normal text-3xl h-fit w-full bg-white text-[#005B88] leading-6'>
+    <div className='shadow-md h-fit bg-white w-fit pb-6 rounded'>
+      <h1 className='flex items-center pt-10 justify-center font-bold tracking-normal text-3xl h-fit w-full bg-white text-[#005B88] leading-6'>
         Add New Society
       </h1>
       <form onSubmit={handleSubmit}>
