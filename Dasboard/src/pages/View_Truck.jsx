@@ -12,20 +12,20 @@ function ViewTruck() {
 
   return (
     <div className="shadow-md h-fit w-fit pb-6 rounded p-10">
-      <h1 className="text-3xl font-semibold mb-4">Truck Details</h1>
+      <h1 className="flex items-center justify-center font-bold tracking-normal text-3xl h-fit w-full m-3 bg-white text-[#005B88] leading-6">Truck Details</h1>
       <div className="overflow-x-auto">
         <table className="min-w-full bg-white border border-gray-300 rounded-lg shadow-md">
           <thead>
-            <tr className="bg-gray-100">
+            <tr className="bg-sky-500 text-white">
               <th className="py-2 px-4 border-b border-r">Truck Number</th>
               <th className="py-2 px-4 border-b">Transporter</th>
             </tr>
           </thead>
           <tbody>
             {data.map((user, index) => (
-              <tr key={index} className={(index % 2 === 0) ? 'bg-gray-50' : 'bg-white'}>
-                <td className="py-2 px-4 border-b border-r">{user.truck_number}</td>
-                <td className="py-2 px-4 border-b">{user.transporter}</td>
+              <tr key={index} className={(index % 2 === 0) ? 'bg-gray-50' : 'bg-gray-50'}>
+                <td className="py-2 px-4 border-b border-r subpixel-antialiased leading-6 text-gray-900">{user.truck_number}</td>
+                <td className="py-2 px-4 border-b subpixel-antialiased leading-6 text-gray-900">{user.transporter}</td>
               </tr>
             ))}
           </tbody>
