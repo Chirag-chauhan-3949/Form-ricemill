@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -72,14 +73,39 @@ const AddNewTransporter = () => {
       </h1>
       <form onSubmit={handleSubmit}>
         <fieldset className='m-10'>
-          {/* ... (your form inputs) */}
-        </fieldset>
-        <button
-          type='submit'
-          className='hover:bg-sky-950 p-3 mt-4 w-fit h-fit bg-sky-600 text-white rounded-[4px]'
-        >
-          Add New Transporter
-        </button>
+        <label className='block text-sm font-medium text-slate-700'>
+        Transporter Name{' '}
+        <span className='text-red-600 font-bold'>(Required*)</span>
+        <input
+          className='mt-1 block w-[30em] px-3 py-2 bg-white border border-slate-300 rounded-md text-sm shadow-sm focus:outline-none hover:border-sky-500 focus:border-sky-500 focus:ring-1 focus:ring-sky-500'
+          required
+          type='text'
+          name='Name'
+          value={transporterData.Name}
+          onChange={handleInputChange}
+        />
+      </label>
+      <br />
+
+      <label className='block text-sm font-large text-slate-700'>
+        Phone{' '}
+        <span className='text-red-600 font-bold'>(Required*)</span>
+        <input
+          className='mt-1 block w-full px-3 py-2 bg-white border border-slate-300 rounded-md text-sm shadow-sm focus:outline-none hover:border-sky-500 focus:border-sky-500 focus:ring-1 focus:ring-sky-500'
+          required
+          type='text'
+          name='Phone'
+          value={transporterData.Phone}
+          onChange={handleInputChange}
+        />
+      </label>
+      <button
+      type='submit'
+      className='hover:bg-sky-950 p-3 mt-4 w-fit h-fit bg-sky-600 text-white rounded-[4px]'
+      >
+      Add New Transporter
+      </button>
+      </fieldset>
       </form>
       <ToastContainer />
     </div>
