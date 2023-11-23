@@ -16,10 +16,7 @@ const Add_Agreement = () => {
     Total: 0,
   });
   const resetForm = () => {
-    setSocietyData({
-      Name: "",
-      Distance: "",
-      Transporting: "",
+    setAgreementData({
       Agreement_number: "",
       Mota: "",
       Patla: "",
@@ -33,24 +30,46 @@ const Add_Agreement = () => {
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     if (name === "Agreement_number") {
-      const isValidAgreementNumber = /^\d{11}$/.test(value);
+      const isValidAgreementNumber = /^\d{14}$/.test(value);
 
       if (!isValidAgreementNumber) {
         console.error("Invalid Agreement Number. It should contain 11 digits.");
+        toast.success("Agreement added successfully", {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+
+        return;
       }
     }
+    if (name === "Lot_from" || name === "Lot_to") {
+      const lotFrom = parseInt(agreementData.Lot_from, 10) || 0;
+      const lotTo = parseInt(agreementData.Lot_to, 10) || 0;
+      const total = lotFrom + lotTo;
 
-    setAgreementData({
-      ...agreementData,
-      [name]: value,
-    });
+      setAgreementData({
+        ...agreementData,
+        [name]: value,
+        Total: total,
+      });
+    } else {
+      setAgreementData({
+        ...agreementData,
+        [name]: value,
+      });
+    }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      const response = await fetch("http://localhost:8000/society/", {
+      const response = await fetch("http://localhost:8000/Agreement/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -59,8 +78,8 @@ const Add_Agreement = () => {
       });
 
       if (response.ok) {
-        console.log("Society added successfully");
-        toast.success("Society added successfully", {
+        console.log("Agreement added successfully");
+        toast.success("Agreement added successfully", {
           position: "top-right",
           autoClose: 3000,
           hideProgressBar: false,
@@ -71,8 +90,8 @@ const Add_Agreement = () => {
         });
         resetForm();
       } else {
-        console.error("Failed to add society");
-        toast.error("Failed to add society", {
+        console.error("Failed to add Agreement");
+        toast.error("Failed to add Agreement", {
           position: "top-right",
           autoClose: 3000,
           hideProgressBar: false,
@@ -84,7 +103,7 @@ const Add_Agreement = () => {
       }
     } catch (error) {
       console.error("Error:", error);
-      toast.error("Error adding society", {
+      toast.error("Error adding Agreement", {
         position: "top-right",
         autoClose: 3000,
         hideProgressBar: false,
