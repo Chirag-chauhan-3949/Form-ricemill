@@ -4,17 +4,19 @@ import "react-toastify/dist/ReactToastify.css";
 
 const Add_Agreement = () => {
   const [agreementData, setAgreementData] = useState({
-    Agreement_number: "",
-    Mota: "",
-    Patla: "",
-    Sarna: "",
-    Lot_from: "",
-    Lot_to: "",
+    Agreement_number: 0,
+    Mota: 0,
+    Patla: 0,
+    Sarna: 0,
+    Lot_from: 0,
+    Lot_to: 0,
     Total: 0,
+    selectedMill: "",
   });
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
+
     if (name === "Agreement_number") {
       const isValidAgreementNumber = /^\d{0,11}$/.test(value);
 
@@ -25,6 +27,7 @@ const Add_Agreement = () => {
         return;
       }
     }
+
     if (name === "Lot_from" || name === "Lot_to") {
       const updatedValue = value.trim();
       const parsedValue = updatedValue !== "" ? parseInt(updatedValue, 10) : "";
@@ -50,6 +53,12 @@ const Add_Agreement = () => {
         [name]: value,
       });
     }
+    if (name === "notification-method") {
+      setAgreementData({
+        ...agreementData,
+        selectedMill: value,
+      });
+    }
   };
 
   const handleSubmit = async (e) => {
@@ -63,9 +72,10 @@ const Add_Agreement = () => {
         },
         body: JSON.stringify({
           ...agreementData,
-          selectedMill: selectedMill, // Include selected mill data
+          selectedMill: selectedMill,
         }),
       });
+
       if (response.ok) {
         console.log("Agreement added successfully");
         toast.success("Agreement added successfully", {
@@ -76,6 +86,16 @@ const Add_Agreement = () => {
           pauseOnHover: true,
           draggable: true,
           progress: undefined,
+        });
+        setAgreementData({
+          Agreement_number: 0,
+          Mota: 0,
+          Patla: 0,
+          Sarna: 0,
+          Lot_from: 0,
+          Lot_to: 0,
+          Total: 0,
+          selectedMill: "",
         });
         document.getElementById("agreementForm").reset();
       } else {
@@ -143,7 +163,6 @@ const Add_Agreement = () => {
                             id={notificationMethod.id}
                             name="notification-method"
                             type="radio"
-                            defaultChecked={notificationMethod.id === "email"}
                             className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"
                           />
                           <label
