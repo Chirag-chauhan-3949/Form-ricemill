@@ -15,6 +15,20 @@ const Add_Agreement = () => {
     Lot_to: "",
     Total: 0,
   });
+  const resetForm = () => {
+    setSocietyData({
+      Name: "",
+      Distance: "",
+      Transporting: "",
+      Agreement_number: "",
+      Mota: "",
+      Patla: "",
+      Sarna: "",
+      Lot_from: "",
+      Lot_to: "",
+      Total: 0,
+    });
+  };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -47,6 +61,7 @@ const Add_Agreement = () => {
           draggable: true,
           progress: undefined,
         });
+        resetForm();
       } else {
         console.error("Failed to add society");
         toast.error("Failed to add society", {
