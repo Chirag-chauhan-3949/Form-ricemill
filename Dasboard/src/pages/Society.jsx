@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -68,62 +67,97 @@ const AddNewSociety = () => {
   };
 
   return (
-    <div className='shadow-md h-fit bg-white w-fit pb-6 rounded'>
-      <h1 className='flex items-center pt-10 justify-center font-bold tracking-normal text-3xl h-fit w-full bg-white text-[#005B88] leading-6'>
-        Add New Society
-      </h1>
-      <form onSubmit={handleSubmit}>
-        <fieldset className='m-8'>
-        <label className='block text-sm font-medium text-slate-700'>
-            Society Name{' '}
-            <span className='text-red-600 font-bold '>(Required*)</span>
-            <input
-              className='mt-1 block w-full px-3 py-2 bg-white border border-slate-300 rounded-md text-sm shadow-sm focus:outline-none hover:border-sky-500 focus:border-sky-500 focus:ring-1 focus:ring-sky-500'
-              required
-              type='text'
-              name='Name'
-              value={societyData.Name}
-              onChange={handleInputChange}
-            />
-          </label>
-          <br />
+    <>
+      <div className="flex min-h-full flex-1 flex-col justify-center py-12 sm:px-6 lg:px-8">
+        <div className="sm:mx-auto sm:w-full sm:max-w-md">
+          <img
+            className="mx-auto h-10 w-auto"
+            src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
+            alt="Your Company"
+          />
 
-          <label className='block text-sm font-medium text-slate-700'>
-            Distance From Mill{' '}
-            <span className='text-red-600 font-bold '>(Required*)</span>
-            <input
-              className='mt-1 block w-[30em] px-3 py-2 bg-white border border-slate-300 rounded-md text-sm shadow-sm focus:outline-none hover:border-sky-500 focus:border-sky-500 focus:ring-1 focus:ring-sky-500'
-              required
-              type='text'
-              name='Distance'
-              value={societyData.Distance}
-              onChange={handleInputChange}
-            />
-          </label>
-          <br />
-
-          <label className='block text-sm font-medium text-slate-700'>
-            Transporting Rate{' '}
-            <span className='text-red-600 font-bold '>(Required*)</span>
-            <input
-              className='mt-1 block w-full px-3 py-2 bg-white border border-slate-300 rounded-md text-sm shadow-sm focus:outline-none hover:border-sky-500 focus:border-sky-500 focus:ring-1 focus:ring-sky-500'
-              required
-              type='text'
-              name='Transporting'
-              value={societyData.Transporting}
-              onChange={handleInputChange}
-            />
-          </label>
-        </fieldset>
-        <button
-          type='submit'
-          className='ml-[58px] w-40 h-10 bg-sky-600 text-white rounded-[4px] hover:bg-sky-950'
-        >
-          Add New Society
-        </button>
-      </form>
+          <h2 className="mt-6 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
+            Add New Society
+          </h2>
+        </div>
+        <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-[480px]">
+          <div className="bg-white px-6 py-12 shadow sm:rounded-lg sm:px-12">
+            <form className="space-y-6" onSubmit={handleSubmit}>
+              {/* Society Name Input */}
+              <div>
+                <div className="flex justify-between">
+                  <label htmlFor="Name" className="block text-sm font-medium leading-6 text-gray-900">
+                    Society Name
+                  </label>
+                  <span className="text-sm leading-6 text-red-500">Required</span>
+                </div>
+                <div className="mt-2">
+                  <input
+                    type="text"
+                    name="Name"
+                    className="block w-full rounded-md border-0 px-1.5 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    placeholder="Enter society name"
+                    value={societyData.Name}
+                    onChange={handleInputChange}
+                    required
+                  />
+                </div>
+              </div>
+              {/* Distance Input */}
+              <div>
+                <div className="flex justify-between">
+                  <label htmlFor="Distance" className="block text-sm font-medium leading-6 text-gray-900">
+                    Distance From Mill
+                  </label>
+                  <span className="text-sm leading-6 text-red-500">Required</span>
+                </div>
+                <div className="mt-2">
+                  <input
+                    type="text"
+                    name="Distance"
+                    className="block w-full rounded-md border-0 px-1.5 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    placeholder="Enter distance from mill"
+                    value={societyData.Distance}
+                    onChange={handleInputChange}
+                    required
+                  />
+                </div>
+              </div>
+              {/* Transporting Input */}
+              <div>
+                <div className="flex justify-between">
+                  <label htmlFor="Transporting" className="block text-sm font-medium leading-6 text-gray-900">
+                    Transporting Rate
+                  </label>
+                  <span className="text-sm leading-6 text-red-500">Required</span>
+                </div>
+                <div className="mt-2">
+                  <input
+                    type="text"
+                    name="Transporting"
+                    className="block w-full rounded-md border-0 px-1.5 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    placeholder="Enter transporting rate"
+                    value={societyData.Transporting}
+                    onChange={handleInputChange}
+                    required
+                  />
+                </div>
+              </div>
+              {/* Submit Button */}
+              <div>
+                <button
+                  type="submit"
+                  className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                >
+                  Add New Society
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
       <ToastContainer />
-    </div>
+    </>
   );
 };
 

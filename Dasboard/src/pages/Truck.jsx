@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import { toast, ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import React, { useState, useEffect } from "react";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Example = () => {
   const [truckData, setTruckData] = useState({
@@ -52,14 +52,14 @@ const Example = () => {
 
       if (response.status === 201) {
         console.log("Truck added successfully");
-        toast.success('Truck added successfully', { autoClose: 2000 });
+        toast.success("Truck added successfully", { autoClose: 2000 });
       } else {
         console.error("Failed to add truck");
-        toast.error('Failed to add truck');
+        toast.error("Failed to add truck");
       }
     } catch (error) {
       console.error("Error:", error);
-      toast.error('An error occurred');
+      toast.error("An error occurred");
     }
   };
 
@@ -77,10 +77,16 @@ const Example = () => {
             <form className="space-y-6" onSubmit={handleSubmit}>
               <div>
                 <div className="flex justify-between">
-                  <label htmlFor="truck_number" className="block text-sm font-medium leading-6 text-gray-900">
+                  <label
+                    htmlFor="truck_number"
+                    className="block text-sm font-medium leading-6 text-gray-900"
+                  >
                     Truck Number
                   </label>
-                  <span className="text-sm leading-6 text-red-400" id="email-optional">
+                  <span
+                    className="text-sm leading-6 text-red-400"
+                    id="email-optional"
+                  >
                     Required
                   </span>
                 </div>
@@ -97,32 +103,36 @@ const Example = () => {
                 </div>
               </div>
               <div>
-                <label htmlFor="transpoter" className="block text-sm font-medium leading-6 text-gray-900">
+                <label
+                  htmlFor="transpoter"
+                  className="block text-sm font-medium leading-6 text-gray-900"
+                >
                   Select Transporter
                 </label>
-                <div className='mt-2'>
-                 <select
-                  required
-                  name="transpoter"
-                  className="block  w-full bg-white rounded-md  border-0 px-1.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                  value={truckData.transpoter}
-                  onChange={handleInputChange}
+                <div className="mt-2">
+                  <select
+                    required
+                    name="transpoter"
+                    className="block  w-full bg-white rounded-md  border-0 px-1.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    value={truckData.transpoter}
+                    onChange={handleInputChange}
                   >
-                
-                  <option value="">Select a transporter</option>
-                  {transpoterOptions.map((option) => (
-                    <option key={option} value={option}>
-                      {option}
-                    </option>
-                  ))}
-                  
-                </select>
-                <p className="mt-2 text-center text-sm text-gray-500">
-              Cannot Find Transporter?{' '}
-                <a href="/Add_NEw_Transporter" className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
-                Add New Transporter.
-                </a>
-              </p>
+                    <option value="">Select a transporter</option>
+                    {transpoterOptions.map((option) => (
+                      <option key={option} value={option}>
+                        {option}
+                      </option>
+                    ))}
+                  </select>
+                  <p className="mt-2 text-center text-sm text-gray-500">
+                    Cannot Find Transporter?{" "}
+                    <a
+                      href="/Add_NEw_Transporter"
+                      className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
+                    >
+                      Add New Transporter.
+                    </a>
+                  </p>
                 </div>
               </div>
               <div>

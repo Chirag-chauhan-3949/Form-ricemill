@@ -1,16 +1,18 @@
-import React, { useState } from 'react';
-import { toast, ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import React, { useState } from "react";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
-const AddAgreement = () => {
+const Add_Agreement = () => {
   const [agreementData, setAgreementData] = useState({
-    'mill': '',
-    Agreement_number: '',
-    Mota: '',
-    Patla: '',
-    Sarna: '',
-    Lot_from: '',
-    Lot_to: '',
+    Name: "",
+    Distance: "",
+    Transporting: "",
+    Agreement_number: "",
+    Mota: "",
+    Patla: "",
+    Sarna: "",
+    Lot_from: "",
+    Lot_to: "",
     Total: 0,
   });
 
@@ -26,18 +28,18 @@ const AddAgreement = () => {
     e.preventDefault();
 
     try {
-      const response = await fetch('http://localhost:8000/agreement/', {
-        method: 'POST',
+      const response = await fetch("http://localhost:8000/society/", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(agreementData),
       });
 
       if (response.ok) {
-        console.log('Agreement added successfully');
-        toast.success('Agreement added successfully', {
-          position: 'top-right',
+        console.log("Society added successfully");
+        toast.success("Society added successfully", {
+          position: "top-right",
           autoClose: 3000,
           hideProgressBar: false,
           closeOnClick: true,
@@ -46,9 +48,9 @@ const AddAgreement = () => {
           progress: undefined,
         });
       } else {
-        console.error('Failed to add agreement');
-        toast.error('Failed to add agreement', {
-          position: 'top-right',
+        console.error("Failed to add society");
+        toast.error("Failed to add society", {
+          position: "top-right",
           autoClose: 3000,
           hideProgressBar: false,
           closeOnClick: true,
@@ -58,9 +60,9 @@ const AddAgreement = () => {
         });
       }
     } catch (error) {
-      console.error('Error:', error);
-      toast.error('Error adding agreement', {
-        position: 'top-right',
+      console.error("Error:", error);
+      toast.error("Error adding society", {
+        position: "top-right",
         autoClose: 3000,
         hideProgressBar: false,
         closeOnClick: true,
@@ -71,147 +73,163 @@ const AddAgreement = () => {
     }
   };
 
+  const notificationMethods = [
+    { id: "Purushottam Rice mill", title: "Purushottam Rice mill" },
+    { id: "Dushyant Rice Mill", title: "Dushyant Rice Mill" },
+    { id: "Tulsi Rice Mill", title: "Tulsi Rice Mill" },
+  ];
+
   return (
-    <div className='h-fit pb-6 w-1/2 bg-white shadow-md p-10 rounded'>
-      <h1 className='flex items-center mb-5 justify-center font-bold tracking-normal text-3xl h-fit w-full bg-white text-[#005B88] leading-6'>
-        Add Agreement
-      </h1>
-      <h2 className='block subpixel-antialiased leading-6 text-gray-900'>
-        Add Government Agreements
-      </h2>
-      <form onSubmit={handleSubmit}>
-      <fieldset className='m-8 inline'>
-          <legend className='font-bold'>Select Mill</legend>
-          <div>
-            <label className='p-2 hover:text-sky-500'>
-              <input
-                type='radio'
-                name='mill'
-                value='Purushottam'
-                onChange={handleInputChange}
-              />{' '}
-              Purushottam Rice Mill
-            </label>
+    <>
+      <div className="flex min-h-full flex-1 flex-col justify-center py-12 sm:px-6 lg:px-8">
+        <div className="sm:mx-auto sm:w-full sm:max-w-md">
+          <img
+            className="mx-auto h-10 w-auto"
+            src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
+            alt="Your Company"
+          />
+          <h2 className="mt-6 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
+            Add Agreement
+          </h2>
+        </div>
+        <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-[480px]">
+          <div className="bg-white px-6 py-12 shadow sm:rounded-lg sm:px-12">
+            <form className="space-y-6" onSubmit={handleSubmit}>
+              <div className="flex justify-between">
+                <div>
+                  <label className="text-base font-semibold text-gray-900">
+                    Select Mill
+                  </label>
+                  <fieldset className="mt-4">
+                    <legend className="sr-only">Mills</legend>
+                    <div className="space-y-4">
+                      {notificationMethods.map((notificationMethod) => (
+                        <div
+                          key={notificationMethod.id}
+                          className="flex items-center"
+                        >
+                          <input
+                            id={notificationMethod.id}
+                            name="notification-method"
+                            type="radio"
+                            defaultChecked={notificationMethod.id === "email"}
+                            className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"
+                          />
+                          <label
+                            htmlFor={notificationMethod.id}
+                            className="ml-3 block text-sm font-medium leading-6 text-gray-900"
+                          >
+                            {notificationMethod.title}
+                          </label>
+                        </div>
+                      ))}
+                    </div>
+                  </fieldset>
+                </div>
+                <div>
+                  <label className="block text-sm font-medium leading-6 text-gray-900">
+                    Agreement Number
+                  </label>
+                  <input
+                    type="text"
+                    name="Agreement_number"
+                    className="block w-full rounded-md border-0 px-1.5 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    value={agreementData.Agreement_number}
+                    onChange={handleInputChange}
+                  />
+                </div>
+              </div>
+              <fieldset className="flex flex-wrap justify-evenly h-fit p-10">
+                <div className="flex space-x-4">
+                  <div>
+                    <label className="block text-sm font-medium leading-6 text-gray-900">
+                      Mota
+                    </label>
+                    <input
+                      type="number"
+                      name="Mota"
+                      className="block w-full rounded-md border-0 px-1.5 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                      value={agreementData.Mota}
+                      onChange={handleInputChange}
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium leading-6 text-gray-900">
+                      Patla
+                    </label>
+                    <input
+                      type="text"
+                      name="Agreement_number"
+                      className="block w-full rounded-md border-0 px-1.5 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                      value={agreementData.Agreement_number}
+                      onChange={handleInputChange}
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium leading-6 text-gray-900">
+                      Sarna
+                    </label>
+                    <input
+                      type="text"
+                      name="Agreement_number"
+                      className="block w-full rounded-md border-0 px-1.5 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                      value={agreementData.Agreement_number}
+                      onChange={handleInputChange}
+                    />
+                  </div>
+                </div>
+                <div className="flex space-x-4 mt-4">
+                  <div>
+                    <label className="block text-sm font-medium leading-6 text-gray-900">
+                      Lot From
+                    </label>
+                    <input
+                      type="text"
+                      name="Agreement_number"
+                      className="block w-full rounded-md border-0 px-1.5 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                      value={agreementData.Agreement_number}
+                      onChange={handleInputChange}
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium leading-6 text-gray-900">
+                      Lot to
+                    </label>
+                    <input
+                      type="text"
+                      name="Agreement_number"
+                      className="block w-full rounded-md border-0 px-1.5 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                      value={agreementData.Agreement_number}
+                      onChange={handleInputChange}
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium leading-6 text-gray-900">
+                      Total
+                    </label>
+                    <input
+                      type="number"
+                      name="Total"
+                      className="block w-full rounded-md border-0 px-1.5 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                      value={agreementData.Total}
+                      onChange={handleInputChange}
+                    />
+                  </div>
+                </div>
+              </fieldset>
+              <button
+                type="submit"
+                className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+              >
+                Add Agreement
+              </button>
+            </form>
           </div>
-          <div>
-            <label className='p-2 hover:text-sky-500'>
-              <input
-                className=' hover:'
-                type='radio'
-                name='mill'
-                value='Dushyant'
-                onChange={handleInputChange}
-              />{' '}
-              Dushyant Rice Mill
-            </label>
-          </div>
-          <div>
-            <label className='p-2 hover:text-sky-500'>
-              <input
-                type='radio'
-                name='mill'
-                value='tulsi'
-                onChange={handleInputChange}
-              />{' '}
-              Tulsi Rice mill
-            </label>
-          </div>
-        </fieldset>
-        <fieldset className='inline float-right mt-[25px]'>
-          <label className=' block text-sm font-medium text-slate-700'>
-            Agreement Number <br />
-            <input
-             className='mt-1 block w-80 px-3 py-2 bg-white border border-slate-300 rounded-md text-sm shadow-sm focus:outline-none hover:border-sky-500 focus:border-sky-500 focus:ring-1 focus:ring-sky-500'
-              type='text'
-              name='Agreement_number'
-              value={agreementData.Agreement_number}
-              onChange={handleInputChange}
-            />
-          </label>
-        </fieldset>
-        <fieldset className='flex flex-wrap justify-evenly  h-fit p-10'>
-          <div className='mb-4'>
-            <label className='block text-sm font-medium text-slate-700'>
-              Mota <br />
-              <input
-                className='mt-1 block w-full px-3 py-2 bg-white border border-slate-300 rounded-md text-sm shadow-sm focus:outline-none hover:border-sky-500 focus:border-sky-500 focus:ring-1 focus:ring-sky-500'
-                type="number"
-                name="Mota"
-                value={agreementData.Mota}
-              onChange={handleInputChange}
-              />
-            </label>
-          </div>
-          <div className='mb-4'>
-            <label className='block text-sm font-medium text-slate-700'>
-              Patla <br />
-              <input
-                className='mt-1 block w-full px-3 py-2 bg-white border border-slate-300 rounded-md text-sm shadow-sm focus:outline-none hover:border-sky-500 focus:border-sky-500 focus:ring-1 focus:ring-sky-500'
-                type='number'
-                name='Patla'
-                value={agreementData.Patla}
-              onChange={handleInputChange}
-              />
-            </label>
-          </div>
-          <div className='mb-4'>
-            <label className='block text-sm font-medium text-slate-700'>
-              Sarna <br />
-              <input
-                className='mt-1 block w-full px-3 py-2 bg-white border border-slate-300 rounded-md text-sm shadow-sm focus:outline-none hover:border-sky-500 focus:border-sky-500 focus:ring-1 focus:ring-sky-500'
-                type='number'
-                name='Sarna'
-                value={agreementData.number}
-              onChange={handleInputChange}
-              />
-            </label>
-          </div>
-          <div className='mb-4'>
-            <label className='block text-sm font-medium text-slate-700'>
-              Lot From <br />
-              <input
-                className='mt-1 block w-full px-3 py-2 bg-white border border-slate-300 rounded-md text-sm shadow-sm focus:outline-none hover:border-sky-500 focus:border-sky-500 focus:ring-1 focus:ring-sky-500'
-                type='number'
-                name='Lot_from'
-                value={agreementData.Lot_from}
-              onChange={handleInputChange}
-              />
-            </label>
-          </div>
-          <div className='mb-4'>
-            <label className='block text-sm font-medium text-slate-700'>
-              Lot To <br />
-              <input
-                className='mt-1 block w-full px-3 py-2 bg-white border border-slate-300 rounded-md text-sm shadow-sm focus:outline-none hover:border-sky-500 focus:border-sky-500 focus:ring-1 focus:ring-sky-500'
-                type='number'
-                name='Lot_to'
-                value={agreementData.Lot_to}
-              onChange={handleInputChange}
-              />
-            </label>
-          </div>
-          <div className='mb-4'>
-            <label className='block text-sm font-medium text-slate-700'>
-              Total <br />
-              <input
-                className='mt-1 block w-full px-3 py-2 bg-white border border-slate-300 rounded-md text-sm shadow-sm focus:outline-none hover:border-sky-500 focus:border-sky-500 focus:ring-1 focus:ring-sky-500'
-                type='number'
-                name='Total'
-                value={agreementData.Total}
-              onChange={handleInputChange}
-              />
-            </label>
-          </div>
-        </fieldset>
-        <button
-          type='submit'
-          className='hover:bg-sky-950 w-1/3 h-10 bg-sky-600  text-white rounded-[4px]'>
-          Add Agreement
-        </button>
-      </form>
+        </div>
+      </div>
       <ToastContainer />
-    </div>
+    </>
   );
 };
 
-export default AddAgreement;
+export default Add_Agreement;
