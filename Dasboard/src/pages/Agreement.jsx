@@ -158,10 +158,10 @@ const Add_Agreement = () => {
                       Patla
                     </label>
                     <input
-                      type="text"
-                      name="Agreement_number"
+                      type="number"
+                      name="Patla"
                       className="block w-full rounded-md border-0 px-1.5 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                      value={agreementData.Agreement_number}
+                      value={agreementData.Patla}
                       onChange={handleInputChange}
                     />
                   </div>
@@ -170,10 +170,10 @@ const Add_Agreement = () => {
                       Sarna
                     </label>
                     <input
-                      type="text"
-                      name="Agreement_number"
+                      type="number"
+                      name="Sarna"
                       className="block w-full rounded-md border-0 px-1.5 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                      value={agreementData.Agreement_number}
+                      value={agreementData.Sarna}
                       onChange={handleInputChange}
                     />
                   </div>
@@ -184,10 +184,10 @@ const Add_Agreement = () => {
                       Lot From
                     </label>
                     <input
-                      type="text"
-                      name="Agreement_number"
+                      type="number"
+                      name="Lot_from"
                       className="block w-full rounded-md border-0 px-1.5 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                      value={agreementData.Agreement_number}
+                      value={agreementData.Lot_from}
                       onChange={handleInputChange}
                     />
                   </div>
@@ -196,10 +196,10 @@ const Add_Agreement = () => {
                       Lot to
                     </label>
                     <input
-                      type="text"
-                      name="Agreement_number"
+                      type="number"
+                      name="Lot_to"
                       className="block w-full rounded-md border-0 px-1.5 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                      value={agreementData.Agreement_number}
+                      value={agreementData.Lot_to}
                       onChange={handleInputChange}
                     />
                   </div>
