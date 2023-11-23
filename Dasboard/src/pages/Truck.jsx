@@ -1,22 +1,24 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-const Add_New_Truck = () => {
+const Example = () => {
   const [truckData, setTruckData] = useState({
-    truck_number: 0,
-    transpoter: "", 
+    truck_number: "",
+    transpoter: "",
   });
 
   const [transpoterOptions, setTransporterOptions] = useState([]);
 
+  // Fetch data for the "Select transporter" dropdown
   useEffect(() => {
-    const fetchTransporters = async () => {
+    const fetchTransporter = async () => {
       try {
-        const response = await fetch("http://localhost:8000/transporters");
-        if (response.ok) {
-          const data = await response.json();
+        const transporter_response = await fetch(
+          "http://localhost:8000/agreements-number"
+        );
+        if (transporter_response.ok) {
+          const data = await transporter_response.json();
           setTransporterOptions(data);
         } else {
           console.error("Failed to fetch transporters");
@@ -25,8 +27,7 @@ const Add_New_Truck = () => {
         console.error("Error:", error);
       }
     };
-
-    fetchTransporters();
+    fetchTransporter();
   }, []);
 
   const handleInputChange = (e) => {
@@ -39,7 +40,7 @@ const Add_New_Truck = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
+
     try {
       const response = await fetch("http://localhost:8000/truck/", {
         method: "POST",
@@ -48,7 +49,7 @@ const Add_New_Truck = () => {
         },
         body: JSON.stringify(truckData),
       });
-  
+
       if (response.status === 201) {
         console.log("Truck added successfully");
         toast.success('Truck added successfully', { autoClose: 2000 });
@@ -61,50 +62,84 @@ const Add_New_Truck = () => {
       toast.error('An error occurred');
     }
   };
-  
 
   return (
-    <div className='shadow-md bg-white h-fit w-fit pb-6 rounded'>
-      <h1 className='flex items-center pt-10 justify-center font-bold tracking-normal text-3xl h-fit w-full bg-white text-[#005B88] leading-6'>Add New Truck</h1>
-      <form onSubmit={handleSubmit}>
-        <fieldset className='m-8 '>
-          <label className='block text-sm font-medium text-slate-700'>
-            Truck Number <span className='text-red-600 font-bold'>(Required*)</span><br />
-            <input
-              className='mt-1 block w-full px-3 py-2 bg-white border border-slate-300 rounded-md text-sm shadow-sm focus:outline-none hover:border-sky-500 focus:border-sky-500 focus:ring-1 focus:ring-sky-500'
-              type="number"
-              name='truck_number'
-              value={truckData.truck_number}
-              onChange={handleInputChange}
-            />
-          </label><br />
-          <label className='block text-sm font-large text-slate-700'>
-            Select Transporter <span className='text-red-600 font-bold'>(Required*)</span><br />
-            <select
-              className='mt-1 block w-full px-3 py-2 bg-white border border-slate-300 rounded-md text-sm shadow-sm focus:outline-none hover:border-sky-500 focus:border-sky-500 focus:ring-1 focus:ring-sky-500'
-              name='transpoter'
-              value={truckData.transpoter}
-              onChange={handleInputChange}
-            >
-              <option value='' disabled>Select a transporter</option>
-              {transpoterOptions.map((option) => (
-                <option key={option.id} value={option.name}>
-                  {option.name}
-                </option>
-              ))}
-            </select>
-          </label><br />
-          <h2 className='block subpixel-antialiased leading-6 text-gray-900'>
-            Cannot Find Transporter? <Link to="/Add_NEw_Transporter">
-              <span className='text-blue-600 '>Add New Transporter..</span>
-            </Link>
+    <>
+      <div className="flex min-h-full flex-1 flex-col justify-center py-12 sm:px-6 lg:px-8">
+        <div className="sm:mx-auto sm:w-full sm:max-w-md">
+          <h2 className="mt-6 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
+            Add New Truck
           </h2>
-          <button type='submit' className='hover:bg-sky-950 mt-4 w-40 h-10 bg-sky-600 text-white rounded-[4px]'>Add New Truck</button>
-        </fieldset>
-      </form>
-      <ToastContainer position="top-right"/>
-    </div>
+        </div>
+
+        <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-[480px]">
+          <div className="bg-white px-6 py-12 shadow sm:rounded-lg sm:px-12">
+            <form className="space-y-6" onSubmit={handleSubmit}>
+              <div>
+                <div className="flex justify-between">
+                  <label htmlFor="truck_number" className="block text-sm font-medium leading-6 text-gray-900">
+                    Truck Number
+                  </label>
+                  <span className="text-sm leading-6 text-red-400" id="email-optional">
+                    Required
+                  </span>
+                </div>
+                <div className="mt-2">
+                  <input
+                    required
+                    type="text"
+                    name="truck_number"
+                    className="block w-full rounded-md border-0 px-1.5 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    placeholder="CG04KP1234"
+                    value={truckData.truck_number}
+                    onChange={handleInputChange}
+                  />
+                </div>
+              </div>
+              <div>
+                <label htmlFor="transpoter" className="block text-sm font-medium leading-6 text-gray-900">
+                  Select Transporter
+                </label>
+                <div className='mt-2'>
+                 <select
+                  required
+                  name="transpoter"
+                  className="block  w-full bg-white rounded-md  border-0 px-1.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  value={truckData.transpoter}
+                  onChange={handleInputChange}
+                  >
+                
+                  <option value="">Select a transporter</option>
+                  {transpoterOptions.map((option) => (
+                    <option key={option} value={option}>
+                      {option}
+                    </option>
+                  ))}
+                  
+                </select>
+                <p className="mt-2 text-center text-sm text-gray-500">
+              Cannot Find Transporter?{' '}
+                <a href="/Add_NEw_Transporter" className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
+                Add New Transporter.
+                </a>
+              </p>
+                </div>
+              </div>
+              <div>
+                <button
+                  type="submit"
+                  className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                >
+                  Add New Truck
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <ToastContainer position="top-right" />
+    </>
   );
 };
 
-export default Add_New_Truck;
+export default Example;

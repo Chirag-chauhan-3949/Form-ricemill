@@ -1,110 +1,115 @@
-import React, { useState } from 'react';
-import { HiOutlineMenuAlt2 } from "react-icons/hi";
-import { PiNotebook } from "react-icons/pi";
-import { FaBuildingWheat } from "react-icons/fa6";
-import { FaTruckMoving } from "react-icons/fa";
-import { RiHomeOfficeLine } from "react-icons/ri";
-import { SiLibreoffice } from "react-icons/si";
-import { NavLink } from 'react-router-dom';
+import { Disclosure } from '@headlessui/react'
+import { ChevronRightIcon } from '@heroicons/react/20/solid'
+
+const navigation = [
+  {
+    name: 'Add Forms',
+    current: false,
+    children: [
+      { name: 'Add Do', href: '/Add_Do' },
+      { name: 'Add Agreement', href: '/Add_Agreement' },
+      { name: 'Add New Society', href: '/Add_New_Society' },
+      { name: 'Add New Truck', href: '/Add_New_Truck' },
+      { name: 'Add New Transporter', href: '/Add_New_Transporter' },
+    ],
+  },
+  {
+    name: 'View Tables',
+    current: false,
+    children: [
+      { name: 'View Agreement', href: '/View_Agreement' },
+      { name: 'View Trucks', href: '/View_Truck' },
+      { name: 'View Transporter', href: '/View_Transporter' },
+      { name: 'View Societies', href: '/View_Societies' },
+    ],
+  },
+];
+
+function classNames(...classes) {
+  return classes.filter(Boolean).join(' ')
+}
+
 const Sidebar = ({ children }) => {
-    const [isOpen, setIsOpen] = useState(false);
-  const toggle = () => setIsOpen(!isOpen);
-
-  const menuItem = [
-    {
-        path: "/Add_Do",
-        name: "Add Do",
-        icon: <SiLibreoffice />,
-      },
-      {
-        path: "./Add_Agreement",
-        name: "Add Agreement",
-        icon: <PiNotebook />,
-      },
-      {
-        path: "/Add_New_Society",
-        name: "Add New Society",
-        icon: <FaBuildingWheat />,
-      },
-      {
-        path: "/Add_New_Truck",
-        name: "Add New Truck",
-        icon: <FaTruckMoving />,
-      },
-      {
-        path: "/Add_New_Transporter",
-        name: "Add New Transporter",
-        icon: <RiHomeOfficeLine />,
-      },
-      {
-        path: "/View_Agreement",
-        name: "View Agreements",
-        icon: <PiNotebook/>,
-      },
-      {
-        path: "/View_Truck",
-        name: "View Trucks",
-        icon: <FaTruckMoving/>,
-      },
-      {
-        path: "/View_Transporter",
-        name: "View Transporters",
-        icon: <RiHomeOfficeLine/>,
-      },
-      {
-        path: "/View_Societies",
-        name: "View Societies",
-        icon: <FaBuildingWheat />,
-      },
-  ];
-
-    return (
-      <div>
-        <div
-          style={{ width: isOpen ? "300px" : "50px" }}
-          className="fixed bg-[#005b88] font-semibold text-white h-screen transition-all-0.5 border-r border-[#90cfecda] overflow-hidden"
-        >
-          <div className="flex items-center px-[15px] py-[20px] mb-[10px]">
-            <div
-              style={{ marginLeft: isOpen ? "240px" : "0px" }}
-              className="flex font-[15px] ml-[50px]"
-            >
-              <HiOutlineMenuAlt2
-                onClick={toggle}
-                className="text-2xl cursor-pointer"
-              />
-            </div>
-          </div>
-          {menuItem.map((item, index) => (
-            <React.Fragment key={index}>
-              <NavLink
-                to={item.path}
-                className={`flex text-white p-[6px] mx-[10px] my-[30px] gap-[15px] transition-all-0.5 hover:bg-[#90cfecda] hover:text-black hover:transition-all-0.5 focus:bg-[#90cfecda] focus:text-black ${
-                  item.path.startsWith('/View_') ? 'view-link' : ''
-                }`}
-              >
-                <div className="font-[18px]">{item.icon}</div>
-                <div
-                  style={{ display: isOpen ? "block" : "none" }}
-                  className="font-[18px]"
-                >
-                  {item.name}
-                </div>
-              </NavLink>
-              {index === 4 && (
-                <hr className="border-0 h-[2px] bg-gradient-to-r from-transparent via-gray-300 to-transparent" />
-              )}
-            </React.Fragment>
-          ))}
+  return (
+    <div className="flex h-screen overflow-hidden bg-white">
+      <div className="flex flex-col w-64 overflow-y-auto border-r border-gray-200">
+        <div className="flex h-16 items-center justify-center border-b border-gray-200">
+          <img
+            className="h-8 w-auto"
+            src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
+            alt="Your Company"
+          />
         </div>
-        <div className="w-screen h-screen flex justify-center items-center">
-          <main className=" h-screen flex items-center justify-center w-screen pl-[50px] py-[50px]">
-            {children}
-          </main>
-        </div>
+        <nav className="flex-1 overflow-y-auto">
+          <ul role="list" className="py-4">
+          {navigation.map((item) => (
+                <li key={item.name}>
+                  {!item.children ? (
+                    <a
+                      href={item.href}
+                      className={classNames(
+                        item.current ? 'bg-gray-50' : 'hover:bg-gray-50',
+                        'block rounded-md py-2 pr-2 pl-10 text-sm leading-6 font-semibold text-gray-700'
+                      )}
+                    >
+                      {item.name}
+                    </a>
+                  ) : (
+                    <Disclosure as="div">
+                      {({ open }) => (
+                        <>
+                          <Disclosure.Button
+                            className={classNames(
+                              item.current ? 'bg-gray-50' : 'hover:bg-gray-50',
+                              'flex items-center w-full text-left rounded-md p-2 gap-x-3 text-sm leading-6 font-semibold text-gray-700'
+                            )}
+                          >
+                            <ChevronRightIcon
+                              className={classNames(
+                                open ? 'rotate-90 text-gray-500' : 'text-gray-400',
+                                'h-5 w-5 shrink-0'
+                              )}
+                              aria-hidden="true"
+                            />
+                            {item.name}
+                          </Disclosure.Button>
+                          <Disclosure.Panel as="ul" className="mt-1 px-2">
+                            {item.children.map((subItem) => (
+                              <li key={subItem.name}>
+                                <Disclosure.Button
+                                  as="a"
+                                  href={subItem.href}
+                                  className={classNames(
+                                    subItem.current ? 'bg-gray-50' : 'hover:bg-gray-50',
+                                    'block rounded-md py-2 pr-2 pl-9 text-sm leading-6 text-gray-700'
+                                  )}
+                                >
+                                  {subItem.name}
+                                </Disclosure.Button>
+                              </li>
+                            ))}
+                          </Disclosure.Panel>
+                        </>
+                      )}
+                    </Disclosure>
+                  )}
+                </li>
+              ))}
+          </ul>
+        </nav>
       </div>
-    );
-  };
-  
-  export default Sidebar;
-  
+
+      {/* Main section */}
+      <main className="flex-1 overflow-x-hidden overflow-y-auto bg-gray-100">
+        <div className="w-full h-full p-6">
+          {children}
+        </div>
+      </main>
+    </div>
+  )
+}
+
+export default Sidebar;
+
+
+
