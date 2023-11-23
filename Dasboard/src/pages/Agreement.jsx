@@ -32,6 +32,14 @@ const Add_Agreement = () => {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
+    if (name === "Agreement_number") {
+      const isValidAgreementNumber = /^\d{11}$/.test(value);
+
+      if (!isValidAgreementNumber) {
+        console.error("Invalid Agreement Number. It should contain 11 digits.");
+      }
+    }
+
     setAgreementData({
       ...agreementData,
       [name]: value,
