@@ -3,50 +3,36 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const Add_Agreement = () => {
-  const [selectedMill, setSelectedMill] = useState("");
-
   const [agreementData, setAgreementData] = useState({
-    Agreement_number: "",
-    Mota: 0,
-    Patla: 0,
-    Sarna: 0,
-    Lot_from: 0,
-    Lot_to: 0,
-    Total: 0,
+    agreement_number: 0,
+    mill: "",
+    mota: 0,
+    patla: 0,
+    sarna: 0,
+    lot_from: 0,
+    lot_to: 0,
+    total: 0,
   });
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    if (name === "Agreement_number") {
-      const isValidAgreementNumber = /^\d{0,11}$/.test(value);
 
-      if (!isValidAgreementNumber) {
-        console.error(
-          "Invalid Agreement Number. It should contain up to 11 digits."
-        );
-        return;
-      }
-    }
-    if (name === "Lot_from" || name === "Lot_to") {
-      const updatedValue = value.trim();
-      const parsedValue = updatedValue !== "" ? parseInt(updatedValue, 10) : "";
-
-      const lotFrom =
-        name === "Lot_from"
-          ? parsedValue
-          : parseInt(agreementData.Lot_from, 10) || "";
-      const lotTo =
-        name === "Lot_to"
-          ? parsedValue
-          : parseInt(agreementData.Lot_to, 10) || "";
-      const total = !isNaN(lotFrom) && !isNaN(lotTo) ? lotFrom + lotTo : "";
+    if (
+      name === "agreement_number" ||
+      name === "mota" ||
+      name === "patla" ||
+      name === "sarna" ||
+      name === "lot_from" ||
+      name === "lot_to" ||
+      name === "total"
+    ) {
+      const parsedValue = value.trim() === "" ? 0 : parseInt(value, 10);
 
       setAgreementData({
         ...agreementData,
         [name]: parsedValue,
-        Total: total,
       });
-    } else {
+    } else if (name === "mill") {
       setAgreementData({
         ...agreementData,
         [name]: value,
@@ -58,15 +44,12 @@ const Add_Agreement = () => {
     e.preventDefault();
 
     try {
-      const response = await fetch("http://localhost:8000/Agreement/", {
+      const response = await fetch("http://localhost:8000/agreement/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-          ...agreementData,
-          selectedMill: selectedMill,
-        }),
+        body: JSON.stringify(agreementData),
       });
 
       if (response.ok) {
@@ -108,9 +91,9 @@ const Add_Agreement = () => {
   };
 
   const notificationMethods = [
-    { id: "Purushottam Rice mill", title: "Purushottam Rice mill" },
-    { id: "Dushyant Rice Mill", title: "Dushyant Rice Mill" },
-    { id: "Tulsi Rice Mill", title: "Tulsi Rice Mill" },
+    { value: "Purushottam Rice mill", title: "Purushottam Rice mill" },
+    { value: "Dushyant Rice Mill", title: "Dushyant Rice Mill" },
+    { value: "Tulsi Rice Mill", title: "Tulsi Rice Mill" },
   ];
 
   return (
@@ -139,17 +122,17 @@ const Add_Agreement = () => {
                     <div className="space-y-4">
                       {notificationMethods.map((notificationMethod) => (
                         <div
-                          key={notificationMethod.id}
+                          key={notificationMethod.value}
                           className="flex items-center"
                         >
                           <input
-                            id={notificationMethod.id}
-                            name="notification-method"
+                            name="mill"
                             type="radio"
-                            checked={selectedMill === notificationMethod.id}
-                            onChange={() =>
-                              setSelectedMill(notificationMethod.id)
+                            value={notificationMethod.value}
+                            checked={
+                              agreementData.mill === notificationMethod.value
                             }
+                            onChange={handleInputChange}
                             className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"
                           />
 
@@ -170,9 +153,9 @@ const Add_Agreement = () => {
                   </label>
                   <input
                     type="number"
-                    name="Agreement_number"
+                    name="agreement_number"
                     className="block w-full rounded-md border-0 px-1.5 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                    value={agreementData.Agreement_number}
+                    value={agreementData.agreement_number}
                     onChange={handleInputChange}
                   />
                 </div>
@@ -181,37 +164,37 @@ const Add_Agreement = () => {
                 <div className="flex space-x-4">
                   <div>
                     <label className="block text-sm font-medium leading-6 text-gray-900">
-                      Mota
+                      mota
                     </label>
                     <input
                       type="number"
-                      name="Mota"
+                      name="mota"
                       className="block w-full rounded-md border-0 px-1.5 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                      value={agreementData.Mota}
+                      value={agreementData.mota}
                       onChange={handleInputChange}
                     />
                   </div>
                   <div>
                     <label className="block text-sm font-medium leading-6 text-gray-900">
-                      Patla
+                      patla
                     </label>
                     <input
                       type="number"
-                      name="Patla"
+                      name="patla"
                       className="block w-full rounded-md border-0 px-1.5 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                      value={agreementData.Patla}
+                      value={agreementData.patla}
                       onChange={handleInputChange}
                     />
                   </div>
                   <div>
                     <label className="block text-sm font-medium leading-6 text-gray-900">
-                      Sarna
+                      sarna
                     </label>
                     <input
                       type="number"
-                      name="Sarna"
+                      name="sarna"
                       className="block w-full rounded-md border-0 px-1.5 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                      value={agreementData.Sarna}
+                      value={agreementData.sarna}
                       onChange={handleInputChange}
                     />
                   </div>
@@ -223,9 +206,9 @@ const Add_Agreement = () => {
                     </label>
                     <input
                       type="number"
-                      name="Lot_from"
+                      name="lot_from"
                       className="block w-full rounded-md border-0 px-1.5 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                      value={agreementData.Lot_from}
+                      value={agreementData.lot_from}
                       onChange={handleInputChange}
                     />
                   </div>
@@ -235,21 +218,21 @@ const Add_Agreement = () => {
                     </label>
                     <input
                       type="number"
-                      name="Lot_to"
+                      name="lot_to"
                       className="block w-full rounded-md border-0 px-1.5 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                      value={agreementData.Lot_to}
+                      value={agreementData.lot_to}
                       onChange={handleInputChange}
                     />
                   </div>
                   <div>
                     <label className="block text-sm font-medium leading-6 text-gray-900">
-                      Total
+                      total
                     </label>
                     <input
                       type="number"
-                      name="Total"
+                      name="total"
                       className="block w-full rounded-md border-0 px-1.5 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                      value={agreementData.Total}
+                      value={agreementData.total}
                       onChange={handleInputChange}
                     />
                   </div>
