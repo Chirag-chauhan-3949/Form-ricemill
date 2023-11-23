@@ -4,9 +4,6 @@ import "react-toastify/dist/ReactToastify.css";
 
 const Add_Agreement = () => {
   const [agreementData, setAgreementData] = useState({
-    Name: "",
-    Distance: "",
-    Transporting: "",
     Agreement_number: "",
     Mota: "",
     Patla: "",
@@ -15,46 +12,36 @@ const Add_Agreement = () => {
     Lot_to: "",
     Total: 0,
   });
-  const resetForm = () => {
-    setAgreementData({
-      Agreement_number: "",
-      Mota: "",
-      Patla: "",
-      Sarna: "",
-      Lot_from: "",
-      Lot_to: "",
-      Total: 0,
-    });
-  };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     if (name === "Agreement_number") {
-      const isValidAgreementNumber = /^\d{14}$/.test(value);
+      const isValidAgreementNumber = /^\d{0,11}$/.test(value);
 
       if (!isValidAgreementNumber) {
-        console.error("Invalid Agreement Number. It should contain 11 digits.");
-        toast.success("Agreement added successfully", {
-          position: "top-right",
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        });
-
+        console.error(
+          "Invalid Agreement Number. It should contain up to 11 digits."
+        );
         return;
       }
     }
     if (name === "Lot_from" || name === "Lot_to") {
-      const lotFrom = parseInt(agreementData.Lot_from, 10) || 0;
-      const lotTo = parseInt(agreementData.Lot_to, 10) || 0;
-      const total = lotFrom + lotTo;
+      const updatedValue = value.trim();
+      const parsedValue = updatedValue !== "" ? parseInt(updatedValue, 10) : "";
+
+      const lotFrom =
+        name === "Lot_from"
+          ? parsedValue
+          : parseInt(agreementData.Lot_from, 10) || "";
+      const lotTo =
+        name === "Lot_to"
+          ? parsedValue
+          : parseInt(agreementData.Lot_to, 10) || "";
+      const total = !isNaN(lotFrom) && !isNaN(lotTo) ? lotFrom + lotTo : "";
 
       setAgreementData({
         ...agreementData,
-        [name]: value,
+        [name]: parsedValue,
         Total: total,
       });
     } else {
@@ -74,9 +61,11 @@ const Add_Agreement = () => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(agreementData),
+        body: JSON.stringify({
+          ...agreementData,
+          selectedMill: selectedMill, // Include selected mill data
+        }),
       });
-
       if (response.ok) {
         console.log("Agreement added successfully");
         toast.success("Agreement added successfully", {
@@ -88,7 +77,7 @@ const Add_Agreement = () => {
           draggable: true,
           progress: undefined,
         });
-        resetForm();
+        document.getElementById("agreementForm").reset();
       } else {
         console.error("Failed to add Agreement");
         toast.error("Failed to add Agreement", {
@@ -173,7 +162,7 @@ const Add_Agreement = () => {
                     Agreement Number
                   </label>
                   <input
-                    type="text"
+                    type="number"
                     name="Agreement_number"
                     className="block w-full rounded-md border-0 px-1.5 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     value={agreementData.Agreement_number}
