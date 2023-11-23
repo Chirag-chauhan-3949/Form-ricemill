@@ -3,20 +3,20 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const Add_Agreement = () => {
+  const [selectedMill, setSelectedMill] = useState("");
+
   const [agreementData, setAgreementData] = useState({
-    Agreement_number: 0,
+    Agreement_number: "",
     Mota: 0,
     Patla: 0,
     Sarna: 0,
     Lot_from: 0,
     Lot_to: 0,
     Total: 0,
-    selectedMill: "",
   });
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-
     if (name === "Agreement_number") {
       const isValidAgreementNumber = /^\d{0,11}$/.test(value);
 
@@ -27,7 +27,6 @@ const Add_Agreement = () => {
         return;
       }
     }
-
     if (name === "Lot_from" || name === "Lot_to") {
       const updatedValue = value.trim();
       const parsedValue = updatedValue !== "" ? parseInt(updatedValue, 10) : "";
@@ -51,12 +50,6 @@ const Add_Agreement = () => {
       setAgreementData({
         ...agreementData,
         [name]: value,
-      });
-    }
-    if (name === "notification-method") {
-      setAgreementData({
-        ...agreementData,
-        selectedMill: value,
       });
     }
   };
@@ -86,16 +79,6 @@ const Add_Agreement = () => {
           pauseOnHover: true,
           draggable: true,
           progress: undefined,
-        });
-        setAgreementData({
-          Agreement_number: 0,
-          Mota: 0,
-          Patla: 0,
-          Sarna: 0,
-          Lot_from: 0,
-          Lot_to: 0,
-          Total: 0,
-          selectedMill: "",
         });
         document.getElementById("agreementForm").reset();
       } else {
@@ -163,8 +146,13 @@ const Add_Agreement = () => {
                             id={notificationMethod.id}
                             name="notification-method"
                             type="radio"
+                            checked={selectedMill === notificationMethod.id}
+                            onChange={() =>
+                              setSelectedMill(notificationMethod.id)
+                            }
                             className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"
                           />
+
                           <label
                             htmlFor={notificationMethod.id}
                             className="ml-3 block text-sm font-medium leading-6 text-gray-900"

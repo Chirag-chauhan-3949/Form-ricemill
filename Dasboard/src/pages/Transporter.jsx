@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
-import { toast, ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import React, { useState } from "react";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Example = () => {
   const [transporterData, setTransporterData] = useState({
-    name: '',
-    phone:'',
+    name: "",
+    phone: "",
   });
 
   const handleInputChange = (e) => {
@@ -20,18 +20,18 @@ const Example = () => {
     e.preventDefault();
 
     try {
-      const response = await fetch('http://localhost:8000/transporter/', {
-        method: 'POST',
+      const response = await fetch("http://localhost:8000/transporter/", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(transporterData),
       });
 
       if (response.ok) {
-        console.log('Transporter added successfully');
-        toast.success('Transporter added successfully', {
-          position: 'top-right',
+        console.log("Transporter added successfully");
+        toast.success("Transporter added successfully", {
+          position: "top-right",
           autoClose: 3000,
           hideProgressBar: false,
           closeOnClick: true,
@@ -40,9 +40,9 @@ const Example = () => {
           progress: undefined,
         });
       } else {
-        console.error('Failed to add transporter');
-        toast.error('Failed to add transporter', {
-          position: 'top-right',
+        console.error("Failed to add transporter");
+        toast.error("Failed to add transporter", {
+          position: "top-right",
           autoClose: 3000,
           hideProgressBar: false,
           closeOnClick: true,
@@ -52,9 +52,9 @@ const Example = () => {
         });
       }
     } catch (error) {
-      console.error('Error:', error);
-      toast.error('Error adding transporter', {
-        position: 'top-right',
+      console.error("Error:", error);
+      toast.error("Error adding transporter", {
+        position: "top-right",
         autoClose: 3000,
         hideProgressBar: false,
         closeOnClick: true,
@@ -74,7 +74,7 @@ const Example = () => {
             src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
             alt="Your Company"
           />
-          
+
           <h2 className="mt-6 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
             Add New Transporter
           </h2>
@@ -84,10 +84,16 @@ const Example = () => {
             <form className="space-y-6" onSubmit={handleSubmit}>
               <div>
                 <div className="flex justify-between">
-                  <label htmlFor="name" className="block text-sm font-medium leading-6 text-gray-900">
+                  <label
+                    htmlFor="name"
+                    className="block text-sm font-medium leading-6 text-gray-900"
+                  >
                     Transporter Name
                   </label>
-                  <span className="text-sm leading-6 text-red-500" id="email-optional">
+                  <span
+                    className="text-sm leading-6 text-red-500"
+                    id="email-optional"
+                  >
                     Required
                   </span>
                 </div>
@@ -105,10 +111,16 @@ const Example = () => {
               </div>
               <div>
                 <div className="flex justify-between">
-                  <label htmlFor="name" className="block text-sm font-medium leading-6 text-gray-900">
+                  <label
+                    htmlFor="name"
+                    className="block text-sm font-medium leading-6 text-gray-900"
+                  >
                     Phone
                   </label>
-                  <span className="text-sm leading-6 text-red-500" id="email-optional">
+                  <span
+                    className="text-sm leading-6 text-red-500"
+                    id="email-optional"
+                  >
                     Required
                   </span>
                 </div>
