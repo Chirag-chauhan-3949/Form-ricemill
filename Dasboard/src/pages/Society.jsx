@@ -5,8 +5,8 @@ import "react-toastify/dist/ReactToastify.css";
 const AddNewSociety = () => {
   const [societyData, setSocietyData] = useState({
     society_name: "",
-    distance_form_mill: "",
-    transporting_rate: "",
+    distance_from_mill: 0,
+    transporting_rate: 0,
   });
 
   const handleInputChange = (e) => {
@@ -112,7 +112,7 @@ const AddNewSociety = () => {
               <div>
                 <div className="flex justify-between">
                   <label
-                    htmlFor="distance_form_mill"
+                    htmlFor="distance_from_mill"
                     className="block text-sm font-medium leading-6 text-gray-900"
                   >
                     Distance From Mill
@@ -124,10 +124,10 @@ const AddNewSociety = () => {
                 <div className="mt-2">
                   <input
                     type="text"
-                    name="distance_form_mill"
+                    name="distance_from_mill"
                     className="block w-full rounded-md border-0 px-1.5 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     placeholder="Enter distance from mill"
-                    value={societyData.distance_form_mill}
+                    value={societyData.distance_from_mill}
                     onChange={handleInputChange}
                     required
                   />
