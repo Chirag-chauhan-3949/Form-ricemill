@@ -191,7 +191,7 @@ const Add_Do = () => {
                           className="flex items-center"
                         >
                           <input
-                            name="mill"
+                            name="select_mill"
                             type="radio"
                             value={notificationMethod.value}
                             checked={
