@@ -24,10 +24,10 @@ const Add_Do = () => {
   const [trucks, setTrucks] = useState([]);
 
   useEffect(() => {
-    const fetchTransporter = async () => {
+    const fetchselectagreement = async () => {
       try {
         const transporter_response = await fetch(
-          "http://localhost:8000/transporters-name/"
+          "http://localhost:8000/agreements-number/"
         );
         if (transporter_response.ok) {
           const data = await transporter_response.json();
@@ -39,13 +39,13 @@ const Add_Do = () => {
         console.error("Error:", error);
       }
     };
-    fetchTransporter();
+    fetchselectagreement();
   }, []);
   useEffect(() => {
-    const fetchTransporter = async () => {
+    const fetchsocieties = async () => {
       try {
         const transporter_response = await fetch(
-          "http://localhost:8000/transporters-name/"
+          "http://localhost:8000/societies-name/"
         );
         if (transporter_response.ok) {
           const data = await transporter_response.json();
@@ -57,13 +57,13 @@ const Add_Do = () => {
         console.error("Error:", error);
       }
     };
-    fetchTransporter();
+    fetchsocieties();
   }, []);
   useEffect(() => {
-    const fetchTransporter = async () => {
+    const fetchtruck = async () => {
       try {
         const transporter_response = await fetch(
-          "http://localhost:8000/transporters-name/"
+          "http://localhost:8000/truck-numbers/"
         );
         if (transporter_response.ok) {
           const data = await transporter_response.json();
@@ -75,7 +75,7 @@ const Add_Do = () => {
         console.error("Error:", error);
       }
     };
-    fetchTransporter();
+    fetchtruck();
   }, []);
 
   const handleInputChange = (e) => {
@@ -270,9 +270,9 @@ const Add_Do = () => {
                       onChange={handleInputChange}
                     >
                       <option value="">Select Agreement</option>
-                      {agreements.map((agreements) => (
-                        <option key={agreements.value} value={agreements.value}>
-                          {agreements.value}
+                      {agreements.map((agreement) => (
+                        <option key={agreement.value} value={agreement.value}>
+                          {agreement.value}
                         </option>
                       ))}
                     </select>
@@ -342,7 +342,7 @@ const Add_Do = () => {
                     <input
                       type="text"
                       name="patla_weight"
-                      value={DoData.patla_bardana}
+                      value={DoData.patla_weight}
                       className="block min-w-[250px] px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                       onChange={handleInputChange}
                     />
@@ -451,7 +451,7 @@ const Add_Do = () => {
               <div>
                 <div className="flex justify-between">
                   <label
-                    htmlFor="Society"
+                    htmlFor="society"
                     className="block text-sm font-medium leading-6 text-gray-900"
                   >
                     Society
@@ -459,16 +459,16 @@ const Add_Do = () => {
                 </div>
                 <div className="mt-1">
                   <select
-                    name="Society"
+                    name="society"
                     type="number"
                     value={DoData.society}
                     className="bg-white block w-full px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     onChange={handleInputChange}
                   >
-                    <option value="">Select a transporter</option>
-                    {societies.map((societies) => (
-                      <option key={societies.value} value={societies.value}>
-                        {societies.value}
+                    <option value="">Select a Society</option>
+                    {societies.map((societie) => (
+                      <option key={societie} value={societie}>
+                        {societie}
                       </option>
                     ))}
                   </select>
@@ -500,9 +500,9 @@ const Add_Do = () => {
                     onChange={handleInputChange}
                   >
                     <option value="">Select a Truck</option>
-                    {trucks.map((trucks) => (
-                      <option key={trucks.value} value={trucks.value}>
-                        {trucks.value}
+                    {trucks.map((truck) => (
+                      <option key={truck} value={truck}>
+                        {truck}
                       </option>
                     ))}
                   </select>
