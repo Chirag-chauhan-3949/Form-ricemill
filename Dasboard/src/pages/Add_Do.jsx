@@ -1,6 +1,6 @@
-import React, { useState } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import React, { useState, useEffect } from "react";
 
 const Add_Do = () => {
   const [DoData, setDoData] = useState({
@@ -70,6 +70,22 @@ const Add_Do = () => {
           pauseOnHover: true,
           draggable: true,
           progress: undefined,
+        });
+        setDoData({
+          mill: "",
+          date: "",
+          do_number: "",
+          select_agreement: "",
+          mota_weight: "",
+          mota_bardana: "",
+          patla_weight: "",
+          patla_bardana: "",
+          sarna_weight: "",
+          sarna_bardana: "",
+          total_weight: "",
+          total_bardana: "",
+          Society: "",
+          truck_number: "",
         });
       } else {
         console.error("Failed to send form data");
@@ -213,7 +229,6 @@ const Add_Do = () => {
                       onChange={handleInputChange}
                     >
                       {" "}
-                      <option value="">-Select Agreement-</option>
                       {agreements.map((agreement) => (
                         <option key={agreement.id} value={agreement.value}>
                           {agreement.label}
@@ -399,7 +414,11 @@ const Add_Do = () => {
                     className="bg-white block w-full px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     onChange={handleInputChange}
                   >
-                    <option value="">-Select a Society-</option>
+                    {societies.map((societies) => (
+                      <option key={societies.id} value={societies.value}>
+                        {societies.label}
+                      </option>
+                    ))}
                   </select>
                   <p className="mt-2  text-sm text-gray-500">
                     Cannot Find Society?{" "}
@@ -426,7 +445,11 @@ const Add_Do = () => {
                     className=" bg-white block w-full px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     onChange={handleInputChange}
                   >
-                    <option value="">-Select a Truck-</option>
+                    {trucks.map((trucks) => (
+                      <option key={trucks.id} value={trucks.value}>
+                        {trucks.label}
+                      </option>
+                    ))}
                   </select>
                 </div>
                 <p className="mt-2 text-sm text-gray-500">
@@ -452,6 +475,7 @@ const Add_Do = () => {
           </div>
         </div>
       </div>
+      <ToastContainer />
     </>
   );
 };
