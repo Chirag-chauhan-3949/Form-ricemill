@@ -4,44 +4,80 @@ import React, { useState, useEffect } from "react";
 
 const Add_Do = () => {
   const [DoData, setDoData] = useState({
-    mill: "",
+    select_mill: "",
     date: "",
-    do_number: "",
+    do_number: 0,
     select_agreement: "",
-    mota_weight: "",
-    mota_bardana: "",
+    moto_weight: "",
+    mota_Bardana: 0,
     patla_weight: "",
-    patla_bardana: "",
+    patla_bardana: 0,
     sarna_weight: "",
-    sarna_bardana: "",
-    total_weight: "",
-    total_bardana: "",
-    Society: "",
-    truck_number: "",
+    sarna_bardana: 0,
+    total_weight: 0,
+    total_bardana: 0,
+    society: "",
+    truck_number: 0,
   });
   const [agreements, setAgreements] = useState([]);
   const [societies, setSocieties] = useState([]);
   const [trucks, setTrucks] = useState([]);
 
   useEffect(() => {
-    // Fetch agreements
-    fetch("YOUR_AGREEMENTS_API_ENDPOINT")
-      .then((response) => response.json())
-      .then((data) => setAgreements(data))
-      .catch((error) => console.error("Error fetching agreements:", error));
-
-    // Fetch societies
-    fetch("YOUR_SOCIETIES_API_ENDPOINT")
-      .then((response) => response.json())
-      .then((data) => setSocieties(data))
-      .catch((error) => console.error("Error fetching societies:", error));
-
-    // Fetch trucks
-    fetch("YOUR_TRUCKS_API_ENDPOINT")
-      .then((response) => response.json())
-      .then((data) => setTrucks(data))
-      .catch((error) => console.error("Error fetching trucks:", error));
+    const fetchTransporter = async () => {
+      try {
+        const transporter_response = await fetch(
+          "http://localhost:8000/transporters-name/"
+        );
+        if (transporter_response.ok) {
+          const data = await transporter_response.json();
+          setAgreements(data);
+        } else {
+          console.error("Failed to fetch transporters");
+        }
+      } catch (error) {
+        console.error("Error:", error);
+      }
+    };
+    fetchTransporter();
   }, []);
+  useEffect(() => {
+    const fetchTransporter = async () => {
+      try {
+        const transporter_response = await fetch(
+          "http://localhost:8000/transporters-name/"
+        );
+        if (transporter_response.ok) {
+          const data = await transporter_response.json();
+          setSocieties(data);
+        } else {
+          console.error("Failed to fetch transporters");
+        }
+      } catch (error) {
+        console.error("Error:", error);
+      }
+    };
+    fetchTransporter();
+  }, []);
+  useEffect(() => {
+    const fetchTransporter = async () => {
+      try {
+        const transporter_response = await fetch(
+          "http://localhost:8000/transporters-name/"
+        );
+        if (transporter_response.ok) {
+          const data = await transporter_response.json();
+          setTrucks(data);
+        } else {
+          console.error("Failed to fetch transporters");
+        }
+      } catch (error) {
+        console.error("Error:", error);
+      }
+    };
+    fetchTransporter();
+  }, []);
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setDoData({
@@ -52,7 +88,7 @@ const Add_Do = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch("YOUR_API_ENDPOINT", {
+      const response = await fetch("http://localhost:8000/add-do/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -72,20 +108,20 @@ const Add_Do = () => {
           progress: undefined,
         });
         setDoData({
-          mill: "",
+          select_mill: "",
           date: "",
-          do_number: "",
+          do_number: 0,
           select_agreement: "",
-          mota_weight: "",
-          mota_bardana: "",
+          moto_weight: "",
+          mota_Bardana: 0,
           patla_weight: "",
-          patla_bardana: "",
+          patla_bardana: 0,
           sarna_weight: "",
-          sarna_bardana: "",
-          total_weight: "",
-          total_bardana: "",
-          Society: "",
-          truck_number: "",
+          sarna_bardana: 0,
+          total_weight: 0,
+          total_bardana: 0,
+          society: "",
+          truck_number: 0,
         });
       } else {
         console.error("Failed to send form data");
@@ -158,12 +194,15 @@ const Add_Do = () => {
                             name="mill"
                             type="radio"
                             value={notificationMethod.value}
+                            checked={
+                              DoData.select_mill === notificationMethod.value
+                            }
                             className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"
                             onChange={handleInputChange}
                           />
 
                           <label
-                            htmlFor={notificationMethod.value}
+                            htmlFor={notificationMethod.id}
                             className="ml-3 block text-sm font-medium leading-6 text-gray-900"
                           >
                             {notificationMethod.title}
@@ -207,6 +246,7 @@ const Add_Do = () => {
                     <input
                       type="text"
                       name="do_number"
+                      value={DoData.do_number}
                       className="block min-w-[250px] px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                       onChange={handleInputChange}
                     />
@@ -223,15 +263,16 @@ const Add_Do = () => {
                   </div>
                   <div className="mt-1">
                     <select
-                      type="select_agreement"
+                      type="text"
                       name="select_agreement"
+                      value={DoData.select_agreement}
                       className=" bg-white block min-w-[250px] px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                       onChange={handleInputChange}
                     >
-                      {" "}
-                      {agreements.map((agreement) => (
-                        <option key={agreement.id} value={agreement.value}>
-                          {agreement.label}
+                      <option value="">Select Agreement</option>
+                      {agreements.map((agreements) => (
+                        <option key={agreements.value} value={agreements.value}>
+                          {agreements.value}
                         </option>
                       ))}
                     </select>
@@ -251,7 +292,7 @@ const Add_Do = () => {
                 <div>
                   <div className="flex justify-between">
                     <label
-                      htmlFor="mota_weight"
+                      htmlFor="moto_weight"
                       className="block text-sm font-medium leading-6 text-gray-900"
                     >
                       Mota Weight
@@ -260,7 +301,8 @@ const Add_Do = () => {
                   <div className="mt-1">
                     <input
                       type="text"
-                      name="mota_weight"
+                      name="moto_weight"
+                      value={DoData.moto_weight}
                       className="block min-w-[250px] px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                       onChange={handleInputChange}
                     />
@@ -269,7 +311,7 @@ const Add_Do = () => {
                 <div>
                   <div className="flex justify-between">
                     <label
-                      htmlFor="mota_bardana"
+                      htmlFor="mota_Bardana"
                       className="block text-sm font-medium leading-6 text-gray-900"
                     >
                       Mota Bardana
@@ -277,8 +319,9 @@ const Add_Do = () => {
                   </div>
                   <div className="mt-1">
                     <input
-                      type="text"
-                      name="mota_bardana"
+                      type="number"
+                      name="mota_Bardana"
+                      value={DoData.mota_Bardana}
                       className="block min-w-[250px] px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                       onChange={handleInputChange}
                     />
@@ -299,6 +342,7 @@ const Add_Do = () => {
                     <input
                       type="text"
                       name="patla_weight"
+                      value={DoData.patla_bardana}
                       className="block min-w-[250px] px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                       onChange={handleInputChange}
                     />
@@ -315,8 +359,9 @@ const Add_Do = () => {
                   </div>
                   <div className="mt-1">
                     <input
-                      type="text"
+                      type="number"
                       name="patla_bardana"
+                      value={DoData.patla_bardana}
                       className="block min-w-[250px] px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                       onChange={handleInputChange}
                     />
@@ -337,6 +382,7 @@ const Add_Do = () => {
                     <input
                       type="text"
                       name="sarna_weight"
+                      value={DoData.sarna_weight}
                       className="block min-w-[250px] px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                       onChange={handleInputChange}
                     />
@@ -353,8 +399,9 @@ const Add_Do = () => {
                   </div>
                   <div className="mt-1">
                     <input
-                      type="text"
+                      type="number"
                       name="sarna_bardana"
+                      value={DoData.sarna_bardana}
                       className="block min-w-[250px] px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                       onChange={handleInputChange}
                     />
@@ -373,8 +420,9 @@ const Add_Do = () => {
                   </div>
                   <div className="mt-1">
                     <input
-                      type="text"
+                      type="number"
                       name="total_weight"
+                      value={DoData.total_weight}
                       className="block min-w-[250px] px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                       onChange={handleInputChange}
                     />
@@ -391,8 +439,9 @@ const Add_Do = () => {
                   </div>
                   <div className="mt-1">
                     <input
-                      type="text"
+                      type="number"
                       name="total_bardana"
+                      value={DoData.total_bardana}
                       className="block min-w-[250px] px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                       onChange={handleInputChange}
                     />
@@ -411,12 +460,15 @@ const Add_Do = () => {
                 <div className="mt-1">
                   <select
                     name="Society"
+                    type="number"
+                    value={DoData.society}
                     className="bg-white block w-full px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     onChange={handleInputChange}
                   >
+                    <option value="">Select a transporter</option>
                     {societies.map((societies) => (
-                      <option key={societies.id} value={societies.value}>
-                        {societies.label}
+                      <option key={societies.value} value={societies.value}>
+                        {societies.value}
                       </option>
                     ))}
                   </select>
@@ -442,12 +494,15 @@ const Add_Do = () => {
                 <div className="mt-1">
                   <select
                     name="truck_number"
+                    type="number"
+                    value={DoData.truck_number}
                     className=" bg-white block w-full px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     onChange={handleInputChange}
                   >
+                    <option value="">Select a Truck</option>
                     {trucks.map((trucks) => (
-                      <option key={trucks.id} value={trucks.value}>
-                        {trucks.label}
+                      <option key={trucks.value} value={trucks.value}>
+                        {trucks.value}
                       </option>
                     ))}
                   </select>

@@ -5,7 +5,7 @@ import "react-toastify/dist/ReactToastify.css";
 const Add_New_Truck = () => {
   const [truckData, setTruckData] = useState({
     truck_number: "",
-    transpoter: "",
+    transporter_name: "",
   });
 
   const [transpoterOptions, setTransporterOptions] = useState([]);
@@ -15,7 +15,7 @@ const Add_New_Truck = () => {
     const fetchTransporter = async () => {
       try {
         const transporter_response = await fetch(
-          "http://localhost:8000/agreements-number"
+          "http://localhost:8000/transporters-name/"
         );
         if (transporter_response.ok) {
           const data = await transporter_response.json();
@@ -104,7 +104,7 @@ const Add_New_Truck = () => {
               </div>
               <div>
                 <label
-                  htmlFor="transpoter"
+                  htmlFor="transporter_name"
                   className="block text-sm font-medium leading-6 text-gray-900"
                 >
                   Select Transporter
@@ -112,9 +112,9 @@ const Add_New_Truck = () => {
                 <div className="mt-2">
                   <select
                     required
-                    name="transpoter"
+                    name="transporter_name"
                     className="block  w-full bg-white rounded-md  border-0 px-1.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                    value={truckData.transpoter}
+                    value={truckData.transporter_name}
                     onChange={handleInputChange}
                   >
                     <option value="">Select a transporter</option>

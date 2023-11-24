@@ -63,7 +63,6 @@ const Add_Agreement = () => {
           draggable: true,
           progress: undefined,
         });
-        document.getElementById("agreementForm").reset();
       } else {
         console.error("Failed to add Agreement");
         toast.error("Failed to add Agreement", {

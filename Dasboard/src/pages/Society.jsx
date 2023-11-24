@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
-import { toast, ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import React, { useState } from "react";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const AddNewSociety = () => {
   const [societyData, setSocietyData] = useState({
-    Name: '',
-    Distance: '',
-    Transporting: '',
+    society_name: "",
+    distance_form_mill: "",
+    transporting_rate: "",
   });
 
   const handleInputChange = (e) => {
@@ -21,18 +21,18 @@ const AddNewSociety = () => {
     e.preventDefault();
 
     try {
-      const response = await fetch('http://localhost:8000/society/', {
-        method: 'POST',
+      const response = await fetch("http://localhost:8000/society/", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(societyData),
       });
 
       if (response.ok) {
-        console.log('Society added successfully');
-        toast.success('Society added successfully', {
-          position: 'top-right',
+        console.log("Society added successfully");
+        toast.success("Society added successfully", {
+          position: "top-right",
           autoClose: 3000,
           hideProgressBar: false,
           closeOnClick: true,
@@ -41,9 +41,9 @@ const AddNewSociety = () => {
           progress: undefined,
         });
       } else {
-        console.error('Failed to add society');
-        toast.error('Failed to add society', {
-          position: 'top-right',
+        console.error("Failed to add society");
+        toast.error("Failed to add society", {
+          position: "top-right",
           autoClose: 3000,
           hideProgressBar: false,
           closeOnClick: true,
@@ -53,9 +53,9 @@ const AddNewSociety = () => {
         });
       }
     } catch (error) {
-      console.error('Error:', error);
-      toast.error('Error adding society', {
-        position: 'top-right',
+      console.error("Error:", error);
+      toast.error("Error adding society", {
+        position: "top-right",
         autoClose: 3000,
         hideProgressBar: false,
         closeOnClick: true,
@@ -86,18 +86,23 @@ const AddNewSociety = () => {
               {/* Society Name Input */}
               <div>
                 <div className="flex justify-between">
-                  <label htmlFor="Name" className="block text-sm font-medium leading-6 text-gray-900">
+                  <label
+                    htmlFor="society_name"
+                    className="block text-sm font-medium leading-6 text-gray-900"
+                  >
                     Society Name
                   </label>
-                  <span className="text-sm leading-6 text-red-500">Required</span>
+                  <span className="text-sm leading-6 text-red-500">
+                    Required
+                  </span>
                 </div>
                 <div className="mt-2">
                   <input
                     type="text"
-                    name="Name"
+                    name="society_name"
                     className="block w-full rounded-md border-0 px-1.5 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     placeholder="Enter society name"
-                    value={societyData.Name}
+                    value={societyData.society_name}
                     onChange={handleInputChange}
                     required
                   />
@@ -106,18 +111,23 @@ const AddNewSociety = () => {
               {/* Distance Input */}
               <div>
                 <div className="flex justify-between">
-                  <label htmlFor="Distance" className="block text-sm font-medium leading-6 text-gray-900">
+                  <label
+                    htmlFor="distance_form_mill"
+                    className="block text-sm font-medium leading-6 text-gray-900"
+                  >
                     Distance From Mill
                   </label>
-                  <span className="text-sm leading-6 text-red-500">Required</span>
+                  <span className="text-sm leading-6 text-red-500">
+                    Required
+                  </span>
                 </div>
                 <div className="mt-2">
                   <input
                     type="text"
-                    name="Distance"
+                    name="distance_form_mill"
                     className="block w-full rounded-md border-0 px-1.5 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     placeholder="Enter distance from mill"
-                    value={societyData.Distance}
+                    value={societyData.distance_form_mill}
                     onChange={handleInputChange}
                     required
                   />
@@ -126,18 +136,23 @@ const AddNewSociety = () => {
               {/* Transporting Input */}
               <div>
                 <div className="flex justify-between">
-                  <label htmlFor="Transporting" className="block text-sm font-medium leading-6 text-gray-900">
+                  <label
+                    htmlFor="transporting_rate"
+                    className="block text-sm font-medium leading-6 text-gray-900"
+                  >
                     Transporting Rate
                   </label>
-                  <span className="text-sm leading-6 text-red-500">Required</span>
+                  <span className="text-sm leading-6 text-red-500">
+                    Required
+                  </span>
                 </div>
                 <div className="mt-2">
                   <input
                     type="text"
-                    name="Transporting"
+                    name="transporting_rate"
                     className="block w-full rounded-md border-0 px-1.5 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     placeholder="Enter transporting rate"
-                    value={societyData.Transporting}
+                    value={societyData.transporting_rate}
                     onChange={handleInputChange}
                     required
                   />

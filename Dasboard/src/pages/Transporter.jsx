@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const Example = () => {
+const Add_New_Transporter = () => {
   const [transporterData, setTransporterData] = useState({
-    name: "",
-    phone: "",
+    transporter_name: "",
+    transporter_phone_number: 0,
   });
 
   const handleInputChange = (e) => {
@@ -85,25 +85,22 @@ const Example = () => {
               <div>
                 <div className="flex justify-between">
                   <label
-                    htmlFor="name"
+                    htmlFor="transporter_name"
                     className="block text-sm font-medium leading-6 text-gray-900"
                   >
                     Transporter Name
                   </label>
-                  <span
-                    className="text-sm leading-6 text-red-500"
-                    id="email-optional"
-                  >
+                  <span className="text-sm leading-6 text-red-500">
                     Required
                   </span>
                 </div>
                 <div className="mt-2">
                   <input
                     type="text"
-                    name="name"
+                    name="transporter_name"
                     className="block w-full rounded-md border-0 px-1.5 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     placeholder="Enter transporter name"
-                    value={transporterData.name}
+                    value={transporterData.transporter_name}
                     onChange={handleInputChange}
                     required
                   />
@@ -112,25 +109,22 @@ const Example = () => {
               <div>
                 <div className="flex justify-between">
                   <label
-                    htmlFor="name"
+                    htmlFor="transporter_phone_number"
                     className="block text-sm font-medium leading-6 text-gray-900"
                   >
                     Phone
                   </label>
-                  <span
-                    className="text-sm leading-6 text-red-500"
-                    id="email-optional"
-                  >
+                  <span className="text-sm leading-6 text-red-500">
                     Required
                   </span>
                 </div>
                 <div className="mt-2">
                   <input
-                    type="text"
-                    name="Phone"
+                    type="number"
+                    name="transporter_phone_number"
                     className="block w-full rounded-md border-0 px-1.5 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     placeholder="Enter transporter name"
-                    value={transporterData.Phone}
+                    value={transporterData.transporter_phone_number}
                     onChange={handleInputChange}
                     required
                   />
@@ -153,4 +147,4 @@ const Example = () => {
   );
 };
 
-export default Example;
+export default Add_New_Transporter;
