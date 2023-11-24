@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-// import { toast, ToastContainer } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const Add_Do = () => {
@@ -19,6 +19,29 @@ const Add_Do = () => {
     Society: "",
     truck_number: "",
   });
+  const [agreements, setAgreements] = useState([]);
+  const [societies, setSocieties] = useState([]);
+  const [trucks, setTrucks] = useState([]);
+
+  useEffect(() => {
+    // Fetch agreements
+    fetch("YOUR_AGREEMENTS_API_ENDPOINT")
+      .then((response) => response.json())
+      .then((data) => setAgreements(data))
+      .catch((error) => console.error("Error fetching agreements:", error));
+
+    // Fetch societies
+    fetch("YOUR_SOCIETIES_API_ENDPOINT")
+      .then((response) => response.json())
+      .then((data) => setSocieties(data))
+      .catch((error) => console.error("Error fetching societies:", error));
+
+    // Fetch trucks
+    fetch("YOUR_TRUCKS_API_ENDPOINT")
+      .then((response) => response.json())
+      .then((data) => setTrucks(data))
+      .catch((error) => console.error("Error fetching trucks:", error));
+  }, []);
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setDoData({
@@ -39,11 +62,38 @@ const Add_Do = () => {
 
       if (response.ok) {
         console.log("Form data sent successfully");
+        toast.success("Do added successfully", {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
       } else {
         console.error("Failed to send form data");
+        toast.error("Failed to add Do", {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
       }
     } catch (error) {
       console.error("Error:", error);
+      toast.error("Error Adding Do", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
     }
   };
 
@@ -164,6 +214,11 @@ const Add_Do = () => {
                     >
                       {" "}
                       <option value="">-Select Agreement-</option>
+                      {agreements.map((agreement) => (
+                        <option key={agreement.id} value={agreement.value}>
+                          {agreement.label}
+                        </option>
+                      ))}
                     </select>
                   </div>
                   <p className="mt-2 text-center text-sm text-gray-500">
