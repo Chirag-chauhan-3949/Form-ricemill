@@ -4,14 +4,14 @@ import "react-toastify/dist/ReactToastify.css";
 
 const Add_Agreement = () => {
   const [agreementData, setAgreementData] = useState({
-    agreement_number: 0,
+    agreement_number: "",
     mill: "",
-    mota: 0,
-    patla: 0,
-    sarna: 0,
-    lot_from: 0,
-    lot_to: 0,
-    total: 0,
+    mota: "",
+    patla: "",
+    sarna: "",
+    lot_from: "",
+    lot_to: "",
+    total: "",
   });
 
   const handleInputChange = (e) => {

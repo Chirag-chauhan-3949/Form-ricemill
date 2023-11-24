@@ -1,397 +1,403 @@
-import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+// import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Add_Do = () => {
-  const [doData, setDoData] = useState({
+  const [DoData, setDoData] = useState({
     mill: "",
-    doDate: "",
-    doNumber: "",
-    selectAgreement: "",
-    motaWeight: "",
-    motaBardana: "",
-    patlaWeight: "",
-    patlaBardana: "",
-    sarnaWeight: "",
-    sarnaBardana: "",
-    totalWeight: "",
-    totalBardana: "",
-    society: "",
-    truckNumber: "",
+    date: "",
+    do_number: "",
+    select_agreement: "",
+    mota_weight: "",
+    mota_bardana: "",
+    patla_weight: "",
+    patla_bardana: "",
+    sarna_weight: "",
+    sarna_bardana: "",
+    total_weight: "",
+    total_bardana: "",
+    Society: "",
+    truck_number: "",
   });
-
-  const [agreementOptions, setagreementOperations] = useState([]);
-  const [societiesOptions, setsocietiesOperations] = useState([]);
-  const [trucksOptions, settruckOperations] = useState([]);
-
-  // Fetch data for the "Select Agreement" dropdown
-  useEffect(() => {
-    const fetchagreemnt = async () => {
-      try {
-        const agreement_response = await fetch(
-          "http://localhost:8000/agreements-number"
-        );
-        if (agreement_response.ok) {
-          const data = await agreement_response.json();
-          setagreementOperations(data);
-        } else {
-          console.error("Failed to fetch transporters");
-        }
-      } catch (error) {
-        console.error("Error:", error);
-      }
-    };
-
-    fetchagreemnt();
-  }, []);
-  // Fetch data for "Society" dropdown
-  useEffect(() => {
-    const fetchsocieties = async () => {
-      try {
-        const societies_response = await fetch(
-          "http://localhost:8000/societies-names"
-        );
-        if (societies_response.ok) {
-          const data = await societies_response.json();
-          setsocietiesOperations(data);
-        } else {
-          console.error("Failed to fetch transporters");
-        }
-      } catch (error) {
-        console.error("Error:", error);
-      }
-    };
-
-    fetchsocieties();
-  }, []);
-
-  // Fetch data for "Truck Number" dropdown
-  useEffect(() => {
-    const fetchtrucks = async () => {
-      try {
-        const trucks_response = await fetch(
-          "http://localhost:8000/truck_numbers"
-        );
-        if (trucks_response.ok) {
-          const data = await trucks_response.json();
-          settruckOperations(data);
-        } else {
-          console.error("Failed to fetch transporters");
-        }
-      } catch (error) {
-        console.error("Error:", error);
-      }
-    };
-
-    fetchtrucks();
-  }, []);
-
   const handleInputChange = (e) => {
-    const { name, value, type, checked } = e.target;
-
-    setDoData((prevState) => ({
-      ...prevState,
-      [name]: type === "checkbox" ? checked : value,
-    }));
+    const { name, value } = e.target;
+    setDoData({
+      ...DoData,
+      [name]: value,
+    });
   };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     try {
-      const response = await fetch("http://localhost:8000/add-do", {
+      const response = await fetch("YOUR_API_ENDPOINT", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(doData),
+        body: JSON.stringify(DoData),
       });
 
       if (response.ok) {
-        console.log("Do added successfully");
-        // Optionally, you can handle success here (e.g., show a success message)
+        console.log("Form data sent successfully");
       } else {
-        console.error("Failed to add Do");
-        // Optionally, you can handle errors here (e.g., show an error message)
+        console.error("Failed to send form data");
       }
     } catch (error) {
       console.error("Error:", error);
     }
   };
 
+  const notificationMethods = [
+    { value: "Purushottam Rice mill", title: "Purushottam Rice mill" },
+    { value: "Dushyant Rice Mill", title: "Dushyant Rice Mill" },
+    { value: "Tulsi Rice Mill", title: "Tulsi Rice Mill" },
+  ];
+
   return (
-    <div className="h-fit w-[40%] shadow-md p-5 rounded mt-[10%]">
-      <h1 className="flex items-center mb-5 justify-center font-bold tracking-normal text-3xl h-fit w-full bg-white text-[#005B88] leading-6">
-        Add Agreement
-      </h1>
-      <h2 className="block subpixel-antialiased leading-6 text-gray-900">
-        Add Government Agreements
-      </h2>
-      <form onSubmit={handleSubmit}>
-        <fieldset className="inline m-8">
-          <legend className="font-bold">Select Mill</legend>
-          <div>
-            <label className="p-2 hover:text-sky-500">
-              <input
-                type="radio"
-                name="mill"
-                value="Purushottam"
-                onChange={handleInputChange}
-              />{" "}
-              Purushottam Rice Mill
-            </label>
-          </div>
+    <>
+      <div className="flex min-h-full flex-1 flex-col justify-center py-12 sm:px-6 lg:px-8">
+        <div className="sm:mx-auto sm:w-full sm:max-w-md">
+          <img
+            className="mx-auto h-10 w-auto"
+            src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
+            alt="Your Company"
+          />
+          <h2 className="mt-6 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
+            Add Do
+          </h2>
+        </div>
 
-          <div>
-            <label className="p-2 hover:text-sky-500">
-              <input
-                type="radio"
-                name="mill"
-                value="Dushyant"
-                onChange={handleInputChange}
-              />{" "}
-              Dushyant Rice Mill
-            </label>
-          </div>
-
-          <div>
-            <label className="p-2 hover:text-sky-500">
-              <input
-                type="radio"
-                name="mill"
-                value="tulsi"
-                onChange={handleInputChange}
-              />{" "}
-              Tulsi Rice mill
-            </label>
-          </div>
-        </fieldset>
-        <fieldset className="inline float-right mt-[25px]">
-          <label className="block text-sm font-medium text-slate-700">
-            Do Date{" "}
-            <span className=" text-red-600 text-[16px]">(Required*)</span>
-            <br />{" "}
-            <input
-              className="mt-1 block w-80 px-3 py-2 bg-white border border-slate-300 rounded-md text-sm shadow-sm focus:outline-none hover:border-sky-500 focus:border-sky-500 focus:ring-1 focus:ring-sky-500"
-              type="date"
-              value={doData.doDate}
-              onChange={handleInputChange}
-              name="Agreement-number"
-            />
-          </label>
-          <br />
-        </fieldset>
-        <fieldset className="flex flex-wrap justify-between w-full h-fit mb-5">
-          <label className=" block text-sm font-medium text-slate-700 ">
-            Do_Number{" "}
-            <span className=" text-red-600 text-[16px] ">(Required*)</span>
-            <br />{" "}
-            <input
-              className="mt-1 block w-[23em] py-2 bg-white border border-slate-300 rounded-md text-sm shadow-sm focus:outline-none hover:border-sky-500 focus:border-sky-500 focus:ring-1 focus:ring-sky-500"
-              type="text"
-              value={doData.doNumber}
-              onChange={handleInputChange}
-              name="Do_Number"
-            />
-          </label>
-          <br />
-          <label
-            className=" block text-sm font-medium text-slate-700 "
-            htmlFor="Select_Agreement"
-          >
-            Select_Agreement{" "}
-            <span className=" text-red-600 text-[16px] ">(Required*)</span>
-            <br />
-            <select
-              name="selectAgreement"
-              value={doData.selectAgreement}
-              onChange={handleInputChange}
-              placeholder="Fill Out Other Fields"
-              className="mt-1 block w-[23em] py-2 bg-white border border-slate-300 rounded-md text-sm shadow-sm focus:outline-none hover:border-sky-500 focus:border-sky-500 focus:ring-1 focus:ring-sky-500"
+        <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-[680px]">
+          <div className="bg-white px-6 py-12 shadow sm:rounded-lg sm:px-12">
+            <form
+              onSubmit={handleSubmit}
+              className="space-y-6"
+              action="#"
+              method="POST"
             >
-              {" "}
-              <option value="">Select Agreement</option>
-              {agreementOptions.map((agreement) => (
-                <option key={agreement} value={agreement}>
-                  {agreement}
-                </option>
-                ))}
-            </select>
-            <h2 className=" text-[14px] block subpixel-antialiased leading-6 text-gray-900">
-              Cant Find your agreement?
-              <Link to="/Add_Agreement">
-                {" "}
-                <span className=" text-blue-600 ">Add Agreement..</span>
-              </Link>
-            </h2>
-          </label>
-        </fieldset>
-        <fieldset className="flex flex-wrap justify-between w-full h-fit">
-          <label className=" block text-sm font-medium text-slate-700 mb-4">
-            Mota_Weight
-            <span className=" text-red-600 text-[16px] ">(Required*)</span>
-            <br />{" "}
-            <input
-              className="mt-1 block w-[23em] px-3 py-2 bg-white border border-slate-300 rounded-md text-sm shadow-sm focus:outline-none hover:border-sky-500 focus:border-sky-500 focus:ring-1 focus:ring-sky-500"
-              type="Mota_Weight"
-              name="motaWeight"
-              value={doData.motaWeight}
-              onChange={handleInputChange}
-            />
-          </label>
+              <div className="flex justify-between">
+                <div>
+                  <label className="text-base font-semibold text-gray-900">
+                    Select Mill
+                  </label>
+                  <fieldset className="mt-4">
+                    <legend className="sr-only">Mills</legend>
+                    <div className="space-y-4">
+                      {notificationMethods.map((notificationMethod) => (
+                        <div
+                          key={notificationMethod.value}
+                          className="flex items-center"
+                        >
+                          <input
+                            name="mill"
+                            type="radio"
+                            value={notificationMethod.value}
+                            className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"
+                            onChange={handleInputChange}
+                          />
 
-          <label className=" block text-sm font-medium text-slate-700 mb-4">
-            Mota_Bardana
-            <span className=" text-red-600 text-[16px] ">(Required*)</span>
-            <br />
-            <input
-              className="mt-1 block w-[23em] px-3 py-2 bg-white border border-slate-300 rounded-md text-sm shadow-sm focus:outline-none hover:border-sky-500 focus:border-sky-500 focus:ring-1 focus:ring-sky-500"
-              type="text"
-              name="Mota_Bardana"
-              value={doData.motaBardana}
-              onChange={handleInputChange}
-            />
-          </label>
+                          <label
+                            htmlFor={notificationMethod.value}
+                            className="ml-3 block text-sm font-medium leading-6 text-gray-900"
+                          >
+                            {notificationMethod.title}
+                          </label>
+                        </div>
+                      ))}
+                    </div>
+                  </fieldset>
+                </div>
+                <div>
+                  <div className="flex justify-between">
+                    <label
+                      htmlFor="date"
+                      className="block text-sm font-medium leading-6 text-gray-900"
+                    >
+                      Do Date
+                    </label>
+                  </div>
+                  <div className="mt-1">
+                    <input
+                      type="date"
+                      name="date"
+                      className="block min-w-[250px] px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                      onChange={handleInputChange}
+                    />
+                  </div>
+                </div>
+              </div>
 
-          <label className=" block text-sm font-medium text-slate-700 mb-4">
-            Patla_Weight
-            <span className=" text-red-600 text-[16px] ">(Required*)</span>
-            <br />
-            <input
-              className="mt-1 block w-[23em] px-3 py-2 bg-white border border-slate-300 rounded-md text-sm shadow-sm focus:outline-none hover:border-sky-500 focus:border-sky-500 focus:ring-1 focus:ring-sky-500"
-              type="text"
-              value={doData.patlaWeight}
-              onChange={handleInputChange}
-              name="Patla_Weight"
-            />
-          </label>
+              <div className="flex justify-between">
+                <div>
+                  <div className="flex justify-between">
+                    <label
+                      htmlFor="do_number"
+                      className="block text-sm font-medium leading-6 text-gray-900"
+                    >
+                      D0 Numbar
+                    </label>
+                  </div>
+                  <div className="mt-1">
+                    <input
+                      type="text"
+                      name="do_number"
+                      className="block min-w-[250px] px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                      onChange={handleInputChange}
+                    />
+                  </div>
+                </div>
+                <div>
+                  <div className="flex justify-between">
+                    <label
+                      htmlFor="select_agreement"
+                      className="block text-sm font-medium leading-6 text-gray-900"
+                    >
+                      Select Agreement
+                    </label>
+                  </div>
+                  <div className="mt-1">
+                    <select
+                      type="select_agreement"
+                      name="select_agreement"
+                      className=" bg-white block min-w-[250px] px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                      onChange={handleInputChange}
+                    >
+                      {" "}
+                      <option value="">-Select Agreement-</option>
+                    </select>
+                  </div>
+                  <p className="mt-2 text-center text-sm text-gray-500">
+                    Cannot Find agreement?{" "}
+                    <a
+                      href="/Add_Agreement"
+                      className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
+                    >
+                      Add Agreement.
+                    </a>
+                  </p>
+                </div>
+              </div>
+              <div className="flex justify-between">
+                <div>
+                  <div className="flex justify-between">
+                    <label
+                      htmlFor="mota_weight"
+                      className="block text-sm font-medium leading-6 text-gray-900"
+                    >
+                      Mota Weight
+                    </label>
+                  </div>
+                  <div className="mt-1">
+                    <input
+                      type="text"
+                      name="mota_weight"
+                      className="block min-w-[250px] px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                      onChange={handleInputChange}
+                    />
+                  </div>
+                </div>
+                <div>
+                  <div className="flex justify-between">
+                    <label
+                      htmlFor="mota_bardana"
+                      className="block text-sm font-medium leading-6 text-gray-900"
+                    >
+                      Mota Bardana
+                    </label>
+                  </div>
+                  <div className="mt-1">
+                    <input
+                      type="text"
+                      name="mota_bardana"
+                      className="block min-w-[250px] px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                      onChange={handleInputChange}
+                    />
+                  </div>
+                </div>
+              </div>
+              <div className="flex justify-between">
+                <div>
+                  <div className="flex justify-between">
+                    <label
+                      htmlFor="patla_weight"
+                      className="block text-sm font-medium leading-6 text-gray-900"
+                    >
+                      Patla Weight
+                    </label>
+                  </div>
+                  <div className="mt-1">
+                    <input
+                      type="text"
+                      name="patla_weight"
+                      className="block min-w-[250px] px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                      onChange={handleInputChange}
+                    />
+                  </div>
+                </div>
+                <div>
+                  <div className="flex justify-between">
+                    <label
+                      htmlFor="patla_bardana"
+                      className="block text-sm font-medium leading-6 text-gray-900"
+                    >
+                      Patla Bardana
+                    </label>
+                  </div>
+                  <div className="mt-1">
+                    <input
+                      type="text"
+                      name="patla_bardana"
+                      className="block min-w-[250px] px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                      onChange={handleInputChange}
+                    />
+                  </div>
+                </div>
+              </div>
+              <div className="flex justify-between">
+                <div>
+                  <div className="flex justify-between">
+                    <label
+                      htmlFor="sarna_weight"
+                      className="block text-sm font-medium leading-6 text-gray-900"
+                    >
+                      Sarna weight
+                    </label>
+                  </div>
+                  <div className="mt-1">
+                    <input
+                      type="text"
+                      name="sarna_weight"
+                      className="block min-w-[250px] px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                      onChange={handleInputChange}
+                    />
+                  </div>
+                </div>
+                <div>
+                  <div className="flex justify-between">
+                    <label
+                      htmlFor="sarna_bardana"
+                      className="block text-sm font-medium leading-6 text-gray-900"
+                    >
+                      Sarna Weight
+                    </label>
+                  </div>
+                  <div className="mt-1">
+                    <input
+                      type="text"
+                      name="sarna_bardana"
+                      className="block min-w-[250px] px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                      onChange={handleInputChange}
+                    />
+                  </div>
+                </div>
+              </div>
+              <div className="flex justify-between">
+                <div>
+                  <div className="flex justify-between">
+                    <label
+                      htmlFor="total_weight"
+                      className="block text-sm font-medium leading-6 text-gray-900"
+                    >
+                      Total Weight
+                    </label>
+                  </div>
+                  <div className="mt-1">
+                    <input
+                      type="text"
+                      name="total_weight"
+                      className="block min-w-[250px] px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                      onChange={handleInputChange}
+                    />
+                  </div>
+                </div>
+                <div>
+                  <div className="flex justify-between">
+                    <label
+                      htmlFor="total_bardana"
+                      className="block text-sm font-medium leading-6 text-gray-900"
+                    >
+                      Total Bardana
+                    </label>
+                  </div>
+                  <div className="mt-1">
+                    <input
+                      type="text"
+                      name="total_bardana"
+                      className="block min-w-[250px] px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                      onChange={handleInputChange}
+                    />
+                  </div>
+                </div>
+              </div>
+              <div>
+                <div className="flex justify-between">
+                  <label
+                    htmlFor="Society"
+                    className="block text-sm font-medium leading-6 text-gray-900"
+                  >
+                    Society
+                  </label>
+                </div>
+                <div className="mt-1">
+                  <select
+                    name="Society"
+                    className="bg-white block w-full px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    onChange={handleInputChange}
+                  >
+                    <option value="">-Select a Society-</option>
+                  </select>
+                  <p className="mt-2  text-sm text-gray-500">
+                    Cannot Find Society?{" "}
+                    <a
+                      href="/Add_New_Society"
+                      className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
+                    >
+                      Add New Society.
+                    </a>
+                  </p>
+                </div>
+              </div>
+              <div>
+                <label
+                  htmlFor="truck_number"
+                  className="block text-sm font-medium leading-6 text-gray-900"
+                >
+                  truck Number
+                </label>
 
-          <label className=" block text-sm font-medium text-slate-700 mb-4">
-            Patla_Bardana{" "}
-            <span className=" text-red-600 text-[16px] ">(Required*)</span>
-            <br />
-            <input
-              className="mt-1 block w-[23em] px-3 py-2 bg-white border border-slate-300 rounded-md text-sm shadow-sm focus:outline-none hover:border-sky-500 focus:border-sky-500 focus:ring-1 focus:ring-sky-500"
-              type="text"
-              name="Patla_Bardana"
-              value={doData.patlaBardana}
-              onChange={handleInputChange}
-            />
-          </label>
+                <div className="mt-1">
+                  <select
+                    name="truck_number"
+                    className=" bg-white block w-full px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    onChange={handleInputChange}
+                  >
+                    <option value="">-Select a Truck-</option>
+                  </select>
+                </div>
+                <p className="mt-2 text-sm text-gray-500">
+                  Cannot Find Truck?{" "}
+                  <a
+                    href="/Add_NEw_Truck"
+                    className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
+                  >
+                    Add New Truck.
+                  </a>
+                </p>
+              </div>
 
-          <label className=" block text-sm font-medium text-slate-700 mb-4">
-            Sarna_Weight{" "}
-            <span className=" text-red-600 text-[16px] ">(Required*)</span>
-            <br />
-            <input
-              className="mt-1 block w-[23em] px-3 py-2 bg-white border border-slate-300 rounded-md text-sm shadow-sm focus:outline-none hover:border-sky-500 focus:border-sky-500 focus:ring-1 focus:ring-sky-500"
-              type="text"
-              name="Sarna_Weight"
-              value={doData.sarnaWeight}
-              onChange={handleInputChange}
-            />
-          </label>
-
-          <label className=" block text-sm font-medium text-slate-700 mb-4">
-            Sarna_Bardana{" "}
-            <span className=" text-red-600 text-[16px] ">(Required*)</span>
-            <br />
-            <input
-              className="mt-1 block w-[23em] px-3 py-2 bg-white border border-slate-300 rounded-md text-sm shadow-sm focus:outline-none hover:border-sky-500 focus:border-sky-500 focus:ring-1 focus:ring-sky-500"
-              type="text"
-              name="Sarna_Bardana"
-              value={doData.sarnaBardana}
-              onChange={handleInputChange}
-            />
-          </label>
-
-          <label className=" block text-sm font-medium text-slate-700 mb-4">
-            Total Weight{" "}
-            <span className=" text-red-600 text-[16px] ">(Required*)</span>
-            <br />
-            <input
-              className="mt-1 block w-[23em] px-3 py-2 bg-white border border-slate-300 rounded-md text-sm shadow-sm focus:outline-none hover:border-sky-500 focus:border-sky-500 focus:ring-1 focus:ring-sky-500"
-              type="text"
-              value={doData.totalWeight}
-              onChange={handleInputChange}
-              name="Total Weight"
-            />
-          </label>
-
-          <label className=" block text-sm font-medium text-slate-700 mb-4">
-            Total_Bardana{" "}
-            <span className=" text-red-600 text-[16px] ">(Required*)</span>
-            <br />
-            <input
-              className="mt-1 block w-[23em] px-3 py-2 bg-white border border-slate-300 rounded-md text-sm shadow-sm focus:outline-none hover:border-sky-500 focus:border-sky-500 focus:ring-1 focus:ring-sky-500"
-              type="text"
-              name="Total_Bardana"
-              value={doData.totalBardana}
-              onChange={handleInputChange}
-            />
-          </label>
-        </fieldset>
-        <fieldset className="w-full h-fit">
-          <label className="mb-5 block text-sm font-medium text-slate-700">
-            Society{" "}
-            <span className="text-red-600 text-[16px] ">(Required*)</span>
-            <br />
-            <select
-              className="mt-1 block w-full px-3 py-2 bg-white border border-slate-300 rounded-md text-sm shadow-sm focus:outline-none hover:border-sky-500 focus:border-sky-500 focus:ring-1 focus:ring-sky-500"
-              name="society"
-              value={doData.society}
-              onChange={handleInputChange}
-            >
-               <option value="">Select Society</option>
-              {societiesOptions.map((society) => (
-                <option key={society} value={society}>
-                  {society}
-                </option>
-                ))}
-            </select>
-            <h2 className="text-[14px] block subpixel-antialiased leading-6 text-gray-900">
-              Cannot Find Society?
-              <Link to="/Add_NEw_Society">
-                <span className="text-blue-600">Add New Society..</span>
-              </Link>
-            </h2>
-          </label>
-
-          <label className="block text-sm font-medium text-slate-700">
-            Truck Number{" "}
-            <span className="text-red-600 text-[16px] ">(Required*)</span>
-            <br />
-            <select
-              className="mt-1 block w-full px-3 py-2 bg-white border border-slate-300 rounded-md text-sm shadow-sm focus:outline-none hover:border-sky-500 focus:border-sky-500 focus:ring-1 focus:ring-sky-500"
-              name="truckNumber"
-              value={doData.truckNumber}
-              onChange={handleInputChange}
-            >
-              <option value="">Select Truck Number</option>
-              {trucksOptions.map((truckNumber) => (
-                <option key={truckNumber} value={truckNumber}>
-                  {truckNumber}
-                </option>
-                ))}
-            </select>
-            <h2 className="text-[14px] block subpixel-antialiased leading-6 text-gray-900">
-              Cannot Find Truck?
-              <Link to="/Add_NEw_Truck">
-                <span className="text-blue-600">Add New Truck..</span>
-              </Link>
-            </h2>
-          </label>
-        </fieldset>
-        <button
-          type="submit"
-          className="m-5 hover:bg-sky-950 w-1/3 h-10 bg-sky-600 text-white rounded-[4px]"
-        >
-          Add Do
-        </button>
-      </form>
-    </div>
+              <div>
+                <button
+                  type="submit"
+                  className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                >
+                  Sign in
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </>
   );
 };
-
 export default Add_Do;
-
-

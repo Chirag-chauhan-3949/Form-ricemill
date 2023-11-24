@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const Example = () => {
+const Add_New_Truck = () => {
   const [truckData, setTruckData] = useState({
     truck_number: "",
     transpoter: "",
@@ -84,7 +84,7 @@ const Example = () => {
                     Truck Number
                   </label>
                   <span
-                    className="text-sm leading-6 text-red-400"
+                    className="text-sm leading-6 text-red-500"
                     id="email-optional"
                   >
                     Required
@@ -152,4 +152,4 @@ const Example = () => {
   );
 };
 
-export default Example;
+export default Add_New_Truck;
