@@ -24,43 +24,7 @@ const Add_Do = () => {
   const [trucks, setTrucks] = useState([]);
 
   useEffect(() => {
-    const fetchselectagreement = async () => {
-      try {
-        const transporter_response = await fetch(
-          "http://localhost:8000/agreements-number/"
-        );
-        if (transporter_response.ok) {
-          const data = await transporter_response.json();
-          setAgreements(data);
-        } else {
-          console.error("Failed to fetch transporters");
-        }
-      } catch (error) {
-        console.error("Error:", error);
-      }
-    };
-    fetchselectagreement();
-  }, []);
-  useEffect(() => {
-    const fetchsocieties = async () => {
-      try {
-        const transporter_response = await fetch(
-          "http://localhost:8000/societies-name/"
-        );
-        if (transporter_response.ok) {
-          const data = await transporter_response.json();
-          setSocieties(data);
-        } else {
-          console.error("Failed to fetch transporters");
-        }
-      } catch (error) {
-        console.error("Error:", error);
-      }
-    };
-    fetchsocieties();
-  }, []);
-  useEffect(() => {
-    const fetchtruck = async () => {
+    const fetchTransporter = async () => {
       try {
         const transporter_response = await fetch(
           "http://localhost:8000/truck-numbers/"
@@ -75,7 +39,43 @@ const Add_Do = () => {
         console.error("Error:", error);
       }
     };
-    fetchtruck();
+    fetchTransporter();
+  }, []);
+  useEffect(() => {
+    const fetchselectagrement = async () => {
+      try {
+        const transporter_response = await fetch(
+          "http://localhost:8000/agreements-number/"
+        );
+        if (transporter_response.ok) {
+          const data = await transporter_response.json();
+          setAgreements(data);
+        } else {
+          console.error("Failed to fetch transporters");
+        }
+      } catch (error) {
+        console.error("Error:", error);
+      }
+    };
+    fetchselectagrement();
+  }, []);
+  useEffect(() => {
+    const fetchsociety = async () => {
+      try {
+        const transporter_response = await fetch(
+          "http://localhost:8000/societies-names/"
+        );
+        if (transporter_response.ok) {
+          const data = await transporter_response.json();
+          setSocieties(data);
+        } else {
+          console.error("Failed to fetch transporters");
+        }
+      } catch (error) {
+        console.error("Error:", error);
+      }
+    };
+    fetchsociety();
   }, []);
 
   const handleInputChange = (e) => {
@@ -270,9 +270,9 @@ const Add_Do = () => {
                       onChange={handleInputChange}
                     >
                       <option value="">Select Agreement</option>
-                      {agreements.map((agreement) => (
-                        <option key={agreement.value} value={agreement.value}>
-                          {agreement.value}
+                      {agreements.map((agreements) => (
+                        <option key={agreements} value={agreements}>
+                          {agreements}
                         </option>
                       ))}
                     </select>
@@ -451,7 +451,7 @@ const Add_Do = () => {
               <div>
                 <div className="flex justify-between">
                   <label
-                    htmlFor="society"
+                    htmlFor="Society"
                     className="block text-sm font-medium leading-6 text-gray-900"
                   >
                     Society
@@ -465,7 +465,7 @@ const Add_Do = () => {
                     className="bg-white block w-full px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     onChange={handleInputChange}
                   >
-                    <option value="">Select a Society</option>
+                    <option value="">Select a transporter</option>
                     {societies.map((societie) => (
                       <option key={societie} value={societie}>
                         {societie}
