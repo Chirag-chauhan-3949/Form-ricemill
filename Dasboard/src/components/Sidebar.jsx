@@ -1,32 +1,34 @@
-import { Disclosure } from '@headlessui/react'
-import { ChevronRightIcon } from '@heroicons/react/20/solid'
+import { Disclosure } from "@headlessui/react";
+import { ChevronRightIcon } from "@heroicons/react/20/solid";
 
 const navigation = [
   {
-    name: 'Add Forms',
+    name: "Forms",
     current: false,
     children: [
-      { name: 'Add Do', href: '/Add_Do' },
-      { name: 'Add Agreement', href: '/Add_Agreement' },
-      { name: 'Add New Society', href: '/Add_New_Society' },
-      { name: 'Add New Truck', href: '/Add_New_Truck' },
-      { name: 'Add New Transporter', href: '/Add_New_Transporter' },
+      { name: "Add Rice Mill", href: "/Addricemill" },
+      { name: "Dhan Awak", href: "/Dhan_Awak" },
+      { name: "Add Do", href: "/Add_Do" },
+      { name: "Add Agreement", href: "/Add_Agreement" },
+      { name: "Add New Society", href: "/Add_New_Society" },
+      { name: "Add New Truck", href: "/Add_New_Truck" },
+      { name: "Add New Transporter", href: "/Add_New_Transporter" },
     ],
   },
   {
-    name: 'View Tables',
+    name: "View Data",
     current: false,
     children: [
-      { name: 'View Agreement', href: '/View_Agreement' },
-      { name: 'View Trucks', href: '/View_Truck' },
-      { name: 'View Transporter', href: '/View_Transporter' },
-      { name: 'View Societies', href: '/View_Societies' },
+      { name: "View Agreement", href: "/View_Agreement" },
+      { name: "View Trucks", href: "/View_Truck" },
+      { name: "View Transporter", href: "/View_Transporter" },
+      { name: "View Societies", href: "/View_Societies" },
     ],
   },
 ];
 
 function classNames(...classes) {
-  return classes.filter(Boolean).join(' ')
+  return classes.filter(Boolean).join(" ");
 }
 
 const Sidebar = ({ children }) => {
@@ -42,74 +44,73 @@ const Sidebar = ({ children }) => {
         </div>
         <nav className="flex-1 overflow-y-auto">
           <ul role="list" className="py-4">
-          {navigation.map((item) => (
-                <li key={item.name}>
-                  {!item.children ? (
-                    <a
-                      href={item.href}
-                      className={classNames(
-                        item.current ? 'bg-gray-50' : 'hover:bg-gray-50',
-                        'block rounded-md py-2 pr-2 pl-10 text-sm leading-6 font-semibold text-gray-700'
-                      )}
-                    >
-                      {item.name}
-                    </a>
-                  ) : (
-                    <Disclosure as="div">
-                      {({ open }) => (
-                        <>
-                          <Disclosure.Button
+            {navigation.map((item) => (
+              <li key={item.name}>
+                {!item.children ? (
+                  <a
+                    href={item.href}
+                    className={classNames(
+                      item.current ? "bg-gray-50" : "hover:bg-gray-50",
+                      "block rounded-md py-2 pr-2 pl-10 text-sm leading-6 font-semibold text-gray-700"
+                    )}
+                  >
+                    {item.name}
+                  </a>
+                ) : (
+                  <Disclosure as="div">
+                    {({ open }) => (
+                      <>
+                        <Disclosure.Button
+                          className={classNames(
+                            item.current ? "bg-gray-50" : "hover:bg-gray-50",
+                            "flex items-center w-full text-left rounded-md p-2 gap-x-3 text-sm leading-6 font-semibold text-gray-700"
+                          )}
+                        >
+                          <ChevronRightIcon
                             className={classNames(
-                              item.current ? 'bg-gray-50' : 'hover:bg-gray-50',
-                              'flex items-center w-full text-left rounded-md p-2 gap-x-3 text-sm leading-6 font-semibold text-gray-700'
+                              open
+                                ? "rotate-90 text-gray-500"
+                                : "text-gray-400",
+                              "h-5 w-5 shrink-0"
                             )}
-                          >
-                            <ChevronRightIcon
-                              className={classNames(
-                                open ? 'rotate-90 text-gray-500' : 'text-gray-400',
-                                'h-5 w-5 shrink-0'
-                              )}
-                              aria-hidden="true"
-                            />
-                            {item.name}
-                          </Disclosure.Button>
-                          <Disclosure.Panel as="ul" className="mt-1 px-2">
-                            {item.children.map((subItem) => (
-                              <li key={subItem.name}>
-                                <Disclosure.Button
-                                  as="a"
-                                  href={subItem.href}
-                                  className={classNames(
-                                    subItem.current ? 'bg-gray-50' : 'hover:bg-gray-50',
-                                    'block rounded-md py-2 pr-2 pl-9 text-sm leading-6 text-gray-700'
-                                  )}
-                                >
-                                  {subItem.name}
-                                </Disclosure.Button>
-                              </li>
-                            ))}
-                          </Disclosure.Panel>
-                        </>
-                      )}
-                    </Disclosure>
-                  )}
-                </li>
-              ))}
+                            aria-hidden="true"
+                          />
+                          {item.name}
+                        </Disclosure.Button>
+                        <Disclosure.Panel as="ul" className="mt-1 px-2">
+                          {item.children.map((subItem) => (
+                            <li key={subItem.name}>
+                              <Disclosure.Button
+                                as="a"
+                                href={subItem.href}
+                                className={classNames(
+                                  subItem.current
+                                    ? "bg-gray-50"
+                                    : "hover:bg-gray-50",
+                                  "block rounded-md py-2 pr-2 pl-9 text-sm leading-6 text-gray-700"
+                                )}
+                              >
+                                {subItem.name}
+                              </Disclosure.Button>
+                            </li>
+                          ))}
+                        </Disclosure.Panel>
+                      </>
+                    )}
+                  </Disclosure>
+                )}
+              </li>
+            ))}
           </ul>
         </nav>
       </div>
 
       {/* Main section */}
       <main className="flex-1 overflow-x-hidden overflow-y-auto bg-gray-100">
-        <div className="w-full h-full p-6">
-          {children}
-        </div>
+        <div className="w-full h-full p-6">{children}</div>
       </main>
     </div>
-  )
-}
+  );
+};
 
 export default Sidebar;
-
-
-

@@ -283,7 +283,7 @@ const Add_Do = () => {
                       href="/Add_Agreement"
                       className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
                     >
-                      Add Agreement.
+                      Add Agreement..
                     </a>
                   </p>
                 </div>

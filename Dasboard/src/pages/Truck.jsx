@@ -4,8 +4,9 @@ import "react-toastify/dist/ReactToastify.css";
 
 const Add_New_Truck = () => {
   const [truckData, setTruckData] = useState({
-    truck_number: "",
+    truck_number: 0,
     transporter_name: "",
+    truck_transport_id: 0,
   });
 
   const [transpoterOptions, setTransporterOptions] = useState([]);
@@ -15,11 +16,12 @@ const Add_New_Truck = () => {
     const fetchTransporter = async () => {
       try {
         const transporter_response = await fetch(
-          "http://localhost:8000/transporters-name/"
+          "http://localhost:8000/transporters/"
         );
         if (transporter_response.ok) {
           const data = await transporter_response.json();
           setTransporterOptions(data);
+          console.log(data);
         } else {
           console.error("Failed to fetch transporters");
         }
@@ -30,16 +32,43 @@ const Add_New_Truck = () => {
     fetchTransporter();
   }, []);
 
+  // const handleInputChange = (e) => {
+  //   const { name, value } = e.target;
+  //   console.log(value);
+  //   setTruckData({
+  //     ...truckData,
+  //     [name]: value,
+  //   });
+  // };
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setTruckData({
-      ...truckData,
-      [name]: value,
-    });
+
+    // Check if the input is the transporter select dropdown
+    if (name === "truck_transport_id") {
+      const selectedTransporter = transpoterOptions.find(
+        (option) => option.transporter_id === parseInt(value, 10)
+      );
+
+      // Update the state with both transporter ID and name
+      setTruckData({
+        ...truckData,
+        truck_transport_id: value,
+        transporter_name: selectedTransporter
+          ? selectedTransporter.transporter_name
+          : "",
+      });
+    } else {
+      // For other inputs, update the state as usual
+      setTruckData({
+        ...truckData,
+        [name]: value,
+      });
+    }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log(truckData);
 
     try {
       const response = await fetch("http://localhost:8000/truck/", {
@@ -104,7 +133,7 @@ const Add_New_Truck = () => {
               </div>
               <div>
                 <label
-                  htmlFor="transporter_name"
+                  htmlFor="truck_transport_id"
                   className="block text-sm font-medium leading-6 text-gray-900"
                 >
                   Select Transporter
@@ -112,15 +141,18 @@ const Add_New_Truck = () => {
                 <div className="mt-2">
                   <select
                     required
-                    name="transporter_name"
+                    name="truck_transport_id"
                     className="block  w-full bg-white rounded-md  border-0 px-1.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                    value={truckData.transporter_name}
+                    value={truckData.truck_transport_id}
                     onChange={handleInputChange}
                   >
                     <option value="">Select a transporter</option>
                     {transpoterOptions.map((option) => (
-                      <option key={option} value={option}>
-                        {option}
+                      <option
+                        key={option.transporter_id}
+                        value={option.transporter_id}
+                      >
+                        {option.transporter_name}
                       </option>
                     ))}
                   </select>

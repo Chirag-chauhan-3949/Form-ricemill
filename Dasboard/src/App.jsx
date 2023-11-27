@@ -1,42 +1,57 @@
-import React from 'react';
-import './App.css';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import Sidebar from './components/Sidebar';
-import Add_Do from './pages/Add_Do.jsx';
-import Add_Agreement from './pages/Agreement.jsx';
-import Add_New_Society from './pages/Society.jsx';
-import Add_New_Truck from './pages/Truck.jsx';
-import Add_New_Transporter from './pages/Transporter.jsx';
-import View_Agreement from './pages/View_Agreement.jsx';
-import View_Truck from './pages/View_Truck.jsx'; 
-import View_Transporter from './pages/View_Transporter.jsx';
-import View_Societies from './pages/View_Societies.jsx';
-
+import React, { useState } from "react";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Sidebar from "./components/Sidebar";
+import Add_Do from "./pages/Add_Do.jsx";
+import Add_Agreement from "./pages/Agreement.jsx";
+import Add_New_Society from "./pages/Society.jsx";
+import Add_New_Truck from "./pages/Truck.jsx";
+import Add_New_Transporter from "./pages/Transporter.jsx";
+import View_Agreement from "./pages/View_Agreement.jsx";
+import View_Truck from "./pages/View_Truck.jsx";
+import View_Transporter from "./pages/View_Transporter.jsx";
+import View_Societies from "./pages/View_Societies.jsx";
+import Dhan_Awak from "./pages/Dhan_Awak.jsx";
+import Home from "./components/Home_page.jsx";
+import Log_in from "./pages/Log_in.jsx";
+import Signup from "./pages/Signup.jsx";
+import Addricemill from "./pages/Addricemill.jsx";
 const App = () => {
+  const [isLoggedIn, setLoggedIn] = useState(true);
+
+  const handleLogin = () => {
+    setLoggedIn(true);
+  };
+
   return (
     <BrowserRouter>
-      <Sidebar>
+      {isLoggedIn ? (
+        <Sidebar>
+          <Routes>
+            <Route path="/Addricemill" element={<Addricemill />} />
+            <Route path="/Dhan_Awak" element={<Dhan_Awak />} />
+            <Route path="/Add_Do" element={<Add_Do />} />
+            <Route path="/Add_Agreement" element={<Add_Agreement />} />
+            <Route path="/Add_New_Society" element={<Add_New_Society />} />
+            <Route
+              path="/Add_New_Transporter"
+              element={<Add_New_Transporter />}
+            />
+            <Route path="/Add_New_Truck" element={<Add_New_Truck />} />
+            <Route path="/View_Agreement" element={<View_Agreement />} />
+            <Route path="/View_Truck" element={<View_Truck />} />
+            <Route path="/View_Transporter" element={<View_Transporter />} />
+            <Route path="/View_Societies" element={<View_Societies />} />
+          </Routes>
+        </Sidebar>
+      ) : (
         <Routes>
-          <Route path="/Add_Do" element={<Add_Do />} />
-          <Route path="/Add_Agreement" element={<Add_Agreement />} />
-          <Route path="/Add_New_Society" element={<Add_New_Society />} />
-          <Route path="/Add_New_Transporter" element={<Add_New_Transporter />} />
-          <Route path="/Add_New_Truck" element={<Add_New_Truck />} />
-          <Route path="/View_Agreement" element={<View_Agreement/>} />
-          <Route path="/View_Truck" element={<View_Truck/>}/>
-          <Route path="/View_Transporter" element={<View_Transporter/>}/>
-          <Route path="/View_Societies" element={<View_Societies/>}/>
+          <Route path="/" element={<Home onlogin={handleLogin} />} />
+          <Route path="/Log_in" element={<Log_in />} />
+          <Route path="/Signup" element={<Signup />} />
         </Routes>
-      </Sidebar>
+      )}
     </BrowserRouter>
   );
 };
 
 export default App;
-
-
-
-
-
-
-
