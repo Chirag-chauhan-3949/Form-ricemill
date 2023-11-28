@@ -5,9 +5,8 @@ import axios from "axios";
 
 const Add_New_Truck = () => {
   const [truckData, setTruckData] = useState({
-    truck_number: 0,
-    transporter_name: "",
-    truck_transport_id: 0,
+    truck_number: "",
+    transport_id: 0,
   });
 
   const [transpoterOptions, setTransporterOptions] = useState([]);
@@ -17,10 +16,13 @@ const Add_New_Truck = () => {
     async function fetchData() {
       try {
         const transporter_response = await axios.get(
-          "https://localhost:8000/transporters/"
+          "http://localhost:8000/transporters/"
         );
-        if (transporter_response.ok) {
-          const data = await transporter_response.json();
+        if (
+          transporter_response.status >= 200 &&
+          transporter_response.status < 300
+        ) {
+          const data = transporter_response.data;
           setTransporterOptions(data);
           console.log(data);
         } else {
@@ -45,27 +47,10 @@ const Add_New_Truck = () => {
   const handleInputChange = (e) => {
     const { name, value } = e.target;
 
-    // Check if the input is the transporter select dropdown
-    if (name === "truck_transport_id") {
-      const selectedTransporter = transpoterOptions.find(
-        (option) => option.transporter_id === parseInt(value, 10)
-      );
-
-      // Update the state with both transporter ID and name
-      setTruckData({
-        ...truckData,
-        truck_transport_id: value,
-        transporter_name: selectedTransporter
-          ? selectedTransporter.transporter_name
-          : "",
-      });
-    } else {
-      // For other inputs, update the state as usual
-      setTruckData({
-        ...truckData,
-        [name]: value,
-      });
-    }
+    setTruckData({
+      ...truckData,
+      [name]: value,
+    });
   };
 
   const handleSubmit = async (e) => {
@@ -73,13 +58,12 @@ const Add_New_Truck = () => {
     console.log(truckData);
 
     try {
-      const response = await fetch("http://localhost:8000/truck/", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(truckData),
-      });
+      const response = await axios.post(
+        "http://localhost:8000/truck/",
+        truckData
+      );
+
+      console.log(response.data);
 
       if (response.status === 201) {
         console.log("Truck added successfully");
