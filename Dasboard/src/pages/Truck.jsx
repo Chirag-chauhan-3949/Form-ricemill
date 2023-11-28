@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import axios from "axios";
 
 const Add_New_Truck = () => {
   const [truckData, setTruckData] = useState({
@@ -13,10 +14,10 @@ const Add_New_Truck = () => {
 
   // Fetch data for the "Select transporter" dropdown
   useEffect(() => {
-    const fetchTransporter = async () => {
+    async function fetchData() {
       try {
-        const transporter_response = await fetch(
-          "http://localhost:8000/transporters/"
+        const transporter_response = await axios.get(
+          "https://localHost:8000/transporters/"
         );
         if (transporter_response.ok) {
           const data = await transporter_response.json();
@@ -28,8 +29,9 @@ const Add_New_Truck = () => {
       } catch (error) {
         console.error("Error:", error);
       }
-    };
-    fetchTransporter();
+    }
+
+    fetchData();
   }, []);
 
   // const handleInputChange = (e) => {
@@ -146,7 +148,7 @@ const Add_New_Truck = () => {
                     value={truckData.truck_transport_id}
                     onChange={handleInputChange}
                   >
-                    <option value="">Select a transporter</option>
+                    <option value="">-Select a transporter-</option>
                     {transpoterOptions.map((option) => (
                       <option
                         key={option.transporter_id}

@@ -23,7 +23,7 @@ const Addricemill = () => {
     e.preventDefault();
 
     try {
-      const response = await fetch("http://localhost:8000/society/", {
+      const response = await fetch("http://localhost:8000/add-rice-mill/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -79,7 +79,7 @@ const Addricemill = () => {
           />
 
           <h2 className="mt-6 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
-            Add New Society
+            Add New Rice Mill
           </h2>
         </div>
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-[480px]">
@@ -102,7 +102,7 @@ const Addricemill = () => {
                     name="rice_mill_name"
                     className="bg-white block w-full px-1.5 rounded-md border-0 py-2.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   >
-                    <option value="">Select a Rice Mill</option>
+                    <option value="">-Select a Rice Mill-</option>
                     <option value="Purushotam">Purushotam Rice Mill</option>
                     <option value="Dushyant">Dushyant Rice Mill</option>
                     <option value="Tulsi">Tulsi Rice Mill</option>
@@ -124,6 +124,7 @@ const Addricemill = () => {
                 </div>
                 <div className="mt-2">
                   <input
+                    placeholder="Enter GST Number"
                     type="text"
                     name="gst_number"
                     className="block w-full rounded-md border-0 px-1.5 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
@@ -150,7 +151,7 @@ const Addricemill = () => {
                     type="text"
                     name="mill_address"
                     className="block w-full rounded-md border-0 px-1.5 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                    placeholder="Enter distance from mill"
+                    placeholder="Enter Mill Address"
                     value={Addricedata.mill_address}
                     onChange={handleInputChange}
                     required
@@ -171,6 +172,7 @@ const Addricemill = () => {
                 </div>
                 <div className="mt-2">
                   <input
+                    placeholder="Enter Phone Number"
                     type="text"
                     name="phone_number"
                     className="block w-full rounded-md border-0 px-1.5 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
@@ -194,6 +196,7 @@ const Addricemill = () => {
                 </div>
                 <div className="mt-2">
                   <input
+                    placeholder="Enter Rice Mill Capacity"
                     type="text"
                     name="rice_mill_capacity"
                     className="block w-full rounded-md border-0 px-1.5 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
