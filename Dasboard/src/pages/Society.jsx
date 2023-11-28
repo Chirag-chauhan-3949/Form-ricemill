@@ -16,7 +16,6 @@ const AddNewSociety = () => {
       [name]: value,
     });
   };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -31,7 +30,7 @@ const AddNewSociety = () => {
         }
       );
 
-      if (response.status === 200) {
+      if (response.status >= 201 || response.status < 300) {
         console.log("Society added successfully");
         toast.success("Society added successfully", {
           position: "top-right",
