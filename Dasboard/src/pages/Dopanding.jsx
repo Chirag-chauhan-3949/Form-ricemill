@@ -1,0 +1,200 @@
+import axios from "axios";
+import React, { useState, useEffect } from "react";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+const Dopanding = () => {
+  const [DopandingData, setDopandingData] = useState({
+    do_number: "",
+    date: "",
+    mota: "",
+    patla: "",
+    sarna: "",
+    total: "",
+  });
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+
+    setDopandingData({
+      ...DopandingData,
+      [name]: value,
+    });
+  };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await axios.post(
+        "http://localhost:8000",
+        DopandingData,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      if (response.status === 201 || response.status === 300) {
+        console.log("DO Panding added successfully");
+        toast.success("DO Panding added successfully", {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+      } else {
+        console.error("Failed to add Do Panding");
+        toast.error("Failed to add Do Panding", {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      toast.error("Error adding Do  Panding", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    }
+  };
+  return (
+    <>
+      <div className="flex min-h-full flex-1 flex-col justify-center py-12 sm:px-6 lg:px-8">
+        <div className="sm:mx-auto sm:w-full sm:max-w-md">
+          <h2 className="mt-6 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
+            Add Do Panding
+          </h2>
+        </div>
+
+        <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-[480px]">
+          <div className="bg-white px-6 py-12 shadow sm:rounded-lg sm:px-12">
+            <form className="space-y-6" onSubmit={handleSubmit}>
+              <div className="flex justify-between">
+                <div>
+                  <div className="flex justify-between">
+                    <label
+                      htmlFor="date"
+                      className="block text-sm font-medium leading-6 text-gray-900"
+                    >
+                      Do Date
+                    </label>
+                  </div>
+                  <div className="mt-1">
+                    <input
+                      type="date"
+                      name="date"
+                      className="block w-full px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                      onChange={handleInputChange}
+                      value={DopandingData.date}
+                    />
+                  </div>
+                </div>
+                <div>
+                  <div className="flex justify-between">
+                    <label
+                      htmlFor="do_number"
+                      className="block text-sm font-medium leading-6 text-gray-900"
+                    >
+                      DO Numbar
+                    </label>
+                  </div>
+                  <div className="mt-1">
+                    <input
+                      type="number"
+                      name="do_number"
+                      value={DopandingData.do_number}
+                      className="block w-full px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                      onChange={handleInputChange}
+                    />
+                  </div>
+                </div>
+              </div>
+              <div className="flex justify-between">
+                <div>
+                  <label className="block text-sm font-medium leading-6 text-gray-900">
+                    mota
+                  </label>
+                  <input
+                    type="number"
+                    name="mota"
+                    className="block w-full rounded-md border-0 px-1.5 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    value={DopandingData.mota}
+                    onChange={handleInputChange}
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium leading-6 text-gray-900">
+                    patla
+                  </label>
+                  <input
+                    type="number"
+                    name="patla"
+                    className="block w-full rounded-md border-0 px-1.5 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    value={DopandingData.patla}
+                    onChange={handleInputChange}
+                  />
+                </div>
+              </div>
+              <div className="flex justify-between">
+                <div>
+                  <label className="block text-sm font-medium leading-6 text-gray-900">
+                    sarna
+                  </label>
+                  <input
+                    type="number"
+                    name="sarna"
+                    className="block w-full rounded-md border-0 px-1.5 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    value={DopandingData.sarna}
+                    onChange={handleInputChange}
+                  />
+                </div>
+                <div>
+                  <div className="flex justify-between">
+                    <label
+                      htmlFor="total"
+                      className="block text-sm font-medium leading-6 text-gray-900"
+                    >
+                      Total
+                    </label>
+                  </div>
+                  <div className="mt-1">
+                    <input
+                      type="number"
+                      name="total"
+                      value={DopandingData.total}
+                      className="block w-full px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                      onChange={handleInputChange}
+                    />
+                  </div>
+                </div>
+              </div>
+              <div>
+                <button
+                  type="submit"
+                  className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                >
+                  Add DO Panding
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <ToastContainer position="top-right" />
+    </>
+  );
+};
+
+export default Dopanding;

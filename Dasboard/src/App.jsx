@@ -14,7 +14,18 @@ import Dhan_Awak from "./pages/Dhan_Awak.jsx";
 import Home from "./components/Home_page.jsx";
 import Log_in from "./pages/Log_in.jsx";
 import Signup from "./pages/Signup.jsx";
+import Dopanding from "./pages/Dopanding.jsx";
 import Addricemill from "./pages/Addricemill.jsx";
+import Paddysales from "./pages/Paddysales.jsx";
+import Sudapatrak from "./pages/Sudapatrak.jsx";
+import Dalalidhan from "./pages/Dalalidhan.jsx";
+import Frk from "./pages/Frk.jsx";
+import Dhantransporting from "./pages/Dhantrabsporting.jsx";
+import Mohanfoodpaddy from "./pages/Mohanfoodpaddy.jsx";
+import Transportermaster from "./pages/Transportermaster.jsx";
+import Dhanricesocietiesrate from "./pages/Dhanricesocietiesrate.jsx";
+import Lotnumbermaster from "./pages/Lotnumbermaster.jsx";
+
 const App = () => {
   const [isLoggedIn, setLoggedIn] = useState(true);
 
@@ -27,6 +38,19 @@ const App = () => {
       {isLoggedIn ? (
         <Sidebar>
           <Routes>
+            <Route path="/Lotnumbermaster" element={<Lotnumbermaster />} />
+            <Route
+              path="/Dhanricesocietiesrate"
+              element={<Dhanricesocietiesrate />}
+            />
+            <Route path="/Transportermaster" element={<Transportermaster />} />
+            <Route path="/Mohanfoodpaddy" element={<Mohanfoodpaddy />} />
+            <Route path="/Dhantransporting" element={<Dhantransporting />} />
+            <Route path="/Frk" element={<Frk />} />
+            <Route path="/Dalalidhan" element={<Dalalidhan />} />
+            <Route path="/Sudapatrak" element={<Sudapatrak />} />
+            <Route path="/Paddysales" element={<Paddysales />} />
+            <Route path="/Dopanding" element={<Dopanding />} />
             <Route path="/Addricemill" element={<Addricemill />} />
             <Route path="/Dhan_Awak" element={<Dhan_Awak />} />
             <Route path="/Add_Do" element={<Add_Do />} />

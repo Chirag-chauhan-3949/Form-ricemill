@@ -1,58 +1,65 @@
-import React, { useState } from "react";
+import axios from "axios";
+import React, { useState, useEffect } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const Add_Agreement = () => {
   const [agreementData, setAgreementData] = useState({
     agreement_number: "",
-    mill: "",
-    mota: "",
-    patla: "",
-    sarna: "",
-    lot_from: "",
-    lot_to: "",
-    total: "",
+    rice_mill_id: 0,
+    mota: 0,
+    patla: 0,
+    sarna: 0,
+    lot_from: 0,
+    lot_to: 0,
+    total: 0,
   });
+
+  const [AgreementOptions, setAgreementOptions] = useState([]);
+
+  // Fetch data for the "Select Rice Mill" dropdown
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const Agreement_response = await axios.get(
+          "http://localhost:8000/rice-mill"
+        );
+
+        const data = Agreement_response.data;
+        setAgreementOptions(data);
+        console.log(data);
+      } catch (error) {
+        console.error("Error:", error);
+      }
+    }
+
+    fetchData();
+  }, []);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
 
-    if (
-      name === "agreement_number" ||
-      name === "mota" ||
-      name === "patla" ||
-      name === "sarna" ||
-      name === "lot_from" ||
-      name === "lot_to" ||
-      name === "total"
-    ) {
-      const parsedValue = value.trim() === "" ? 0 : parseInt(value, 10);
-
-      setAgreementData({
-        ...agreementData,
-        [name]: parsedValue,
-      });
-    } else if (name === "mill") {
-      setAgreementData({
-        ...agreementData,
-        [name]: value,
-      });
-    }
+    setAgreementData({
+      ...agreementData,
+      [name]: value,
+    });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      const response = await fetch("http://localhost:8000/agreement/", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(agreementData),
-      });
+      const response = await axios.post(
+        "http://localhost:8000/agreement/",
+        agreementData,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
 
-      if (response.ok) {
+      if (response.status === 201 || response.status === 300) {
         console.log("Agreement added successfully");
         toast.success("Agreement added successfully", {
           position: "top-right",
@@ -88,13 +95,6 @@ const Add_Agreement = () => {
       });
     }
   };
-
-  const notificationMethods = [
-    { value: "Purushottam Rice mill", title: "Purushottam Rice mill" },
-    { value: "Dushyant Rice Mill", title: "Dushyant Rice Mill" },
-    { value: "Tulsi Rice Mill", title: "Tulsi Rice Mill" },
-  ];
-
   return (
     <>
       <div className="flex min-h-full flex-1 flex-col justify-center py-12 sm:px-6 lg:px-8">
@@ -111,53 +111,53 @@ const Add_Agreement = () => {
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-[480px]">
           <div className="bg-white px-6 py-12 shadow sm:rounded-lg sm:px-12">
             <form className="space-y-6" onSubmit={handleSubmit}>
-              <div className="flex justify-between">
-                <div>
-                  <label className="text-base font-semibold text-gray-900">
-                    Select Mill
-                  </label>
-                  <fieldset className="mt-4">
-                    <legend className="sr-only">Mills</legend>
-                    <div className="space-y-4">
-                      {notificationMethods.map((notificationMethod) => (
-                        <div
-                          key={notificationMethod.value}
-                          className="flex items-center"
-                        >
-                          <input
-                            name="mill"
-                            type="radio"
-                            value={notificationMethod.value}
-                            checked={
-                              agreementData.mill === notificationMethod.value
-                            }
-                            onChange={handleInputChange}
-                            className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"
-                          />
-
-                          <label
-                            htmlFor={notificationMethod.id}
-                            className="ml-3 block text-sm font-medium leading-6 text-gray-900"
-                          >
-                            {notificationMethod.title}
-                          </label>
-                        </div>
-                      ))}
-                    </div>
-                  </fieldset>
-                </div>
-                <div>
-                  <label className="block text-sm font-medium leading-6 text-gray-900">
-                    Agreement Number
-                  </label>
-                  <input
-                    type="number"
-                    name="agreement_number"
-                    className="block w-full rounded-md border-0 px-1.5 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                    value={agreementData.agreement_number}
+              <div>
+                <label
+                  htmlFor="rice_mill_id"
+                  className="block text-sm font-medium leading-6 text-gray-900"
+                >
+                  Select Rice Mill
+                </label>
+                <div className="mt-2">
+                  <select
+                    required
+                    name="rice_mill_id"
+                    className="block  w-full bg-white rounded-md  border-0 px-1.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    value={agreementData.rice_mill_id}
                     onChange={handleInputChange}
-                  />
+                  >
+                    <option value="">-Select Rice Mill-</option>
+                    {AgreementOptions.map((option) => (
+                      <option
+                        key={option.rice_mill_id}
+                        value={option.rice_mill_id}
+                      >
+                        {option.rice_mill_name}
+                      </option>
+                    ))}
+                  </select>
+                  <p className="mt-2 text-sm text-gray-500">
+                    Cannot Find Rice Mill?{" "}
+                    <a
+                      href="/Addricemill"
+                      className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
+                    >
+                      Add New Rice Mill..
+                    </a>
+                  </p>
                 </div>
+              </div>
+              <div>
+                <label className="block text-sm font-medium leading-6 text-gray-900">
+                  Agreement Number
+                </label>
+                <input
+                  type="text"
+                  name="agreement_number"
+                  className="block w-full rounded-md border-0 px-1.5 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  value={agreementData.agreement_number}
+                  onChange={handleInputChange}
+                />
               </div>
               <fieldset className="flex flex-wrap justify-evenly h-fit p-10">
                 <div className="flex space-x-4">

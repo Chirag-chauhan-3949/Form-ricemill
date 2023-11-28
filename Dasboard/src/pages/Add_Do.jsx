@@ -1,13 +1,13 @@
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import React, { useState, useEffect } from "react";
-
+import axios from "axios";
 const Add_Do = () => {
   const [DoData, setDoData] = useState({
-    select_mill: "",
+    select_mill_id: 0,
     date: "",
     do_number: 0,
-    select_agreement: "",
+    select_agreement_id: 0,
     moto_weight: "",
     mota_Bardana: 0,
     patla_weight: "",
@@ -16,65 +16,82 @@ const Add_Do = () => {
     sarna_bardana: 0,
     total_weight: 0,
     total_bardana: 0,
-    society: "",
-    truck_number: 0,
+    society_id: 0,
+    truck_number_id: 0,
   });
-  const [agreements, setAgreements] = useState([]);
-  const [societies, setSocieties] = useState([]);
-  const [trucks, setTrucks] = useState([]);
 
+  const [DoOptions, setDoOptions] = useState([]);
+
+  // Fetch data for the "Select Rice Mill" dropdown
   useEffect(() => {
-    const fetchTransporter = async () => {
+    async function fetchMillData() {
       try {
-        const transporter_response = await fetch(
-          "http://localhost:8000/truck-numbers/"
+        const Mill_response = await axios.get(
+          "http://localhost:8000/rice-mill"
         );
-        if (transporter_response.ok) {
-          const data = await transporter_response.json();
-          setTrucks(data);
-        } else {
-          console.error("Failed to fetch transporters");
-        }
+
+        const data = Mill_response.data;
+        setDoOptions(data);
+        console.log(data);
       } catch (error) {
         console.error("Error:", error);
       }
-    };
+    }
+
+    fetchMillData();
+  }, []);
+
+  // Fetch data for the "truck" dropdown
+  const [trucks, setTrucks] = useState([]);
+  useEffect(() => {
+    async function fetchTransporter() {
+      try {
+        const transporter_response = await axios.get(
+          "http://localhost:8000/trucks/"
+        );
+
+        const data = transporter_response.data;
+        setTrucks(data);
+        console.log(data);
+      } catch (error) {
+        console.error("Error:", error);
+      }
+    }
     fetchTransporter();
   }, []);
+
+  const [agreements, setAgreements] = useState([]);
   useEffect(() => {
-    const fetchselectagrement = async () => {
+    async function fetchagrement() {
       try {
-        const transporter_response = await fetch(
-          "http://localhost:8000/agreements-number/"
+        const agreement_response = await axios.get(
+          "http://localhost:8000/agreements/"
         );
-        if (transporter_response.ok) {
-          const data = await transporter_response.json();
-          setAgreements(data);
-        } else {
-          console.error("Failed to fetch transporters");
-        }
+        const data = agreement_response.data;
+        setAgreements(data);
+        console.log(data);
       } catch (error) {
         console.error("Error:", error);
       }
-    };
-    fetchselectagrement();
+    }
+    fetchagrement();
   }, []);
+
+  const [societies, setSocieties] = useState([]);
   useEffect(() => {
-    const fetchsociety = async () => {
+    async function fetchsociety() {
       try {
-        const transporter_response = await fetch(
-          "http://localhost:8000/societies-names/"
+        const society_response = await axios.get(
+          "http://localhost:8000/societies/"
         );
-        if (transporter_response.ok) {
-          const data = await transporter_response.json();
-          setSocieties(data);
-        } else {
-          console.error("Failed to fetch transporters");
-        }
+
+        const data = society_response.data;
+        setSocieties(data);
+        console.log(data);
       } catch (error) {
         console.error("Error:", error);
       }
-    };
+    }
     fetchsociety();
   }, []);
 
@@ -85,18 +102,22 @@ const Add_Do = () => {
       [name]: value,
     });
   };
+
   const handleSubmit = async (e) => {
+    console.log(DoData);
     e.preventDefault();
     try {
-      const response = await fetch("http://localhost:8000/add-do/", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(DoData),
-      });
+      const response = await axios.post(
+        "http://localhost:8000/add-do/",
+        DoData,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
 
-      if (response.ok) {
+      if (response.status === 201) {
         console.log("Form data sent successfully");
         toast.success("Do added successfully", {
           position: "top-right",
@@ -106,22 +127,6 @@ const Add_Do = () => {
           pauseOnHover: true,
           draggable: true,
           progress: undefined,
-        });
-        setDoData({
-          select_mill: "",
-          date: "",
-          do_number: 0,
-          select_agreement: "",
-          moto_weight: "",
-          mota_Bardana: 0,
-          patla_weight: "",
-          patla_bardana: 0,
-          sarna_weight: "",
-          sarna_bardana: 0,
-          total_weight: 0,
-          total_bardana: 0,
-          society: "",
-          truck_number: 0,
         });
       } else {
         console.error("Failed to send form data");
@@ -148,13 +153,6 @@ const Add_Do = () => {
       });
     }
   };
-
-  const notificationMethods = [
-    { value: "Purushottam Rice mill", title: "Purushottam Rice mill" },
-    { value: "Dushyant Rice Mill", title: "Dushyant Rice Mill" },
-    { value: "Tulsi Rice Mill", title: "Tulsi Rice Mill" },
-  ];
-
   return (
     <>
       <div className="flex min-h-full flex-1 flex-col justify-center py-12 sm:px-6 lg:px-8">
@@ -177,58 +175,60 @@ const Add_Do = () => {
               action="#"
               method="POST"
             >
-              <div className="flex justify-between">
-                <div>
-                  <label className="text-base font-semibold text-gray-900">
-                    Select Mill
-                  </label>
-                  <fieldset className="mt-4">
-                    <legend className="sr-only">Mills</legend>
-                    <div className="space-y-4">
-                      {notificationMethods.map((notificationMethod) => (
-                        <div
-                          key={notificationMethod.value}
-                          className="flex items-center"
-                        >
-                          <input
-                            name="select_mill"
-                            type="radio"
-                            value={notificationMethod.value}
-                            checked={
-                              DoData.select_mill === notificationMethod.value
-                            }
-                            className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"
-                            onChange={handleInputChange}
-                          />
-
-                          <label
-                            htmlFor={notificationMethod.id}
-                            className="ml-3 block text-sm font-medium leading-6 text-gray-900"
-                          >
-                            {notificationMethod.title}
-                          </label>
-                        </div>
-                      ))}
-                    </div>
-                  </fieldset>
-                </div>
-                <div>
-                  <div className="flex justify-between">
-                    <label
-                      htmlFor="date"
-                      className="block text-sm font-medium leading-6 text-gray-900"
+              <div>
+                <label
+                  htmlFor="select_mill_id"
+                  className="block text-sm font-medium leading-6 text-gray-900"
+                >
+                  Select Rice Mill
+                </label>
+                <div className="mt-2">
+                  <select
+                    required
+                    type="number"
+                    name="select_mill_id"
+                    className="block  w-full bg-white rounded-md  border-0 px-1.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    value={DoData.select_mill_id}
+                    onChange={handleInputChange}
+                  >
+                    <option value="">-Select Rice Mill-</option>
+                    {DoOptions.map((option) => (
+                      <option
+                        key={option.rice_mill_id}
+                        value={option.rice_mill_id}
+                      >
+                        {option.rice_mill_name}
+                      </option>
+                    ))}
+                  </select>
+                  <p className="mt-2 text-sm text-gray-500">
+                    Cannot Find Rice Mill?{" "}
+                    <a
+                      href="/Addricemill"
+                      className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
                     >
-                      Do Date
-                    </label>
-                  </div>
-                  <div className="mt-1">
-                    <input
-                      type="date"
-                      name="date"
-                      className="block min-w-[250px] px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                      onChange={handleInputChange}
-                    />
-                  </div>
+                      Add New Rice Mill..
+                    </a>
+                  </p>
+                </div>
+              </div>
+              <div>
+                <div className="flex justify-between">
+                  <label
+                    htmlFor="date"
+                    className="block text-sm font-medium leading-6 text-gray-900"
+                  >
+                    Do Date
+                  </label>
+                </div>
+                <div className="mt-1">
+                  <input
+                    type="date"
+                    name="date"
+                    className="block min-w-[250px] px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    onChange={handleInputChange}
+                    value={DoData.date}
+                  />
                 </div>
               </div>
 
@@ -239,12 +239,12 @@ const Add_Do = () => {
                       htmlFor="do_number"
                       className="block text-sm font-medium leading-6 text-gray-900"
                     >
-                      D0 Numbar
+                      DO Numbar
                     </label>
                   </div>
                   <div className="mt-1">
                     <input
-                      type="text"
+                      type="number"
                       name="do_number"
                       value={DoData.do_number}
                       className="block min-w-[250px] px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
@@ -255,7 +255,7 @@ const Add_Do = () => {
                 <div>
                   <div className="flex justify-between">
                     <label
-                      htmlFor="select_agreement"
+                      htmlFor="select_agreement_id"
                       className="block text-sm font-medium leading-6 text-gray-900"
                     >
                       Select Agreement
@@ -263,16 +263,19 @@ const Add_Do = () => {
                   </div>
                   <div className="mt-1">
                     <select
-                      type="text"
-                      name="select_agreement"
-                      value={DoData.select_agreement}
+                      type="number"
+                      name="select_agreement_id"
+                      value={DoData.select_agreement_id}
                       className=" bg-white block min-w-[250px] px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                       onChange={handleInputChange}
                     >
                       <option value="">Select Agreement</option>
-                      {agreements.map((agreements) => (
-                        <option key={agreements} value={agreements}>
-                          {agreements}
+                      {agreements.map((agreement) => (
+                        <option
+                          key={agreement.agremennt_id}
+                          value={agreement.agremennt_id}
+                        >
+                          {agreement.agreement_number}
                         </option>
                       ))}
                     </select>
@@ -394,7 +397,7 @@ const Add_Do = () => {
                       htmlFor="sarna_bardana"
                       className="block text-sm font-medium leading-6 text-gray-900"
                     >
-                      Sarna Weight
+                      Sarna Bardana
                     </label>
                   </div>
                   <div className="mt-1">
@@ -451,7 +454,7 @@ const Add_Do = () => {
               <div>
                 <div className="flex justify-between">
                   <label
-                    htmlFor="Society"
+                    htmlFor="Society_id"
                     className="block text-sm font-medium leading-6 text-gray-900"
                   >
                     Society
@@ -459,16 +462,19 @@ const Add_Do = () => {
                 </div>
                 <div className="mt-1">
                   <select
-                    name="society"
+                    name="society_id"
                     type="number"
-                    value={DoData.society}
+                    value={DoData.society_id}
                     className="bg-white block w-full px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     onChange={handleInputChange}
                   >
-                    <option value="">Select a transporter</option>
+                    <option value="">Select a society</option>
                     {societies.map((societie) => (
-                      <option key={societie} value={societie}>
-                        {societie}
+                      <option
+                        key={societie.society_id}
+                        value={societie.society_id}
+                      >
+                        {societie.society_name}
                       </option>
                     ))}
                   </select>
@@ -485,7 +491,7 @@ const Add_Do = () => {
               </div>
               <div>
                 <label
-                  htmlFor="truck_number"
+                  htmlFor="truck_number_id"
                   className="block text-sm font-medium leading-6 text-gray-900"
                 >
                   truck Number
@@ -493,16 +499,16 @@ const Add_Do = () => {
 
                 <div className="mt-1">
                   <select
-                    name="truck_number"
+                    name="truck_number_id"
                     type="number"
-                    value={DoData.truck_number}
+                    value={DoData.truck_number_id}
                     className=" bg-white block w-full px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     onChange={handleInputChange}
                   >
                     <option value="">Select a Truck</option>
                     {trucks.map((truck) => (
-                      <option key={truck} value={truck}>
-                        {truck}
+                      <option key={truck.truck_id} value={truck.truck_id}>
+                        {truck.truck_number}
                       </option>
                     ))}
                   </select>
