@@ -17,7 +17,7 @@ const Add_New_Truck = () => {
     async function fetchData() {
       try {
         const transporter_response = await axios.get(
-          "https://localHost:8000/transporters/"
+          "https://localhost:8000/transporters/"
         );
         if (transporter_response.ok) {
           const data = await transporter_response.json();
