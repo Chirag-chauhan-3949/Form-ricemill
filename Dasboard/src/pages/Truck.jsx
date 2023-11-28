@@ -119,7 +119,7 @@ const Add_New_Truck = () => {
               </div>
               <div>
                 <label
-                  htmlFor="truck_transport_id"
+                  htmlFor="transport_id"
                   className="block text-sm font-medium leading-6 text-gray-900"
                 >
                   Select Transporter
@@ -127,9 +127,9 @@ const Add_New_Truck = () => {
                 <div className="mt-2">
                   <select
                     required
-                    name="truck_transport_id"
+                    name="transport_id"
                     className="block  w-full bg-white rounded-md  border-0 px-1.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                    value={truckData.truck_transport_id}
+                    value={truckData.transport_id}
                     onChange={handleInputChange}
                   >
                     <option value="">-Select a transporter-</option>
