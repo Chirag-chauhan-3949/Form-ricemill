@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
+import axios from "axios";
 const AddNewSociety = () => {
   const [societyData, setSocietyData] = useState({
     society_name: "",
@@ -21,15 +21,17 @@ const AddNewSociety = () => {
     e.preventDefault();
 
     try {
-      const response = await fetch("http://localhost:8000/society/", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(societyData),
-      });
+      const response = await axios.post(
+        "http://localhost:8000/society/",
+        societyData,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
 
-      if (response.ok) {
+      if (response.status === 200) {
         console.log("Society added successfully");
         toast.success("Society added successfully", {
           position: "top-right",
