@@ -32,49 +32,24 @@ const Dhan_Awak = () => {
     transporting_rate: "",
     transporting_total: "",
   });
-  const [selectOptions, setSelectOptions] = useState({
-    doNumbers: [],
-    societies: [],
-    trucks: [],
-    transporters: [],
-  });
+  const [selectOptions, setSelectOptions] = useState([]);
+
   useEffect(() => {
-    // Fetch data for doNumbers
-    fetch("your-api-endpoint-for-doNumbers")
-      .then((response) => response.json())
-      .then((data) =>
-        setSelectOptions((prevOptions) => ({ ...prevOptions, doNumbers: data }))
-      )
-      .catch((error) => console.error("Error fetching doNumbers data:", error));
-
-    // Fetch data for societies
-    fetch("your-api-endpoint-for-societies")
-      .then((response) => response.json())
-      .then((data) =>
-        setSelectOptions((prevOptions) => ({ ...prevOptions, societies: data }))
-      )
-      .catch((error) => console.error("Error fetching societies data:", error));
-
-    // Fetch data for trucks
-    fetch("your-api-endpoint-for-trucks")
-      .then((response) => response.json())
-      .then((data) =>
-        setSelectOptions((prevOptions) => ({ ...prevOptions, trucks: data }))
-      )
-      .catch((error) => console.error("Error fetching trucks data:", error));
-
-    // Fetch data for transporters
-    fetch("your-api-endpoint-for-transporters")
-      .then((response) => response.json())
-      .then((data) =>
-        setSelectOptions((prevOptions) => ({
-          ...prevOptions,
-          transporters: data,
-        }))
-      )
-      .catch((error) =>
-        console.error("Error fetching transporters data:", error)
-      );
+    const fetchDo = async () => {
+      try {
+        const do_response = await fetch("");
+        if (do_response.ok) {
+          const data = await do_response.json();
+          setSelectOptions(data);
+          console.log(data);
+        } else {
+          console.error("Failed to fetch transporters");
+        }
+      } catch (error) {
+        console.error("Error:", error);
+      }
+    };
+    fetchDo();
   }, []);
 
   const handleInputChange = (e) => {
@@ -244,16 +219,16 @@ const Dhan_Awak = () => {
                   </div>
                   <div className="mt-1">
                     <select
-                      value={DhanAwakData.do_number}
+                      value={DhanAwakData.do_id}
                       onChange={handleInputChange}
                       type="text"
                       name="do_number"
                       className=" bg-white block min-w-[250px] px-1.5 rounded-md border-0 py-2.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     >
                       <option value="">Select Do</option>
-                      {selectOptions.doNumbers.map((doNumber) => (
-                        <option key={doNumber.value} value={doNumber.value}>
-                          {doNumber.title}
+                      {selectOptions.map((option) => (
+                        <option key={option.do_id} value={option.do_id}>
+                          {option.do_number}
                         </option>
                       ))}
                     </select>
