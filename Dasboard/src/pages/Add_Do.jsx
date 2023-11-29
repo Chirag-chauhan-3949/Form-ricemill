@@ -4,20 +4,24 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 const Add_Do = () => {
   const [DoData, setDoData] = useState({
+    rice_mill_name: "",
     select_mill_id: 0,
     date: "",
-    do_number: 0,
-    select_agreement_id: 0,
-    moto_weight: "",
-    mota_Bardana: 0,
-    patla_weight: "",
-    patla_bardana: 0,
-    sarna_weight: "",
-    sarna_bardana: 0,
-    total_weight: 0,
-    total_bardana: 0,
-    society_id: 0,
-    truck_number_id: 0,
+    // do_number: 0,
+    // agreement_number: 0,
+    // select_agreement_id: 0,
+    // moto_weight: "",
+    // mota_Bardana: 0,
+    // patla_weight: "",
+    // patla_bardana: 0,
+    // sarna_weight: "",
+    // sarna_bardana: 0,
+    // total_weight: 0,
+    // total_bardana: 0,
+    // society_name: "",
+    // society_id: 0,
+    // truck_number: 0,
+    // truck_number_id: 0,
   });
 
   const [DoOptions, setDoOptions] = useState([]);
@@ -32,7 +36,7 @@ const Add_Do = () => {
 
         const data = Mill_response.data;
         setDoOptions(data);
-        console.log(data);
+        // console.log(data);
       } catch (error) {
         console.error("Error:", error);
       }
@@ -52,7 +56,7 @@ const Add_Do = () => {
 
         const data = transporter_response.data;
         setTrucks(data);
-        console.log(data);
+        // console.log(data);
       } catch (error) {
         console.error("Error:", error);
       }
@@ -69,7 +73,7 @@ const Add_Do = () => {
         );
         const data = agreement_response.data;
         setAgreements(data);
-        console.log(data);
+        // console.log(data);
       } catch (error) {
         console.error("Error:", error);
       }
@@ -87,7 +91,7 @@ const Add_Do = () => {
 
         const data = society_response.data;
         setSocieties(data);
-        console.log(data);
+        // console.log(data);
       } catch (error) {
         console.error("Error:", error);
       }
@@ -95,12 +99,64 @@ const Add_Do = () => {
     fetchsociety();
   }, []);
 
+  // const handleInputChange = (e) => {
+  //   const { name, value } = e.target;
+  //   setDoData({
+  //     ...DoData,
+  //     [name]: value,
+  //   });
+  // };
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setDoData({
-      ...DoData,
-      [name]: value,
-    });
+
+    if (name === "select_mill_id") {
+      const selectedMill = DoOptions.find(
+        (option) => option.rice_mill_id === parseInt(value, 10)
+      );
+
+      setDoData({
+        ...DoData,
+        select_mill_id: value,
+        rice_mill_name: selectedMill ? selectedMill.rice_mill_name : "",
+      });
+    } else if (name === "select_agreement_id") {
+      const selectedAgreement = agreements.find(
+        (agreement) => agreement.agreement_id === parseInt(value, 10)
+      );
+
+      setDoData({
+        ...DoData,
+        select_agreement_id: value,
+        agreement_number: selectedAgreement
+          ? selectedAgreement.agreement_number
+          : "",
+      });
+    } else if (name === "society_id") {
+      const selectedSociety = societies.find(
+        (societie) => societie.society_id === parseInt(value, 10)
+      );
+
+      setDoData({
+        ...DoData,
+        society_id: value,
+        society_name: selectedSociety ? selectedSociety.society_name : "",
+      });
+    } else if (name === "truck_number_id") {
+      const selectedTruck = trucks.find(
+        (truck) => truck.truck_id === parseInt(value, 10)
+      );
+
+      setDoData({
+        ...DoData,
+        truck_number_id: value,
+        truck_number: selectedTruck ? selectedTruck.truck_number : "",
+      });
+    } else {
+      setDoData({
+        ...DoData,
+        [name]: value,
+      });
+    }
   };
 
   const handleSubmit = async (e) => {
@@ -116,7 +172,7 @@ const Add_Do = () => {
           },
         }
       );
-
+      console.log("Response:", response);
       if (response.status === 201) {
         console.log("Form data sent successfully");
         toast.success("Do added successfully", {
@@ -185,7 +241,7 @@ const Add_Do = () => {
                 <div className="mt-2">
                   <select
                     required
-                    type="number"
+                    type="text"
                     name="select_mill_id"
                     className="block  w-full bg-white rounded-md  border-0 px-1.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     value={DoData.select_mill_id}
@@ -232,7 +288,7 @@ const Add_Do = () => {
                 </div>
               </div>
 
-              <div className="flex justify-between">
+              {/* <div className="flex justify-between">
                 <div>
                   <div className="flex justify-between">
                     <label
@@ -522,7 +578,7 @@ const Add_Do = () => {
                     Add New Truck.
                   </a>
                 </p>
-              </div>
+              </div> */}
 
               <div>
                 <button

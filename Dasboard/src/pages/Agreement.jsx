@@ -5,8 +5,9 @@ import "react-toastify/dist/ReactToastify.css";
 
 const Add_Agreement = () => {
   const [agreementData, setAgreementData] = useState({
-    agreement_number: "",
+    rice_mill_name: "",
     rice_mill_id: 0,
+    agreement_number: "",
     mota: 0,
     patla: 0,
     sarna: 0,
@@ -36,17 +37,38 @@ const Add_Agreement = () => {
     fetchData();
   }, []);
 
+  // const handleInputChange = (e) => {
+  //   const { name, value } = e.target;
+
+  //   setAgreementData({
+  //     ...agreementData,
+  //     [name]: value,
+  //   });
+  // };
   const handleInputChange = (e) => {
     const { name, value } = e.target;
 
-    setAgreementData({
-      ...agreementData,
-      [name]: value,
-    });
+    if (name === "rice_mill_id") {
+      const selectedRiceMill = AgreementOptions.find(
+        (option) => option.rice_mill_id === parseInt(value, 10)
+      );
+
+      setAgreementData({
+        ...agreementData,
+        rice_mill_id: value,
+        rice_mill_name: selectedRiceMill ? selectedRiceMill.rice_mill_name : "",
+      });
+    } else {
+      setAgreementData({
+        ...agreementData,
+        [name]: value,
+      });
+    }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log(agreementData);
 
     try {
       const response = await axios.post(

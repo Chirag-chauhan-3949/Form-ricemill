@@ -5,8 +5,9 @@ import axios from "axios";
 
 const Lotnumbermaster = () => {
   const [lotnumbermasterData, setlotnumbermasterData] = useState({
-    mill: "",
-    lot_number_to_that_mill: "",
+    rice_mill_name: "",
+    rice_mill_name_id: "",
+    lot_number: 0,
   });
 
   // Fetch data for the "Select Rice Mill" dropdown
@@ -29,21 +30,43 @@ const Lotnumbermaster = () => {
     fetchMillData();
   }, []);
 
+  // const handleInputChange = (e) => {
+  //   const { name, value } = e.target;
+
+  //   setlotnumbermasterData({
+  //     ...lotnumbermasterData,
+  //     [name]: value,
+  //   });
+  // };
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
 
-    setlotnumbermasterData({
-      ...lotnumbermasterData,
+    setlotnumbermasterData((prevData) => ({
+      ...prevData,
       [name]: value,
-    });
+    }));
+
+    if (name === "select_mill_id") {
+      const selectedMill = millData.find(
+        (option) => option.rice_mill_id === parseInt(value, 10)
+      );
+
+      setlotnumbermasterData((prevData) => ({
+        ...prevData,
+        rice_mill_name: selectedMill ? selectedMill.rice_mill_name : "",
+        rice_mill_name_id: value,
+      }));
+    }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log(lotnumbermasterData);
 
     try {
       const response = await axios.post(
-        "http://localhost:8000",
+        "http://localhost:8000/lot-number-master",
         lotnumbermasterData,
         {
           headers: {
@@ -144,9 +167,9 @@ const Lotnumbermaster = () => {
                 </label>
                 <input
                   type="number"
-                  name="bill_number"
+                  name="lot_number"
                   className="block w-full rounded-md border-0 px-1.5 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                  value={lotnumbermasterData.lot_number_to_that_mill}
+                  value={lotnumbermasterData.lot_number}
                   onChange={handleInputChange}
                 />
               </div>
