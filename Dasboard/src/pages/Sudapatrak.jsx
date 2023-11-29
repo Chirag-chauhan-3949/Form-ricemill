@@ -13,6 +13,24 @@ const Saudapatrak = () => {
     rate: "",
     amout: "",
   });
+  const [trucks, setTrucks] = useState([]);
+  useEffect(() => {
+    async function fetchTransporter() {
+      try {
+        const transporter_response = await axios.get(
+          "http://localhost:8000/trucks/"
+        );
+
+        const data = transporter_response.data;
+        setTrucks(data);
+        console.log(data);
+      } catch (error) {
+        console.error("Error:", error);
+      }
+    }
+    fetchTransporter();
+  }, []);
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
 
@@ -126,48 +144,66 @@ const Saudapatrak = () => {
                     </div>
                   </div>
                 </div>
-                <div className="flex justify-between my-3.5">
-                  <div>
-                    <div className="flex justify-between">
-                      <label
-                        htmlFor="vehicle"
-                        className="block text-sm font-medium leading-6 text-gray-900"
-                      >
-                        Vehicle
-                      </label>
-                    </div>
-                    <div className="mt-1">
-                      <input
-                        type="text"
-                        name="vehicle"
-                        placeholder="Enter Vehicle"
-                        value={saudapatrakData.vehical}
-                        className="block w-full px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                        onChange={handleInputChange}
-                      />
-                    </div>
+
+                <div>
+                  <label
+                    htmlFor="truck_number_id"
+                    className="block text-sm font-medium leading-6 text-gray-900"
+                  >
+                    truck Number
+                  </label>
+
+                  <div className="mt-1">
+                    <select
+                      name="truck_number_id"
+                      type="number"
+                      value={saudapatrakData.truck_number_id}
+                      className=" bg-white block w-full px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                      onChange={handleInputChange}
+                    >
+                      <option value="">Select a Truck</option>
+                      {trucks.map((truck) => (
+                        <option key={truck.truck_id} value={truck.truck_id}>
+                          {truck.truck_number}
+                        </option>
+                      ))}
+                    </select>
                   </div>
-                  <div>
-                    <div className="flex justify-between">
-                      <label
-                        htmlFor="paddy"
-                        className="block text-sm font-medium leading-6 text-gray-900"
-                      >
-                        Paddy
-                      </label>
-                    </div>
-                    <div className="mt-1">
-                      <input
-                        type="text"
-                        name="paddy"
-                        placeholder="Enter Paddy"
-                        value={saudapatrakData.paddy}
-                        className="block w-full px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                        onChange={handleInputChange}
-                      />
-                    </div>
+                  <p className="mt-2 text-sm text-gray-500">
+                    Cannot Find Truck?{" "}
+                    <a
+                      href="/Add_NEw_Truck"
+                      className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
+                    >
+                      Add New Truck.
+                    </a>
+                  </p>
+                </div>
+                <div className="mt-3">
+                  <div className="flex justify-between">
+                    <label
+                      htmlFor="type_of_paddy"
+                      className="block text-sm font-medium leading-6 text-gray-900"
+                    >
+                      Type Of Paddy
+                    </label>
+                  </div>
+                  <div className="mt-1">
+                    <select
+                      value={saudapatrakData.type_of_paddy}
+                      onChange={handleInputChange}
+                      type="text"
+                      name="type_of_paddy"
+                      className="bg-white block w-full px-1.5 rounded-md border-0 py-2.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    >
+                      <option value="">Select Type of Paddy</option>
+                      <option value="Mota">Mota</option>
+                      <option value="Patla">Patla</option>
+                      <option value="Sarna">Sarna</option>
+                    </select>
                   </div>
                 </div>
+
                 <div className="flex justify-between my-3.5">
                   <div>
                     <div className="flex justify-between">

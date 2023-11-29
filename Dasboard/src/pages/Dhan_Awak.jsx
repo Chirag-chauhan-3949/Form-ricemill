@@ -153,39 +153,40 @@ const Dhan_Awak = () => {
                   </div>
                 </div>
                 <div>
-                  <label className="text-base font-semibold text-gray-900">
-                    Select Mill
+                  <label
+                    htmlFor="rice_mill_id"
+                    className="block text-sm font-medium leading-6 text-gray-900"
+                  >
+                    Select Rice Mill
                   </label>
-                  <fieldset className="mt-4">
-                    <legend className="sr-only">Mills</legend>
-                    <div className="space-y-4">
-                      {notificationMethods.map((notificationMethod) => (
-                        <div
-                          key={notificationMethod.value}
-                          className="flex items-center"
+                  <div className="mt-2">
+                    <select
+                      required
+                      name="rice_mill_id"
+                      className="block  w-full bg-white rounded-md  border-0 px-1.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                      value={DhanAwakData.rice_mill_id}
+                      onChange={handleInputChange}
+                    >
+                      <option value="">-Select Rice Mill-</option>
+                      {selectOptions.map((option) => (
+                        <option
+                          key={option.rice_mill_id}
+                          value={option.rice_mill_id}
                         >
-                          <input
-                            onChange={handleInputChange}
-                            name="select_mill"
-                            type="radio"
-                            value={notificationMethod.value}
-                            checked={
-                              DhanAwakData.select_mill ===
-                              notificationMethod.value
-                            }
-                            className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"
-                          />
-
-                          <label
-                            htmlFor={notificationMethod.value}
-                            className="ml-3 block text-sm font-medium leading-6 text-gray-900"
-                          >
-                            {notificationMethod.title}
-                          </label>
-                        </div>
+                          {option.rice_mill_name}
+                        </option>
                       ))}
-                    </div>
-                  </fieldset>
+                    </select>
+                    <p className="mt-2 text-sm text-gray-500">
+                      Cannot Find Rice Mill?{" "}
+                      <a
+                        href="/Addricemill"
+                        className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
+                      >
+                        Add New Rice Mill..
+                      </a>
+                    </p>
+                  </div>
                 </div>
               </div>
               <div className="flex justify-between">

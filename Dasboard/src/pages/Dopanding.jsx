@@ -11,6 +11,22 @@ const Dopanding = () => {
     sarna: "",
     total: "",
   });
+
+  const [dopandingData, setdopandingData] = useState([]);
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const response = await axios.get("http://localhost:8000/");
+        const data = response.data;
+        setdopandingData(data);
+        console.log(data);
+      } catch (error) {
+        console.error("Error:", error);
+      }
+    }
+    fetchData();
+  }, []);
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
 
@@ -111,13 +127,29 @@ const Dopanding = () => {
                     </label>
                   </div>
                   <div className="mt-1">
-                    <input
+                    <select
                       type="number"
                       name="do_number"
                       value={DopandingData.do_number}
-                      className="block w-full px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                      className="block  w-full bg-white rounded-md  border-0 px-1.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                       onChange={handleInputChange}
-                    />
+                    >
+                      <option value="">-Select Do Number-</option>
+                      {dopandingData.map((option) => (
+                        <option key={option.do_number} value={option.do_number}>
+                          {option.do_number}
+                        </option>
+                      ))}
+                    </select>
+                    <p className="mt-2 text-sm text-gray-500">
+                      Cannot Find Do?{" "}
+                      <a
+                        href="/Add_Do"
+                        className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
+                      >
+                        Add New Do..
+                      </a>
+                    </p>
                   </div>
                 </div>
               </div>
