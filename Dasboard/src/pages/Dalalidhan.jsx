@@ -234,7 +234,7 @@ const Dalalidhan = () => {
                     </a>
                   </p>
                 </div>
-                <div className="flex justify-between">
+                <div className="flex justify-between my-3">
                   <div>
                     <div className="flex justify-between">
                       <label
@@ -274,7 +274,7 @@ const Dalalidhan = () => {
                     </div>
                   </div>
                 </div>
-                <div className="flex justify-between">
+                <div className="flex justify-between my-3">
                   <div>
                     <div className="flex justify-between">
                       <label
@@ -314,7 +314,7 @@ const Dalalidhan = () => {
                     </div>
                   </div>
                 </div>
-                <div className="flex justify-between">
+                <div className="flex justify-between my-3">
                   <div>
                     <div className="flex justify-between">
                       <label
@@ -354,7 +354,7 @@ const Dalalidhan = () => {
                     </div>
                   </div>
                 </div>
-                <div className="flex justify-between">
+                <div className="flex justify-between my-3">
                   <div>
                     <div className="flex justify-between">
                       <label
@@ -394,7 +394,7 @@ const Dalalidhan = () => {
                     </div>
                   </div>
                 </div>
-                <div className="flex justify-between">
+                <div className="flex justify-between my-3">
                   <div>
                     <div className="flex justify-between">
                       <label
@@ -434,7 +434,7 @@ const Dalalidhan = () => {
                     </div>
                   </div>
                 </div>
-                <div className="flex justify-between">
+                <div className="flex justify-between my-3">
                   <div className="mt-3">
                     <div className="flex justify-between">
                       <label
@@ -480,7 +480,7 @@ const Dalalidhan = () => {
                     </div>
                   </div>
                 </div>
-                <div className="flex justify-between">
+                <div className="flex justify-between my-3">
                   <div className="mt-3">
                     <div className="flex justify-between">
                       <label
@@ -522,7 +522,7 @@ const Dalalidhan = () => {
                     </div>
                   </div>
                 </div>
-                <div className="flex justify-between">
+                <div className="flex justify-between my-3">
                   <div className="mt-3">
                     <div className="flex justify-between">
                       <label
@@ -564,7 +564,7 @@ const Dalalidhan = () => {
                     </div>
                   </div>
                 </div>
-                <div className="flex justify-between">
+                <div className="flex justify-between my-3">
                   <div className="mt-3">
                     <div className="flex justify-between">
                       <label
@@ -606,7 +606,7 @@ const Dalalidhan = () => {
                     </div>
                   </div>
                 </div>
-                <div className="flex justify-between">
+                <div className="flex justify-between my-3">
                   <div className="mt-3">
                     <div className="flex justify-between">
                       <label
