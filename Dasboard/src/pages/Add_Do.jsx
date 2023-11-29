@@ -4,24 +4,20 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 const Add_Do = () => {
   const [DoData, setDoData] = useState({
-    rice_mill_name: "",
-    select_mill_id: 0,
+    select_mill_id: "",
     date: "",
-    // do_number: 0,
-    // agreement_number: 0,
-    // select_agreement_id: 0,
-    // moto_weight: "",
-    // mota_Bardana: 0,
-    // patla_weight: "",
-    // patla_bardana: 0,
-    // sarna_weight: "",
-    // sarna_bardana: 0,
-    // total_weight: 0,
-    // total_bardana: 0,
-    // society_name: "",
-    // society_id: 0,
-    // truck_number: 0,
-    // truck_number_id: 0,
+    do_number: 0,
+    select_agreement_id: "",
+    moto_weight: 0,
+    mota_Bardana: 0,
+    patla_weight: 0,
+    patla_bardana: 0,
+    sarna_weight: 0,
+    sarna_bardana: 0,
+    total_weight: 0,
+    total_bardana: 0,
+    society_name_id: "",
+    truck_number_id: "",
   });
 
   const [DoOptions, setDoOptions] = useState([]);
@@ -99,64 +95,12 @@ const Add_Do = () => {
     fetchsociety();
   }, []);
 
-  // const handleInputChange = (e) => {
-  //   const { name, value } = e.target;
-  //   setDoData({
-  //     ...DoData,
-  //     [name]: value,
-  //   });
-  // };
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-
-    if (name === "select_mill_id") {
-      const selectedMill = DoOptions.find(
-        (option) => option.rice_mill_id === parseInt(value, 10)
-      );
-
-      setDoData({
-        ...DoData,
-        select_mill_id: value,
-        rice_mill_name: selectedMill ? selectedMill.rice_mill_name : "",
-      });
-    } else if (name === "select_agreement_id") {
-      const selectedAgreement = agreements.find(
-        (agreement) => agreement.agreement_id === parseInt(value, 10)
-      );
-
-      setDoData({
-        ...DoData,
-        select_agreement_id: value,
-        agreement_number: selectedAgreement
-          ? selectedAgreement.agreement_number
-          : "",
-      });
-    } else if (name === "society_id") {
-      const selectedSociety = societies.find(
-        (societie) => societie.society_id === parseInt(value, 10)
-      );
-
-      setDoData({
-        ...DoData,
-        society_id: value,
-        society_name: selectedSociety ? selectedSociety.society_name : "",
-      });
-    } else if (name === "truck_number_id") {
-      const selectedTruck = trucks.find(
-        (truck) => truck.truck_id === parseInt(value, 10)
-      );
-
-      setDoData({
-        ...DoData,
-        truck_number_id: value,
-        truck_number: selectedTruck ? selectedTruck.truck_number : "",
-      });
-    } else {
-      setDoData({
-        ...DoData,
-        [name]: value,
-      });
-    }
+    setDoData({
+      ...DoData,
+      [name]: value,
+    });
   };
 
   const handleSubmit = async (e) => {
@@ -288,7 +232,7 @@ const Add_Do = () => {
                 </div>
               </div>
 
-              {/* <div className="flex justify-between">
+              <div className="flex justify-between">
                 <div>
                   <div className="flex justify-between">
                     <label
@@ -510,7 +454,7 @@ const Add_Do = () => {
               <div>
                 <div className="flex justify-between">
                   <label
-                    htmlFor="Society_id"
+                    htmlFor="society_name_id"
                     className="block text-sm font-medium leading-6 text-gray-900"
                   >
                     Society
@@ -518,9 +462,9 @@ const Add_Do = () => {
                 </div>
                 <div className="mt-1">
                   <select
-                    name="society_id"
+                    name="society_name_id"
                     type="number"
-                    value={DoData.society_id}
+                    value={DoData.society_name_id}
                     className="bg-white block w-full px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     onChange={handleInputChange}
                   >
@@ -578,7 +522,7 @@ const Add_Do = () => {
                     Add New Truck.
                   </a>
                 </p>
-              </div> */}
+              </div>
 
               <div>
                 <button

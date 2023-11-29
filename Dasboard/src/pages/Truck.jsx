@@ -6,7 +6,6 @@ import axios from "axios";
 const Add_New_Truck = () => {
   const [truckData, setTruckData] = useState({
     truck_number: "",
-    transporter_name: "",
     transport_id: 0,
   });
 
@@ -37,35 +36,13 @@ const Add_New_Truck = () => {
     fetchData();
   }, []);
 
-  // const handleInputChange = (e) => {
-  //   const { name, value } = e.target;
-
-  //   setTruckData({
-  //     ...truckData,
-  //     [name]: value,
-  //   });
-  // };
   const handleInputChange = (e) => {
     const { name, value } = e.target;
 
-    if (name === "truck_number") {
-      setTruckData({
-        ...truckData,
-        [name]: value,
-      });
-    } else if (name === "transport_id") {
-      const selectedTransporter = transpoterOptions.find(
-        (option) => option.transporter_id === parseInt(value, 10)
-      );
-
-      setTruckData({
-        ...truckData,
-        transporter_name: selectedTransporter
-          ? selectedTransporter.transporter_name
-          : "",
-        transport_id: value,
-      });
-    }
+    setTruckData({
+      ...truckData,
+      [name]: value,
+    });
   };
 
   const handleSubmit = async (e) => {

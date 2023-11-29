@@ -7,12 +7,12 @@ const Frk = () => {
   const [frkData, setfrskData] = useState({
     date: "",
     party: "",
-    bags: "",
+    bags: 0,
     weight: "",
-    truck_number: "",
-    mill: "",
-    bill_number: "",
-    rate: "",
+    truck_number_id: "",
+    rice_mill_name_id: "",
+    bill_number: 0,
+    rate: 0,
   });
 
   // Fetch data for the "Select Rice Mill" dropdown
@@ -64,9 +64,10 @@ const Frk = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log(frkData);
 
     try {
-      const response = await axios.post("http://localhost:8000", frkData, {
+      const response = await axios.post("http://localhost:8000/frk", frkData, {
         headers: {
           "Content-Type": "application/json",
         },
@@ -168,7 +169,7 @@ const Frk = () => {
                   </label>
                   <input
                     type="number"
-                    name="Bags"
+                    name="bags"
                     className="block w-full rounded-md border-0 px-1.5 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     value={frkData.bags}
                     onChange={handleInputChange}
@@ -189,7 +190,7 @@ const Frk = () => {
               </div>
               <div>
                 <label
-                  htmlFor="select_mill_id"
+                  htmlFor="rice_mill_name_id"
                   className="block text-sm font-medium leading-6 text-gray-900"
                 >
                   Select Rice Mill
@@ -198,9 +199,9 @@ const Frk = () => {
                   <select
                     required
                     type="number"
-                    name="select_mill_id"
+                    name="rice_mill_name_id"
                     className="block  w-full bg-white rounded-md  border-0 px-1.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                    value={frkData.mill}
+                    value={frkData.rice_mill_name_id}
                     onChange={handleInputChange}
                   >
                     <option value="">-Select Rice Mill-</option>
@@ -236,7 +237,7 @@ const Frk = () => {
                   <select
                     name="truck_number_id"
                     type="number"
-                    value={frkData.truck_number}
+                    value={frkData.truck_number_id}
                     className=" bg-white block w-full px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     onChange={handleInputChange}
                   >

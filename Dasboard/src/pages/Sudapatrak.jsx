@@ -6,12 +6,12 @@ const Saudapatrak = () => {
   const [saudapatrakData, setsaudapatrakData] = useState({
     name: "",
     address: "",
-    vehical: "",
+    vechicle_number_id: "",
     paddy: "",
-    baga: "",
-    weight: "",
-    rate: "",
-    amout: "",
+    bags: "",
+    weight: 0,
+    rate: 0,
+    amount: 0,
   });
   const [trucks, setTrucks] = useState([]);
   useEffect(() => {
@@ -35,16 +35,17 @@ const Saudapatrak = () => {
     const { name, value } = e.target;
 
     setsaudapatrakData({
-      ...SaudapatrakData,
+      ...saudapatrakData,
       [name]: value,
     });
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log(saudapatrakData);
 
     try {
       const response = await axios.post(
-        "http://localhost:8000",
+        "http://localhost:8000/sauda-patrak",
         saudapatrakData,
         {
           headers: {
@@ -147,7 +148,7 @@ const Saudapatrak = () => {
 
                 <div>
                   <label
-                    htmlFor="truck_number_id"
+                    htmlFor="vechicle_number_id"
                     className="block text-sm font-medium leading-6 text-gray-900"
                   >
                     truck Number
@@ -155,9 +156,9 @@ const Saudapatrak = () => {
 
                   <div className="mt-1">
                     <select
-                      name="truck_number_id"
+                      name="vechicle_number_id"
                       type="number"
-                      value={saudapatrakData.truck_number_id}
+                      value={saudapatrakData.vechicle_number_id}
                       className=" bg-white block w-full px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                       onChange={handleInputChange}
                     >
@@ -182,7 +183,7 @@ const Saudapatrak = () => {
                 <div className="mt-3">
                   <div className="flex justify-between">
                     <label
-                      htmlFor="type_of_paddy"
+                      htmlFor="paddy"
                       className="block text-sm font-medium leading-6 text-gray-900"
                     >
                       Type Of Paddy
@@ -190,10 +191,10 @@ const Saudapatrak = () => {
                   </div>
                   <div className="mt-1">
                     <select
-                      value={saudapatrakData.type_of_paddy}
+                      value={saudapatrakData.paddy}
                       onChange={handleInputChange}
                       type="text"
-                      name="type_of_paddy"
+                      name="paddy"
                       className="bg-white block w-full px-1.5 rounded-md border-0 py-2.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     >
                       <option value="">Select Type of Paddy</option>
@@ -208,7 +209,7 @@ const Saudapatrak = () => {
                   <div>
                     <div className="flex justify-between">
                       <label
-                        htmlFor="baga"
+                        htmlFor="bags"
                         className="block text-sm font-medium leading-6 text-gray-900"
                       >
                         Baga
@@ -216,10 +217,10 @@ const Saudapatrak = () => {
                     </div>
                     <div className="mt-1">
                       <input
-                        type="text"
+                        type="number"
                         placeholder="Enter baga"
-                        name="baga"
-                        value={saudapatrakData.baga}
+                        name="bags"
+                        value={saudapatrakData.bags}
                         className="block w-full px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                         onChange={handleInputChange}
                       />
@@ -236,7 +237,7 @@ const Saudapatrak = () => {
                     </div>
                     <div className="mt-1">
                       <input
-                        type="text"
+                        type="number"
                         name="weight"
                         placeholder="Enter Weight"
                         value={saudapatrakData.weight}
@@ -258,7 +259,7 @@ const Saudapatrak = () => {
                     </div>
                     <div className="mt-1">
                       <input
-                        type="text"
+                        type="number"
                         name="rate"
                         placeholder="Enter Rate"
                         value={saudapatrakData.rate}
@@ -278,7 +279,7 @@ const Saudapatrak = () => {
                     </div>
                     <div className="mt-1">
                       <input
-                        type="text"
+                        type="number"
                         placeholder="Enter Amount"
                         name="amount"
                         value={saudapatrakData.amount}

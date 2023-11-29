@@ -5,9 +5,9 @@ import "react-toastify/dist/ReactToastify.css";
 
 const Dhanricesocietiesrate = () => {
   const [DhanricesocietiesrateData, setDhanricesocietiesrateData] = useState({
-    society_id: 0,
-    distance_from_mill: 0,
-    new: "",
+    society_name_id: "",
+    distance: 0,
+    new: 0,
   });
 
   // Fetch data for the "Society" dropdown
@@ -40,10 +40,11 @@ const Dhanricesocietiesrate = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log(DhanricesocietiesrateData);
 
     try {
       const response = await axios.post(
-        "http://localhost:8000/",
+        "http://localhost:8000/dhan-rice-societies-rate",
         DhanricesocietiesrateData,
         {
           headers: {
@@ -107,7 +108,7 @@ const Dhanricesocietiesrate = () => {
               <div>
                 <div className="flex justify-between">
                   <label
-                    htmlFor="Society_id"
+                    htmlFor="society_name_id"
                     className="block text-sm font-medium leading-6 text-gray-900"
                   >
                     Society
@@ -115,9 +116,9 @@ const Dhanricesocietiesrate = () => {
                 </div>
                 <div className="mt-1">
                   <select
-                    name="society_id"
+                    name="society_name_id"
                     type="number"
-                    value={DhanricesocietiesrateData.society_id}
+                    value={DhanricesocietiesrateData.society_name_id}
                     className="bg-white block w-full px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     onChange={handleInputChange}
                   >
@@ -146,7 +147,7 @@ const Dhanricesocietiesrate = () => {
                 <div>
                   <div className="flex justify-between">
                     <label
-                      htmlFor="distance_from_mill"
+                      htmlFor="distance"
                       className="block text-sm font-medium leading-6 text-gray-900"
                     >
                       Distance From Mill
@@ -155,8 +156,8 @@ const Dhanricesocietiesrate = () => {
                   <div className="mt-1">
                     <input
                       type="number"
-                      name="distance_from_mill"
-                      value={DhanricesocietiesrateData.distance_from_mill}
+                      name="distance"
+                      value={DhanricesocietiesrateData.distance}
                       className="block w-full px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                       onChange={handleInputChange}
                     />

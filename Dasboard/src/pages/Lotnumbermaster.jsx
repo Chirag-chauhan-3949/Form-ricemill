@@ -5,8 +5,7 @@ import axios from "axios";
 
 const Lotnumbermaster = () => {
   const [lotnumbermasterData, setlotnumbermasterData] = useState({
-    rice_mill_name: "",
-    rice_mill_name_id: "",
+    rice_mill_name_id: 0,
     lot_number: 0,
   });
 
@@ -30,34 +29,13 @@ const Lotnumbermaster = () => {
     fetchMillData();
   }, []);
 
-  // const handleInputChange = (e) => {
-  //   const { name, value } = e.target;
-
-  //   setlotnumbermasterData({
-  //     ...lotnumbermasterData,
-  //     [name]: value,
-  //   });
-  // };
-
   const handleInputChange = (e) => {
     const { name, value } = e.target;
 
-    setlotnumbermasterData((prevData) => ({
-      ...prevData,
+    setlotnumbermasterData({
+      ...lotnumbermasterData,
       [name]: value,
-    }));
-
-    if (name === "select_mill_id") {
-      const selectedMill = millData.find(
-        (option) => option.rice_mill_id === parseInt(value, 10)
-      );
-
-      setlotnumbermasterData((prevData) => ({
-        ...prevData,
-        rice_mill_name: selectedMill ? selectedMill.rice_mill_name : "",
-        rice_mill_name_id: value,
-      }));
-    }
+    });
   };
 
   const handleSubmit = async (e) => {
@@ -125,7 +103,7 @@ const Lotnumbermaster = () => {
             <form className="space-y-6" onSubmit={handleSubmit}>
               <div>
                 <label
-                  htmlFor="select_mill_id"
+                  htmlFor="rice_mill_name_id"
                   className="block text-sm font-medium leading-6 text-gray-900"
                 >
                   Select Rice Mill
@@ -134,9 +112,9 @@ const Lotnumbermaster = () => {
                   <select
                     required
                     type="number"
-                    name="select_mill_id"
+                    name="rice_mill_name_id"
                     className="block  w-full bg-white rounded-md  border-0 px-1.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                    value={lotnumbermasterData.mill}
+                    value={lotnumbermasterData.rice_mill_name_id}
                     onChange={handleInputChange}
                   >
                     <option value="">-Select Rice Mill-</option>
