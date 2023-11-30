@@ -20,7 +20,7 @@ import Paddysales from "./pages/Paddysales.jsx";
 import Sudapatrak from "./pages/Sudapatrak.jsx";
 import Dalalidhan from "./pages/Dalalidhan.jsx";
 import Frk from "./pages/Frk.jsx";
-import Dhantransporting from "./pages/Dhantrabsporting.jsx";
+import Dhantransporting from "./pages/Dhantransporting.jsx";
 import Mohanfoodpaddy from "./pages/Mohanfoodpaddy.jsx";
 import Transportermaster from "./pages/Transportermaster.jsx";
 import Dhanricesocietiesrate from "./pages/Dhanricesocietiesrate.jsx";
