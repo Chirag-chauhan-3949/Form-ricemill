@@ -10,22 +10,22 @@ const Dalalidhan = () => {
     kocia: "",
     vehicale_number_id: 0,
     white_sarna_bags: 0,
-    white_sarna_weight: "",
+    white_sarna_weight: 0,
     ir_bags: 0,
-    ir_weight: "",
+    ir_weight: 0,
     rb_gold_bags: 0,
-    rb_gold_weight: "",
+    rb_gold_weight: 0,
     sarna_bags: 0,
-    sarna_weight: "",
+    sarna_weight: 0,
     sambha_new_bag: 0,
-    sambha_new_weight: "",
+    sambha_new_weight: 0,
     paddy_type: "",
     total_bags: 0,
-    total_weight: "",
+    total_weight: 0,
     hamali: 0,
-    weight_less_plastic: "",
-    weight_less_jute: "",
-    weight_less_kata_difference: "",
+    weight_less_plastic: 0,
+    weight_less_jute: 0,
+    weight_less_kata_difference: 0,
     net_weight: "",
     rate: 0,
     ammount: 0,
@@ -283,7 +283,7 @@ const Dalalidhan = () => {
                     </div>
                     <div className="mt-1">
                       <input
-                        type="text"
+                        type="number"
                         name="white_sarna_weight"
                         value={DalaliData.white_sarna_weight}
                         className="block min-w-[250px] w-full px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
@@ -323,7 +323,7 @@ const Dalalidhan = () => {
                     </div>
                     <div className="mt-1">
                       <input
-                        type="text"
+                        type="number"
                         name="ir_weight"
                         value={DalaliData.ir_weight}
                         className="block min-w-[250px] w-full px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
@@ -363,7 +363,7 @@ const Dalalidhan = () => {
                     </div>
                     <div className="mt-1">
                       <input
-                        type="text"
+                        type="number"
                         name="rb_gold_weight"
                         value={DalaliData.rb_gold_weight}
                         className="block min-w-[250px] w-full px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
@@ -443,7 +443,7 @@ const Dalalidhan = () => {
                     </div>
                     <div className="mt-1">
                       <input
-                        type="text"
+                        type="number"
                         name="sambha_new_weight"
                         value={DalaliData.sambha_new_weight}
                         className="block min-w-[250px] w-full px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
@@ -510,7 +510,7 @@ const Dalalidhan = () => {
                     </div>
                     <div className="mt-1">
                       <input
-                        type="text"
+                        type="number"
                         placeholder="Enter Total Weight"
                         name="total_weight"
                         value={DalaliData.total_weight}
@@ -552,7 +552,7 @@ const Dalalidhan = () => {
                     </div>
                     <div className="mt-1">
                       <input
-                        type="text"
+                        type="number"
                         placeholder="Enter bags"
                         name="weight_less_plastic"
                         value={DalaliData.weight_less_plastic}
@@ -572,7 +572,7 @@ const Dalalidhan = () => {
                     </div>
                     <div className="mt-1">
                       <input
-                        type="text"
+                        type="number"
                         placeholder="Enter Weight Less Jute"
                         name="weight_less_jute"
                         value={DalaliData.weight_less_jute}
@@ -594,7 +594,7 @@ const Dalalidhan = () => {
                     </div>
                     <div className="mt-1">
                       <input
-                        type="text"
+                        type="number"
                         placeholder="Enter Weight less Kata Difference"
                         name="weight_less_kata_difference"
                         value={DalaliData.weight_less_kata_difference}

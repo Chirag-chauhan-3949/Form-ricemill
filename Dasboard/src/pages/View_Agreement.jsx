@@ -4,7 +4,7 @@ function View_Agreement() {
   const [data, setdata] = useState([]);
   useEffect(() => {
     axios
-      .get("https://localhost:8000/agreements")
+      .get("http://localhost:8000/agreements")
       .then((res) => setdata(res.data))
       .catch((err) => console.log(err));
   }, []);

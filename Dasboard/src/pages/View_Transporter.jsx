@@ -4,7 +4,7 @@ function ViewTransporter() {
   const [data, setdata] = useState([]);
   useEffect(() => {
     axios
-      .get("https://localhost:8000/transporters")
+      .get("http://localhost:8000/transporters")
       .then((res) => setdata(res.data))
       .catch((err) => console.log(err));
   }, []);
