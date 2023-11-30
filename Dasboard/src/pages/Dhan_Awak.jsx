@@ -1,55 +1,129 @@
 import React, { useState, useEffect } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import axios from "axios";
 const Dhan_Awak = () => {
   const [DhanAwakData, setFormData] = useState({
-    Jama_jute_22_23: "",
-    ek_bharti_21_22: "",
-    pds: "",
-    miller_purana: "",
-    kisan: "",
-    bardana_society: "",
-    hdpe_22_23: "",
-    hdpe_21_22: "",
+    rst_number: 0,
+    rice_mill_id: "",
+    date: "",
+    do_id: "",
+    society_id: "",
+    society_hidden_name: 0,
+    dm_weight: "",
+    number_of_bags: 0,
+    truck_number_id: "",
+    transporter_name_id: "",
+    transporting_rate: 0,
+    // transporting_rate_society_id: "",
+    transporting_total: 0,
+    jama_jute_22_23: 0,
+    ek_bharti_21_22: 0,
+    pds: 0,
+    miller_purana: 0,
+    kisan: 0,
+    bardana_society: 0,
+    hdpe_22_23: 0,
+    hdpe_21_22: 0,
+    hdpe_21_22_one_use: 0,
     total_bag_weight: "",
-    hdpe_21_22_one_use: "",
     type_of_paddy: "",
     actual_paddy: "",
     mill_weight_quintals: "",
-    shortage: "",
-    bags_put_in_hopper: "",
+    shortage: 0,
+    bags_put_in_hopper: 0,
     total_hopper_weight: "",
-    rst_number: "",
-    select_mill: "",
-    date: "",
-    do_number: "",
-    society: "",
-    society_hidden_name: "",
-    dm_weight: "",
-    number_of_bags: "",
-    truck_number: "",
-    transporter: "",
-    transporting_rate: "",
-    transporting_total: "",
   });
-  const [selectOptions, setSelectOptions] = useState([]);
-
+  // Fetch data for the "Select Rice Mill" dropdown
+  const [millData, setmillData] = useState([]);
   useEffect(() => {
-    const fetchDo = async () => {
+    async function fetchData() {
       try {
-        const do_response = await fetch("");
-        if (do_response.ok) {
-          const data = await do_response.json();
-          setSelectOptions(data);
-          console.log(data);
-        } else {
-          console.error("Failed to fetch transporters");
-        }
+        const Agreement_response = await axios.get(
+          "http://localhost:8000/rice-mill"
+        );
+
+        const data = Agreement_response.data;
+        setmillData(data);
+        // console.log(data);
       } catch (error) {
         console.error("Error:", error);
       }
-    };
-    fetchDo();
+    }
+
+    fetchData();
+  }, []);
+  // Fetch data for the "Select transporter" dropdown
+  const [transpoterOptions, setTransporterOptions] = useState([]);
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const transporter_response = await axios.get(
+          "http://localhost:8000/transporters/"
+        );
+
+        const data = transporter_response.data;
+        setTransporterOptions(data);
+        // console.log(data);
+      } catch (error) {
+        console.error("Error:", error);
+      }
+    }
+
+    fetchData();
+  }, []);
+
+  // Fetch data for the "truck" dropdown
+  const [trucks, setTrucks] = useState([]);
+  useEffect(() => {
+    async function fetchTransporter() {
+      try {
+        const transporter_response = await axios.get(
+          "http://localhost:8000/trucks/"
+        );
+
+        const data = transporter_response.data;
+        setTrucks(data);
+        // console.log(data);
+      } catch (error) {
+        console.error("Error:", error);
+      }
+    }
+    fetchTransporter();
+  }, []);
+
+  // Fetch data for the "Society" dropdown
+  const [societies, setSocieties] = useState([]);
+  useEffect(() => {
+    async function fetchsociety() {
+      try {
+        const society_response = await axios.get(
+          "http://localhost:8000/societies/"
+        );
+
+        const data = society_response.data;
+        setSocieties(data);
+        // console.log(data);
+      } catch (error) {
+        console.error("Error:", error);
+      }
+    }
+    fetchsociety();
+  }, []);
+
+  const [doData, setdoData] = useState([]);
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const response = await axios.get("http://localhost:8000/add-do-data");
+        const data = response.data;
+        setdoData(data);
+        // console.log(data);
+      } catch (error) {
+        console.error("Error:", error);
+      }
+    }
+    fetchData();
   }, []);
 
   const handleInputChange = (e) => {
@@ -59,9 +133,10 @@ const Dhan_Awak = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log(DhanAwakData);
 
     try {
-      const response = await fetch("your-api-endpoint", {
+      const response = await fetch("http://localhost:8000/dhan-awak", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -105,12 +180,6 @@ const Dhan_Awak = () => {
       });
     }
   };
-
-  const notificationMethods = [
-    { value: "Purushottam Rice mill", title: "Purushottam Rice mill" },
-    { value: "Dushyant Rice Mill", title: "Dushyant Rice Mill" },
-    { value: "Tulsi Rice Mill", title: "Tulsi Rice Mill" },
-  ];
   return (
     <>
       <div className="flex min-h-full flex-1 flex-col justify-center py-12 sm:px-6 lg:px-8">
@@ -144,10 +213,10 @@ const Dhan_Awak = () => {
                   </div>
                   <div className="mt-1">
                     <input
-                      value={DhanAwakData.rst_number}
                       onChange={handleInputChange}
-                      type="text"
+                      type="number"
                       name="rst_number"
+                      value={DhanAwakData.rst_number}
                       className="block min-w-[250px] px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     />
                   </div>
@@ -161,14 +230,15 @@ const Dhan_Awak = () => {
                   </label>
                   <div className="mt-2">
                     <select
-                      required
+                      // required
                       name="rice_mill_id"
+                      type="text"
                       className="block  w-full bg-white rounded-md  border-0 px-1.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                       value={DhanAwakData.rice_mill_id}
                       onChange={handleInputChange}
                     >
                       <option value="">-Select Rice Mill-</option>
-                      {selectOptions.map((option) => (
+                      {millData.map((option) => (
                         <option
                           key={option.rice_mill_id}
                           value={option.rice_mill_id}
@@ -212,7 +282,7 @@ const Dhan_Awak = () => {
                 <div>
                   <div className="flex justify-between">
                     <label
-                      htmlFor="do_number"
+                      htmlFor="do_id"
                       className="block text-sm font-medium leading-6 text-gray-900"
                     >
                       Do Number
@@ -223,11 +293,11 @@ const Dhan_Awak = () => {
                       value={DhanAwakData.do_id}
                       onChange={handleInputChange}
                       type="text"
-                      name="do_number"
+                      name="do_id"
                       className=" bg-white block min-w-[250px] px-1.5 rounded-md border-0 py-2.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     >
                       <option value="">Select Do</option>
-                      {selectOptions.map((option) => (
+                      {doData.map((option) => (
                         <option key={option.do_id} value={option.do_id}>
                           {option.do_number}
                         </option>
@@ -249,7 +319,7 @@ const Dhan_Awak = () => {
                 <div>
                   <div className="flex justify-between">
                     <label
-                      htmlFor="society"
+                      htmlFor="society_id"
                       className="block text-sm font-medium leading-6 text-gray-900"
                     >
                       Society
@@ -257,24 +327,32 @@ const Dhan_Awak = () => {
                   </div>
                   <div className="mt-1">
                     <select
-                      value={DhanAwakData.society}
+                      name="society_id"
+                      type="number"
+                      value={DhanAwakData.society_id}
+                      className="bg-white block w-full px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                       onChange={handleInputChange}
-                      type="text"
-                      name="society"
-                      className=" bg-white block min-w-[250px] px-1.5 rounded-md border-0 py-2.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     >
-                      <option value="">-Select Society-</option>
+                      <option value="">Select a society</option>
+                      {societies.map((societie) => (
+                        <option
+                          key={societie.society_id}
+                          value={societie.society_id}
+                        >
+                          {societie.society_name}
+                        </option>
+                      ))}
                     </select>
+                    <p className="mt-2  text-sm text-gray-500">
+                      Cannot Find Society?{" "}
+                      <a
+                        href="/Add_New_Society"
+                        className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
+                      >
+                        Add New Society.
+                      </a>
+                    </p>
                   </div>
-                  <p className="mt-2 text-sm text-gray-500">
-                    Cannot Find Society?{" "}
-                    <a
-                      href="/Add_New_Society"
-                      className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
-                    >
-                      Add New Society..
-                    </a>
-                  </p>
                 </div>
                 <div>
                   <div className="flex justify-between">
@@ -289,7 +367,7 @@ const Dhan_Awak = () => {
                     <input
                       value={DhanAwakData.society_hidden_name}
                       onChange={handleInputChange}
-                      type="text"
+                      type="number"
                       name="society_hidden_name"
                       className="block min-w-[250px] px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     />
@@ -329,7 +407,7 @@ const Dhan_Awak = () => {
                     <input
                       value={DhanAwakData.number_of_bags}
                       onChange={handleInputChange}
-                      type="text"
+                      type="number"
                       name="number_of_bags"
                       className="block min-w-[250px] px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     />
@@ -338,64 +416,74 @@ const Dhan_Awak = () => {
               </div>
               <div className="flex justify-between">
                 <div>
-                  <div className="flex justify-between">
-                    <label
-                      htmlFor="truck_number"
-                      className="block text-sm font-medium leading-6 text-gray-900"
-                    >
-                      Truck Number
-                    </label>
-                  </div>
+                  <label
+                    htmlFor="truck_number_id"
+                    className="block text-sm font-medium leading-6 text-gray-900"
+                  >
+                    truck Number
+                  </label>
+
                   <div className="mt-1">
                     <select
-                      value={DhanAwakData.truck_number}
+                      name="truck_number_id"
+                      type="number"
+                      value={DhanAwakData.truck_number_id}
+                      className=" bg-white block w-full px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                       onChange={handleInputChange}
-                      type="text"
-                      name="truck_number"
-                      className=" bg-white block min-w-[250px] px-1.5 rounded-md border-0 py-2.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     >
-                      <option value="">-Select Truck-</option>
+                      <option value="">Select a Truck</option>
+                      {trucks.map((truck) => (
+                        <option key={truck.truck_id} value={truck.truck_id}>
+                          {truck.truck_number}
+                        </option>
+                      ))}
                     </select>
                   </div>
                   <p className="mt-2 text-sm text-gray-500">
                     Cannot Find Truck?{" "}
                     <a
-                      href="/Add_New_Truck"
+                      href="/Add_NEw_Truck"
                       className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
                     >
-                      Add New Truck..
+                      Add New Truck.
                     </a>
                   </p>
                 </div>
                 <div>
-                  <div className="flex justify-between">
-                    <label
-                      htmlFor="transporter"
-                      className="block text-sm font-medium leading-6 text-gray-900"
-                    >
-                      Transporter
-                    </label>
-                  </div>
-                  <div className="mt-1">
+                  <label
+                    htmlFor="transporter_name_id"
+                    className="block text-sm font-medium leading-6 text-gray-900"
+                  >
+                    Select Transporter
+                  </label>
+                  <div className="mt-2">
                     <select
-                      value={DhanAwakData.transporter}
+                      // required
+                      name="transporter_name_id"
+                      className="block  w-full bg-white rounded-md  border-0 px-1.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                      value={DhanAwakData.transporter_name_id}
                       onChange={handleInputChange}
-                      type="text"
-                      name="transporter"
-                      className=" bg-white block min-w-[250px] px-1.5 rounded-md border-0 py-2.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     >
-                      <option value="">-Select Transporter-</option>
+                      <option value="">-Select a transporter-</option>
+                      {transpoterOptions.map((option) => (
+                        <option
+                          key={option.transporter_id}
+                          value={option.transporter_id}
+                        >
+                          {option.transporter_name}
+                        </option>
+                      ))}
                     </select>
+                    <p className="mt-2 text-center text-sm text-gray-500">
+                      Cannot Find Transporter?{" "}
+                      <a
+                        href="/Add_NEw_Transporter"
+                        className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
+                      >
+                        Add New Transporter.
+                      </a>
+                    </p>
                   </div>
-                  <p className="mt-2 text-sm text-gray-500">
-                    Cannot Find?{" "}
-                    <a
-                      href="/Add_New_Transporter"
-                      className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
-                    >
-                      Add New Transporter..
-                    </a>
-                  </p>
                 </div>
               </div>
               <div className="flex justify-between">
@@ -412,7 +500,7 @@ const Dhan_Awak = () => {
                     <input
                       value={DhanAwakData.transporting_rate}
                       onChange={handleInputChange}
-                      type="text"
+                      type="number"
                       name="transporting_rate"
                       className="block min-w-[250px] px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     />
@@ -431,7 +519,7 @@ const Dhan_Awak = () => {
                     <input
                       value={DhanAwakData.transporting_total}
                       onChange={handleInputChange}
-                      type="text"
+                      type="number"
                       name="transporting_total"
                       className="block min-w-[250px] px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     />
@@ -443,7 +531,7 @@ const Dhan_Awak = () => {
                 <div>
                   <div className="flex justify-between">
                     <label
-                      htmlFor="Jama_jute_22_23"
+                      htmlFor="jama_jute_22_23"
                       className="block text-sm font-medium leading-6 text-gray-900"
                     >
                       Jama Jute 22-23
@@ -451,10 +539,10 @@ const Dhan_Awak = () => {
                   </div>
                   <div className="mt-1">
                     <input
-                      value={DhanAwakData.Jama_jute_22_23}
+                      value={DhanAwakData.jama_jute_22_23}
                       onChange={handleInputChange}
-                      type="text"
-                      name="Jama_jute_22_23"
+                      type="number"
+                      name="jama_jute_22_23"
                       className="block w-full px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     />
                   </div>
@@ -462,7 +550,7 @@ const Dhan_Awak = () => {
                 <div>
                   <div className="flex justify-between">
                     <label
-                      htmlFor="ek_bharti_22_23"
+                      htmlFor="ek_bharti_21_22"
                       className="block text-sm font-medium leading-6 text-gray-900"
                     >
                       Ek Bharti 21-22
@@ -472,7 +560,7 @@ const Dhan_Awak = () => {
                     <input
                       value={DhanAwakData.ek_bharti_21_22}
                       onChange={handleInputChange}
-                      type="text"
+                      type="number"
                       name="ek_bharti_21_22"
                       className="block w-full px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     />
@@ -491,7 +579,7 @@ const Dhan_Awak = () => {
                     <input
                       value={DhanAwakData.pds}
                       onChange={handleInputChange}
-                      type="text"
+                      type="number"
                       name="pds"
                       className="block w-full px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     />
@@ -512,7 +600,7 @@ const Dhan_Awak = () => {
                     <input
                       value={DhanAwakData.miller_purana}
                       onChange={handleInputChange}
-                      type="text"
+                      type="number"
                       name="miller_purana"
                       className="block w-full px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     />
@@ -531,7 +619,7 @@ const Dhan_Awak = () => {
                     <input
                       value={DhanAwakData.kisan}
                       onChange={handleInputChange}
-                      type="text"
+                      type="number"
                       name="kisan"
                       className="block w-full px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     />
@@ -550,7 +638,7 @@ const Dhan_Awak = () => {
                     <input
                       value={DhanAwakData.bardana_society}
                       onChange={handleInputChange}
-                      type="text"
+                      type="number"
                       name="bardana_society"
                       className="block w-full px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     />
@@ -571,7 +659,7 @@ const Dhan_Awak = () => {
                     <input
                       value={DhanAwakData.hdpe_22_23}
                       onChange={handleInputChange}
-                      type="text"
+                      type="number"
                       name="hdpe_22_23"
                       className="block w-full px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     />
@@ -590,7 +678,7 @@ const Dhan_Awak = () => {
                     <input
                       value={DhanAwakData.hdpe_21_22}
                       onChange={handleInputChange}
-                      type="text"
+                      type="number"
                       name="hdpe_21_22"
                       className="block w-full px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     />
@@ -609,7 +697,7 @@ const Dhan_Awak = () => {
                     <input
                       value={DhanAwakData.hdpe_21_22_one_use}
                       onChange={handleInputChange}
-                      type="text"
+                      type="number"
                       name="hdpe_21_22_one_use"
                       className="block w-full px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     />
@@ -719,7 +807,7 @@ const Dhan_Awak = () => {
                     <input
                       value={DhanAwakData.shortage}
                       onChange={handleInputChange}
-                      type="text"
+                      type="number"
                       name="shortage"
                       className="block min-w-[250px] w-full px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     />

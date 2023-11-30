@@ -5,40 +5,42 @@ import axios from "axios";
 
 const Dalalidhan = () => {
   const [DalaliData, setDalaliData] = useState({
-    rst: 0,
-    date: 0,
+    rst_number_id: "",
+    date: "",
     kocia: "",
-    vehicale_number_id: "",
-    white_sarna_bags: "",
+    vehicale_number_id: 0,
+    white_sarna_bags: 0,
     white_sarna_weight: "",
-    ir_bags: "",
+    ir_bags: 0,
     ir_weight: "",
-    rb_gold_bags: "",
+    rb_gold_bags: 0,
     rb_gold_weight: "",
-    sarna_bags: "",
+    sarna_bags: 0,
     sarna_weight: "",
-    sambha_new_bags: "",
+    sambha_new_bag: 0,
     sambha_new_weight: "",
     paddy_type: "",
-    total_bags: "",
+    total_bags: 0,
     total_weight: "",
-    hamali: "",
+    hamali: 0,
     weight_less_plastic: "",
     weight_less_jute: "",
     weight_less_kata_difference: "",
     net_weight: "",
-    rate: "",
-    ammount: "",
+    rate: 0,
+    ammount: 0,
   });
   const [rstData, setrstData] = useState([]);
   useEffect(() => {
     async function fetchrst() {
       try {
-        const rst_response = await axios.get("http://localhost:8000/");
+        const rst_response = await axios.get(
+          "http://localhost:8000/dhan-awak-data"
+        );
 
         const data = rst_response.data;
         setrstData(data);
-        console.log(data);
+        // console.log(data);
       } catch (error) {
         console.error("Error:", error);
       }
@@ -55,7 +57,7 @@ const Dalalidhan = () => {
 
         const data = transporter_response.data;
         setTrucks(data);
-        console.log(data);
+        // console.log(data);
       } catch (error) {
         console.error("Error:", error);
       }
@@ -73,11 +75,15 @@ const Dalalidhan = () => {
     console.log(DalaliData);
     e.preventDefault();
     try {
-      const response = await axios.post("http://localhost:8000/", DalaliData, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      const response = await axios.post(
+        "http://localhost:8000/dalali-dhaan",
+        DalaliData,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
 
       if (response.status === 201) {
         console.log("Form data sent successfully");
@@ -136,7 +142,7 @@ const Dalalidhan = () => {
                 <div className="flex justify-between">
                   <div className="my-2.5">
                     <label
-                      htmlFor="rst_number"
+                      htmlFor="rst_number_id"
                       className="block text-sm font-medium leading-6 text-gray-900"
                     >
                       RST Number
@@ -144,19 +150,31 @@ const Dalalidhan = () => {
 
                     <div className="mt-1">
                       <select
-                        name="rst_number"
-                        type="number"
-                        value={DalaliData.rst_number}
+                        name="rst_number_id"
+                        type="text"
+                        value={DalaliData.rst_number_id}
                         className=" bg-white min-w-[250px] block w-full px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                         onChange={handleInputChange}
                       >
                         <option value="">Select rst</option>
                         {rstData.map((option) => (
-                          <option key={option.rst_id} value={option.rst_id}>
+                          <option
+                            key={option.dhan_awak_id}
+                            value={option.dhan_awak_id}
+                          >
                             {option.rst_number}
                           </option>
                         ))}
                       </select>
+                      <p className="mt-1.5 text-sm text-gray-500">
+                        Cannot Find RST?{" "}
+                        <a
+                          href="/Dhan_Awak"
+                          className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
+                        >
+                          Add New RST...
+                        </a>
+                      </p>
                     </div>
                   </div>
                   <div>
@@ -183,7 +201,7 @@ const Dalalidhan = () => {
                 <div>
                   <div className="flex justify-between">
                     <label
-                      htmlFor="kochia"
+                      htmlFor="kocia"
                       className="block text-sm font-medium leading-6 text-gray-900"
                     >
                       Kochia
@@ -191,8 +209,8 @@ const Dalalidhan = () => {
                   </div>
                   <div className="mt-1">
                     <input
-                      type="number"
-                      name="kochia"
+                      type="text"
+                      name="kocia"
                       value={DalaliData.kocia}
                       className="block min-w-[250px] px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                       onChange={handleInputChange}
@@ -202,7 +220,7 @@ const Dalalidhan = () => {
 
                 <div className="my-2.5">
                   <label
-                    htmlFor="truck_number_id"
+                    htmlFor="vehicale_number_id"
                     className="block text-sm font-medium leading-6 text-gray-900"
                   >
                     truck Number
@@ -210,7 +228,7 @@ const Dalalidhan = () => {
 
                   <div className="mt-1">
                     <select
-                      name="truck_number_id"
+                      name="vehicale_number_id"
                       type="number"
                       value={DalaliData.vehicale_number_id}
                       className=" bg-white block w-full px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
@@ -238,7 +256,7 @@ const Dalalidhan = () => {
                   <div>
                     <div className="flex justify-between">
                       <label
-                        htmlFor="white_sarna_bag"
+                        htmlFor="white_sarna_bags"
                         className="block text-sm font-medium leading-6 text-gray-900"
                       >
                         White Sarna Bag
@@ -246,8 +264,8 @@ const Dalalidhan = () => {
                     </div>
                     <div className="mt-1">
                       <input
-                        type="text"
-                        name="white_sarna_bag"
+                        type="number"
+                        name="white_sarna_bags"
                         value={DalaliData.white_sarna_bags}
                         className="block min-w-[250px] w-full px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                         onChange={handleInputChange}
@@ -265,7 +283,7 @@ const Dalalidhan = () => {
                     </div>
                     <div className="mt-1">
                       <input
-                        type="number"
+                        type="text"
                         name="white_sarna_weight"
                         value={DalaliData.white_sarna_weight}
                         className="block min-w-[250px] w-full px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
@@ -278,7 +296,7 @@ const Dalalidhan = () => {
                   <div>
                     <div className="flex justify-between">
                       <label
-                        htmlFor="ir_bag"
+                        htmlFor="ir_bags"
                         className="block text-sm font-medium leading-6 text-gray-900"
                       >
                         IR Bag
@@ -286,8 +304,8 @@ const Dalalidhan = () => {
                     </div>
                     <div className="mt-1">
                       <input
-                        type="text"
-                        name="ir_bag"
+                        type="number"
+                        name="ir_bags"
                         value={DalaliData.ir_bags}
                         className="block min-w-[250px] w-full px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                         onChange={handleInputChange}
@@ -305,7 +323,7 @@ const Dalalidhan = () => {
                     </div>
                     <div className="mt-1">
                       <input
-                        type="number"
+                        type="text"
                         name="ir_weight"
                         value={DalaliData.ir_weight}
                         className="block min-w-[250px] w-full px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
@@ -318,7 +336,7 @@ const Dalalidhan = () => {
                   <div>
                     <div className="flex justify-between">
                       <label
-                        htmlFor="rb_gold_bag"
+                        htmlFor="rb_gold_bags"
                         className="block text-sm font-medium leading-6 text-gray-900"
                       >
                         RB Gold Bag
@@ -326,8 +344,8 @@ const Dalalidhan = () => {
                     </div>
                     <div className="mt-1">
                       <input
-                        type="text"
-                        name="rb_gold_bag"
+                        type="number"
+                        name="rb_gold_bags"
                         value={DalaliData.rb_gold_bags}
                         className="block min-w-[250px] w-full px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                         onChange={handleInputChange}
@@ -345,7 +363,7 @@ const Dalalidhan = () => {
                     </div>
                     <div className="mt-1">
                       <input
-                        type="number"
+                        type="text"
                         name="rb_gold_weight"
                         value={DalaliData.rb_gold_weight}
                         className="block min-w-[250px] w-full px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
@@ -358,7 +376,7 @@ const Dalalidhan = () => {
                   <div>
                     <div className="flex justify-between">
                       <label
-                        htmlFor="sarna_bag"
+                        htmlFor="sarna_bags"
                         className="block text-sm font-medium leading-6 text-gray-900"
                       >
                         Sarna Bag
@@ -367,7 +385,7 @@ const Dalalidhan = () => {
                     <div className="mt-1">
                       <input
                         type="text"
-                        name="sarna_bag"
+                        name="sarna_bags"
                         value={DalaliData.sarna_bags}
                         className="block min-w-[250px] w-full px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                         onChange={handleInputChange}
@@ -406,9 +424,9 @@ const Dalalidhan = () => {
                     </div>
                     <div className="mt-1">
                       <input
-                        type="text"
+                        type="number"
                         name="sambha_new_bag"
-                        value={DalaliData.sambha_new_bags}
+                        value={DalaliData.sambha_new_bag}
                         className="block min-w-[250px] w-full px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                         onChange={handleInputChange}
                       />
@@ -425,7 +443,7 @@ const Dalalidhan = () => {
                     </div>
                     <div className="mt-1">
                       <input
-                        type="number"
+                        type="text"
                         name="sambha_new_weight"
                         value={DalaliData.sambha_new_weight}
                         className="block min-w-[250px] w-full px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
@@ -438,7 +456,7 @@ const Dalalidhan = () => {
                   <div className="mt-3">
                     <div className="flex justify-between">
                       <label
-                        htmlFor="type_of_paddy"
+                        htmlFor="paddy_type"
                         className="block text-sm font-medium leading-6 text-gray-900"
                       >
                         Type Of Paddy
@@ -449,7 +467,7 @@ const Dalalidhan = () => {
                         value={DalaliData.paddy_type}
                         onChange={handleInputChange}
                         type="text"
-                        name="type_of_paddy"
+                        name="paddy_type"
                         className="bg-white min-w-[250px] block w-full px-1.5 rounded-md border-0 py-2.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                       >
                         <option value="">Select Type of Paddy</option>
@@ -462,7 +480,7 @@ const Dalalidhan = () => {
                   <div className="mt-3">
                     <div className="flex justify-between">
                       <label
-                        htmlFor="total_bag"
+                        htmlFor="total_bags"
                         className="block text-sm font-medium leading-6 text-gray-900"
                       >
                         Total Bags
@@ -470,9 +488,9 @@ const Dalalidhan = () => {
                     </div>
                     <div className="mt-1">
                       <input
-                        type="text"
+                        type="number"
                         placeholder="Enter bags"
-                        name="total_bag"
+                        name="total_bags"
                         value={DalaliData.total_bags}
                         className="block min-w-[250px] w-full px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                         onChange={handleInputChange}
@@ -493,7 +511,7 @@ const Dalalidhan = () => {
                     <div className="mt-1">
                       <input
                         type="text"
-                        placeholder="Enter bags"
+                        placeholder="Enter Total Weight"
                         name="total_weight"
                         value={DalaliData.total_weight}
                         className="block min-w-[250px] w-full px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
@@ -512,8 +530,8 @@ const Dalalidhan = () => {
                     </div>
                     <div className="mt-1">
                       <input
-                        type="text"
-                        placeholder="Enter bags"
+                        type="number"
+                        placeholder="Enter Hamali"
                         name="hamali"
                         value={DalaliData.hamali}
                         className="block min-w-[250px] w-full px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
@@ -555,7 +573,7 @@ const Dalalidhan = () => {
                     <div className="mt-1">
                       <input
                         type="text"
-                        placeholder="Enter bags"
+                        placeholder="Enter Weight Less Jute"
                         name="weight_less_jute"
                         value={DalaliData.weight_less_jute}
                         className="block min-w-[250px] w-full px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
@@ -577,7 +595,7 @@ const Dalalidhan = () => {
                     <div className="mt-1">
                       <input
                         type="text"
-                        placeholder="Enter bags"
+                        placeholder="Enter Weight less Kata Difference"
                         name="weight_less_kata_difference"
                         value={DalaliData.weight_less_kata_difference}
                         className="block min-w-[250px] w-full px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
@@ -597,7 +615,7 @@ const Dalalidhan = () => {
                     <div className="mt-1">
                       <input
                         type="text"
-                        placeholder="Enter bags"
+                        placeholder="Enter Net Weight"
                         name="net_weight"
                         value={DalaliData.net_weight}
                         className="block min-w-[250px] w-full px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
@@ -618,8 +636,8 @@ const Dalalidhan = () => {
                     </div>
                     <div className="mt-1">
                       <input
-                        type="text"
-                        placeholder="Enter bags"
+                        type="number"
+                        placeholder="Enter Rate"
                         name="rate"
                         value={DalaliData.rate}
                         className="block min-w-[250px] w-full px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
@@ -630,7 +648,7 @@ const Dalalidhan = () => {
                   <div className="mt-3">
                     <div className="flex justify-between">
                       <label
-                        htmlFor="amount"
+                        htmlFor="ammount"
                         className="block text-sm font-medium leading-6 text-gray-900"
                       >
                         Amount
@@ -638,9 +656,9 @@ const Dalalidhan = () => {
                     </div>
                     <div className="mt-1">
                       <input
-                        type="text"
-                        placeholder="Enter bags"
-                        name="amount"
+                        type="number"
+                        placeholder="Enter Amount"
+                        name="ammount"
                         value={DalaliData.ammount}
                         className="block min-w-[250px] w-full px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                         onChange={handleInputChange}

@@ -7,7 +7,7 @@ const Add_Do = () => {
     select_mill_id: "",
     date: "",
     do_number: 0,
-    select_agreement_id: "",
+    select_argeement_id: "",
     moto_weight: 0,
     mota_Bardana: 0,
     patla_weight: 0,
@@ -255,7 +255,7 @@ const Add_Do = () => {
                 <div>
                   <div className="flex justify-between">
                     <label
-                      htmlFor="select_agreement_id"
+                      htmlFor="select_argeement_id"
                       className="block text-sm font-medium leading-6 text-gray-900"
                     >
                       Select Agreement
@@ -263,9 +263,9 @@ const Add_Do = () => {
                   </div>
                   <div className="mt-1">
                     <select
-                      type="number"
-                      name="select_agreement_id"
-                      value={DoData.select_agreement_id}
+                      type="text"
+                      name="select_argeement_id"
+                      value={DoData.select_argeement_id}
                       className=" bg-white block min-w-[250px] px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                       onChange={handleInputChange}
                     >
@@ -303,7 +303,7 @@ const Add_Do = () => {
                   </div>
                   <div className="mt-1">
                     <input
-                      type="text"
+                      type="number"
                       name="moto_weight"
                       value={DoData.moto_weight}
                       className="block min-w-[250px] px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
@@ -343,7 +343,7 @@ const Add_Do = () => {
                   </div>
                   <div className="mt-1">
                     <input
-                      type="text"
+                      type="number"
                       name="patla_weight"
                       value={DoData.patla_weight}
                       className="block min-w-[250px] px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
@@ -383,7 +383,7 @@ const Add_Do = () => {
                   </div>
                   <div className="mt-1">
                     <input
-                      type="text"
+                      type="number"
                       name="sarna_weight"
                       value={DoData.sarna_weight}
                       className="block min-w-[250px] px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"

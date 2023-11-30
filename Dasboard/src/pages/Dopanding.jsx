@@ -4,19 +4,19 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 const Dopanding = () => {
   const [DopandingData, setDopandingData] = useState({
-    do_number: "",
+    do_number_id: "",
     date: "",
     mota: "",
     patla: "",
     sarna: "",
-    total: "",
+    Total: 0,
   });
 
   const [dopandingData, setdopandingData] = useState([]);
   useEffect(() => {
     async function fetchData() {
       try {
-        const response = await axios.get("http://localhost:8000/");
+        const response = await axios.get("http://localhost:8000/add-do-data");
         const data = response.data;
         setdopandingData(data);
         console.log(data);
@@ -40,7 +40,7 @@ const Dopanding = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:8000",
+        "http://localhost:8000/do-panding",
         DopandingData,
         {
           headers: {
@@ -120,7 +120,7 @@ const Dopanding = () => {
                 <div>
                   <div className="flex justify-between">
                     <label
-                      htmlFor="do_number"
+                      htmlFor="do_number_id"
                       className="block text-sm font-medium leading-6 text-gray-900"
                     >
                       DO Numbar
@@ -128,15 +128,15 @@ const Dopanding = () => {
                   </div>
                   <div className="mt-1">
                     <select
-                      type="number"
-                      name="do_number"
-                      value={DopandingData.do_number}
+                      type="text"
+                      name="do_number_id"
+                      value={DopandingData.do_number_id}
                       className="block  w-full bg-white rounded-md  border-0 px-1.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                       onChange={handleInputChange}
                     >
                       <option value="">-Select Do Number-</option>
                       {dopandingData.map((option) => (
-                        <option key={option.do_number} value={option.do_number}>
+                        <option key={option.do_id} value={option.do_id}>
                           {option.do_number}
                         </option>
                       ))}
@@ -159,7 +159,7 @@ const Dopanding = () => {
                     mota
                   </label>
                   <input
-                    type="number"
+                    type="text"
                     name="mota"
                     className="block w-full rounded-md border-0 px-1.5 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     value={DopandingData.mota}
@@ -171,7 +171,7 @@ const Dopanding = () => {
                     patla
                   </label>
                   <input
-                    type="number"
+                    type="text"
                     name="patla"
                     className="block w-full rounded-md border-0 px-1.5 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     value={DopandingData.patla}
@@ -185,7 +185,7 @@ const Dopanding = () => {
                     sarna
                   </label>
                   <input
-                    type="number"
+                    type="text"
                     name="sarna"
                     className="block w-full rounded-md border-0 px-1.5 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     value={DopandingData.sarna}
@@ -195,7 +195,7 @@ const Dopanding = () => {
                 <div>
                   <div className="flex justify-between">
                     <label
-                      htmlFor="total"
+                      htmlFor="Total"
                       className="block text-sm font-medium leading-6 text-gray-900"
                     >
                       Total
@@ -204,8 +204,8 @@ const Dopanding = () => {
                   <div className="mt-1">
                     <input
                       type="number"
-                      name="total"
-                      value={DopandingData.total}
+                      name="Total"
+                      value={DopandingData.Total}
                       className="block w-full px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                       onChange={handleInputChange}
                     />
