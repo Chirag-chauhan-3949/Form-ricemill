@@ -6,7 +6,7 @@ const Add_Do = () => {
   const [DoData, setDoData] = useState({
     select_mill_id: "",
     date: "",
-    do_number: 0,
+    do_number: "",
     select_argeement_id: "",
     moto_weight: 0,
     mota_Bardana: 0,
@@ -27,12 +27,12 @@ const Add_Do = () => {
     async function fetchMillData() {
       try {
         const Mill_response = await axios.get(
-          "http://localhost:8000/rice-mill"
+          "http://localhost:8000/rice-agreement-transporter-truck-society-data"
         );
 
         const data = Mill_response.data;
         setDoOptions(data);
-        // console.log(data);
+        console.log(data);
       } catch (error) {
         console.error("Error:", error);
       }
@@ -41,59 +41,26 @@ const Add_Do = () => {
     fetchMillData();
   }, []);
 
-  // Fetch data for the "truck" dropdown
-  const [trucks, setTrucks] = useState([]);
+  const [DoOptionsagreement, setDoOptionsAgreement] = useState([]);
   useEffect(() => {
-    async function fetchTransporter() {
+    async function fetchagrementData() {
       try {
-        const transporter_response = await axios.get(
-          "http://localhost:8000/trucks/"
+        const agremennt_data = await axios.get(
+          `http://localhost:8000/rice-agreement-data/${DoData.select_mill_id}`
         );
 
-        const data = transporter_response.data;
-        setTrucks(data);
-        // console.log(data);
+        const data = agremennt_data.data;
+        setDoOptionsAgreement(data);
+        console.log(data);
       } catch (error) {
         console.error("Error:", error);
       }
     }
-    fetchTransporter();
-  }, []);
 
-  const [agreements, setAgreements] = useState([]);
-  useEffect(() => {
-    async function fetchagrement() {
-      try {
-        const agreement_response = await axios.get(
-          "http://localhost:8000/agreements/"
-        );
-        const data = agreement_response.data;
-        setAgreements(data);
-        // console.log(data);
-      } catch (error) {
-        console.error("Error:", error);
-      }
+    if (DoData.select_mill_id) {
+      fetchagrementData();
     }
-    fetchagrement();
-  }, []);
-
-  const [societies, setSocieties] = useState([]);
-  useEffect(() => {
-    async function fetchsociety() {
-      try {
-        const society_response = await axios.get(
-          "http://localhost:8000/societies/"
-        );
-
-        const data = society_response.data;
-        setSocieties(data);
-        // console.log(data);
-      } catch (error) {
-        console.error("Error:", error);
-      }
-    }
-    fetchsociety();
-  }, []);
+  }, [DoData.select_mill_id]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -192,14 +159,15 @@ const Add_Do = () => {
                     onChange={handleInputChange}
                   >
                     <option value="">-Select Rice Mill-</option>
-                    {DoOptions.map((option) => (
-                      <option
-                        key={option.rice_mill_id}
-                        value={option.rice_mill_id}
-                      >
-                        {option.rice_mill_name}
-                      </option>
-                    ))}
+                    {DoOptions.rice_mill_data &&
+                      DoOptions.rice_mill_data.map((option) => (
+                        <option
+                          key={option.rice_mill_id}
+                          value={option.rice_mill_id}
+                        >
+                          {option.rice_mill_name}
+                        </option>
+                      ))}
                   </select>
                   <p className="mt-2 text-sm text-gray-500">
                     Cannot Find Rice Mill?{" "}
@@ -244,7 +212,8 @@ const Add_Do = () => {
                   </div>
                   <div className="mt-1">
                     <input
-                      type="number"
+                      type="text"
+                      pattern="DO\d{13}"
                       name="do_number"
                       value={DoData.do_number}
                       className="block min-w-[250px] px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
@@ -270,14 +239,15 @@ const Add_Do = () => {
                       onChange={handleInputChange}
                     >
                       <option value="">Select Agreement</option>
-                      {agreements.map((agreement) => (
-                        <option
-                          key={agreement.agremennt_id}
-                          value={agreement.agremennt_id}
-                        >
-                          {agreement.agreement_number}
-                        </option>
-                      ))}
+                      {DoOptionsagreement.agreement_data &&
+                        DoOptionsagreement.agreement_data.map((agreement) => (
+                          <option
+                            key={agreement.agremennt_id}
+                            value={agreement.agremennt_id}
+                          >
+                            {agreement.agreement_number}
+                          </option>
+                        ))}
                     </select>
                   </div>
                   <p className="mt-2 text-center text-sm text-gray-500">
@@ -488,14 +458,15 @@ const Add_Do = () => {
                     onChange={handleInputChange}
                   >
                     <option value="">Select a society</option>
-                    {societies.map((societie) => (
-                      <option
-                        key={societie.society_id}
-                        value={societie.society_id}
-                      >
-                        {societie.society_name}
-                      </option>
-                    ))}
+                    {DoOptions.society_data &&
+                      DoOptions.society_data.map((societie) => (
+                        <option
+                          key={societie.society_id}
+                          value={societie.society_id}
+                        >
+                          {societie.society_name}
+                        </option>
+                      ))}
                   </select>
                   <p className="mt-2  text-sm text-gray-500">
                     Cannot Find Society?{" "}
@@ -525,11 +496,12 @@ const Add_Do = () => {
                     onChange={handleInputChange}
                   >
                     <option value="">Select a Truck</option>
-                    {trucks.map((truck) => (
-                      <option key={truck.truck_id} value={truck.truck_id}>
-                        {truck.truck_number}
-                      </option>
-                    ))}
+                    {DoOptions.truck_data &&
+                      DoOptions.truck_data.map((truck) => (
+                        <option key={truck.truck_id} value={truck.truck_id}>
+                          {truck.truck_number}
+                        </option>
+                      ))}
                   </select>
                 </div>
                 <p className="mt-2 text-sm text-gray-500">
