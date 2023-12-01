@@ -88,41 +88,6 @@ const Ricedeposit = () => {
     fetchTransporter();
   }, []);
 
-  const [agreements, setAgreements] = useState([]);
-  useEffect(() => {
-    async function fetchagrement() {
-      try {
-        const agreement_response = await axios.get(
-          "http://localhost:8000/agreements/"
-        );
-        const data = agreement_response.data;
-        setAgreements(data);
-        // console.log(data);
-      } catch (error) {
-        console.error("Error:", error);
-      }
-    }
-    fetchagrement();
-  }, []);
-
-  const [societies, setSocieties] = useState([]);
-  useEffect(() => {
-    async function fetchsociety() {
-      try {
-        const society_response = await axios.get(
-          "http://localhost:8000/societies/"
-        );
-
-        const data = society_response.data;
-        setSocieties(data);
-        // console.log(data);
-      } catch (error) {
-        console.error("Error:", error);
-      }
-    }
-    fetchsociety();
-  }, []);
-
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setRicedepositData({
@@ -133,9 +98,10 @@ const Ricedeposit = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log(RicedepositData);
     try {
       const response = await axios.post(
-        "http://localhost:8000//",
+        "http://localhost:8000/rice-deposite/",
         RicedepositData,
         {
           headers: {
