@@ -112,7 +112,7 @@ const Ricedeposit = () => {
       console.log("Response:", response);
       if (response.status === 201) {
         console.log("Form data sent successfully");
-        toast.success("Do added successfully", {
+        toast.success("Rice Deposit added successfully", {
           position: "top-right",
           autoClose: 3000,
           hideProgressBar: false,
@@ -123,7 +123,7 @@ const Ricedeposit = () => {
         });
       } else {
         console.error("Failed to send form data");
-        toast.error("Failed to add Do", {
+        toast.error("Failed to add Rice Deposit", {
           position: "top-right",
           autoClose: 3000,
           hideProgressBar: false,
@@ -135,7 +135,7 @@ const Ricedeposit = () => {
       }
     } catch (error) {
       console.error("Error:", error);
-      toast.error("Error Adding Do", {
+      toast.error("Error Adding Rice Deposit", {
         position: "top-right",
         autoClose: 3000,
         hideProgressBar: false,

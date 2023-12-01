@@ -5,9 +5,10 @@ import axios from "axios";
 
 const Dalalidhan = () => {
   const [DalaliData, setDalaliData] = useState({
-    rst_number_id: "",
+    rst_number: "",
     date: "",
-    kocia: "",
+
+    kocia_id: "",
     vehicale_number_id: 0,
     white_sarna_bags: 0,
     white_sarna_weight: "",
@@ -30,22 +31,22 @@ const Dalalidhan = () => {
     rate: 0,
     ammount: 0,
   });
-  const [rstData, setrstData] = useState([]);
+  const [kochiaData, setkochiaData] = useState([]);
   useEffect(() => {
-    async function fetchrst() {
+    async function fetchkochia() {
       try {
-        const rst_response = await axios.get(
+        const kochia_response = await axios.get(
           "http://localhost:8000/dhan-awak-data"
         );
 
-        const data = rst_response.data;
-        setrstData(data);
+        const data = kochia_response.data;
+        setkochiaData(data);
         // console.log(data);
       } catch (error) {
         console.error("Error:", error);
       }
     }
-    fetchrst();
+    fetchkochia();
   }, []);
   const [trucks, setTrucks] = useState([]);
   useEffect(() => {
@@ -142,27 +143,27 @@ const Dalalidhan = () => {
                 <div className="flex justify-between">
                   <div className="my-2.5">
                     <label
-                      htmlFor="rst_number_id"
+                      htmlFor="kochia_id"
                       className="block text-sm font-medium leading-6 text-gray-900"
                     >
-                      RST Number
+                      Kochia
                     </label>
 
                     <div className="mt-1">
                       <select
-                        name="rst_number_id"
+                        name="kochia_id"
                         type="text"
-                        value={DalaliData.rst_number_id}
+                        value={DalaliData.kochia_id}
                         className=" bg-white min-w-[250px] block w-full px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                         onChange={handleInputChange}
                       >
                         <option value="">Select rst</option>
-                        {rstData.map((option) => (
+                        {kochiaData.map((option) => (
                           <option
-                            key={option.dhan_awak_id}
-                            value={option.dhan_awak_id}
+                            key={option.kochia_id}
+                            value={option.kochia_id}
                           >
-                            {option.rst_number}
+                            {option.kochia_name}
                           </option>
                         ))}
                       </select>
@@ -201,17 +202,17 @@ const Dalalidhan = () => {
                 <div>
                   <div className="flex justify-between">
                     <label
-                      htmlFor="kocia"
+                      htmlFor="rst_number"
                       className="block text-sm font-medium leading-6 text-gray-900"
                     >
-                      Kochia
+                      RST Number
                     </label>
                   </div>
                   <div className="mt-1">
                     <input
                       type="text"
-                      name="kocia"
-                      value={DalaliData.kocia}
+                      name="rst_number"
+                      value={DalaliData.rst_number}
                       className="block min-w-[250px] px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                       onChange={handleInputChange}
                     />
@@ -251,6 +252,32 @@ const Dalalidhan = () => {
                       Add New Truck.
                     </a>
                   </p>
+                </div>
+                <div className="mt-3">
+                  <div className="flex justify-between">
+                    <label
+                      htmlFor="paddy_type"
+                      className="block text-sm font-medium leading-6 text-gray-900"
+                    >
+                      Type Of Paddy
+                    </label>
+                  </div>
+                  <div className="mt-1">
+                    <select
+                      value={DalaliData.paddy_type}
+                      onChange={handleInputChange}
+                      type="text"
+                      name="paddy_type"
+                      className="bg-white min-w-[250px] block w-full px-1.5 rounded-md border-0 py-2.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    >
+                      <option value="">Select Type of Paddy</option>
+                      <option value="white_sarna">White Sarna</option>
+                      <option value="IR">IR</option>
+                      <option value="rb_gold">RB Gold</option>
+                      <option value="sarna">Sarna</option>
+                      <option value="sambha_new">Sambha New</option>
+                    </select>
+                  </div>
                 </div>
                 <div className="flex justify-between my-3">
                   <div>
@@ -456,30 +483,6 @@ const Dalalidhan = () => {
                   <div className="mt-3">
                     <div className="flex justify-between">
                       <label
-                        htmlFor="paddy_type"
-                        className="block text-sm font-medium leading-6 text-gray-900"
-                      >
-                        Type Of Paddy
-                      </label>
-                    </div>
-                    <div className="mt-1">
-                      <select
-                        value={DalaliData.paddy_type}
-                        onChange={handleInputChange}
-                        type="text"
-                        name="paddy_type"
-                        className="bg-white min-w-[250px] block w-full px-1.5 rounded-md border-0 py-2.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                      >
-                        <option value="">Select Type of Paddy</option>
-                        <option value="Mota">Mota</option>
-                        <option value="Patla">Patla</option>
-                        <option value="Sarna">Sarna</option>
-                      </select>
-                    </div>
-                  </div>
-                  <div className="mt-3">
-                    <div className="flex justify-between">
-                      <label
                         htmlFor="total_bags"
                         className="block text-sm font-medium leading-6 text-gray-900"
                       >
@@ -497,8 +500,6 @@ const Dalalidhan = () => {
                       />
                     </div>
                   </div>
-                </div>
-                <div className="flex justify-between my-3">
                   <div className="mt-3">
                     <div className="flex justify-between">
                       <label
@@ -519,6 +520,8 @@ const Dalalidhan = () => {
                       />
                     </div>
                   </div>
+                </div>
+                <div className="flex justify-between my-3">
                   <div className="mt-3">
                     <div className="flex justify-between">
                       <label

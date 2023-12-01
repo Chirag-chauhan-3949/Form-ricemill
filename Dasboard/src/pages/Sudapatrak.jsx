@@ -212,13 +212,13 @@ const Saudapatrak = () => {
                         htmlFor="bags"
                         className="block text-sm font-medium leading-6 text-gray-900"
                       >
-                        Baga
+                        Bags
                       </label>
                     </div>
                     <div className="mt-1">
                       <input
                         type="number"
-                        placeholder="Enter baga"
+                        placeholder="Enter bags"
                         name="bags"
                         value={saudapatrakData.bags}
                         className="block w-full px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
@@ -237,10 +237,15 @@ const Saudapatrak = () => {
                     </div>
                     <div className="mt-1">
                       <input
+                        disabled
                         type="number"
                         name="weight"
                         placeholder="Enter Weight"
-                        value={saudapatrakData.weight}
+                        value={
+                          (saudapatrakData.weight = parseFloat(
+                            (saudapatrakData.bags * 0.4).toFixed(1)
+                          ))
+                        }
                         className="block w-full px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                         onChange={handleInputChange}
                       />
@@ -279,10 +284,15 @@ const Saudapatrak = () => {
                     </div>
                     <div className="mt-1">
                       <input
+                        disabled
+                        required
                         type="number"
                         placeholder="Enter Amount"
                         name="amount"
-                        value={saudapatrakData.amount}
+                        value={
+                          (saudapatrakData.amount =
+                            saudapatrakData.rate * saudapatrakData.weight)
+                        }
                         className="block w-full px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                         onChange={handleInputChange}
                       />

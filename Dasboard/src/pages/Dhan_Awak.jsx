@@ -405,7 +405,11 @@ const Dhan_Awak = () => {
                   </div>
                   <div className="mt-1">
                     <input
-                      value={DhanAwakData.number_of_bags}
+                      disabled
+                      value={
+                        (DhanAwakData.number_of_bags =
+                          DhanAwakData.dm_weight * 2.5)
+                      }
                       onChange={handleInputChange}
                       type="number"
                       name="number_of_bags"
@@ -414,78 +418,78 @@ const Dhan_Awak = () => {
                   </div>
                 </div>
               </div>
-              <div className="flex justify-between">
-                <div>
-                  <label
-                    htmlFor="truck_number_id"
-                    className="block text-sm font-medium leading-6 text-gray-900"
-                  >
-                    truck Number
-                  </label>
 
-                  <div className="mt-1">
-                    <select
-                      name="truck_number_id"
-                      type="number"
-                      value={DhanAwakData.truck_number_id}
-                      className=" bg-white block w-full px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                      onChange={handleInputChange}
-                    >
-                      <option value="">Select a Truck</option>
-                      {trucks.map((truck) => (
-                        <option key={truck.truck_id} value={truck.truck_id}>
-                          {truck.truck_number}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
-                  <p className="mt-2 text-sm text-gray-500">
-                    Cannot Find Truck?{" "}
+              <div>
+                <label
+                  htmlFor="truck_number_id"
+                  className="block text-sm font-medium leading-6 text-gray-900"
+                >
+                  truck Number
+                </label>
+
+                <div className="mt-1">
+                  <select
+                    name="truck_number_id"
+                    type="number"
+                    value={DhanAwakData.truck_number_id}
+                    className=" bg-white block w-full px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    onChange={handleInputChange}
+                  >
+                    <option value="">Select a Truck</option>
+                    {trucks.map((truck) => (
+                      <option key={truck.truck_id} value={truck.truck_id}>
+                        {truck.truck_number}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                <p className="mt-2 text-sm text-gray-500">
+                  Cannot Find Truck?{" "}
+                  <a
+                    href="/Add_NEw_Truck"
+                    className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
+                  >
+                    Add New Truck.
+                  </a>
+                </p>
+              </div>
+              <div>
+                <label
+                  htmlFor="transporter_name_id"
+                  className="block text-sm font-medium leading-6 text-gray-900"
+                >
+                  Select Transporter
+                </label>
+                <div className="mt-2">
+                  <select
+                    // required
+                    name="transporter_name_id"
+                    className="block  min-w-full bg-white rounded-md  border-0 px-1.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    value={DhanAwakData.transporter_name_id}
+                    onChange={handleInputChange}
+                  >
+                    <option value="">-Select a transporter-</option>
+                    {transpoterOptions.map((option) => (
+                      <option
+                        key={option.transporter_id}
+                        value={option.transporter_id}
+                      >
+                        {option.transporter_name}
+                      </option>
+                    ))}
+                  </select>
+                  <p className="mt-2  text-sm text-gray-500">
+                    Cannot Find Transporter?{" "}
                     <a
-                      href="/Add_NEw_Truck"
+                      href="/Add_NEw_Transporter"
                       className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
                     >
-                      Add New Truck.
+                      Add New Transporter.
                     </a>
                   </p>
                 </div>
-                <div>
-                  <label
-                    htmlFor="transporter_name_id"
-                    className="block text-sm font-medium leading-6 text-gray-900"
-                  >
-                    Select Transporter
-                  </label>
-                  <div className="mt-2">
-                    <select
-                      // required
-                      name="transporter_name_id"
-                      className="block  w-full bg-white rounded-md  border-0 px-1.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                      value={DhanAwakData.transporter_name_id}
-                      onChange={handleInputChange}
-                    >
-                      <option value="">-Select a transporter-</option>
-                      {transpoterOptions.map((option) => (
-                        <option
-                          key={option.transporter_id}
-                          value={option.transporter_id}
-                        >
-                          {option.transporter_name}
-                        </option>
-                      ))}
-                    </select>
-                    <p className="mt-2 text-center text-sm text-gray-500">
-                      Cannot Find Transporter?{" "}
-                      <a
-                        href="/Add_NEw_Transporter"
-                        className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
-                      >
-                        Add New Transporter.
-                      </a>
-                    </p>
-                  </div>
-                </div>
               </div>
+
               <div className="flex justify-between">
                 <div>
                   <div className="flex justify-between">
@@ -517,6 +521,7 @@ const Dhan_Awak = () => {
                   </div>
                   <div className="mt-1">
                     <input
+                      disabled
                       value={DhanAwakData.transporting_total}
                       onChange={handleInputChange}
                       type="number"
@@ -715,6 +720,7 @@ const Dhan_Awak = () => {
                 </div>
                 <div className="mt-1">
                   <input
+                    disabled
                     value={DhanAwakData.total_bag_weight}
                     onChange={handleInputChange}
                     type="text"

@@ -154,6 +154,7 @@ const Add_Agreement = () => {
                 </label>
                 <input
                   type="text"
+                  pattern="AC\d{12}"
                   name="agreement_number"
                   className="block w-full rounded-md border-0 px-1.5 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   value={agreementData.agreement_number}
@@ -229,10 +230,16 @@ const Add_Agreement = () => {
                       total
                     </label>
                     <input
+                      disabled
                       type="number"
                       name="total"
                       className="block w-full rounded-md border-0 px-1.5 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                      value={agreementData.total}
+                      value={
+                        (agreementData.total =
+                          +agreementData.mota +
+                          +agreementData.patla +
+                          +agreementData.sarna)
+                      }
                       onChange={handleInputChange}
                     />
                   </div>
