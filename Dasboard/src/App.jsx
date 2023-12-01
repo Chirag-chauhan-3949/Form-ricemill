@@ -26,6 +26,7 @@ import Transportermaster from "./pages/Transportermaster.jsx";
 import Dhanricesocietiesrate from "./pages/Dhanricesocietiesrate.jsx";
 import Lotnumbermaster from "./pages/Lotnumbermaster.jsx";
 import Kochia from "./pages/Add_kochia.jsx";
+import Ricedeposit from "./pages/Ricedeposit.jsx";
 
 const App = () => {
   const [isLoggedIn, setLoggedIn] = useState(true);
@@ -44,6 +45,7 @@ const App = () => {
               path="/Dhanricesocietiesrate"
               element={<Dhanricesocietiesrate />}
             />
+            <Route path="/Ricedeposit" element={<Ricedeposit />} />
             <Route path="/Transportermaster" element={<Transportermaster />} />
             <Route path="/Mohanfoodpaddy" element={<Mohanfoodpaddy />} />
             <Route path="/Dhantransporting" element={<Dhantransporting />} />

@@ -6,6 +6,7 @@ const navigation = [
     name: "Forms",
     current: false,
     children: [
+      { name: "Rice Deposit", href: "/Ricedeposit" },
       { name: "Add Rice Mill", href: "/Addricemill" },
       { name: "Add New Transporter", href: "/Add_New_Transporter" },
       { name: "Add New Truck", href: "/Add_New_Truck" },
