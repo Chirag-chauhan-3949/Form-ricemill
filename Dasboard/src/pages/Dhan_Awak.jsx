@@ -10,7 +10,7 @@ const Dhan_Awak = () => {
     do_id: "",
     society_id: "",
     society_hidden_name: 0,
-    dm_weight: 0,
+    dm_weight: "",
     number_of_bags: 0,
     truck_number_id: "",
     transporter_name_id: "",
@@ -26,13 +26,13 @@ const Dhan_Awak = () => {
     hdpe_22_23: 0,
     hdpe_21_22: 0,
     hdpe_21_22_one_use: 0,
-    total_bag_weight: 0,
+    total_bag_weight: "",
     type_of_paddy: "",
     actual_paddy: "",
-    mill_weight_quintals: 0,
+    mill_weight_quintals: "",
     shortage: 0,
     bags_put_in_hopper: 0,
-    total_hopper_weight: 0,
+    total_hopper_weight: "",
   });
   // Fetch data for the "Select Rice Mill" dropdown
   const [millData, setmillData] = useState([]);
@@ -388,7 +388,7 @@ const Dhan_Awak = () => {
                     <input
                       value={DhanAwakData.dm_weight}
                       onChange={handleInputChange}
-                      type="number"
+                      type="text"
                       name="dm_weight"
                       className="block min-w-[250px] px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     />
@@ -717,7 +717,7 @@ const Dhan_Awak = () => {
                   <input
                     value={DhanAwakData.total_bag_weight}
                     onChange={handleInputChange}
-                    type="number"
+                    type="text"
                     name="total_bag_weight"
                     className="block w-full px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   />
@@ -788,7 +788,7 @@ const Dhan_Awak = () => {
                     <input
                       value={DhanAwakData.mill_weight_quintals}
                       onChange={handleInputChange}
-                      type="number"
+                      type="text"
                       name="mill_weight_quintals"
                       className="block min-w-[250px] w-full px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     />
@@ -848,7 +848,7 @@ const Dhan_Awak = () => {
                     <input
                       value={DhanAwakData.total_hopper_weight}
                       onChange={handleInputChange}
-                      type="number"
+                      type="text"
                       name="total_hopper_weight"
                       className="block min-w-[250px] w-full px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     />

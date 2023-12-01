@@ -23,6 +23,7 @@ const navigation = [
       { name: "Paddy Sales", href: "/Paddysales" },
       { name: "Dhan Transporting", href: "/Dhantransporting" },
       { name: "Mohan Food Paddy", href: "/Mohanfoodpaddy" },
+      { name: "Kochia", href: "/Add_kochia" },
     ],
   },
   {

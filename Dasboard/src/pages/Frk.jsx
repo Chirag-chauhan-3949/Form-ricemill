@@ -8,7 +8,7 @@ const Frk = () => {
     date: "",
     party: "",
     bags: 0,
-    weight: 0,
+    weight: "",
     truck_number_id: "",
     rice_mill_name_id: "",
     bill_number: 0,

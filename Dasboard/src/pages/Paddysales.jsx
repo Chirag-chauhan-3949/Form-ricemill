@@ -12,8 +12,8 @@ const Paddysales = () => {
     loading_form_address: "",
     vehicle_number_id: "",
     paddy_name: "",
-    weight: 0,
-    party_weight: 0,
+    weight: "",
+    party_weight: "",
     rate: 0,
     ammount: 0,
     plastic: 0,
@@ -317,7 +317,7 @@ const Paddysales = () => {
                     <div className="">
                       <input
                         // required
-                        type="number"
+                        type="text"
                         name="weight"
                         className="block min-w-[250px] rounded-md border-0 px-1.5 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                         value={paddysalesData.weight}
@@ -337,7 +337,7 @@ const Paddysales = () => {
                     <div className="">
                       <input
                         // required
-                        type="number"
+                        type="text"
                         name="party_weight"
                         className="block min-w-[250px] w-full rounded-md border-0 px-1.5 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                         value={paddysalesData.party_weight}

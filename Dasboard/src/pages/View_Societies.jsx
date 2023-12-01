@@ -4,7 +4,7 @@ function ViewSocieties() {
   const [data, setdata] = useState([]);
   useEffect(() => {
     axios
-      .get("http://localhost:8000/societies")
+      .get("https://localhost:8000/societies")
       .then((res) => setdata(res.data))
       .catch((err) => console.log(err));
   }, []);

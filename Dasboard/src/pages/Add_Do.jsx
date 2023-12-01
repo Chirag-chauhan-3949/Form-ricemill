@@ -104,7 +104,6 @@ const Add_Do = () => {
   };
 
   const handleSubmit = async (e) => {
-    console.log(DoData);
     e.preventDefault();
     try {
       const response = await axios.post(
@@ -153,6 +152,7 @@ const Add_Do = () => {
       });
     }
   };
+
   return (
     <>
       <div className="flex min-h-full flex-1 flex-col justify-center py-12 sm:px-6 lg:px-8">
@@ -184,7 +184,7 @@ const Add_Do = () => {
                 </label>
                 <div className="mt-2">
                   <select
-                    required
+                    // required
                     type="text"
                     name="select_mill_id"
                     className="block  w-full bg-white rounded-md  border-0 px-1.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
@@ -322,9 +322,10 @@ const Add_Do = () => {
                   </div>
                   <div className="mt-1">
                     <input
+                      disabled
                       type="number"
                       name="mota_Bardana"
-                      value={DoData.mota_Bardana}
+                      value={(DoData.mota_Bardana = 2.5 * +DoData.moto_weight)}
                       className="block min-w-[250px] px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                       onChange={handleInputChange}
                     />
@@ -362,9 +363,12 @@ const Add_Do = () => {
                   </div>
                   <div className="mt-1">
                     <input
+                      disabled
                       type="number"
                       name="patla_bardana"
-                      value={DoData.patla_bardana}
+                      value={
+                        (DoData.patla_bardana = 2.5 * +DoData.patla_weight)
+                      }
                       className="block min-w-[250px] px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                       onChange={handleInputChange}
                     />
@@ -402,9 +406,12 @@ const Add_Do = () => {
                   </div>
                   <div className="mt-1">
                     <input
+                      disabled
                       type="number"
                       name="sarna_bardana"
-                      value={DoData.sarna_bardana}
+                      value={
+                        (DoData.sarna_bardana = 2.5 * +DoData.sarna_weight)
+                      }
                       className="block min-w-[250px] px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                       onChange={handleInputChange}
                     />
@@ -423,10 +430,16 @@ const Add_Do = () => {
                   </div>
                   <div className="mt-1">
                     <input
+                      disabled
                       type="number"
                       name="total_weight"
-                      value={DoData.total_weight}
-                      className="block min-w-[250px] px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                      value={
+                        (DoData.total_weight =
+                          +DoData.moto_weight +
+                          +DoData.patla_weight +
+                          +DoData.sarna_weight)
+                      }
+                      className="block min-w-[250px] px-1.5 rounded-md py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 bg-gray-200 sm:text-sm sm:leading-6"
                       onChange={handleInputChange}
                     />
                   </div>
@@ -442,10 +455,16 @@ const Add_Do = () => {
                   </div>
                   <div className="mt-1">
                     <input
+                      disabled
                       type="number"
                       name="total_bardana"
-                      value={DoData.total_bardana}
-                      className="block min-w-[250px] px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                      value={
+                        (DoData.total_bardana =
+                          +DoData.mota_Bardana +
+                          +DoData.patla_bardana +
+                          +DoData.sarna_bardana)
+                      }
+                      className="block min-w-[250px] px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300  bg-gray-200 placeholder:text-gray-400 sm:text-sm sm:leading-6"
                       onChange={handleInputChange}
                     />
                   </div>

@@ -25,6 +25,7 @@ import Mohanfoodpaddy from "./pages/Mohanfoodpaddy.jsx";
 import Transportermaster from "./pages/Transportermaster.jsx";
 import Dhanricesocietiesrate from "./pages/Dhanricesocietiesrate.jsx";
 import Lotnumbermaster from "./pages/Lotnumbermaster.jsx";
+import Kochia from "./pages/Add_kochia.jsx";
 
 const App = () => {
   const [isLoggedIn, setLoggedIn] = useState(true);
@@ -56,6 +57,7 @@ const App = () => {
             <Route path="/Add_Do" element={<Add_Do />} />
             <Route path="/Add_Agreement" element={<Add_Agreement />} />
             <Route path="/Add_New_Society" element={<Add_New_Society />} />
+            <Route path="/Add_kochia" element={<Kochia />} />
             <Route
               path="/Add_New_Transporter"
               element={<Add_New_Transporter />}

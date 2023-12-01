@@ -4,7 +4,7 @@ function ViewTruck() {
   const [data, setdata] = useState([]);
   useEffect(() => {
     axios
-      .get("http://localhost:8000/trucks")
+      .get("https://localhost:8000/trucks")
       .then((res) => setdata(res.data))
       .catch((err) => console.log(err));
   }, []);
