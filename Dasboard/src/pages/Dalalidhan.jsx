@@ -14,23 +14,23 @@ const Dalalidhan = () => {
     kochia_id: "",
     vehicale_number_id: 0,
     white_sarna_bags: 0,
-    white_sarna_weight: "",
+    white_sarna_weight: 0,
     ir_bags: 0,
-    ir_weight: "",
+    ir_weight: 0,
     rb_gold_bags: 0,
-    rb_gold_weight: "",
+    rb_gold_weight: 0,
     sarna_bags: 0,
-    sarna_weight: "",
+    sarna_weight: 0,
     sambha_new_bag: 0,
-    sambha_new_weight: "",
+    sambha_new_weight: 0,
     paddy_type: "",
     total_bags: 0,
-    total_weight: "",
+    total_weight: 0,
     hamali: 0,
-    weight_less_plastic: "",
-    weight_less_jute: "",
-    weight_less_kata_difference: "",
-    net_weight: "",
+    weight_less_plastic: 0,
+    weight_less_jute: 0,
+    weight_less_kata_difference: 0,
+    net_weight: 0,
     rate: 0,
     ammount: 0,
   });
@@ -39,7 +39,7 @@ const Dalalidhan = () => {
     async function fetchkochia() {
       try {
         const kochia_response = await axios.get(
-          "http://localhost:8000/dhan-awak-data"
+          "http://localhost:8000/kochia-data"
         );
 
         const data = kochia_response.data;
@@ -75,17 +75,18 @@ const Dalalidhan = () => {
       [name]: value,
     });
   };
-  const handlePaddyTypeChange = (e) => {
-    const { value } = e.target;
-    setSelectedPaddyType(value);
+  // const handlePaddyTypeChange = (e) => {
+  //   const { value } = e.target;
+  //   console.log(value);
+  //   setSelectedPaddyType(value);
 
-    // Optionally, you can reset the corresponding fields when the paddy type changes
-    setDalaliData({
-      ...DalaliData,
-      [`${value}_bags`]: 0,
-      [`${value}_weight`]: "",
-    });
-  };
+  //   // Optionally, you can reset the corresponding fields when the paddy type changes
+  //   setDalaliData({
+  //     ...DalaliData,
+  //     [`${value}_bags`]: 0,
+  //     [`${value}_weight`]: "",
+  //   });
+  // };
   const handleSubmit = async (e) => {
     console.log(DalaliData);
     e.preventDefault();
@@ -281,7 +282,7 @@ const Dalalidhan = () => {
                       value={DalaliData.paddy_type}
                       onChange={(e) => {
                         handleInputChange(e);
-                        handlePaddyTypeChange(e);
+                        // handlePaddyTypeChange(e);
                       }}
                       type="text"
                       name="paddy_type"
@@ -289,7 +290,7 @@ const Dalalidhan = () => {
                     >
                       <option value="">Select Type of Paddy</option>
                       <option value="white_sarna">White Sarna</option>
-                      <option value="IR">IR</option>
+                      <option value="ir">IR</option>
                       <option value="rb_gold">RB Gold</option>
                       <option value="sarna">Sarna</option>
                       <option value="sambha_new">Sambha New</option>
@@ -328,7 +329,7 @@ const Dalalidhan = () => {
                     </div>
                     <div className="mt-1">
                       <input
-                        type="text"
+                        type="number"
                         name={`${selectedPaddyType}_weight`}
                         value={DalaliData[`${selectedPaddyType}_weight`]}
                         disabled={!selectedPaddyType}
@@ -370,7 +371,7 @@ const Dalalidhan = () => {
                     </div>
                     <div className="mt-1">
                       <input
-                        type="text"
+                        type="number"
                         placeholder="Enter Total Weight"
                         name="total_weight"
                         value={DalaliData.total_weight}
@@ -414,7 +415,7 @@ const Dalalidhan = () => {
                     </div>
                     <div className="mt-1">
                       <input
-                        type="text"
+                        type="number"
                         placeholder="Enter bags"
                         name="weight_less_plastic"
                         value={DalaliData.weight_less_plastic}
@@ -434,7 +435,7 @@ const Dalalidhan = () => {
                     </div>
                     <div className="mt-1">
                       <input
-                        type="text"
+                        type="number"
                         placeholder="Enter Weight Less Jute"
                         name="weight_less_jute"
                         value={DalaliData.weight_less_jute}
@@ -476,7 +477,7 @@ const Dalalidhan = () => {
                     </div>
                     <div className="mt-1">
                       <input
-                        type="text"
+                        type="number"
                         placeholder="Enter Net Weight"
                         name="net_weight"
                         value={DalaliData.net_weight}
