@@ -23,10 +23,12 @@ const Dhantransporting = () => {
   useEffect(() => {
     async function fetchData() {
       try {
-        const response = await axios.get("http://localhost:8000/add-do-data");
+        const response = await axios.get(
+          "http://localhost:8000/rice-rst-society-do-truck-transporter"
+        );
         const data = response.data;
         setdopandingData(data);
-        // console.log(data);
+        console.log(data);
       } catch (error) {
         console.error("Error:", error);
       }
@@ -35,100 +37,100 @@ const Dhantransporting = () => {
   }, []);
 
   // Fetch data for the "Society" dropdown
-  const [societies, setSocieties] = useState([]);
-  useEffect(() => {
-    async function fetchsociety() {
-      try {
-        const society_response = await axios.get(
-          "http://localhost:8000/societies/"
-        );
+  // const [societies, setSocieties] = useState([]);
+  // useEffect(() => {
+  //   async function fetchsociety() {
+  //     try {
+  //       const society_response = await axios.get(
+  //         "http://localhost:8000/societies/"
+  //       );
 
-        const data = society_response.data;
-        setSocieties(data);
-        // console.log(data);
-      } catch (error) {
-        console.error("Error:", error);
-      }
-    }
-    fetchsociety();
-  }, []);
+  //       const data = society_response.data;
+  //       setSocieties(data);
+  //       // console.log(data);
+  //     } catch (error) {
+  //       console.error("Error:", error);
+  //     }
+  //   }
+  //   fetchsociety();
+  // }, []);
 
-  // Fetch data for the "Select Rice Mill" dropdown
-  const [millData, setmillData] = useState([]);
-  useEffect(() => {
-    async function fetchMillData() {
-      try {
-        const Mill_response = await axios.get(
-          "http://localhost:8000/rice-mill"
-        );
+  // // Fetch data for the "Select Rice Mill" dropdown
+  // const [millData, setmillData] = useState([]);
+  // useEffect(() => {
+  //   async function fetchMillData() {
+  //     try {
+  //       const Mill_response = await axios.get(
+  //         "http://localhost:8000/rice-mill"
+  //       );
 
-        const data = Mill_response.data;
-        setmillData(data);
-        // console.log(data);
-      } catch (error) {
-        console.error("Error:", error);
-      }
-    }
+  //       const data = Mill_response.data;
+  //       setmillData(data);
+  //       // console.log(data);
+  //     } catch (error) {
+  //       console.error("Error:", error);
+  //     }
+  //   }
 
-    fetchMillData();
-  }, []);
+  //   fetchMillData();
+  // }, []);
 
-  // Fetch data for the "Select transporter" dropdown
-  const [transpoterOptions, setTransporterOptions] = useState([]);
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        const transporter_response = await axios.get(
-          "http://localhost:8000/transporters/"
-        );
+  // // Fetch data for the "Select transporter" dropdown
+  // const [transpoterOptions, setTransporterOptions] = useState([]);
+  // useEffect(() => {
+  //   async function fetchData() {
+  //     try {
+  //       const transporter_response = await axios.get(
+  //         "http://localhost:8000/transporters/"
+  //       );
 
-        const data = transporter_response.data;
-        setTransporterOptions(data);
-        // console.log(data);
-      } catch (error) {
-        console.error("Error:", error);
-      }
-    }
+  //       const data = transporter_response.data;
+  //       setTransporterOptions(data);
+  //       // console.log(data);
+  //     } catch (error) {
+  //       console.error("Error:", error);
+  //     }
+  //   }
 
-    fetchData();
-  }, []);
+  //   fetchData();
+  // }, []);
 
-  // Fetch data for the "truck" dropdown
-  const [trucks, setTrucks] = useState([]);
-  useEffect(() => {
-    async function fetchTransporter() {
-      try {
-        const transporter_response = await axios.get(
-          "http://localhost:8000/trucks/"
-        );
+  // // Fetch data for the "truck" dropdown
+  // const [trucks, setTrucks] = useState([]);
+  // useEffect(() => {
+  //   async function fetchTransporter() {
+  //     try {
+  //       const transporter_response = await axios.get(
+  //         "http://localhost:8000/trucks/"
+  //       );
 
-        const data = transporter_response.data;
-        setTrucks(data);
-        // console.log(data);
-      } catch (error) {
-        console.error("Error:", error);
-      }
-    }
-    fetchTransporter();
-  }, []);
+  //       const data = transporter_response.data;
+  //       setTrucks(data);
+  //       // console.log(data);
+  //     } catch (error) {
+  //       console.error("Error:", error);
+  //     }
+  //   }
+  //   fetchTransporter();
+  // }, []);
 
-  const [rstData, setrstData] = useState([]);
-  useEffect(() => {
-    async function fetchrst() {
-      try {
-        const rst_response = await axios.get(
-          "http://localhost:8000/dhan-awak-data"
-        );
+  // const [rstData, setrstData] = useState([]);
+  // useEffect(() => {
+  //   async function fetchrst() {
+  //     try {
+  //       const rst_response = await axios.get(
+  //         "http://localhost:8000/dhan-awak-data"
+  //       );
 
-        const data = rst_response.data;
-        setrstData(data);
-        // console.log(data);
-      } catch (error) {
-        console.error("Error:", error);
-      }
-    }
-    fetchrst();
-  }, []);
+  //       const data = rst_response.data;
+  //       setrstData(data);
+  //       // console.log(data);
+  //     } catch (error) {
+  //       console.error("Error:", error);
+  //     }
+  //   }
+  //   fetchrst();
+  // }, []);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -216,14 +218,15 @@ const Dhantransporting = () => {
                     onChange={handleInputChange}
                   >
                     <option value="">Select rst</option>
-                    {rstData.map((option) => (
-                      <option
-                        key={option.dhan_awak_id}
-                        value={option.dhan_awak_id}
-                      >
-                        {option.rst_number}
-                      </option>
-                    ))}
+                    {dopandingData.rstData &&
+                      dopandingData.rstData.map((option) => (
+                        <option
+                          key={option.dhan_awak_id}
+                          value={option.dhan_awak_id}
+                        >
+                          {option.rst_number}
+                        </option>
+                      ))}
                   </select>
                 </div>
               </div>
@@ -265,14 +268,15 @@ const Dhantransporting = () => {
                       onChange={handleInputChange}
                     >
                       <option value="">Select a society</option>
-                      {societies.map((societie) => (
-                        <option
-                          key={societie.society_id}
-                          value={societie.society_id}
-                        >
-                          {societie.society_name}
-                        </option>
-                      ))}
+                      {dopandingData.transpoterOptions &&
+                        dopandingData.societies.map((societie) => (
+                          <option
+                            key={societie.society_id}
+                            value={societie.society_id}
+                          >
+                            {societie.society_name}
+                          </option>
+                        ))}
                     </select>
                     <p className="mt-2  text-sm text-gray-500">
                       Cannot Find Society?{" "}
@@ -303,11 +307,12 @@ const Dhantransporting = () => {
                       onChange={handleInputChange}
                     >
                       <option value="">-Select Do Number-</option>
-                      {dopandingData.map((option) => (
-                        <option key={option.do_id} value={option.do_id}>
-                          {option.do_number}
-                        </option>
-                      ))}
+                      {dopandingData.dopandingData &&
+                        dopandingData.dopandingData.map((option) => (
+                          <option key={option.do_id} value={option.do_id}>
+                            {option.do_number}
+                          </option>
+                        ))}
                     </select>
                     <p className="mt-2 text-sm text-gray-500">
                       Cannot Find Do?{" "}
@@ -339,14 +344,15 @@ const Dhantransporting = () => {
                       onChange={handleInputChange}
                     >
                       <option value="">-Select Rice Mill-</option>
-                      {millData.map((option) => (
-                        <option
-                          key={option.rice_mill_id}
-                          value={option.rice_mill_id}
-                        >
-                          {option.rice_mill_name}
-                        </option>
-                      ))}
+                      {dopandingData.rice_mill_data &&
+                        dopandingData.rice_mill_data.map((option) => (
+                          <option
+                            key={option.rice_mill_id}
+                            value={option.rice_mill_id}
+                          >
+                            {option.rice_mill_name}
+                          </option>
+                        ))}
                     </select>
                     <p className="mt-2 flex flex-wrap text-sm text-gray-500">
                       Cannot Find Rice Mill?{" "}
@@ -376,11 +382,12 @@ const Dhantransporting = () => {
                       onChange={handleInputChange}
                     >
                       <option value="">Select a Truck</option>
-                      {trucks.map((truck) => (
-                        <option key={truck.truck_id} value={truck.truck_id}>
-                          {truck.truck_number}
-                        </option>
-                      ))}
+                      {dopandingData.trucks &&
+                        dopandingData.trucks.map((truck) => (
+                          <option key={truck.truck_id} value={truck.truck_id}>
+                            {truck.truck_number}
+                          </option>
+                        ))}
                     </select>
                   </div>
                   <p className="mt-2 text-sm text-gray-500">
@@ -452,14 +459,15 @@ const Dhantransporting = () => {
                     onChange={handleInputChange}
                   >
                     <option value="">-Select a transporter-</option>
-                    {transpoterOptions.map((option) => (
-                      <option
-                        key={option.transporter_id}
-                        value={option.transporter_id}
-                      >
-                        {option.transporter_name}
-                      </option>
-                    ))}
+                    {dopandingData.transpoterOptions &&
+                      dopandingData.transpoterOptions.map((option) => (
+                        <option
+                          key={option.transporter_id}
+                          value={option.transporter_id}
+                        >
+                          {option.transporter_name}
+                        </option>
+                      ))}
                   </select>
                   <p className="mt-2 text-sm text-gray-500">
                     Cannot Find Transporter?{" "}

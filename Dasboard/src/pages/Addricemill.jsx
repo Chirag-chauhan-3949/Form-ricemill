@@ -32,7 +32,7 @@ const Addricemill = () => {
       });
 
       if (response.ok) {
-        console.log("Rice mill added successfully");
+        // console.log("Rice mill added successfully");
         toast.success("Rise mill added successfully", {
           position: "top-right",
           autoClose: 3000,
@@ -43,7 +43,7 @@ const Addricemill = () => {
           progress: undefined,
         });
       } else {
-        console.error("Failed to add rice mill");
+        // console.error("Failed to add rice mill");
         toast.error("Failed to add rice mill", {
           position: "top-right",
           autoClose: 3000,
@@ -55,7 +55,7 @@ const Addricemill = () => {
         });
       }
     } catch (error) {
-      console.error("Error:", error);
+      // console.error("Error:", error);
       toast.error("Error adding rice mill", {
         position: "top-right",
         autoClose: 3000,

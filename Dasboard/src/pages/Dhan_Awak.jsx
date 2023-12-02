@@ -89,7 +89,7 @@ const Dhan_Awak = () => {
 
         const data = rice_do_number.data;
         setDoOptionsTruckTransporter(data);
-        console.log(data);
+        // console.log(data);
       } catch (error) {
         console.error("Error:", error);
       }
@@ -102,7 +102,7 @@ const Dhan_Awak = () => {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    console.log(value);
+    // console.log(value);
     setFormData({ ...DhanAwakData, [name]: value });
   };
 

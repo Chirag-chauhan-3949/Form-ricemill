@@ -24,7 +24,7 @@ const Add_New_Truck = () => {
         ) {
           const data = transporter_response.data;
           setTransporterOptions(data);
-          console.log(data);
+          // console.log(data);
         } else {
           console.error("Failed to fetch transporters");
         }
@@ -47,7 +47,7 @@ const Add_New_Truck = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(truckData);
+    // console.log(truckData);
 
     try {
       const response = await axios.post(
@@ -55,7 +55,7 @@ const Add_New_Truck = () => {
         truckData
       );
 
-      console.log(response.data);
+      // console.log(response.data);
 
       if (response.status === 201) {
         console.log("Truck added successfully");

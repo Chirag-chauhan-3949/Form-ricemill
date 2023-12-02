@@ -28,39 +28,19 @@ const Ricedeposit = () => {
     status: "",
   });
 
-  // Fetch data for the "Select transporter" dropdown
-  const [transpoterOptions, setTransporterOptions] = useState([]);
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        const transporter_response = await axios.get(
-          "http://localhost:8000/transporters/"
-        );
-
-        const data = transporter_response.data;
-        setTransporterOptions(data);
-        // console.log(data);
-      } catch (error) {
-        console.error("Error:", error);
-      }
-    }
-
-    fetchData();
-  }, []);
-
-  const [DoOptions, setDoOptions] = useState([]);
+  const [RiceDeopsitOptions, setRiceDeposit] = useState([]);
 
   // Fetch data for the "Select Rice Mill" dropdown
   useEffect(() => {
     async function fetchMillData() {
       try {
-        const Mill_response = await axios.get(
-          "http://localhost:8000/rice-mill"
+        const rice_deposti_data = await axios.get(
+          "http://localhost:8000/rice-truck-transporter"
         );
 
-        const data = Mill_response.data;
-        setDoOptions(data);
-        // console.log(data);
+        const data = rice_deposti_data.data;
+        setRiceDeposit(data);
+        console.log(data);
       } catch (error) {
         console.error("Error:", error);
       }
@@ -69,24 +49,65 @@ const Ricedeposit = () => {
     fetchMillData();
   }, []);
 
-  // Fetch data for the "truck" dropdown
-  const [trucks, setTrucks] = useState([]);
-  useEffect(() => {
-    async function fetchTransporter() {
-      try {
-        const transporter_response = await axios.get(
-          "http://localhost:8000/trucks/"
-        );
+  // // Fetch data for the "Select transporter" dropdown
+  // const [transpoterOptions, setTransporterOptions] = useState([]);
+  // useEffect(() => {
+  //   async function fetchData() {
+  //     try {
+  //       const transporter_response = await axios.get(
+  //         "http://localhost:8000/transporters/"
+  //       );
 
-        const data = transporter_response.data;
-        setTrucks(data);
-        // console.log(data);
-      } catch (error) {
-        console.error("Error:", error);
-      }
-    }
-    fetchTransporter();
-  }, []);
+  //       const data = transporter_response.data;
+  //       setTransporterOptions(data);
+  //       // console.log(data);
+  //     } catch (error) {
+  //       console.error("Error:", error);
+  //     }
+  //   }
+
+  //   fetchData();
+  // }, []);
+
+  // const [DoOptions, setDoOptions] = useState([]);
+
+  // // Fetch data for the "Select Rice Mill" dropdown
+  // useEffect(() => {
+  //   async function fetchMillData() {
+  //     try {
+  //       const Mill_response = await axios.get(
+  //         "http://localhost:8000/rice-mill"
+  //       );
+
+  //       const data = Mill_response.data;
+  //       setDoOptions(data);
+  //       // console.log(data);
+  //     } catch (error) {
+  //       console.error("Error:", error);
+  //     }
+  //   }
+
+  //   fetchMillData();
+  // }, []);
+
+  // // Fetch data for the "truck" dropdown
+  // const [trucks, setTrucks] = useState([]);
+  // useEffect(() => {
+  //   async function fetchTransporter() {
+  //     try {
+  //       const transporter_response = await axios.get(
+  //         "http://localhost:8000/trucks/"
+  //       );
+
+  //       const data = transporter_response.data;
+  //       setTrucks(data);
+  //       // console.log(data);
+  //     } catch (error) {
+  //       console.error("Error:", error);
+  //     }
+  //   }
+  //   fetchTransporter();
+  // }, []);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -267,14 +288,15 @@ const Ricedeposit = () => {
                       onChange={handleInputChange}
                     >
                       <option value="">-Select Rice Mill-</option>
-                      {DoOptions.map((option) => (
-                        <option
-                          key={option.rice_mill_id}
-                          value={option.rice_mill_id}
-                        >
-                          {option.rice_mill_name}
-                        </option>
-                      ))}
+                      {RiceDeopsitOptions.rice_mill_data &&
+                        RiceDeopsitOptions.rice_mill_data.map((option) => (
+                          <option
+                            key={option.rice_mill_id}
+                            value={option.rice_mill_id}
+                          >
+                            {option.rice_mill_name}
+                          </option>
+                        ))}
                     </select>
                     <p className="mt-2 text-sm text-gray-500">
                       Cannot Find Rice Mill?{" "}
@@ -325,11 +347,12 @@ const Ricedeposit = () => {
                       onChange={handleInputChange}
                     >
                       <option value="">Select a Truck</option>
-                      {trucks.map((truck) => (
-                        <option key={truck.truck_id} value={truck.truck_id}>
-                          {truck.truck_number}
-                        </option>
-                      ))}
+                      {RiceDeopsitOptions.truck_data &&
+                        RiceDeopsitOptions.truck_data.map((truck) => (
+                          <option key={truck.truck_id} value={truck.truck_id}>
+                            {truck.truck_number}
+                          </option>
+                        ))}
                     </select>
                   </div>
                   <p className="mt-2 text-sm text-gray-500">
@@ -381,14 +404,15 @@ const Ricedeposit = () => {
                     onChange={handleInputChange}
                   >
                     <option value="">-Select a transporter-</option>
-                    {transpoterOptions.map((option) => (
-                      <option
-                        key={option.transporter_id}
-                        value={option.transporter_id}
-                      >
-                        {option.transporter_name}
-                      </option>
-                    ))}
+                    {RiceDeopsitOptions.transporter_data &&
+                      RiceDeopsitOptions.transporter_data.map((option) => (
+                        <option
+                          key={option.transporter_id}
+                          value={option.transporter_id}
+                        >
+                          {option.transporter_name}
+                        </option>
+                      ))}
                   </select>
                   <p className="mt-2  text-sm text-gray-500">
                     Cannot Find Transporter?{" "}

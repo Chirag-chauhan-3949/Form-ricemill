@@ -27,7 +27,7 @@ const Add_Agreement = () => {
 
         const data = Agreement_response.data;
         setAgreementOptions(data);
-        console.log(data);
+        // console.log(data);
       } catch (error) {
         console.error("Error:", error);
       }
@@ -47,7 +47,7 @@ const Add_Agreement = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(agreementData);
+    // console.log(agreementData);
 
     try {
       const response = await axios.post(
@@ -61,7 +61,7 @@ const Add_Agreement = () => {
       );
 
       if (response.status === 201 || response.status === 300) {
-        console.log("Agreement added successfully");
+        // console.log("Agreement added successfully");
         toast.success("Agreement added successfully", {
           position: "top-right",
           autoClose: 3000,
