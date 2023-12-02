@@ -75,7 +75,7 @@ const Add_New_Transporter = () => {
       }
     } catch (error) {
       console.error("Error:", error);
-      toast.error("Error adding transporter", {
+      toast.error(`Error adding transporter: ${error.message}`, {
         position: "top-right",
         autoClose: 3000,
         hideProgressBar: false,

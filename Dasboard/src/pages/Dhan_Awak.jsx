@@ -26,7 +26,7 @@ const Dhan_Awak = () => {
     hdpe_22_23: 0,
     hdpe_21_22: 0,
     hdpe_21_22_one_use: 0,
-    total_bag_weight: "",
+    total_bag_weight: 0,
     type_of_paddy: "",
     actual_paddy: "",
     mill_weight_quintals: "",
@@ -34,106 +34,81 @@ const Dhan_Awak = () => {
     bags_put_in_hopper: 0,
     total_hopper_weight: "",
   });
+
+  const [DoOptions, setDoOptions] = useState([]);
+
   // Fetch data for the "Select Rice Mill" dropdown
-  const [millData, setmillData] = useState([]);
   useEffect(() => {
-    async function fetchData() {
+    async function fetchMillData() {
       try {
-        const Agreement_response = await axios.get(
-          "http://localhost:8000/rice-mill"
+        const Mill_response = await axios.get(
+          "http://localhost:8000/rice-do-society-truck-transporter"
         );
 
-        const data = Agreement_response.data;
-        setmillData(data);
+        const data = Mill_response.data;
+        setDoOptions(data);
         // console.log(data);
       } catch (error) {
         console.error("Error:", error);
       }
     }
 
-    fetchData();
+    fetchMillData();
   }, []);
-  // Fetch data for the "Select transporter" dropdown
-  const [transpoterOptions, setTransporterOptions] = useState([]);
+
+  const [DoOptionsricedonumber, setDoOptionsRiceDoNumber] = useState([]);
   useEffect(() => {
-    async function fetchData() {
+    async function fetchricedonumberData() {
       try {
-        const transporter_response = await axios.get(
-          "http://localhost:8000/transporters/"
+        const truck_transporter = await axios.get(
+          `http://localhost:8000/rice-do-number/${DhanAwakData.rice_mill_id}`
         );
 
-        const data = transporter_response.data;
-        setTransporterOptions(data);
+        const data = truck_transporter.data;
+        setDoOptionsRiceDoNumber(data);
         // console.log(data);
       } catch (error) {
         console.error("Error:", error);
       }
     }
 
-    fetchData();
-  }, []);
+    if (DhanAwakData.rice_mill_id) {
+      fetchricedonumberData();
+    }
+  }, [DhanAwakData.rice_mill_id]);
 
-  // Fetch data for the "truck" dropdown
-  const [trucks, setTrucks] = useState([]);
+  const [DoOptionstrucktransporter, setDoOptionsTruckTransporter] = useState(
+    []
+  );
   useEffect(() => {
-    async function fetchTransporter() {
+    async function fetchtrucktransporter() {
       try {
-        const transporter_response = await axios.get(
-          "http://localhost:8000/trucks/"
+        const rice_do_number = await axios.get(
+          `http://localhost:8000/truck-transporter/${DhanAwakData.transporter_name_id}`
         );
 
-        const data = transporter_response.data;
-        setTrucks(data);
-        // console.log(data);
+        const data = rice_do_number.data;
+        setDoOptionsTruckTransporter(data);
+        console.log(data);
       } catch (error) {
         console.error("Error:", error);
       }
     }
-    fetchTransporter();
-  }, []);
 
-  // Fetch data for the "Society" dropdown
-  const [societies, setSocieties] = useState([]);
-  useEffect(() => {
-    async function fetchsociety() {
-      try {
-        const society_response = await axios.get(
-          "http://localhost:8000/societies/"
-        );
-
-        const data = society_response.data;
-        setSocieties(data);
-        // console.log(data);
-      } catch (error) {
-        console.error("Error:", error);
-      }
+    if (DhanAwakData.transporter_name_id) {
+      fetchtrucktransporter();
     }
-    fetchsociety();
-  }, []);
-
-  const [doData, setdoData] = useState([]);
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        const response = await axios.get("http://localhost:8000/add-do-data");
-        const data = response.data;
-        setdoData(data);
-        // console.log(data);
-      } catch (error) {
-        console.error("Error:", error);
-      }
-    }
-    fetchData();
-  }, []);
+  }, [DhanAwakData.transporter_name_id]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
+    console.log(value);
     setFormData({ ...DhanAwakData, [name]: value });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(DhanAwakData);
+    // console.log(DhanAwakData);
 
     try {
       const response = await fetch("http://localhost:8000/dhan-awak", {
@@ -238,14 +213,15 @@ const Dhan_Awak = () => {
                       onChange={handleInputChange}
                     >
                       <option value="">-Select Rice Mill-</option>
-                      {millData.map((option) => (
-                        <option
-                          key={option.rice_mill_id}
-                          value={option.rice_mill_id}
-                        >
-                          {option.rice_mill_name}
-                        </option>
-                      ))}
+                      {DoOptions.rice_mill_data &&
+                        DoOptions.rice_mill_data.map((option) => (
+                          <option
+                            key={option.rice_mill_id}
+                            value={option.rice_mill_id}
+                          >
+                            {option.rice_mill_name}
+                          </option>
+                        ))}
                     </select>
                     <p className="mt-2 text-sm text-gray-500">
                       Cannot Find Rice Mill?{" "}
@@ -297,11 +273,12 @@ const Dhan_Awak = () => {
                       className=" bg-white block min-w-[250px] px-1.5 rounded-md border-0 py-2.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     >
                       <option value="">Select Do</option>
-                      {doData.map((option) => (
-                        <option key={option.do_id} value={option.do_id}>
-                          {option.do_number}
-                        </option>
-                      ))}
+                      {DoOptionsricedonumber.do_number_data &&
+                        DoOptionsricedonumber.do_number_data.map((option) => (
+                          <option key={option.do_id} value={option.do_id}>
+                            {option.do_number}
+                          </option>
+                        ))}
                     </select>
                   </div>
                   <p className="mt-2 text-sm text-gray-500">
@@ -334,14 +311,15 @@ const Dhan_Awak = () => {
                       onChange={handleInputChange}
                     >
                       <option value="">Select a society</option>
-                      {societies.map((societie) => (
-                        <option
-                          key={societie.society_id}
-                          value={societie.society_id}
-                        >
-                          {societie.society_name}
-                        </option>
-                      ))}
+                      {DoOptions.society_data &&
+                        DoOptions.society_data.map((societie) => (
+                          <option
+                            key={societie.society_id}
+                            value={societie.society_id}
+                          >
+                            {societie.society_name}
+                          </option>
+                        ))}
                     </select>
                     <p className="mt-2  text-sm text-gray-500">
                       Cannot Find Society?{" "}
@@ -421,6 +399,44 @@ const Dhan_Awak = () => {
 
               <div>
                 <label
+                  htmlFor="transporter_name_id"
+                  className="block text-sm font-medium leading-6 text-gray-900"
+                >
+                  Select Transporter
+                </label>
+                <div className="mt-2">
+                  <select
+                    // required
+                    name="transporter_name_id"
+                    className="block  min-w-full bg-white rounded-md  border-0 px-1.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    value={DhanAwakData.transporter_name_id}
+                    onChange={handleInputChange}
+                  >
+                    <option value="">-Select a transporter-</option>
+                    {DoOptions.transporter_data &&
+                      DoOptions.transporter_data.map((option) => (
+                        <option
+                          key={option.transporter_id}
+                          value={option.transporter_id}
+                        >
+                          {option.transporter_name}
+                        </option>
+                      ))}
+                  </select>
+                  <p className="mt-2  text-sm text-gray-500">
+                    Cannot Find Transporter?{" "}
+                    <a
+                      href="/Add_NEw_Transporter"
+                      className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
+                    >
+                      Add New Transporter.
+                    </a>
+                  </p>
+                </div>
+              </div>
+
+              <div>
+                <label
                   htmlFor="truck_number_id"
                   className="block text-sm font-medium leading-6 text-gray-900"
                 >
@@ -436,11 +452,12 @@ const Dhan_Awak = () => {
                     onChange={handleInputChange}
                   >
                     <option value="">Select a Truck</option>
-                    {trucks.map((truck) => (
-                      <option key={truck.truck_id} value={truck.truck_id}>
-                        {truck.truck_number}
-                      </option>
-                    ))}
+                    {DoOptionstrucktransporter.truck_data &&
+                      DoOptionstrucktransporter.truck_data.map((truck) => (
+                        <option key={truck.truck_id} value={truck.truck_id}>
+                          {truck.truck_number}
+                        </option>
+                      ))}
                   </select>
                 </div>
                 <p className="mt-2 text-sm text-gray-500">
@@ -452,42 +469,6 @@ const Dhan_Awak = () => {
                     Add New Truck.
                   </a>
                 </p>
-              </div>
-              <div>
-                <label
-                  htmlFor="transporter_name_id"
-                  className="block text-sm font-medium leading-6 text-gray-900"
-                >
-                  Select Transporter
-                </label>
-                <div className="mt-2">
-                  <select
-                    // required
-                    name="transporter_name_id"
-                    className="block  min-w-full bg-white rounded-md  border-0 px-1.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                    value={DhanAwakData.transporter_name_id}
-                    onChange={handleInputChange}
-                  >
-                    <option value="">-Select a transporter-</option>
-                    {transpoterOptions.map((option) => (
-                      <option
-                        key={option.transporter_id}
-                        value={option.transporter_id}
-                      >
-                        {option.transporter_name}
-                      </option>
-                    ))}
-                  </select>
-                  <p className="mt-2  text-sm text-gray-500">
-                    Cannot Find Transporter?{" "}
-                    <a
-                      href="/Add_NEw_Transporter"
-                      className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
-                    >
-                      Add New Transporter.
-                    </a>
-                  </p>
-                </div>
               </div>
 
               <div className="flex justify-between">
@@ -723,7 +704,7 @@ const Dhan_Awak = () => {
                     disabled
                     value={DhanAwakData.total_bag_weight}
                     onChange={handleInputChange}
-                    type="text"
+                    type="number"
                     name="total_bag_weight"
                     className="block w-full px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   />
