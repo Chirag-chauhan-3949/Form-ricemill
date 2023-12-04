@@ -75,18 +75,18 @@ const Dalalidhan = () => {
       [name]: value,
     });
   };
-  // const handlePaddyTypeChange = (e) => {
-  //   const { value } = e.target;
-  //   console.log(value);
-  //   setSelectedPaddyType(value);
+  const handlePaddyTypeChange = (e) => {
+    const { value } = e.target;
+    console.log(value);
+    setSelectedPaddyType(value);
 
-  //   // Optionally, you can reset the corresponding fields when the paddy type changes
-  //   setDalaliData({
-  //     ...DalaliData,
-  //     [`${value}_bags`]: 0,
-  //     [`${value}_weight`]: "",
-  //   });
-  // };
+    // Optionally, you can reset the corresponding fields when the paddy type changes
+    setDalaliData({
+      ...DalaliData,
+      [`${value}_bags`]: 0,
+      [`${value}_weight`]: "",
+    });
+  };
   const handleSubmit = async (e) => {
     console.log(DalaliData);
     e.preventDefault();
@@ -282,7 +282,7 @@ const Dalalidhan = () => {
                       value={DalaliData.paddy_type}
                       onChange={(e) => {
                         handleInputChange(e);
-                        // handlePaddyTypeChange(e);
+                        handlePaddyTypeChange(e);
                       }}
                       type="text"
                       name="paddy_type"
@@ -351,10 +351,14 @@ const Dalalidhan = () => {
                     </div>
                     <div className="mt-1">
                       <input
+                        disabled
                         type="number"
                         placeholder="Enter bags"
                         name="total_bags"
-                        value={DalaliData.total_bags}
+                        value={
+                          (DalaliData.total_bags =
+                            DalaliData[`${selectedPaddyType}_bags`])
+                        }
                         className="block min-w-[250px] w-full px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                         onChange={handleInputChange}
                       />
@@ -371,10 +375,14 @@ const Dalalidhan = () => {
                     </div>
                     <div className="mt-1">
                       <input
+                        disabled
                         type="number"
                         placeholder="Enter Total Weight"
                         name="total_weight"
-                        value={DalaliData.total_weight}
+                        value={
+                          (DalaliData.total_weight =
+                            DalaliData[`${selectedPaddyType}_weight`])
+                        }
                         className="block min-w-[250px] w-full px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                         onChange={handleInputChange}
                       />
@@ -393,10 +401,14 @@ const Dalalidhan = () => {
                     </div>
                     <div className="mt-1">
                       <input
+                        disabled
                         type="number"
                         placeholder="Enter Hamali"
                         name="hamali"
-                        value={DalaliData.hamali}
+                        value={
+                          (DalaliData.hamali =
+                            DalaliData[`${selectedPaddyType}_bags`] * 3)
+                        }
                         className="block min-w-[250px] w-full px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                         onChange={handleInputChange}
                       />
@@ -477,10 +489,15 @@ const Dalalidhan = () => {
                     </div>
                     <div className="mt-1">
                       <input
+                        disabled
                         type="number"
                         placeholder="Enter Net Weight"
                         name="net_weight"
-                        value={DalaliData.net_weight}
+                        value={(DalaliData.net_weight =
+                          DalaliData.total_weight -
+                          DalaliData.weight_less_plastic * 0.002 -
+                          DalaliData.weight_less_jute * 0.007 -
+                          DalaliData.weight_less_kata_difference).toFixed(3)}
                         className="block min-w-[250px] w-full px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                         onChange={handleInputChange}
                       />
@@ -519,10 +536,17 @@ const Dalalidhan = () => {
                     </div>
                     <div className="mt-1">
                       <input
+                        disabled
                         type="number"
                         placeholder="Enter Amount"
                         name="ammount"
-                        value={DalaliData.ammount}
+                        value={
+                          (DalaliData.ammount =
+                            (DalaliData.net_weight -
+                              DalaliData.weight_less_kata_difference) *
+                              DalaliData.rate -
+                            DalaliData.hamali)
+                        }
                         className="block min-w-[250px] w-full px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                         onChange={handleInputChange}
                       />
