@@ -503,7 +503,11 @@ const Dhan_Awak = () => {
                   <div className="mt-1">
                     <input
                       disabled
-                      value={DhanAwakData.transporting_total}
+                      value={
+                        (DhanAwakData.transporting_total =
+                          DhanAwakData.dm_weight *
+                          DhanAwakData.transporting_rate)
+                      }
                       onChange={handleInputChange}
                       type="number"
                       name="transporting_total"
@@ -702,7 +706,22 @@ const Dhan_Awak = () => {
                 <div className="mt-1">
                   <input
                     disabled
-                    value={DhanAwakData.total_bag_weight}
+                    value={
+                      (DhanAwakData.total_bag_weight =
+                        ((+DhanAwakData.jama_jute_22_23 +
+                          +DhanAwakData.ek_bharti_21_22 +
+                          +DhanAwakData.pds +
+                          +DhanAwakData.miller_purana +
+                          +DhanAwakData.kisan +
+                          +DhanAwakData.bardana_society) *
+                          0.58) /
+                          100 +
+                        ((+DhanAwakData.hdpe_22_23 +
+                          +DhanAwakData.hdpe_21_22 +
+                          +DhanAwakData.hdpe_21_22_one_use) *
+                          0.2) /
+                          100)
+                    }
                     onChange={handleInputChange}
                     type="number"
                     name="total_bag_weight"
@@ -792,7 +811,11 @@ const Dhan_Awak = () => {
                   </div>
                   <div className="mt-1">
                     <input
-                      value={DhanAwakData.shortage}
+                      disabled
+                      value={(DhanAwakData.shortage =
+                        DhanAwakData.mill_weight_quintals -
+                        DhanAwakData.total_bag_weight -
+                        DhanAwakData.dm_weight).toFixed(4)}
                       onChange={handleInputChange}
                       type="number"
                       name="shortage"
