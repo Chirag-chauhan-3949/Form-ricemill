@@ -99,6 +99,7 @@ const Add_New_Truck = () => {
                 </div>
                 <div className="mt-2">
                   <input
+                    pattern="[A-Za-z]{2}[0-9]{2}[A-Za-z]{2}[0-9]{4}"
                     required
                     type="text"
                     name="truck_number"

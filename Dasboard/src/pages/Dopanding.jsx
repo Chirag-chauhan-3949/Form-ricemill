@@ -203,9 +203,15 @@ const Dopanding = () => {
                   </div>
                   <div className="mt-1">
                     <input
+                      disabled
                       type="number"
                       name="Total"
-                      value={DopandingData.Total}
+                      value={
+                        (DopandingData.Total =
+                          +DopandingData.mota +
+                          +DopandingData.patla +
+                          +DopandingData.sarna)
+                      }
                       className="block w-full px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                       onChange={handleInputChange}
                     />

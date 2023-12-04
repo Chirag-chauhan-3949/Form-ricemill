@@ -19,9 +19,26 @@ const Addricemill = () => {
     });
   };
 
+  const validateGST = (gstNumber) => {
+    // Define a regular expression pattern for GST number validation
+    const gstPattern =
+      /^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[1-9A-Z]{1}[Z]{1}[0-9A-Z]{1}$/;
+    return gstPattern.test(gstNumber);
+  };
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    if (!validateGST(Addricedata.gst_number)) {
+      toast.error("Invalid GST Number. Please enter a valid GST Number", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+      return;
+    }
     try {
       const response = await fetch("http://localhost:8000/add-rice-mill/", {
         method: "POST",
@@ -176,6 +193,7 @@ const Addricemill = () => {
                 </div>
                 <div className="mt-2">
                   <input
+                    pattern="[0-9]{10}"
                     placeholder="Enter Phone Number"
                     type="text"
                     name="phone_number"

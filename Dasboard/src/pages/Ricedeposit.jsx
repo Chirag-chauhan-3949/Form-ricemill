@@ -3,6 +3,7 @@ import "react-toastify/dist/ReactToastify.css";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 const Ricedeposit = () => {
+  let transporttotal;
   const [RicedepositData, setRicedepositData] = useState({
     rst_number: 0,
     date: "",
@@ -425,65 +426,7 @@ const Ricedeposit = () => {
                   </p>
                 </div>
               </div>
-              <div className="flex justify-between">
-                <div>
-                  <div className="flex justify-between">
-                    <label
-                      htmlFor="transporting_total"
-                      className="block text-sm font-medium leading-6 text-gray-900"
-                    >
-                      Transporting Total
-                    </label>
-                  </div>
-                  <div className="mt-1">
-                    <input
-                      type="number"
-                      name="transporting_total"
-                      className="block min-w-full px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                      onChange={handleInputChange}
-                      value={RicedepositData.transporting_total}
-                    />
-                  </div>
-                </div>
-                <div>
-                  <div className="flex justify-between">
-                    <label
-                      htmlFor="transporting_type"
-                      className="block text-sm font-medium leading-6 text-gray-900"
-                    >
-                      Transporting Type
-                    </label>
-                  </div>
-                  <div className="mt-1">
-                    <input
-                      type="text"
-                      name="transporting_type"
-                      className="block min-w-full px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                      onChange={handleInputChange}
-                      value={RicedepositData.transporting_type}
-                    />
-                  </div>
-                </div>
-                <div>
-                  <div className="flex justify-between">
-                    <label
-                      htmlFor="transporting_status"
-                      className="block text-sm font-medium leading-6 text-gray-900"
-                    >
-                      Transporting Status
-                    </label>
-                  </div>
-                  <div className="mt-1">
-                    <input
-                      type="text"
-                      name="transporting_status"
-                      className="block min-w-full px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                      onChange={handleInputChange}
-                      value={RicedepositData.transporting_status}
-                    />
-                  </div>
-                </div>
-              </div>
+
               <div className="flex justify-between">
                 <div>
                   <div className="flex justify-between">
@@ -539,6 +482,71 @@ const Ricedeposit = () => {
                       className="block min-w-full px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                       onChange={handleInputChange}
                       value={RicedepositData.halting}
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <div className="flex justify-between">
+                <div>
+                  <div className="flex justify-between">
+                    <label
+                      htmlFor="transporting_total"
+                      className="block text-sm font-medium leading-6 text-gray-900"
+                    >
+                      Transporting Total
+                    </label>
+                  </div>
+                  <div className="mt-1">
+                    <input
+                      disabled
+                      type="number"
+                      name="transporting_total"
+                      className="block min-w-full px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                      onChange={handleInputChange}
+                      value={
+                        (RicedepositData.transporting_total =
+                          RicedepositData.weight * RicedepositData.rate +
+                          +RicedepositData.halting)
+                      }
+                    />
+                  </div>
+                </div>
+                <div>
+                  <div className="flex justify-between">
+                    <label
+                      htmlFor="transporting_type"
+                      className="block text-sm font-medium leading-6 text-gray-900"
+                    >
+                      Transporting Type
+                    </label>
+                  </div>
+                  <div className="mt-1">
+                    <input
+                      type="text"
+                      name="transporting_type"
+                      className="block min-w-full px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                      onChange={handleInputChange}
+                      value={RicedepositData.transporting_type}
+                    />
+                  </div>
+                </div>
+                <div>
+                  <div className="flex justify-between">
+                    <label
+                      htmlFor="transporting_status"
+                      className="block text-sm font-medium leading-6 text-gray-900"
+                    >
+                      Transporting Status
+                    </label>
+                  </div>
+                  <div className="mt-1">
+                    <input
+                      type="text"
+                      name="transporting_status"
+                      className="block min-w-full px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                      onChange={handleInputChange}
+                      value={RicedepositData.transporting_status}
                     />
                   </div>
                 </div>

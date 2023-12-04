@@ -20,7 +20,7 @@ const Paddysales = () => {
     joot_old: 0,
     joot_23_24: 0,
     joot_22_23: 0,
-    average_bag_wt: "",
+    average_bag_wt: 0,
   });
   const [rstData, setrstData] = useState([]);
   useEffect(() => {
@@ -331,7 +331,7 @@ const Paddysales = () => {
                         htmlFor="party_weight"
                         className="block text-sm font-medium leading-6 text-gray-900"
                       >
-                        Party Weight
+                        Bags
                       </label>
                     </div>
                     <div className="">
@@ -378,11 +378,15 @@ const Paddysales = () => {
                     </div>
                     <div className="">
                       <input
+                        disabled
                         // required
                         type="number"
                         name="ammount"
                         className="block min-w-[250px] w-full rounded-md border-0 px-1.5 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                        value={paddysalesData.ammount}
+                        value={(paddysalesData.ammount =
+                          paddysalesData.rate * paddysalesData.weight).toFixed(
+                          6
+                        )}
                         onChange={handleInputChange}
                       />
                     </div>
@@ -485,10 +489,13 @@ const Paddysales = () => {
                   <div className="">
                     <input
                       // required
-                      type="text"
+                      disabled
+                      type="number"
                       name="average_bag_wt"
                       className="block min-w-[250px] rounded-md border-0 px-1.5 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                      value={paddysalesData.average_bag_wt}
+                      value={(paddysalesData.average_bag_wt =
+                        (paddysalesData.weight * 100) /
+                        paddysalesData.party_weight).toFixed(6)}
                       onChange={handleInputChange}
                     />
                   </div>
