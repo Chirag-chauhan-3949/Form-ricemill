@@ -172,7 +172,7 @@ const Dalalidhan = () => {
                         className=" bg-white min-w-[250px] block w-full px-1.5 rounded-md border-0 py-2.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                         onChange={handleInputChange}
                       >
-                        <option value="">Select rst</option>
+                        <option value="">Select Kochia</option>
                         {kochiaData.map((option) => (
                           <option
                             key={option.kochia_id}
@@ -469,6 +469,7 @@ const Dalalidhan = () => {
                     </div>
                     <div className="mt-1">
                       <input
+                        disabled
                         type="text"
                         placeholder="Enter Weight less Kata Difference"
                         name="weight_less_kata_difference"

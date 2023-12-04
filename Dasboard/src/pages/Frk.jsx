@@ -5,6 +5,7 @@ import axios from "axios";
 
 const Frk = () => {
   const [frkData, setfrskData] = useState({
+    batch_number: 0,
     date: "",
     party: "",
     bags: 0,
@@ -290,6 +291,25 @@ const Frk = () => {
                       onChange={handleInputChange}
                     />
                   </div>
+                </div>
+              </div>
+              <div>
+                <div className="flex justify-between">
+                  <label
+                    htmlFor="batch_number"
+                    className="block text-sm font-medium leading-6 text-gray-900"
+                  >
+                    Batch Number
+                  </label>
+                </div>
+                <div className="mt-1">
+                  <input
+                    type="number"
+                    name="batch_number"
+                    value={frkData.batch_number}
+                    className="block w-full px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    onChange={handleInputChange}
+                  />
                 </div>
               </div>
               <div>

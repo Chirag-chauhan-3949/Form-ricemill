@@ -11,24 +11,24 @@ const Add_New_Transporter = () => {
   });
   const [DoOptions, setDoOptions] = useState([]);
 
-  // Fetch data for the "Select Rice Mill" dropdown
-  useEffect(() => {
-    async function fetchMillData() {
-      try {
-        const Mill_response = await axios.get(
-          "http://localhost:8000/rice-mill"
-        );
+  // // Fetch data for the "Select Rice Mill" dropdown
+  // useEffect(() => {
+  //   async function fetchMillData() {
+  //     try {
+  //       const Mill_response = await axios.get(
+  //         "http://localhost:8000/rice-mill"
+  //       );
 
-        const data = Mill_response.data;
-        setDoOptions(data);
-        // console.log(data);
-      } catch (error) {
-        console.error("Error:", error);
-      }
-    }
+  //       const data = Mill_response.data;
+  //       setDoOptions(data);
+  //       // console.log(data);
+  //     } catch (error) {
+  //       console.error("Error:", error);
+  //     }
+  //   }
 
-    fetchMillData();
-  }, []);
+  //   fetchMillData();
+  // }, []);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -104,7 +104,7 @@ const Add_New_Transporter = () => {
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-[480px]">
           <div className="bg-white px-6 py-12 shadow sm:rounded-lg sm:px-12">
             <form className="space-y-6" onSubmit={handleSubmit}>
-              <div>
+              {/* <div>
                 <label
                   htmlFor="rice_mill_name_id"
                   className="block text-sm font-medium leading-6 text-gray-900"
@@ -140,7 +140,7 @@ const Add_New_Transporter = () => {
                     </a>
                   </p>
                 </div>
-              </div>
+              </div> */}
               <div>
                 <div className="flex justify-between">
                   <label

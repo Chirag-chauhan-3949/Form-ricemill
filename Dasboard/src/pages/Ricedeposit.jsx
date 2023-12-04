@@ -251,7 +251,7 @@ const Ricedeposit = () => {
                     />
                   </div>
                 </div>
-                <div>
+                <div className="mt-3">
                   <div className="flex justify-between">
                     <label
                       htmlFor="ware_house"
@@ -261,13 +261,23 @@ const Ricedeposit = () => {
                     </label>
                   </div>
                   <div className="mt-1">
-                    <input
+                    <select
+                      value={RicedepositData.ware_house}
+                      onChange={handleInputChange}
                       type="text"
                       name="ware_house"
-                      className="block min-w-[250px] px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                      onChange={handleInputChange}
-                      value={RicedepositData.ware_house}
-                    />
+                      className="bg-white block min-w-[250px] w-full px-1.5 rounded-md border-0 py-2.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    >
+                      <option value="">Select Ware House</option>
+                      <option value="Jagtara">Jagtara</option>
+                      <option value="Chitoud">Chitoud</option>
+                      <option value="Daundi">Daundi</option>
+                      <option value="Gunderdehi">Gunderdehi</option>
+                      <option value="Lohara">Lohara</option>
+                      <option value="Devri">Devri</option>
+                      <option value="Sambalpur">Sambalpur</option>
+                      <option value="Balod">Balod</option>
+                    </select>
                   </div>
                 </div>
               </div>

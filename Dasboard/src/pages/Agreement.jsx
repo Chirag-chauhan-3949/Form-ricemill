@@ -162,7 +162,7 @@ const Add_Agreement = () => {
                 />
               </div>
               <fieldset className="flex flex-wrap justify-evenly h-fit p-10">
-                <div className="flex space-x-4">
+                {/* <div className="flex space-x-4">
                   <div>
                     <label className="block text-sm font-medium leading-6 text-gray-900">
                       mota
@@ -199,7 +199,7 @@ const Add_Agreement = () => {
                       onChange={handleInputChange}
                     />
                   </div>
-                </div>
+                </div> */}
                 <div className="flex space-x-4 mt-4">
                   <div>
                     <label className="block text-sm font-medium leading-6 text-gray-900">
