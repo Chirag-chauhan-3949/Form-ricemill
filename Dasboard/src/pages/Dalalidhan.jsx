@@ -81,11 +81,11 @@ const Dalalidhan = () => {
     setSelectedPaddyType(value);
 
     // Optionally, you can reset the corresponding fields when the paddy type changes
-    setDalaliData({
-      ...DalaliData,
+    setDalaliData((prevData) => ({
+      ...prevData,
       [`${value}_bags`]: 0,
-      [`${value}_weight`]: "",
-    });
+      [`${value}_weight`]: 0,
+    }));
   };
   const handleSubmit = async (e) => {
     console.log(DalaliData);
@@ -137,6 +137,30 @@ const Dalalidhan = () => {
       });
     }
   };
+  const calculateKataDifference = () => {
+    if (DalaliData.total_weight < 30) {
+      return 0.1;
+    } else if (DalaliData.total_weight >= 30 && DalaliData.total_weight < 70) {
+      return 0.2;
+    } else if (DalaliData.total_weight >= 70 && DalaliData.total_weight < 120) {
+      return 0.3;
+    } else if (
+      DalaliData.total_weight >= 120 &&
+      DalaliData.total_weight < 150
+    ) {
+      return 0.4;
+    } else if (
+      DalaliData.total_weight >= 150 &&
+      DalaliData.total_weight < 200
+    ) {
+      return 0.6;
+    } else if (DalaliData.total_weight > 200) {
+      return 0.6;
+    } else {
+      return 0;
+    }
+  };
+
   return (
     <>
       <div className="flex min-h-full flex-1 flex-col justify-center py-12 sm:px-6 lg:px-8">
@@ -473,12 +497,16 @@ const Dalalidhan = () => {
                         type="text"
                         placeholder="Enter Weight less Kata Difference"
                         name="weight_less_kata_difference"
-                        value={DalaliData.weight_less_kata_difference}
+                        value={
+                          (DalaliData.weight_less_kata_difference =
+                            calculateKataDifference())
+                        }
                         className="block min-w-[250px] w-full px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                         onChange={handleInputChange}
                       />
                     </div>
                   </div>
+
                   <div className="mt-3">
                     <div className="flex justify-between">
                       <label
