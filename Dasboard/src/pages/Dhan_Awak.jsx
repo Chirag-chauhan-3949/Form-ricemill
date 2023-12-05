@@ -102,9 +102,14 @@ const Dhan_Awak = () => {
   }, [DhanAwakData.transporter_name_id]);
 
   const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    // console.log(value);
-    setFormData({ ...DhanAwakData, [name]: value });
+    if (e.target) {
+      // Regular input change
+      const { name, value } = e.target;
+      setFormData({ ...DhanAwakData, [name]: value });
+    } else {
+      // Select component change
+      setFormData({ ...DhanAwakData, [e.name]: e.value });
+    }
   };
 
   const handleSubmit = async (e) => {
@@ -157,12 +162,12 @@ const Dhan_Awak = () => {
     }
   };
   const Warehouse = [
-    { label: "Jagtara", value: "Jagtara" },
-    { label: "Chitoud", value: "Chitoud" },
-    { label: "Daundi", value: "Daundi" },
-    { label: "Gunderdehi", value: "Gunderdehi" },
-    { label: "Lohara", value: "Lohara" },
-    { label: "Devri", value: "Devri" },
+    { label: "Jagtara", value: "jagtara" },
+    { label: "Chitoud", value: "chitoud" },
+    { label: "Daundi", value: "daundi" },
+    { label: "Gunderdehi", value: "gunderdehi" },
+    { label: "Lohara", value: "lohara" },
+    { label: "Devri", value: "devri" },
   ];
 
   return (
@@ -904,7 +909,6 @@ const Dhan_Awak = () => {
                       <Select
                         value={DhanAwakData.stack_location}
                         onChange={handleInputChange}
-                        type="text"
                         name="stack_location"
                         className="min-w-[240px]"
                         options={Warehouse}
