@@ -72,6 +72,7 @@ const Add_Do = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log(DoData);
     try {
       const response = await axios.post(
         "http://localhost:8000/add-do/",

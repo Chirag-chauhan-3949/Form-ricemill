@@ -28,8 +28,8 @@ const Dhan_Awak = () => {
     type_of_paddy: "",
     actual_paddy: "",
     mill_weight_quintals: 0,
-    shortage: 0,
     bags_put_in_hopper: 0,
+    shortage: 0,
     bags_put_in_stack: 0,
     hopper_rice_mill_id: "",
     stack_location: "",
@@ -102,13 +102,13 @@ const Dhan_Awak = () => {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    // console.log(value);
+    console.log(value);
     setFormData({ ...DhanAwakData, [name]: value });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // console.log(DhanAwakData);
+    console.log(DhanAwakData);
 
     try {
       const response = await fetch("http://localhost:8000/dhan-awak", {
@@ -883,7 +883,7 @@ const Dhan_Awak = () => {
                 <div>
                   <div className="flex justify-between">
                     <label
-                      htmlFor="ware_house"
+                      htmlFor="stack_location"
                       className="block text-sm font-medium leading-6 text-gray-900"
                     >
                       Ware House
@@ -894,7 +894,7 @@ const Dhan_Awak = () => {
                       value={DhanAwakData.stack_location}
                       onChange={handleInputChange}
                       type="text"
-                      name="ware_house"
+                      name="stack_location"
                       className="bg-white block min-w-[250px] w-full px-1.5 rounded-md border-0 py-2.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     >
                       <option value="">Select Ware House</option>
