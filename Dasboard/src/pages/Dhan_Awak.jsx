@@ -9,13 +9,11 @@ const Dhan_Awak = () => {
     date: "",
     do_id: "",
     society_id: "",
-    society_hidden_name: 0,
-    dm_weight: "",
+    dm_weight: 0,
     number_of_bags: 0,
     truck_number_id: "",
     transporter_name_id: "",
     transporting_rate: 0,
-    // transporting_rate_society_id: "",
     transporting_total: 0,
     jama_jute_22_23: 0,
     ek_bharti_21_22: 0,
@@ -29,10 +27,12 @@ const Dhan_Awak = () => {
     total_bag_weight: 0,
     type_of_paddy: "",
     actual_paddy: "",
-    mill_weight_quintals: "",
+    mill_weight_quintals: 0,
     shortage: 0,
     bags_put_in_hopper: 0,
-    total_hopper_weight: "",
+    bags_put_in_stack: 0,
+    hopper_rice_mill_id: "",
+    stack_location: "",
   });
 
   const [DoOptions, setDoOptions] = useState([]);
@@ -292,66 +292,47 @@ const Dhan_Awak = () => {
                   </p>
                 </div>
               </div>
-              <div className="flex justify-between">
-                <div>
-                  <div className="flex justify-between">
-                    <label
-                      htmlFor="society_id"
-                      className="block text-sm font-medium leading-6 text-gray-900"
-                    >
-                      Society
-                    </label>
-                  </div>
-                  <div className="mt-1">
-                    <select
-                      name="society_id"
-                      type="number"
-                      value={DhanAwakData.society_id}
-                      className="bg-white block w-full px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                      onChange={handleInputChange}
-                    >
-                      <option value="">Select a society</option>
-                      {DoOptions.society_data &&
-                        DoOptions.society_data.map((societie) => (
-                          <option
-                            key={societie.society_id}
-                            value={societie.society_id}
-                          >
-                            {societie.society_name}
-                          </option>
-                        ))}
-                    </select>
-                    <p className="mt-2  text-sm text-gray-500">
-                      Cannot Find Society?{" "}
-                      <a
-                        href="/Add_New_Society"
-                        className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
-                      >
-                        Add New Society.
-                      </a>
-                    </p>
-                  </div>
+
+              <div>
+                <div className="flex justify-between">
+                  <label
+                    htmlFor="society_id"
+                    className="block text-sm font-medium leading-6 text-gray-900"
+                  >
+                    Society
+                  </label>
                 </div>
-                <div>
-                  <div className="flex justify-between">
-                    <label
-                      htmlFor="society_hidden_name"
-                      className="block text-sm font-medium leading-6 text-gray-900"
+                <div className="mt-1">
+                  <select
+                    name="society_id"
+                    type="number"
+                    value={DhanAwakData.society_id}
+                    className="bg-white block w-full px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    onChange={handleInputChange}
+                  >
+                    <option value="">Select a society</option>
+                    {DoOptions.society_data &&
+                      DoOptions.society_data.map((societie) => (
+                        <option
+                          key={societie.society_id}
+                          value={societie.society_id}
+                        >
+                          {societie.society_name}
+                        </option>
+                      ))}
+                  </select>
+                  <p className="mt-2  text-sm text-gray-500">
+                    Cannot Find Society?{" "}
+                    <a
+                      href="/Add_New_Society"
+                      className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
                     >
-                      Society Hidden Name
-                    </label>
-                  </div>
-                  <div className="mt-1">
-                    <input
-                      value={DhanAwakData.society_hidden_name}
-                      onChange={handleInputChange}
-                      type="number"
-                      name="society_hidden_name"
-                      className="block min-w-[250px] px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                    />
-                  </div>
+                      Add New Society.
+                    </a>
+                  </p>
                 </div>
               </div>
+
               <div className="flex justify-between">
                 <div>
                   <div className="flex justify-between">
@@ -366,7 +347,7 @@ const Dhan_Awak = () => {
                     <input
                       value={DhanAwakData.dm_weight}
                       onChange={handleInputChange}
-                      type="text"
+                      type="number"
                       name="dm_weight"
                       className="block min-w-[250px] px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     />
@@ -794,7 +775,7 @@ const Dhan_Awak = () => {
                     <input
                       value={DhanAwakData.mill_weight_quintals}
                       onChange={handleInputChange}
-                      type="text"
+                      type="number"
                       name="mill_weight_quintals"
                       className="block min-w-[250px] w-full px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     />
@@ -824,18 +805,20 @@ const Dhan_Awak = () => {
                   </div>
                 </div>
               </div>
-              <h2 className=" text-2xl font-black  ">Hoppper Details</h2>
-              <div className="flex justify-between">
+              <h2 className=" text-2xl font-black  ">Stack Details</h2>
+
+              <fieldset className="flex justify-between">
+                <legend>Bags Put In Hopper</legend>
                 <div>
                   <div className="flex justify-between">
                     <label
                       htmlFor="bags_put_in_hopper"
                       className="block text-sm font-medium leading-6 text-gray-900"
                     >
-                      Bags Put In Hopper
+                      Quantity
                     </label>
                   </div>
-                  <div className="mt-1">
+                  <div className="mt-2">
                     <input
                       value={DhanAwakData.bags_put_in_hopper}
                       onChange={handleInputChange}
@@ -846,25 +829,88 @@ const Dhan_Awak = () => {
                   </div>
                 </div>
                 <div>
+                  <label
+                    htmlFor="hopper_rice_mill_id"
+                    className="block text-sm font-medium leading-6 text-gray-900"
+                  >
+                    Select Rice Mill
+                  </label>
+                  <div className="mt-2">
+                    <select
+                      // required
+                      name="hopper_rice_mill_id"
+                      type="text"
+                      className="block  w-full min-w-[250px] bg-white rounded-md  border-0 px-1.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                      value={DhanAwakData.hopper_rice_mill_id}
+                      onChange={handleInputChange}
+                    >
+                      <option value="">-Select Rice Mill-</option>
+                      {DoOptions.rice_mill_data &&
+                        DoOptions.rice_mill_data.map((option) => (
+                          <option
+                            key={option.rice_mill_id}
+                            value={option.rice_mill_id}
+                          >
+                            {option.rice_mill_name}
+                          </option>
+                        ))}
+                    </select>
+                  </div>
+                </div>
+              </fieldset>
+
+              <fieldset className="flex justify-between">
+                <legend className="my-5">Bags Put In Stack</legend>
+                <div>
                   <div className="flex justify-between">
                     <label
-                      htmlFor="total_hopper_weight"
+                      htmlFor="bags_put_in_stack"
                       className="block text-sm font-medium leading-6 text-gray-900"
                     >
-                      Total Hopper Weight
+                      Quantity
                     </label>
                   </div>
                   <div className="mt-1">
                     <input
-                      value={DhanAwakData.total_hopper_weight}
+                      value={DhanAwakData.bags_put_in_stack}
                       onChange={handleInputChange}
                       type="text"
-                      name="total_hopper_weight"
+                      name="bags_put_in_stack"
                       className="block min-w-[250px] w-full px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     />
                   </div>
                 </div>
-              </div>
+                <div>
+                  <div className="flex justify-between">
+                    <label
+                      htmlFor="ware_house"
+                      className="block text-sm font-medium leading-6 text-gray-900"
+                    >
+                      Ware House
+                    </label>
+                  </div>
+                  <div className="mt-1">
+                    <select
+                      value={DhanAwakData.stack_location}
+                      onChange={handleInputChange}
+                      type="text"
+                      name="ware_house"
+                      className="bg-white block min-w-[250px] w-full px-1.5 rounded-md border-0 py-2.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    >
+                      <option value="">Select Ware House</option>
+                      <option value="Jagtara">Jagtara</option>
+                      <option value="Chitoud">Chitoud</option>
+                      <option value="Daundi">Daundi</option>
+                      <option value="Gunderdehi">Gunderdehi</option>
+                      <option value="Lohara">Lohara</option>
+                      <option value="Devri">Devri</option>
+                      <option value="Sambalpur">Sambalpur</option>
+                      <option value="Balod">Balod</option>
+                    </select>
+                  </div>
+                </div>
+              </fieldset>
+
               <div>
                 <button
                   type="submit"
