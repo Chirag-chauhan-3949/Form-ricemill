@@ -77,7 +77,6 @@ const Dalalidhan = () => {
   };
   const handlePaddyTypeChange = (e) => {
     const { value } = e.target;
-    console.log(value);
     setSelectedPaddyType(value);
 
     // Optionally, you can reset the corresponding fields when the paddy type changes
@@ -87,6 +86,7 @@ const Dalalidhan = () => {
       [`${value}_weight`]: 0,
     }));
   };
+
   const handleSubmit = async (e) => {
     console.log(DalaliData);
     e.preventDefault();
