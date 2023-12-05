@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Select from "react-select";
 import axios from "axios";
 const Dhan_Awak = () => {
   const [DhanAwakData, setFormData] = useState({
@@ -28,8 +29,8 @@ const Dhan_Awak = () => {
     type_of_paddy: "",
     actual_paddy: "",
     mill_weight_quintals: 0,
-    bags_put_in_hopper: 0,
     shortage: 0,
+    bags_put_in_hopper: 0,
     bags_put_in_stack: 0,
     hopper_rice_mill_id: "",
     stack_location: "",
@@ -102,13 +103,13 @@ const Dhan_Awak = () => {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    console.log(value);
+    // console.log(value);
     setFormData({ ...DhanAwakData, [name]: value });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(DhanAwakData);
+    // console.log(DhanAwakData);
 
     try {
       const response = await fetch("http://localhost:8000/dhan-awak", {
@@ -155,6 +156,15 @@ const Dhan_Awak = () => {
       });
     }
   };
+  const Warehouse = [
+    { label: "Jagtara", value: "Jagtara" },
+    { label: "Chitoud", value: "Chitoud" },
+    { label: "Daundi", value: "Daundi" },
+    { label: "Gunderdehi", value: "Gunderdehi" },
+    { label: "Lohara", value: "Lohara" },
+    { label: "Devri", value: "Devri" },
+  ];
+
   return (
     <>
       <div className="flex min-h-full flex-1 flex-col justify-center py-12 sm:px-6 lg:px-8">
@@ -889,24 +899,17 @@ const Dhan_Awak = () => {
                       Ware House
                     </label>
                   </div>
-                  <div className="mt-1">
-                    <select
-                      value={DhanAwakData.stack_location}
-                      onChange={handleInputChange}
-                      type="text"
-                      name="stack_location"
-                      className="bg-white block min-w-[250px] w-full px-1.5 rounded-md border-0 py-2.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                    >
-                      <option value="">Select Ware House</option>
-                      <option value="Jagtara">Jagtara</option>
-                      <option value="Chitoud">Chitoud</option>
-                      <option value="Daundi">Daundi</option>
-                      <option value="Gunderdehi">Gunderdehi</option>
-                      <option value="Lohara">Lohara</option>
-                      <option value="Devri">Devri</option>
-                      <option value="Sambalpur">Sambalpur</option>
-                      <option value="Balod">Balod</option>
-                    </select>
+                  <div className="mt-1 relative">
+                    <div className="relative inline-block text-left">
+                      <Select
+                        value={DhanAwakData.stack_location}
+                        onChange={handleInputChange}
+                        type="text"
+                        name="stack_location"
+                        className="min-w-[240px]"
+                        options={Warehouse}
+                      />
+                    </div>
                   </div>
                 </div>
               </fieldset>
