@@ -138,23 +138,23 @@ const Dalalidhan = () => {
     }
   };
   const calculateKataDifference = () => {
-    if (DalaliData.total_weight < 30) {
+    if (DalaliData.total_weight <= 30 && DalaliData.total_weight > 0) {
       return 0.1;
-    } else if (DalaliData.total_weight >= 30 && DalaliData.total_weight < 70) {
+    } else if (DalaliData.total_weight > 30 && DalaliData.total_weight <= 70) {
       return 0.2;
-    } else if (DalaliData.total_weight >= 70 && DalaliData.total_weight < 120) {
+    } else if (DalaliData.total_weight > 70 && DalaliData.total_weight <= 120) {
       return 0.3;
     } else if (
-      DalaliData.total_weight >= 120 &&
-      DalaliData.total_weight < 150
+      DalaliData.total_weight > 120 &&
+      DalaliData.total_weight <= 150
     ) {
       return 0.4;
     } else if (
-      DalaliData.total_weight >= 150 &&
-      DalaliData.total_weight < 200
+      DalaliData.total_weight > 150 &&
+      DalaliData.total_weight <= 200
     ) {
       return 0.6;
-    } else if (DalaliData.total_weight > 200) {
+    } else if (DalaliData.total_weight >= 200) {
       return 0.6;
     } else {
       return 0;
