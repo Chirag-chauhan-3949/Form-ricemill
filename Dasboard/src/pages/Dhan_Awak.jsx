@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Stacklocation from "../select_dropdown/Stacklocation";
+import Actualpaddy from "../select_dropdown/Actualpaddy";
+import Paddy from "../select_dropdown/Paddy";
 import Select from "react-select";
 import axios from "axios";
 const Dhan_Awak = () => {
@@ -139,6 +141,8 @@ const Dhan_Awak = () => {
     setFormData({
       ...DhanAwakData,
       stack_location: selectedOption.value,
+      actual_paddy: selectedOption.value,
+      type_of_paddy: selectedOption.value,
     });
   };
 
@@ -378,7 +382,11 @@ const Dhan_Awak = () => {
                 </div>
                 <div className="mt-1">
                   <Select
-                    style={customStyles}
+                    styles={{
+                      indicatorSeparator: () => ({
+                        display: "none",
+                      }),
+                    }}
                     name="society_id"
                     options={
                       DoOptions.society_data &&
@@ -474,7 +482,11 @@ const Dhan_Awak = () => {
                 </label>
                 <div className="mt-2">
                   <Select
-                    style={customStyles}
+                    styles={{
+                      indicatorSeparator: () => ({
+                        display: "none",
+                      }),
+                    }}
                     name="transporter_name_id"
                     options={
                       DoOptions.transporter_data &&
@@ -527,7 +539,11 @@ const Dhan_Awak = () => {
 
                 <div className="mt-1">
                   <Select
-                    style={customStyles}
+                    styles={{
+                      indicatorSeparator: () => ({
+                        display: "none",
+                      }),
+                    }}
                     name="truck_number_id"
                     options={
                       DoOptionstrucktransporter.truck_data &&
@@ -835,58 +851,17 @@ const Dhan_Awak = () => {
               </div>
               <div className="flex justify-between">
                 <div>
-                  <div className="flex justify-between">
-                    <label
-                      htmlFor="type_of_paddy"
-                      className="block text-sm font-medium leading-6 text-gray-900"
-                    >
-                      Type Of Paddy
-                    </label>
-                  </div>
-                  <div className="mt-1">
-                    <select
-                      value={DhanAwakData.type_of_paddy}
-                      onChange={handleInputChange}
-                      type="text"
-                      name="type_of_paddy"
-                      className="bg-white block min-w-[250px] px-1.5 rounded-md border-0 py-2.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                    >
-                      <option value="">Select Type of Paddy</option>
-                      <option value="Mota">Mota</option>
-                      <option value="Patla">Patla</option>
-                      <option value="Sarna">Sarna</option>
-                    </select>
-                  </div>
+                  <Paddy
+                    value={DhanAwakData.type_of_paddy}
+                    onSelectChange={handleSelectChange}
+                  />
                 </div>
 
                 <div>
-                  <div className="flex justify-between">
-                    <label
-                      htmlFor="actual_paddy"
-                      className="block text-sm font-medium leading-6 text-gray-900"
-                    >
-                      Actual Paddy
-                    </label>
-                  </div>
-                  <div className="mt-1">
-                    <select
-                      value={DhanAwakData.actual_paddy}
-                      onChange={handleInputChange}
-                      type="text"
-                      name="actual_paddy"
-                      className="bg-white block min-w-[250px] px-1.5 rounded-md border-0 py-2.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                    >
-                      <option value="">Select Actual Paddy</option>
-                      <option value="RBG">RBG</option>
-                      <option value="Sambha">Sambha</option>
-                      <option value="IR">IR</option>
-                      <option value="White Sarna">White Sarna</option>
-                      <option value="Sarna">Sarna</option>
-                      <option value="RB Gold">RB Gold</option>
-                      <option value="Mahamaya">Mahamaya</option>
-                      <option value="OM 3">OM 3</option>
-                    </select>
-                  </div>
+                  <Actualpaddy
+                    value={DhanAwakData.actual_paddy}
+                    onSelectChange={handleSelectChange}
+                  />
                 </div>
               </div>
               <div className="flex justify-between">

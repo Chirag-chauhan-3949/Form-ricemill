@@ -375,7 +375,6 @@ const Ricedeposit = () => {
                   </label>
                   <div className="mt-2">
                     <Select
-                      indicatorSeparator="false"
                       placeholder="Enter Transporter"
                       name="transporter_name_id"
                       options={
@@ -405,7 +404,13 @@ const Ricedeposit = () => {
                           },
                         })
                       }
+                      styles={{
+                        indicatorSeparator: () => ({
+                          display: "none",
+                        }),
+                      }}
                     />
+
                     <p className="mt-2  text-sm text-gray-500">
                       Cannot Find?{" "}
                       <a
@@ -432,7 +437,7 @@ const Ricedeposit = () => {
                       onChange={handleInputChange}
                       type="text"
                       name="variety"
-                      className="bg-white block min-w-[250px] w-full px-1.5 rounded-md border-0 py-2.5 text-gray-400 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                      className="bg-white block min-w-[250px] w-full px-1.5 rounded-md border-0 py-2.5 text-gray-400 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:text-gray-900 focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     >
                       <option value="">Select Variety</option>
                       <option value="Jagtara">Jagtara</option>

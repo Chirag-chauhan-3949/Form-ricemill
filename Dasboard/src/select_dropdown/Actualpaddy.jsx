@@ -14,34 +14,35 @@ const customStyles = {
   }),
 };
 
-const Stacklocation = ({ onSelectChange }) => {
-  const Warehouse = [
-    { label: "PRM In", value: "PRM In" },
-    { label: "PRM Out", value: "PRM Out" },
-    { label: "DRM IN", value: "DRM IN" },
-    { label: "DRM OUT", value: "DRM OUT" },
-    { label: "TRM IN", value: "TRM IN" },
-    { label: "TRM OUT", value: "TRM OUT" },
+const Actualpaddy = ({ onSelectChange }) => {
+  const ActualPaddy = [
+    { label: "RBG", value: "RBG" },
+    { label: "Sambha", value: "Sambha" },
+    { label: "IR", value: "IR" },
+    { label: "White Sarna", value: "White Sarna" },
+    { label: "Sarna", value: "Sarna" },
+    { label: "RB Gold", value: "RB Gold" },
+    { label: "Mahamaya", value: "Mahamaya" },
+    { label: "OM 3", value: "OM 3" },
   ];
 
   return (
     <>
       <div className="flex justify-between">
         <label
-          htmlFor="stack_location"
+          htmlFor="actual_paddy"
           className="block text-sm font-medium leading-6 text-gray-900"
         >
-          Stack Location
+          Select Actual Paddy
         </label>
       </div>
       <div className="mt-1 relative">
         <div className="relative inline-block text-left">
           <Select
             onChange={onSelectChange}
-            name="stack_location"
-            className=""
-            options={Warehouse}
-            placeholder="Select location"
+            name="actual_paddy"
+            options={ActualPaddy}
+            placeholder="Select Actual Paddy"
             styles={customStyles}
           />
         </div>
@@ -50,4 +51,4 @@ const Stacklocation = ({ onSelectChange }) => {
   );
 };
 
-export default Stacklocation;
+export default Actualpaddy;
