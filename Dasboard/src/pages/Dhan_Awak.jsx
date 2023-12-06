@@ -2,8 +2,21 @@ import React, { useState, useEffect } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Stacklocation from "../select_dropdown/Stacklocation";
+import Select from "react-select";
 import axios from "axios";
 const Dhan_Awak = () => {
+  const customStyles = {
+    control: (base) => ({
+      ...base,
+      height: 35,
+      minheight: 30,
+      width: 250,
+      minwidth: 180,
+    }),
+    indicatorSeparator: (state) => ({
+      display: "none",
+    }),
+  };
   const [DhanAwakData, setFormData] = useState({
     rst_number: 0,
     rice_mill_id: "",
@@ -208,43 +221,57 @@ const Dhan_Awak = () => {
                     />
                   </div>
                 </div>
-                <div>
-                  <label
-                    htmlFor="rice_mill_id"
-                    className="block text-sm font-medium leading-6 text-gray-900"
-                  >
-                    Select Rice Mill
-                  </label>
-                  <div className="mt-2">
-                    <select
-                      // required
-                      name="rice_mill_id"
-                      type="text"
-                      className="block  w-full bg-white rounded-md  border-0 px-1.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                      value={DhanAwakData.rice_mill_id}
-                      onChange={handleInputChange}
+                <div className="mt-3">
+                  <div className="flex justify-between">
+                    <label
+                      htmlFor="stack_location"
+                      className="block text-sm font-medium leading-6 text-gray-900"
                     >
-                      <option value="">-Select Rice Mill-</option>
-                      {DoOptions.rice_mill_data &&
-                        DoOptions.rice_mill_data.map((option) => (
-                          <option
-                            key={option.rice_mill_id}
-                            value={option.rice_mill_id}
-                          >
-                            {option.rice_mill_name}
-                          </option>
-                        ))}
-                    </select>
-                    <p className="mt-2 text-sm text-gray-500">
-                      Cannot Find Rice Mill?{" "}
-                      <a
-                        href="/Addricemill"
-                        className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
-                      >
-                        Add New Rice Mill..
-                      </a>
-                    </p>
+                      Ware House
+                    </label>
                   </div>
+
+                  <Select
+                    styles={customStyles}
+                    name="rice_mill_id"
+                    options={
+                      DoOptions.do_number_data &&
+                      DoOptions.rice_mill_data.map((option) => ({
+                        label: option.rice_mill_name,
+                        value: option.rice_mill_id,
+                      }))
+                    }
+                    value={
+                      DhanAwakData.rice_mill_id
+                        ? {
+                            label: DoOptions.rice_mill_data.find(
+                              (option) =>
+                                option.rice_mill_id ===
+                                DhanAwakData.rice_mill_id
+                            ).rice_mill_name,
+                            value: DhanAwakData.rice_mill_id,
+                          }
+                        : null
+                    }
+                    onChange={(selectedOption) =>
+                      handleInputChange({
+                        target: {
+                          name: "rice_mill_id",
+                          value: selectedOption ? selectedOption.value : "",
+                        },
+                      })
+                    }
+                  />
+
+                  <p className="mt-2 text-sm text-gray-500">
+                    Cannot Find?{" "}
+                    <a
+                      href="/Addricemill"
+                      className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
+                    >
+                      Add New Rice Mill
+                    </a>
+                  </p>
                 </div>
               </div>
               <div className="flex justify-between">
@@ -277,21 +304,26 @@ const Dhan_Awak = () => {
                     </label>
                   </div>
                   <div className="mt-1">
-                    <select
-                      value={DhanAwakData.do_id}
-                      onChange={handleInputChange}
-                      type="text"
+                    <Select
+                      styles={customStyles}
                       name="do_id"
-                      className=" bg-white block min-w-[250px] px-1.5 rounded-md border-0 py-2.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                    >
-                      <option value="">Select Do</option>
-                      {DoOptionsricedonumber.do_number_data &&
-                        DoOptionsricedonumber.do_number_data.map((option) => (
-                          <option key={option.do_id} value={option.do_id}>
-                            {option.do_number}
-                          </option>
-                        ))}
-                    </select>
+                      options={
+                        DoOptionsricedonumber.do_number_data &&
+                        DoOptionsricedonumber.do_number_data.map((option) => ({
+                          label: option.do_number,
+                          value: option.do_id,
+                        }))
+                      }
+                      value={DhanAwakData.do_id}
+                      onChange={(selectedOption) =>
+                        handleInputChange({
+                          target: {
+                            name: "do_id",
+                            value: selectedOption ? selectedOption.value : "",
+                          },
+                        })
+                      }
+                    />
                   </div>
                   <p className="mt-2 text-sm text-gray-500">
                     Cannot Find Do?{" "}
