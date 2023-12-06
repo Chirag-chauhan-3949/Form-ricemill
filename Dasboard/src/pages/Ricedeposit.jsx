@@ -1,9 +1,21 @@
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import React, { useState, useEffect } from "react";
+import Select from "react-select";
 import axios from "axios";
 const Ricedeposit = () => {
-  let transporttotal;
+  const customStyles = {
+    control: (base) => ({
+      ...base,
+      height: 35,
+      minheight: 30,
+      width: 250,
+      minwidth: 180,
+    }),
+    indicatorSeparator: (state) => ({
+      display: "none",
+    }),
+  };
   const [RicedepositData, setRicedepositData] = useState({
     rst_number: 0,
     date: "",
@@ -183,7 +195,7 @@ const Ricedeposit = () => {
           </h2>
         </div>
 
-        <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-fit">
+        <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-[750px]">
           <div className="bg-white px-6 py-12 shadow sm:rounded-lg sm:px-12">
             <form
               onSubmit={handleSubmit}
@@ -266,7 +278,7 @@ const Ricedeposit = () => {
                       onChange={handleInputChange}
                       type="text"
                       name="ware_house"
-                      className="bg-white block min-w-[250px] w-full px-1.5 rounded-md border-0 py-2.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                      className="bg-white block min-w-[250px] w-full px-1.5 rounded-md border-0 py-2.5 text-gray-400 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     >
                       <option value="">Select Ware House</option>
                       <option value="Jagtara">Jagtara</option>
@@ -290,25 +302,38 @@ const Ricedeposit = () => {
                     Select Rice Mill
                   </label>
                   <div className="mt-2">
-                    <select
-                      // required
-                      type="number"
+                    <Select
+                      styles={customStyles}
+                      placeholder="Enter Rice Mill.."
                       name="rice_mill_name_id"
-                      className="block  w-full bg-white rounded-md  border-0 px-1.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                      value={RicedepositData.rice_mill_name_id}
-                      onChange={handleInputChange}
-                    >
-                      <option value="">-Select Rice Mill-</option>
-                      {RiceDeopsitOptions.rice_mill_data &&
-                        RiceDeopsitOptions.rice_mill_data.map((option) => (
-                          <option
-                            key={option.rice_mill_id}
-                            value={option.rice_mill_id}
-                          >
-                            {option.rice_mill_name}
-                          </option>
-                        ))}
-                    </select>
+                      options={
+                        RiceDeopsitOptions.rice_mill_data &&
+                        RiceDeopsitOptions.rice_mill_data.map((option) => ({
+                          label: option.rice_mill_name,
+                          value: option.rice_mill_id,
+                        }))
+                      }
+                      value={
+                        RicedepositData.rice_mill_name_id
+                          ? {
+                              label: RiceDeopsitOptions.rice_mill_data.find(
+                                (option) =>
+                                  option.rice_mill_id ===
+                                  RicedepositData.rice_mill_name_id
+                              ).rice_mill_name,
+                              value: RicedepositData.rice_mill_name_id,
+                            }
+                          : null
+                      }
+                      onChange={(selectedOption) =>
+                        handleInputChange({
+                          target: {
+                            name: "rice_mill_name_id",
+                            value: selectedOption ? selectedOption.value : "",
+                          },
+                        })
+                      }
+                    />
                     <p className="mt-2 text-sm text-gray-500">
                       Cannot Find Rice Mill?{" "}
                       <a
@@ -350,21 +375,38 @@ const Ricedeposit = () => {
                   </label>
 
                   <div className="mt-1">
-                    <select
+                    <Select
+                      styles={customStyles}
+                      placeholder="Enter Truck Number.."
                       name="truck_number_id"
-                      type="number"
-                      value={RicedepositData.truck_number_id}
-                      className=" bg-white block min-w-[250px] w-full px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                      onChange={handleInputChange}
-                    >
-                      <option value="">Select a Truck</option>
-                      {RiceDeopsitOptions.truck_data &&
-                        RiceDeopsitOptions.truck_data.map((truck) => (
-                          <option key={truck.truck_id} value={truck.truck_id}>
-                            {truck.truck_number}
-                          </option>
-                        ))}
-                    </select>
+                      options={
+                        RiceDeopsitOptions.truck_data &&
+                        RiceDeopsitOptions.truck_data.map((option) => ({
+                          label: option.truck_number,
+                          value: option.truck_id,
+                        }))
+                      }
+                      value={
+                        RicedepositData.truck_number_id
+                          ? {
+                              label: RiceDeopsitOptions.truck_data.find(
+                                (option) =>
+                                  option.truck_id ===
+                                  RicedepositData.truck_number_id
+                              ).truck_number,
+                              value: RicedepositData.truck_number_id,
+                            }
+                          : null
+                      }
+                      onChange={(selectedOption) =>
+                        handleInputChange({
+                          target: {
+                            name: "truck_number_id",
+                            value: selectedOption ? selectedOption.value : "",
+                          },
+                        })
+                      }
+                    />
                   </div>
                   <p className="mt-2 text-sm text-gray-500">
                     Cannot Find Truck?{" "}
@@ -407,24 +449,39 @@ const Ricedeposit = () => {
                   Select Transporter
                 </label>
                 <div className="mt-2">
-                  <select
-                    // required
+                  <Select
+                    indicatorSeparator="false"
+                    style={customStyles}
+                    placeholder="Enter Transporter"
                     name="transporter_name_id"
-                    className="block  w-full bg-white rounded-md  border-0 px-1.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                    value={RicedepositData.transporter_name_id}
-                    onChange={handleInputChange}
-                  >
-                    <option value="">-Select a transporter-</option>
-                    {RiceDeopsitOptions.transporter_data &&
-                      RiceDeopsitOptions.transporter_data.map((option) => (
-                        <option
-                          key={option.transporter_id}
-                          value={option.transporter_id}
-                        >
-                          {option.transporter_name}
-                        </option>
-                      ))}
-                  </select>
+                    options={
+                      RiceDeopsitOptions.transporter_data &&
+                      RiceDeopsitOptions.transporter_data.map((option) => ({
+                        label: option.transporter_name,
+                        value: option.transporter_id,
+                      }))
+                    }
+                    value={
+                      RicedepositData.transporter_name_id
+                        ? {
+                            label: RiceDeopsitOptions.transporter_data.find(
+                              (option) =>
+                                option.transporter_id ===
+                                RicedepositData.transporter_name_id
+                            ).transporter_name,
+                            value: RicedepositData.transporter_name_id,
+                          }
+                        : null
+                    }
+                    onChange={(selectedOption) =>
+                      handleInputChange({
+                        target: {
+                          name: "transporter_name_id",
+                          value: selectedOption ? selectedOption.value : "",
+                        },
+                      })
+                    }
+                  />
                   <p className="mt-2  text-sm text-gray-500">
                     Cannot Find Transporter?{" "}
                     <a

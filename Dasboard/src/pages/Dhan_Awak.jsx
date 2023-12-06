@@ -75,7 +75,7 @@ const Dhan_Awak = () => {
     async function fetchricedonumberData() {
       try {
         const truck_transporter = await axios.get(
-          `http://localhost:8000/rice-do-number/${DhanAwakData.rice_mill_id}`
+          ` http://localhost:8000/rice-do-number/${DhanAwakData.rice_mill_id}`
         );
 
         const data = truck_transporter.data;
