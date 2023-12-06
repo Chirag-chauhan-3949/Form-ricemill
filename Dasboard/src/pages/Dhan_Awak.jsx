@@ -61,7 +61,7 @@ const Dhan_Awak = () => {
 
         const data = Mill_response.data;
         setDoOptions(data);
-        console.log(data);
+        // console.log(data);
       } catch (error) {
         console.error("Error:", error);
       }
@@ -113,6 +113,27 @@ const Dhan_Awak = () => {
       fetchtrucktransporter();
     }
   }, [DhanAwakData.transporter_name_id]);
+
+  const [DoOptionssocietyid, setDoOptionsSocietyid] = useState([]);
+  useEffect(() => {
+    async function fetchsocietyid() {
+      try {
+        const rice_do_number = await axios.get(
+          `http://localhost:8000/society-data/${DhanAwakData.society_id}`
+        );
+
+        const data = rice_do_number.data;
+        setDoOptionsSocietyid(data);
+        console.log(data);
+      } catch (error) {
+        console.error("Error:", error);
+      }
+    }
+
+    if (DhanAwakData.society_id) {
+      fetchsocietyid();
+    }
+  }, [DhanAwakData.society_id]);
 
   const handleSelectChange = (selectedOption) => {
     setFormData({
@@ -558,8 +579,12 @@ const Dhan_Awak = () => {
                     </label>
                   </div>
                   <div className="mt-1">
+                    {DoOptionssocietyid.society_data.map((e) => {
+                      console.log(e.transporting_rate);
+                    })}
                     <input
-                      value={DhanAwakData.transporting_rate}
+                      readOnly
+                      value={DoOptionssocietyid.transporting_rate}
                       onChange={handleInputChange}
                       type="number"
                       name="transporting_rate"
@@ -904,7 +929,6 @@ const Dhan_Awak = () => {
                     />
                   </div>
                 </div>
-                hopper_rice_mill_id
               </div>
               <h2 className=" text-2xl font-black  ">Stack Details</h2>
 
