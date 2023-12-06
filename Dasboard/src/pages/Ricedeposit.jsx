@@ -1,6 +1,7 @@
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import React, { useState, useEffect } from "react";
+import Variety from "../select_dropdown/Variety";
 import Warehouse from "../select_dropdown/Warehouse";
 import Select from "react-select";
 import axios from "axios";
@@ -126,6 +127,7 @@ const Ricedeposit = () => {
     setRicedepositData({
       ...RicedepositData,
       ware_house: selectedOption.value,
+      variety: selectedOption.value,
     });
   };
   const handleInputChange = (e) => {
@@ -406,28 +408,10 @@ const Ricedeposit = () => {
                   </div>
                 </div>
                 <div>
-                  <div className="flex justify-between">
-                    <label
-                      htmlFor="variety"
-                      className="block text-sm font-medium leading-6 text-gray-900"
-                    >
-                      Variety
-                    </label>
-                  </div>
-                  <div className="mt-1">
-                    <select
-                      value={RicedepositData.variety}
-                      onChange={handleInputChange}
-                      type="text"
-                      name="variety"
-                      className="bg-white block min-w-[250px] w-full px-1.5 rounded-md border-0 py-2.5 text-gray-400 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:text-gray-900 focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                    >
-                      <option value="">Select Variety</option>
-                      <option value="Jagtara">Jagtara</option>
-                      <option value="Chitoud">Chitoud</option>
-                      <option value="Daundi">Daundi</option>
-                    </select>
-                  </div>
+                  <Variety
+                    value={RicedepositData.variety}
+                    onSelectChange={handleSelectChange}
+                  />
                 </div>
               </div>
               <div className="flex justify-between">
