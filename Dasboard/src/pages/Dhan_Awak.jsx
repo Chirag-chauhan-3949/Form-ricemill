@@ -224,10 +224,10 @@ const Dhan_Awak = () => {
                 <div className="mt-3">
                   <div className="flex justify-between">
                     <label
-                      htmlFor="stack_location"
+                      htmlFor="rice_mill_id"
                       className="block text-sm font-medium leading-6 text-gray-900"
                     >
-                      Ware House
+                      Select Rice
                     </label>
                   </div>
 
@@ -317,9 +317,9 @@ const Dhan_Awak = () => {
                       value={
                         DhanAwakData.do_id
                           ? {
-                              label: DoOptionsricedonumber.rice_mill_data.find(
+                              label: DoOptionsricedonumber.do_number_data.find(
                                 (option) => option.do_id === DhanAwakData.do_id
-                              ).rice_mill_name,
+                              ).do_number,
                               value: DhanAwakData.do_id,
                             }
                           : null
@@ -356,24 +356,37 @@ const Dhan_Awak = () => {
                   </label>
                 </div>
                 <div className="mt-1">
-                  <select
+                  <Select
+                    style={customStyles}
                     name="society_id"
-                    type="number"
-                    value={DhanAwakData.society_id}
-                    className="bg-white block w-full px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                    onChange={handleInputChange}
-                  >
-                    <option value="">Select a society</option>
-                    {DoOptions.society_data &&
-                      DoOptions.society_data.map((societie) => (
-                        <option
-                          key={societie.society_id}
-                          value={societie.society_id}
-                        >
-                          {societie.society_name}
-                        </option>
-                      ))}
-                  </select>
+                    options={
+                      DoOptions.society_data &&
+                      DoOptions.rice_mill_data.map((option) => ({
+                        label: option.society_name,
+                        value: option.society_id,
+                      }))
+                    }
+                    value={
+                      DhanAwakData.society_id
+                        ? {
+                            label: DoOptions.society_data.find(
+                              (option) =>
+                                option.society_id === DhanAwakData.society_id
+                            ).society_name,
+                            value: DhanAwakData.society_id,
+                          }
+                        : null
+                    }
+                    onChange={(selectedOption) =>
+                      handleInputChange({
+                        tareget: {
+                          name: "society_id",
+                          value: selectedOption ? selectedOption.value : "",
+                        },
+                      })
+                    }
+                  />
+
                   <p className="mt-2  text-sm text-gray-500">
                     Cannot Find Society?{" "}
                     <a
@@ -439,24 +452,38 @@ const Dhan_Awak = () => {
                   Select Transporter
                 </label>
                 <div className="mt-2">
-                  <select
-                    // required
+                  <Select
+                    style={customStyles}
                     name="transporter_name_id"
-                    className="block  min-w-full bg-white rounded-md  border-0 px-1.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                    value={DhanAwakData.transporter_name_id}
-                    onChange={handleInputChange}
-                  >
-                    <option value="">-Select a transporter-</option>
-                    {DoOptions.transporter_data &&
-                      DoOptions.transporter_data.map((option) => (
-                        <option
-                          key={option.transporter_id}
-                          value={option.transporter_id}
-                        >
-                          {option.transporter_name}
-                        </option>
-                      ))}
-                  </select>
+                    options={
+                      DoOptions.transporter_data &&
+                      DoOptions.rice_mill_data.map((option) => ({
+                        label: option.transporter_name,
+                        value: option.transporter_name_id,
+                      }))
+                    }
+                    value={
+                      DhanAwakData.transporter_name_id
+                        ? {
+                            label: DoOptions.rice_mill_data.find(
+                              (option) =>
+                                option.transporter_name_id ===
+                                DhanAwakData.transporter_name_id
+                            ).transporter_name,
+                            value: DhanAwakData.transporter_name_id,
+                          }
+                        : null
+                    }
+                    onChange={(selectedOption) =>
+                      handleInputChange({
+                        target: {
+                          name: "transporter_name_id",
+                          value: selectedOption ? selectedOption.value : "",
+                        },
+                      })
+                    }
+                  />
+
                   <p className="mt-2  text-sm text-gray-500">
                     Cannot Find Transporter?{" "}
                     <a
@@ -478,21 +505,37 @@ const Dhan_Awak = () => {
                 </label>
 
                 <div className="mt-1">
-                  <select
+                  <Select
+                    style={customStyles}
                     name="truck_number_id"
-                    type="number"
-                    value={DhanAwakData.truck_number_id}
-                    className=" bg-white block w-full px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                    onChange={handleInputChange}
-                  >
-                    <option value="">Select a Truck</option>
-                    {DoOptionstrucktransporter.truck_data &&
-                      DoOptionstrucktransporter.truck_data.map((truck) => (
-                        <option key={truck.truck_id} value={truck.truck_id}>
-                          {truck.truck_number}
-                        </option>
-                      ))}
-                  </select>
+                    options={
+                      DoOptions.truck_data &&
+                      DoOptions.rice_mill_data.map((option) => ({
+                        label: option.truck_number,
+                        value: option.truck_number_id,
+                      }))
+                    }
+                    value={
+                      DhanAwakData.truck_number_id
+                        ? {
+                            label: DoOptions.rice_mill_data.find(
+                              (option) =>
+                                option.truck_number_id ===
+                                DhanAwakData.truck_number_id
+                            ).truck_number,
+                            value: DhanAwakData.truck_number_id,
+                          }
+                        : null
+                    }
+                    onChange={(selectedOption) =>
+                      handleInputChange({
+                        target: {
+                          name: "truck_number_id",
+                          value: selectedOption ? selectedOption.value : "",
+                        },
+                      })
+                    }
+                  />
                 </div>
                 <p className="mt-2 text-sm text-gray-500">
                   Cannot Find Truck?{" "}
@@ -889,25 +932,37 @@ const Dhan_Awak = () => {
                     Select Rice Mill
                   </label>
                   <div className="mt-2">
-                    <select
-                      // required
-                      name="hopper_rice_mill_id"
-                      type="text"
-                      className="block  w-full min-w-[250px] bg-white rounded-md  border-0 px-1.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                      value={DhanAwakData.hopper_rice_mill_id}
-                      onChange={handleInputChange}
-                    >
-                      <option value="">-Select Rice Mill-</option>
-                      {DoOptions.rice_mill_data &&
-                        DoOptions.rice_mill_data.map((option) => (
-                          <option
-                            key={option.rice_mill_id}
-                            value={option.rice_mill_id}
-                          >
-                            {option.rice_mill_name}
-                          </option>
-                        ))}
-                    </select>
+                    <Select
+                      styles={customStyles}
+                      name="rice_mill_id"
+                      options={
+                        DoOptions.do_number_data &&
+                        DoOptions.rice_mill_data.map((option) => ({
+                          label: option.rice_mill_name,
+                          value: option.rice_mill_id,
+                        }))
+                      }
+                      value={
+                        DhanAwakData.hopper_rice_mill_id
+                          ? {
+                              label: DoOptions.rice_mill_data.find(
+                                (option) =>
+                                  option.rice_mill_id ===
+                                  DhanAwakData.rice_mill_id
+                              ).rice_mill_name,
+                              value: DhanAwakData.rice_mill_id,
+                            }
+                          : null
+                      }
+                      onChange={(selectedOption) =>
+                        handleInputChange({
+                          target: {
+                            name: "rice_mill_id",
+                            value: selectedOption ? selectedOption.value : "",
+                          },
+                        })
+                      }
+                    />
                   </div>
                 </div>
               </fieldset>
