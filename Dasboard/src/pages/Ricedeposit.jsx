@@ -368,6 +368,83 @@ const Ricedeposit = () => {
               <div className="flex justify-between">
                 <div>
                   <label
+                    htmlFor="transporter_name_id"
+                    className="block text-sm font-medium leading-6 text-gray-900"
+                  >
+                    Select Transporter
+                  </label>
+                  <div className="mt-2">
+                    <Select
+                      indicatorSeparator="false"
+                      placeholder="Enter Transporter"
+                      name="transporter_name_id"
+                      options={
+                        RiceDeopsitOptions.transporter_data &&
+                        RiceDeopsitOptions.transporter_data.map((option) => ({
+                          label: option.transporter_name,
+                          value: option.transporter_id,
+                        }))
+                      }
+                      value={
+                        RicedepositData.transporter_name_id
+                          ? {
+                              label: RiceDeopsitOptions.transporter_data.find(
+                                (option) =>
+                                  option.transporter_id ===
+                                  RicedepositData.transporter_name_id
+                              ).transporter_name,
+                              value: RicedepositData.transporter_name_id,
+                            }
+                          : null
+                      }
+                      onChange={(selectedOption) =>
+                        handleInputChange({
+                          target: {
+                            name: "transporter_name_id",
+                            value: selectedOption ? selectedOption.value : "",
+                          },
+                        })
+                      }
+                    />
+                    <p className="mt-2  text-sm text-gray-500">
+                      Cannot Find?{" "}
+                      <a
+                        href="/Add_NEw_Transporter"
+                        className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
+                      >
+                        Add New Transporter........
+                      </a>
+                    </p>
+                  </div>
+                </div>
+                <div>
+                  <div className="flex justify-between">
+                    <label
+                      htmlFor="variety"
+                      className="block text-sm font-medium leading-6 text-gray-900"
+                    >
+                      Variety
+                    </label>
+                  </div>
+                  <div className="mt-1">
+                    <select
+                      value={RicedepositData.variety}
+                      onChange={handleInputChange}
+                      type="text"
+                      name="variety"
+                      className="bg-white block min-w-[250px] w-full px-1.5 rounded-md border-0 py-2.5 text-gray-400 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    >
+                      <option value="">Select Variety</option>
+                      <option value="Jagtara">Jagtara</option>
+                      <option value="Chitoud">Chitoud</option>
+                      <option value="Daundi">Daundi</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <div className="flex justify-between">
+                <div>
+                  <label
                     htmlFor="truck_number_id"
                     className="block text-sm font-medium leading-6 text-gray-900"
                   >
@@ -441,58 +518,6 @@ const Ricedeposit = () => {
                   </div>
                 </div>
               </div>
-              <div>
-                <label
-                  htmlFor="transporter_name_id"
-                  className="block text-sm font-medium leading-6 text-gray-900"
-                >
-                  Select Transporter
-                </label>
-                <div className="mt-2">
-                  <Select
-                    indicatorSeparator="false"
-                    style={customStyles}
-                    placeholder="Enter Transporter"
-                    name="transporter_name_id"
-                    options={
-                      RiceDeopsitOptions.transporter_data &&
-                      RiceDeopsitOptions.transporter_data.map((option) => ({
-                        label: option.transporter_name,
-                        value: option.transporter_id,
-                      }))
-                    }
-                    value={
-                      RicedepositData.transporter_name_id
-                        ? {
-                            label: RiceDeopsitOptions.transporter_data.find(
-                              (option) =>
-                                option.transporter_id ===
-                                RicedepositData.transporter_name_id
-                            ).transporter_name,
-                            value: RicedepositData.transporter_name_id,
-                          }
-                        : null
-                    }
-                    onChange={(selectedOption) =>
-                      handleInputChange({
-                        target: {
-                          name: "transporter_name_id",
-                          value: selectedOption ? selectedOption.value : "",
-                        },
-                      })
-                    }
-                  />
-                  <p className="mt-2  text-sm text-gray-500">
-                    Cannot Find Transporter?{" "}
-                    <a
-                      href="/Add_NEw_Transporter"
-                      className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
-                    >
-                      Add New Transporter.
-                    </a>
-                  </p>
-                </div>
-              </div>
 
               <div className="flex justify-between">
                 <div>
@@ -508,31 +533,13 @@ const Ricedeposit = () => {
                     <input
                       type="number"
                       name="rate"
-                      className="block min-w-full px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                      className="block w-full min-w-[250px] px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                       onChange={handleInputChange}
                       value={RicedepositData.rate}
                     />
                   </div>
                 </div>
-                <div>
-                  <div className="flex justify-between">
-                    <label
-                      htmlFor="variety"
-                      className="block text-sm font-medium leading-6 text-gray-900"
-                    >
-                      Variety
-                    </label>
-                  </div>
-                  <div className="mt-1">
-                    <input
-                      type="text"
-                      name="variety"
-                      className="block min-w-full px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                      onChange={handleInputChange}
-                      value={RicedepositData.variety}
-                    />
-                  </div>
-                </div>
+
                 <div>
                   <div className="flex justify-between">
                     <label
@@ -546,7 +553,7 @@ const Ricedeposit = () => {
                     <input
                       type="number"
                       name="halting"
-                      className="block min-w-full px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                      className="block w-full min-w-[250px] px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                       onChange={handleInputChange}
                       value={RicedepositData.halting}
                     />
