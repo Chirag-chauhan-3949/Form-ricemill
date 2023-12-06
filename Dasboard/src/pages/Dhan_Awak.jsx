@@ -852,6 +852,11 @@ const Dhan_Awak = () => {
                       <option value="RBG">RBG</option>
                       <option value="Sambha">Sambha</option>
                       <option value="IR">IR</option>
+                      <option value="White Sarna">White Sarna</option>
+                      <option value="Sarna">Sarna</option>
+                      <option value="RB Gold">RB Gold</option>
+                      <option value="Mahamaya">Mahamaya</option>
+                      <option value="OM 3">OM 3</option>
                     </select>
                   </div>
                 </div>

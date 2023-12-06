@@ -16,12 +16,12 @@ const customStyles = {
 
 const Stacklocation = ({ onSelectChange }) => {
   const Warehouse = [
-    { label: "prm_in", value: "PRM In" },
-    { label: "prm_out", value: "PRM Out" },
-    { label: "drm_in", value: "DRM IN" },
-    { label: "drm_out", value: "DRM OUT" },
-    { label: "trm_in", value: "TRM IN" },
-    { label: "trm_out", value: "TRM OUT" },
+    { label: "PRM In", value: "PRM In" },
+    { label: "PRM Out", value: "PRM Out" },
+    { label: "DRM IN", value: "DRM IN" },
+    { label: "DRM OUT", value: "DRM OUT" },
+    { label: "TRM IN", value: "TRM IN" },
+    { label: "TRM OUT", value: "TRM OUT" },
   ];
 
   return (
