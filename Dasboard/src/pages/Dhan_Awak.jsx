@@ -124,7 +124,7 @@ const Dhan_Awak = () => {
 
         const data = rice_do_number.data;
         setDoOptionsSocietyid(data);
-        console.log(data);
+        // console.log(data);
       } catch (error) {
         console.error("Error:", error);
       }
@@ -153,7 +153,7 @@ const Dhan_Awak = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(DhanAwakData);
+    // console.log(DhanAwakData);
 
     try {
       const response = await fetch("http://localhost:8000/dhan-awak", {
@@ -165,7 +165,7 @@ const Dhan_Awak = () => {
       });
 
       if (response.ok) {
-        console.log("Form data sent successfully");
+        // console.log("Form data sent successfully");
         toast.success("Form data added successfully", {
           position: "top-right",
           autoClose: 3000,
@@ -578,18 +578,21 @@ const Dhan_Awak = () => {
                       Transporting Rate
                     </label>
                   </div>
-                  <div className="mt-1">
-                    {DoOptionssocietyid.society_data.map((e) => {
-                      console.log(e.transporting_rate);
-                    })}
-                    <input
-                      readOnly
-                      value={DoOptionssocietyid.transporting_rate}
-                      onChange={handleInputChange}
-                      type="number"
-                      name="transporting_rate"
-                      className="block min-w-[250px] px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                    />
+
+                  <div>
+                    {DoOptionssocietyid.transporting_rate !== undefined && (
+                      <input
+                        disabled
+                        value={
+                          (DhanAwakData.transporting_rate =
+                            DoOptionssocietyid.transporting_rate)
+                        }
+                        onChange={handleInputChange}
+                        type="number"
+                        name="transporting_rate"
+                        className="block min-w-[250px] px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                      />
+                    )}
                   </div>
                 </div>
                 <div>
