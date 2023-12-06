@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import Selectt from "../function/Select";
+import Stacklocation from "../select_dropdown/Stacklocation";
+import Ricemill from "../select_dropdown/Ricemill";
 import axios from "axios";
 const Dhan_Awak = () => {
   const [DhanAwakData, setFormData] = useState({
@@ -36,26 +37,7 @@ const Dhan_Awak = () => {
     stack_location: "",
   });
 
-  const [DoOptions, setDoOptions] = useState([]);
-
-  // Fetch data for the "Select Rice Mill" dropdown
-  useEffect(() => {
-    async function fetchMillData() {
-      try {
-        const Mill_response = await axios.get(
-          "http://localhost:8000/rice-do-society-truck-transporter"
-        );
-
-        const data = Mill_response.data;
-        setDoOptions(data);
-        // console.log(data);
-      } catch (error) {
-        console.error("Error:", error);
-      }
-    }
-
-    fetchMillData();
-  }, []);
+  const [DoOptions] = useState([]);
 
   const [DoOptionsricedonumber, setDoOptionsRiceDoNumber] = useState([]);
   useEffect(() => {
@@ -105,6 +87,8 @@ const Dhan_Awak = () => {
     setFormData({
       ...DhanAwakData,
       stack_location: selectedOption.value,
+      rice_mill_id: selectedOption.value,
+      hopper_rice_mill_id: selectedOption.value,
     });
   };
 
@@ -209,42 +193,16 @@ const Dhan_Awak = () => {
                   </div>
                 </div>
                 <div>
-                  <label
-                    htmlFor="rice_mill_id"
-                    className="block text-sm font-medium leading-6 text-gray-900"
-                  >
-                    Select Rice Mill
-                  </label>
-                  <div className="mt-2">
-                    <select
-                      // required
-                      name="rice_mill_id"
-                      type="text"
-                      className="block  w-full bg-white rounded-md  border-0 px-1.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                      value={DhanAwakData.rice_mill_id}
-                      onChange={handleInputChange}
+                  <Ricemill onSelectChange={handleSelectChange} />
+                  <p className="mt-2 text-sm text-gray-500">
+                    Cannot Find?{" "}
+                    <a
+                      href="/Addricemill"
+                      className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
                     >
-                      <option value="">-Select Rice Mill-</option>
-                      {DoOptions.rice_mill_data &&
-                        DoOptions.rice_mill_data.map((option) => (
-                          <option
-                            key={option.rice_mill_id}
-                            value={option.rice_mill_id}
-                          >
-                            {option.rice_mill_name}
-                          </option>
-                        ))}
-                    </select>
-                    <p className="mt-2 text-sm text-gray-500">
-                      Cannot Find Rice Mill?{" "}
-                      <a
-                        href="/Addricemill"
-                        className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
-                      >
-                        Add New Rice Mill..
-                      </a>
-                    </p>
-                  </div>
+                      Add New RiceMill
+                    </a>
+                  </p>
                 </div>
               </div>
               <div className="flex justify-between">
@@ -841,33 +799,7 @@ const Dhan_Awak = () => {
                   </div>
                 </div>
                 <div>
-                  <label
-                    htmlFor="hopper_rice_mill_id"
-                    className="block text-sm font-medium leading-6 text-gray-900"
-                  >
-                    Select Rice Mill
-                  </label>
-                  <div className="mt-2">
-                    <select
-                      // required
-                      name="hopper_rice_mill_id"
-                      type="text"
-                      className="block  w-full min-w-[250px] bg-white rounded-md  border-0 px-1.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                      value={DhanAwakData.hopper_rice_mill_id}
-                      onChange={handleInputChange}
-                    >
-                      <option value="">-Select Rice Mill-</option>
-                      {DoOptions.rice_mill_data &&
-                        DoOptions.rice_mill_data.map((option) => (
-                          <option
-                            key={option.rice_mill_id}
-                            value={option.rice_mill_id}
-                          >
-                            {option.rice_mill_name}
-                          </option>
-                        ))}
-                    </select>
-                  </div>
+                  <Ricemill onSelectChange={handleSelectChange} />
                 </div>
               </fieldset>
 
@@ -892,11 +824,8 @@ const Dhan_Awak = () => {
                     />
                   </div>
                 </div>
-                <div className="">
-                  <Selectt
-                    value={DhanAwakData.stack_location}
-                    onSelectChange={handleSelectChange}
-                  />
+                <div>
+                  <Stacklocation onSelectChange={handleSelectChange} />
                 </div>
               </fieldset>
 

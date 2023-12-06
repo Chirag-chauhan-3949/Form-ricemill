@@ -1,8 +1,20 @@
 // Selectt.js
 import React from "react";
 import Select from "react-select";
+const customStyles = {
+  control: (base) => ({
+    ...base,
+    height: 35,
+    minheight: 30,
+    width: 250,
+    minwidth: 180,
+  }),
+  indicatorSeparator: (state) => ({
+    display: "none",
+  }),
+};
 
-const Selectt = ({ onSelectChange }) => {
+const Stacklocation = ({ onSelectChange }) => {
   const Warehouse = [
     { label: "prm_in", value: "PRM In" },
     { label: "prm_out", value: "PRM Out" },
@@ -27,9 +39,10 @@ const Selectt = ({ onSelectChange }) => {
           <Select
             onChange={onSelectChange}
             name="stack_location"
-            className="min-w-[240px]"
+            className=""
             options={Warehouse}
             placeholder="Select location"
+            styles={customStyles}
           />
         </div>
       </div>
@@ -37,4 +50,4 @@ const Selectt = ({ onSelectChange }) => {
   );
 };
 
-export default Selectt;
+export default Stacklocation;
