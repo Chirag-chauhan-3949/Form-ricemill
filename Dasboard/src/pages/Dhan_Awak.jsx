@@ -61,7 +61,7 @@ const Dhan_Awak = () => {
 
         const data = Mill_response.data;
         setDoOptions(data);
-        // console.log(data);
+        console.log(data);
       } catch (error) {
         console.error("Error:", error);
       }
@@ -235,7 +235,7 @@ const Dhan_Awak = () => {
                     styles={customStyles}
                     name="rice_mill_id"
                     options={
-                      DoOptions.do_number_data &&
+                      DoOptions.rice_mill_data &&
                       DoOptions.rice_mill_data.map((option) => ({
                         label: option.rice_mill_name,
                         value: option.rice_mill_id,
@@ -379,7 +379,7 @@ const Dhan_Awak = () => {
                     }
                     onChange={(selectedOption) =>
                       handleInputChange({
-                        tareget: {
+                        target: {
                           name: "society_id",
                           value: selectedOption ? selectedOption.value : "",
                         },
@@ -456,20 +456,18 @@ const Dhan_Awak = () => {
                     style={customStyles}
                     name="transporter_name_id"
                     options={
-                      DoOptionstrucktransporter.transporter_data &&
-                      DoOptionstrucktransporter.transporter_data.map(
-                        (option) => ({
-                          label: option.transporter_name,
-                          value: option.transporter_name_id,
-                        })
-                      )
+                      DoOptions.transporter_data &&
+                      DoOptions.transporter_data.map((option) => ({
+                        label: option.transporter_name,
+                        value: option.transporter_id,
+                      }))
                     }
                     value={
                       DhanAwakData.transporter_name_id
                         ? {
-                            label: DoOptionsricedonumber.transporter_data.find(
+                            label: DoOptions.transporter_data.find(
                               (option) =>
-                                option.transporter_name_id ===
+                                option.transporter_id ===
                                 DhanAwakData.transporter_name_id
                             ).transporter_name,
                             value: DhanAwakData.transporter_name_id,
@@ -514,16 +512,15 @@ const Dhan_Awak = () => {
                       DoOptionstrucktransporter.truck_data &&
                       DoOptionstrucktransporter.truck_data.map((option) => ({
                         label: option.truck_number,
-                        value: option.truck_number_id,
+                        value: option.truck_id,
                       }))
                     }
                     value={
                       DhanAwakData.truck_number_id
                         ? {
-                            label: setDoOptionsTruckTransporter.truck_data.find(
+                            label: DoOptionstrucktransporter.truck_data.find(
                               (option) =>
-                                option.truck_number_id ===
-                                DhanAwakData.truck_number_id
+                                option.truck_id === DhanAwakData.truck_number_id
                             ).truck_number,
                             value: DhanAwakData.truck_number_id,
                           }
@@ -902,6 +899,7 @@ const Dhan_Awak = () => {
                     />
                   </div>
                 </div>
+                hopper_rice_mill_id
               </div>
               <h2 className=" text-2xl font-black  ">Stack Details</h2>
 
@@ -936,7 +934,7 @@ const Dhan_Awak = () => {
                   <div className="mt-2">
                     <Select
                       styles={customStyles}
-                      name="rice_mill_id"
+                      name="hopper_rice_mill_id"
                       options={
                         DoOptions.do_number_data &&
                         DoOptions.rice_mill_data.map((option) => ({
@@ -950,16 +948,16 @@ const Dhan_Awak = () => {
                               label: DoOptions.rice_mill_data.find(
                                 (option) =>
                                   option.rice_mill_id ===
-                                  DhanAwakData.rice_mill_id
+                                  DhanAwakData.hopper_rice_mill_id
                               ).rice_mill_name,
-                              value: DhanAwakData.rice_mill_id,
+                              value: DhanAwakData.hopper_rice_mill_id,
                             }
                           : null
                       }
                       onChange={(selectedOption) =>
                         handleInputChange({
                           target: {
-                            name: "rice_mill_id",
+                            name: "hopper_rice_mill_id",
                             value: selectedOption ? selectedOption.value : "",
                           },
                         })
