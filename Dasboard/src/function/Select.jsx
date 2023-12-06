@@ -4,12 +4,12 @@ import Select from "react-select";
 
 const Selectt = ({ onSelectChange }) => {
   const Warehouse = [
-    { label: "PRM In", value: "prm_in" },
-    { label: "PRM Out", value: "prm_out" },
-    { label: "DRM IN", value: "drm_in" },
-    { label: "DRM OUT", value: "drm_out" },
-    { label: "TRM IN", value: "trm_in" },
-    { label: "TRM OUT", value: "trm_out" },
+    { label: "prm_in", value: "PRM In" },
+    { label: "prm_out", value: "PRM Out" },
+    { label: "drm_in", value: "DRM IN" },
+    { label: "drm_out", value: "DRM OUT" },
+    { label: "trm_in", value: "TRM IN" },
+    { label: "trm_out", value: "TRM OUT" },
   ];
 
   return (

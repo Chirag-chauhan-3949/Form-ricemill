@@ -892,7 +892,7 @@ const Dhan_Awak = () => {
                     />
                   </div>
                 </div>
-                <div>
+                <div className="">
                   <Selectt
                     value={DhanAwakData.stack_location}
                     onSelectChange={handleSelectChange}
