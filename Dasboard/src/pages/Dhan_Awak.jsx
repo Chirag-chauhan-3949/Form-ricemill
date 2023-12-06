@@ -314,7 +314,16 @@ const Dhan_Awak = () => {
                           value: option.do_id,
                         }))
                       }
-                      value={DhanAwakData.do_id}
+                      value={
+                        DhanAwakData.do_id
+                          ? {
+                              label: DoOptionsricedonumber.rice_mill_data.find(
+                                (option) => option.do_id === DhanAwakData.do_id
+                              ).rice_mill_name,
+                              value: DhanAwakData.do_id,
+                            }
+                          : null
+                      }
                       onChange={(selectedOption) =>
                         handleInputChange({
                           target: {
