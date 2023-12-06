@@ -51,3 +51,33 @@ const Stacklocation = ({ onSelectChange }) => {
 };
 
 export default Stacklocation;
+
+<Select
+  styles={customStyles}
+  name="do_id"
+  options={
+    DoOptionsricedonumber.do_number_data &&
+    DoOptionsricedonumber.do_number_data.map((option) => ({
+      label: option.do_number,
+      value: option.do_id,
+    }))
+  }
+  value={
+    DhanAwakData.do_id
+      ? {
+          label: DoOptionsricedonumber.do_number_data.find(
+            (option) => option.do_id === DhanAwakData.do_id
+          ).do_number,
+          value: DhanAwakData.do_id,
+        }
+      : null
+  }
+  onChange={(selectedOption) =>
+    handleInputChange({
+      target: {
+        name: "do_id",
+        value: selectedOption ? selectedOption.value : "",
+      },
+    })
+  }
+/>;

@@ -227,7 +227,7 @@ const Dhan_Awak = () => {
                       htmlFor="rice_mill_id"
                       className="block text-sm font-medium leading-6 text-gray-900"
                     >
-                      Select Rice
+                      Select Rice Mill
                     </label>
                   </div>
 
@@ -361,7 +361,7 @@ const Dhan_Awak = () => {
                     name="society_id"
                     options={
                       DoOptions.society_data &&
-                      DoOptions.rice_mill_data.map((option) => ({
+                      DoOptions.society_data.map((option) => ({
                         label: option.society_name,
                         value: option.society_id,
                       }))
@@ -456,16 +456,18 @@ const Dhan_Awak = () => {
                     style={customStyles}
                     name="transporter_name_id"
                     options={
-                      DoOptions.transporter_data &&
-                      DoOptions.rice_mill_data.map((option) => ({
-                        label: option.transporter_name,
-                        value: option.transporter_name_id,
-                      }))
+                      DoOptionstrucktransporter.transporter_data &&
+                      DoOptionstrucktransporter.transporter_data.map(
+                        (option) => ({
+                          label: option.transporter_name,
+                          value: option.transporter_name_id,
+                        })
+                      )
                     }
                     value={
                       DhanAwakData.transporter_name_id
                         ? {
-                            label: DoOptions.rice_mill_data.find(
+                            label: DoOptionsricedonumber.transporter_data.find(
                               (option) =>
                                 option.transporter_name_id ===
                                 DhanAwakData.transporter_name_id
@@ -509,8 +511,8 @@ const Dhan_Awak = () => {
                     style={customStyles}
                     name="truck_number_id"
                     options={
-                      DoOptions.truck_data &&
-                      DoOptions.rice_mill_data.map((option) => ({
+                      DoOptionstrucktransporter.truck_data &&
+                      DoOptionstrucktransporter.truck_data.map((option) => ({
                         label: option.truck_number,
                         value: option.truck_number_id,
                       }))
@@ -518,7 +520,7 @@ const Dhan_Awak = () => {
                     value={
                       DhanAwakData.truck_number_id
                         ? {
-                            label: DoOptions.rice_mill_data.find(
+                            label: setDoOptionsTruckTransporter.truck_data.find(
                               (option) =>
                                 option.truck_number_id ===
                                 DhanAwakData.truck_number_id
