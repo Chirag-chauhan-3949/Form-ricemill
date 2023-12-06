@@ -28,7 +28,7 @@ const Paddy = ({ onSelectChange }) => {
           htmlFor="type_of_paddy"
           className="block text-sm font-medium leading-6 text-gray-900"
         >
-          Select Actual Paddy
+          Select Paddy
         </label>
       </div>
       <div className="mt-1 relative">
