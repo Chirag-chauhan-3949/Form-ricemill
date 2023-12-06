@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import Select from "react-select";
+import Selectt from "../function/Select";
 import axios from "axios";
 const Dhan_Awak = () => {
   const [DhanAwakData, setFormData] = useState({
@@ -101,20 +101,25 @@ const Dhan_Awak = () => {
     }
   }, [DhanAwakData.transporter_name_id]);
 
+  const handleSelectChange = (selectedOption) => {
+    setFormData({
+      ...DhanAwakData,
+      stack_location: selectedOption.value,
+    });
+  };
+
   const handleInputChange = (e) => {
-    if (e.target) {
-      // Regular input change
-      const { name, value } = e.target;
-      setFormData({ ...DhanAwakData, [name]: value });
-    } else {
-      // Select component change
-      setFormData({ ...DhanAwakData, [e.name]: e.value });
-    }
+    const { name, value } = e.target;
+
+    setFormData({
+      ...DhanAwakData,
+      [name]: value,
+    });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // console.log(DhanAwakData);
+    console.log(DhanAwakData);
 
     try {
       const response = await fetch("http://localhost:8000/dhan-awak", {
@@ -161,14 +166,6 @@ const Dhan_Awak = () => {
       });
     }
   };
-  const Warehouse = [
-    { label: "Jagtara", value: "jagtara" },
-    { label: "Chitoud", value: "chitoud" },
-    { label: "Daundi", value: "daundi" },
-    { label: "Gunderdehi", value: "gunderdehi" },
-    { label: "Lohara", value: "lohara" },
-    { label: "Devri", value: "devri" },
-  ];
 
   return (
     <>
@@ -896,25 +893,10 @@ const Dhan_Awak = () => {
                   </div>
                 </div>
                 <div>
-                  <div className="flex justify-between">
-                    <label
-                      htmlFor="stack_location"
-                      className="block text-sm font-medium leading-6 text-gray-900"
-                    >
-                      Ware House
-                    </label>
-                  </div>
-                  <div className="mt-1 relative">
-                    <div className="relative inline-block text-left">
-                      <Select
-                        value={DhanAwakData.stack_location}
-                        onChange={handleInputChange}
-                        name="stack_location"
-                        className="min-w-[240px]"
-                        options={Warehouse}
-                      />
-                    </div>
-                  </div>
+                  <Selectt
+                    value={DhanAwakData.stack_location}
+                    onSelectChange={handleSelectChange}
+                  />
                 </div>
               </fieldset>
 
