@@ -269,6 +269,13 @@ const Ricedeposit = () => {
                       indicatorSeparator: () => ({
                         display: "none",
                       }),
+                      control: (base) => ({
+                        ...base,
+                        height: 35,
+                        minheight: 30,
+                        width: 250,
+                        minwidth: 180,
+                      }),
                     }}
                     name="ware_house_id"
                     options={
