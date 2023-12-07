@@ -191,14 +191,7 @@ const Dalalidhan = () => {
                             }
                           : null
                       }
-                      onChange={(selectedOption) =>
-                        handleInputChange({
-                          target: {
-                            name: "kochia_id",
-                            value: selectedOption ? selectedOption.value : "",
-                          },
-                        })
-                      }
+                      OCname="kochia_id"
                       placeholder="Enter Kochia name.."
                       linkText="Add New Kochia..."
                       linkHref="/Add_kochia"
@@ -256,14 +249,7 @@ const Dalalidhan = () => {
                             }
                           : null
                       }
-                      onChange={(selectedOption) =>
-                        handleInputChange({
-                          target: {
-                            name: "vehicale_number_id",
-                            value: selectedOption ? selectedOption.value : "",
-                          },
-                        })
-                      }
+                      OCname="vehicale_number_id"
                       placeholder="Enter Truck Number.."
                       linkText="Add New Truck."
                       linkHref="/Add_NEw_Truck"

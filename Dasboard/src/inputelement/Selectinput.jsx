@@ -7,7 +7,7 @@ const SelectInput = ({
   name,
   options,
   value,
-  onChange,
+  OCname,
   placeholder,
   linkText,
   linkHref,
@@ -31,7 +31,14 @@ const SelectInput = ({
           name={name}
           options={options}
           value={value}
-          onChange={onChange}
+          onChange={(selectedOption) =>
+            handleInputChange({
+              target: {
+                name: { OCname },
+                value: selectedOption ? selectedOption.value : "",
+              },
+            })
+          }
         />
         {linkText && linkHref && (
           <p className="mt-1.5 text-sm text-gray-500">
