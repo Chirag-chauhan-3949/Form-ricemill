@@ -16,10 +16,10 @@ const customStyles = {
 
 const Variety = ({ onSelectChange }) => {
   const varietyy = [
-    { label: "Jagtara", value: "Jagtara" },
-    { label: "Chitoud", value: "Chitoud" },
-    { label: "Daundi", value: "Daundi" },
-    { label: "Gunderdehi", value: "Gunderdehi" },
+    { label: "Frrga", value: "Frrga" },
+    { label: "Frrc", value: "Frrc" },
+    { label: "Rrga", value: "Rrga" },
+    { label: "Rrc", value: "Rrc" },
   ];
 
   return (

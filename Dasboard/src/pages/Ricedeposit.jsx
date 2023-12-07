@@ -40,6 +40,7 @@ const Ricedeposit = () => {
     old: 0,
     amount: 0,
     status: "",
+    hamali: 0,
   });
 
   const [RiceDeopsitOptions, setRiceDeposit] = useState([]);
@@ -54,7 +55,7 @@ const Ricedeposit = () => {
 
         const data = rice_deposti_data.data;
         setRiceDeposit(data);
-        console.log(data);
+        // console.log(data);
       } catch (error) {
         console.error("Error:", error);
       }
@@ -108,7 +109,7 @@ const Ricedeposit = () => {
   }, [RicedepositData.transporter_name_id]);
 
   const handleSelectChange = (selectedOption) => {
-    setFormData({
+    setRicedepositData({
       ...RicedepositData,
       variety: selectedOption.value,
     });
@@ -124,7 +125,7 @@ const Ricedeposit = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(RicedepositData);
+    // console.log(RicedepositData);
     try {
       const response = await axios.post(
         "http://localhost:8000/rice-deposite/",
@@ -438,10 +439,26 @@ const Ricedeposit = () => {
                   </div>
                 </div>
                 <div>
-                  <Variety
-                    value={RicedepositData.variety}
-                    onSelectChange={handleSelectChange}
-                  />
+                  <div className="flex justify-between">
+                    <label
+                      htmlFor="bags"
+                      className="block text-sm font-medium leading-6 text-gray-900"
+                    >
+                      Bags
+                    </label>
+                  </div>
+                  <div className="mt-1">
+                    <input
+                      disabled
+                      type="number"
+                      name="bags"
+                      className="block min-w-[250px] px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                      onChange={handleInputChange}
+                      value={
+                        (RicedepositData.bags = 2 * RicedepositData.weight)
+                      }
+                    />
+                  </div>
                 </div>
               </div>
               <div className="flex justify-between">
@@ -498,30 +515,14 @@ const Ricedeposit = () => {
                   </p>
                 </div>
                 <div>
-                  <div className="flex justify-between">
-                    <label
-                      htmlFor="bags"
-                      className="block text-sm font-medium leading-6 text-gray-900"
-                    >
-                      Bags
-                    </label>
-                  </div>
-                  <div className="mt-1">
-                    <input
-                      disabled
-                      type="number"
-                      name="bags"
-                      className="block min-w-[250px] px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                      onChange={handleInputChange}
-                      value={
-                        (RicedepositData.bags = 2 * RicedepositData.weight)
-                      }
-                    />
-                  </div>
+                  <Variety
+                    value={RicedepositData.variety}
+                    onSelectChange={handleSelectChange}
+                  />
                 </div>
               </div>
 
-              <div className="flex justify-between">
+              <div className="flex justify-between flex-wrap">
                 <div>
                   <div className="flex justify-between">
                     <label
@@ -536,7 +537,7 @@ const Ricedeposit = () => {
                       disabled
                       type="number"
                       name="rate"
-                      className="block w-full min-w-[250px] px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                      className="block w-full px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                       onChange={handleInputChange}
                       value={
                         (RicedepositData.rate =
@@ -545,7 +546,26 @@ const Ricedeposit = () => {
                     />
                   </div>
                 </div>
-
+                <div>
+                  <div className="flex justify-between">
+                    <label
+                      htmlFor="Hamali"
+                      className="block text-sm font-medium leading-6 text-gray-900"
+                    >
+                      Hamali
+                    </label>
+                  </div>
+                  <div className="mt-1">
+                    <input
+                      disabled
+                      type="number"
+                      name="Hamali"
+                      className="block w-full  px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                      onChange={handleInputChange}
+                      value={RicedepositData.rate}
+                    />
+                  </div>
+                </div>
                 <div>
                   <div className="flex justify-between">
                     <label
@@ -559,7 +579,7 @@ const Ricedeposit = () => {
                     <input
                       type="number"
                       name="halting"
-                      className="block w-full min-w-[250px] px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                      className="block w-full  px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                       onChange={handleInputChange}
                       value={RicedepositData.halting}
                     />
@@ -567,7 +587,7 @@ const Ricedeposit = () => {
                 </div>
               </div>
 
-              <div className="flex justify-between">
+              <div className="flex justify-between flex-wrap">
                 <div>
                   <div className="flex justify-between">
                     <label
@@ -582,7 +602,7 @@ const Ricedeposit = () => {
                       disabled
                       type="number"
                       name="transporting_total"
-                      className="block min-w-full px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                      className="block w-full px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                       onChange={handleInputChange}
                       value={
                         (RicedepositData.transporting_total =
@@ -605,7 +625,7 @@ const Ricedeposit = () => {
                     <input
                       type="text"
                       name="transporting_type"
-                      className="block min-w-full px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                      className="block w-full px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                       onChange={handleInputChange}
                       value={RicedepositData.transporting_type}
                     />
@@ -624,28 +644,28 @@ const Ricedeposit = () => {
                     <input
                       type="text"
                       name="transporting_status"
-                      className="block min-w-full px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                      className="block w-full px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                       onChange={handleInputChange}
                       value={RicedepositData.transporting_status}
                     />
                   </div>
                 </div>
               </div>
-              <div className="flex justify-between">
+              <div className="flex justify-between flex-wrap">
                 <div>
                   <div className="flex justify-between">
                     <label
                       htmlFor="rrga_wt"
                       className="block text-sm font-medium leading-6 text-gray-900"
                     >
-                      RRGA Wt
+                      Variety weight
                     </label>
                   </div>
                   <div className="mt-1">
                     <input
                       type="number"
                       name="rrga_wt"
-                      className="block min-w-full px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                      className="block w-full px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                       onChange={handleInputChange}
                       value={RicedepositData.rrga_wt}
                     />
@@ -664,7 +684,7 @@ const Ricedeposit = () => {
                     <input
                       type="number"
                       name="data_2022_23"
-                      className="block min-w-full px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                      className="block w-full px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                       onChange={handleInputChange}
                       value={RicedepositData.data_2022_23}
                     />
@@ -683,7 +703,7 @@ const Ricedeposit = () => {
                     <input
                       type="number"
                       name="data_2021_22"
-                      className="block min-w-full px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                      className="block w-full px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                       onChange={handleInputChange}
                       value={RicedepositData.data_2021_22}
                     />
@@ -737,7 +757,7 @@ const Ricedeposit = () => {
                       htmlFor="amount"
                       className="block text-sm font-medium leading-6 text-gray-900"
                     >
-                      Amount
+                      Amount Paid
                     </label>
                   </div>
                   <div className="mt-1">

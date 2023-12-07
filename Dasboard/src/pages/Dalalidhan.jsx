@@ -175,7 +175,7 @@ const Dalalidhan = () => {
             Add Dalali Dhan
           </h2>
         </div>
-        <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-[680px]">
+        <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-[750px]">
           <div className="bg-white px-6 py-12 shadow sm:rounded-lg sm:px-12">
             <form className="space-y-6" onSubmit={handleSubmit}>
               <div>
@@ -217,7 +217,7 @@ const Dalalidhan = () => {
                       </p>
                     </div>
                   </div>
-                  <div>
+                  <div className="my-2.5">
                     <div className="flex justify-between">
                       <label
                         htmlFor="date"

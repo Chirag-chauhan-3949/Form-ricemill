@@ -8,6 +8,7 @@ const navigation = [
     children: [
       { name: "Dhan Awak", href: "/Dhan_Awak" },
       { name: "Rice Deposit", href: "/Ricedeposit" },
+      { name: "Dalali Dhan", href: "/Dalalidhan" },
       { name: "Add Rice Mill", href: "/Addricemill" },
       { name: "Add New Transporter", href: "/Add_New_Transporter" },
       { name: "Add New Truck", href: "/Add_New_Truck" },
@@ -18,7 +19,6 @@ const navigation = [
       { name: "Frk", href: "/Frk" },
       { name: "Suda Patrak", href: "/Sudapatrak" },
       { name: "Add Do", href: "/Add_Do" },
-      { name: "Dalali Dhan", href: "/Dalalidhan" },
       { name: "Do Panding", href: "/Dopanding" },
       { name: "Transporter Master", href: "/Transportermaster" },
       { name: "Paddy Sales", href: "/Paddysales" },
