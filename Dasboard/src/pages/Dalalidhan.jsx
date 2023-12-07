@@ -74,8 +74,8 @@ const Dalalidhan = () => {
   //   // Optionally, you can reset the corresponding fields when the paddy type changes
   //   setDalaliData((prevData) => ({
   //     ...prevData,
-  //     [`${value}_bags`]: 0,
-  //     [`${value}_weight`]: 0,
+  //     [${value}_bags]: 0,
+  //     [${value}_weight]: 0,
   //   }));
   // };
 
