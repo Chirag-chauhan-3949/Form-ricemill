@@ -2,6 +2,7 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import Select from "react-select";
 const capitalizeFirstLetter = (str) => {
   return str.charAt(0).toUpperCase() + str.slice(1);
 };
@@ -34,6 +35,7 @@ const Dalalidhan = () => {
     rate: 0,
     ammount: 0,
   });
+
   const [kochiaData, setkochiaData] = useState([]);
   useEffect(() => {
     async function fetchkochia() {
@@ -263,24 +265,46 @@ const Dalalidhan = () => {
                     htmlFor="vehicale_number_id"
                     className="block text-sm font-medium leading-6 text-gray-900"
                   >
-                    truck Number
+                    Truck Number
                   </label>
 
                   <div className="mt-1">
-                    <select
+                    <Select
+                      styles={{
+                        indicatorSeparator: () => ({
+                          display: "none",
+                        }),
+                      }}
+                      placeholder="Enter Truck Number.."
                       name="vehicale_number_id"
-                      type="number"
-                      value={DalaliData.vehicale_number_id}
-                      className=" bg-white block w-full px-1.5 rounded-md border-0 py-2.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                      onChange={handleInputChange}
-                    >
-                      <option value="">Select a Truck</option>
-                      {trucks.map((truck) => (
-                        <option key={truck.truck_id} value={truck.truck_id}>
-                          {truck.truck_number}
-                        </option>
-                      ))}
-                    </select>
+                      options={
+                        trucks.truck_data &&
+                        trucks.truck_data.map((option) => ({
+                          label: option.truck_number,
+                          value: option.truck_id,
+                        }))
+                      }
+                      value={
+                        DalaliData.vehicale_number_id
+                          ? {
+                              label: trucks.truck_data.find(
+                                (option) =>
+                                  option.truck_id ===
+                                  DalaliData.vehicale_number_id
+                              ).truck_number,
+                              value: DalaliData.vehicale_number_id,
+                            }
+                          : null
+                      }
+                      onChange={(selectedOption) =>
+                        handleInputChange({
+                          target: {
+                            name: "vehicale_number_id",
+                            value: selectedOption ? selectedOption.value : "",
+                          },
+                        })
+                      }
+                    />
                   </div>
                   <p className="mt-1.5 text-sm text-gray-500">
                     Cannot Find Truck?{" "}
@@ -310,9 +334,11 @@ const Dalalidhan = () => {
                       }}
                       type="text"
                       name="paddy_type"
-                      className="bg-white min-w-[250px] block w-full px-1.5 rounded-md border-0 py-2.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                      className="bg-white min-w-[250px] block w-full px-1.5 rounded-md border-0 py-2.5 text-gray-500 focus:text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     >
-                      <option value="">Select Type of Paddy</option>
+                      <option className="text-gray-500" value="">
+                        Select Type of Paddy....
+                      </option>
                       <option value="white_sarna">White Sarna</option>
                       <option value="ir">IR</option>
                       <option value="rb_gold">RB Gold</option>
