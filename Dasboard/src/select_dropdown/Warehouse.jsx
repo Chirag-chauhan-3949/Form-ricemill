@@ -37,7 +37,7 @@ const Warehouse = ({ onSelectChange }) => {
           <Select
             onChange={onSelectChange}
             name="ware_house"
-            options={Warehouse}
+            // options={Warehouse}
             placeholder="Select Warehouse"
             styles={customStyles}
           />

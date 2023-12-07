@@ -50,7 +50,7 @@ const Ricedeposit = () => {
     async function fetchMillData() {
       try {
         const rice_deposti_data = await axios.get(
-          "http://localhost:8000/rice-truck-transporter"
+          "http://localhost:8000/rice-truck-transporter-ware-house"
         );
 
         const data = rice_deposti_data.data;
@@ -64,65 +64,27 @@ const Ricedeposit = () => {
     fetchMillData();
   }, []);
 
-  // // Fetch data for the "Select transporter" dropdown
-  // const [transpoterOptions, setTransporterOptions] = useState([]);
-  // useEffect(() => {
-  //   async function fetchData() {
-  //     try {
-  //       const transporter_response = await axios.get(
-  //         "http://localhost:8000/transporters/"
-  //       );
+  const [DoOptionswarehouse, setDoOptionswarehouse] = useState([]);
+  useEffect(() => {
+    async function fetchwarehouseid() {
+      try {
+        const warehouse = await axios.get(
+          `http://localhost:8000/ware-house-data/${RicedepositData.ware_house}`
+        );
 
-  //       const data = transporter_response.data;
-  //       setTransporterOptions(data);
-  //       // console.log(data);
-  //     } catch (error) {
-  //       console.error("Error:", error);
-  //     }
-  //   }
+        const data = warehouse.data;
+        setDoOptionswarehouse(data);
+        // console.log(data);
+      } catch (error) {
+        console.error("Error:", error);
+      }
+    }
 
-  //   fetchData();
-  // }, []);
+    if (RicedepositData.ware_house) {
+      fetchwarehouseid();
+    }
+  }, [RicedepositData.ware_house]);
 
-  // const [DoOptions, setDoOptions] = useState([]);
-
-  // // Fetch data for the "Select Rice Mill" dropdown
-  // useEffect(() => {
-  //   async function fetchMillData() {
-  //     try {
-  //       const Mill_response = await axios.get(
-  //         "http://localhost:8000/rice-mill"
-  //       );
-
-  //       const data = Mill_response.data;
-  //       setDoOptions(data);
-  //       // console.log(data);
-  //     } catch (error) {
-  //       console.error("Error:", error);
-  //     }
-  //   }
-
-  //   fetchMillData();
-  // }, []);
-
-  // // Fetch data for the "truck" dropdown
-  // const [trucks, setTrucks] = useState([]);
-  // useEffect(() => {
-  //   async function fetchTransporter() {
-  //     try {
-  //       const transporter_response = await axios.get(
-  //         "http://localhost:8000/trucks/"
-  //       );
-
-  //       const data = transporter_response.data;
-  //       setTrucks(data);
-  //       // console.log(data);
-  //     } catch (error) {
-  //       console.error("Error:", error);
-  //     }
-  //   }
-  //   fetchTransporter();
-  // }, []);
   const handleSelectChange = (selectedOption) => {
     setRicedepositData({
       ...RicedepositData,
