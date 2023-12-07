@@ -13,7 +13,6 @@ const Dalalidhan = () => {
   const [DalaliData, setDalaliData] = useState({
     rst_number: 0,
     date: "",
-
     kochia_id: "",
     vehicale_number_id: 0,
     white_sarna_bags: 0,
@@ -48,8 +47,11 @@ const Dalalidhan = () => {
           axios.get("http://localhost:8000/trucks/"),
         ]);
 
-        setKochiaData(kochiaResponse.data);
-        setTrucks(truckResponse.data);
+        const kochiadata = kochiaResponse.data;
+        setkochiaData(kochiadata);
+        const truckdata = truckResponse.data;
+        setTrucks(truckdata);
+        // console.log(truckdata);
       } catch (error) {
         console.error("Error:", error);
       }
@@ -59,6 +61,7 @@ const Dalalidhan = () => {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
+    console.log(value);
     setDalaliData({
       ...DalaliData,
       [name]: value,
@@ -174,8 +177,8 @@ const Dalalidhan = () => {
                       label="Kochia"
                       name="kochia_id"
                       options={
-                        kochiaData.kochiaData &&
-                        kochiaData.kochiaData.map((option) => ({
+                        kochiaData &&
+                        kochiaData.map((option) => ({
                           label: option.kochia_name,
                           value: option.kochia_id,
                         }))
@@ -183,9 +186,9 @@ const Dalalidhan = () => {
                       value={
                         DalaliData.kochia_id
                           ? {
-                              label: kochiaData.kochiaData.find(
+                              label: kochiaData.find(
                                 (option) =>
-                                  option.truck_id === DalaliData.kochia_id
+                                  option.kochia_id === DalaliData.kochia_id
                               ).kochia_name,
                               value: DalaliData.kochia_id,
                             }
@@ -231,8 +234,8 @@ const Dalalidhan = () => {
                       label="Truck Number"
                       name="vehicale_number_id"
                       options={
-                        trucks.truck_data &&
-                        trucks.truck_data.map((option) => ({
+                        trucks &&
+                        trucks.map((option) => ({
                           label: option.truck_number,
                           value: option.truck_id,
                         }))
@@ -240,7 +243,7 @@ const Dalalidhan = () => {
                       value={
                         DalaliData.vehicale_number_id
                           ? {
-                              label: trucks.truck_data.find(
+                              label: trucks.find(
                                 (option) =>
                                   option.truck_id ===
                                   DalaliData.vehicale_number_id
