@@ -63,7 +63,7 @@ const Dhan_Awak = () => {
 
         const data = Mill_response.data;
         setDoOptions(data);
-        // console.log(data);
+        console.log(data);
       } catch (error) {
         console.error("Error:", error);
       }
