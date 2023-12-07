@@ -85,6 +85,29 @@ const Ricedeposit = () => {
     }
   }, [RicedepositData.ware_house]);
 
+  const [DoOptionstrucktransporter, setDoOptionsTruckTransporter] = useState(
+    []
+  );
+  useEffect(() => {
+    async function fetchtrucktransporter() {
+      try {
+        const rice_do_number = await axios.get(
+          `http://localhost:8000/truck-transporter/${RicedepositData.transporter_name_id}`
+        );
+
+        const data = rice_do_number.data;
+        setDoOptionsTruckTransporter(data);
+        // console.log(data);
+      } catch (error) {
+        console.error("Error:", error);
+      }
+    }
+
+    if (DhanAwakData.transporter_name_id) {
+      fetchtrucktransporter();
+    }
+  }, [DhanAwakData.transporter_name_id]);
+
   const handleSelectChange = (selectedOption) => {
     setRicedepositData({
       ...RicedepositData,
