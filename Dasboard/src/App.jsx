@@ -28,6 +28,7 @@ import Lotnumbermaster from "./pages/Lotnumbermaster.jsx";
 import Kochia from "./pages/Add_kochia.jsx";
 import Ricedeposit from "./pages/Ricedeposit.jsx";
 import View_Dhan_Awak from "./pages/View_Dhan_Awak.jsx";
+import View_RiceDeposit from "./pages/View_RiceDeposit.jsx";
 
 const App = () => {
   const [isLoggedIn, setLoggedIn] = useState(true);
@@ -71,6 +72,7 @@ const App = () => {
             <Route path="/View_Transporter" element={<View_Transporter />} />
             <Route path="/View_Societies" element={<View_Societies />} />
             <Route path="/View_Dhan_Awak" element={<View_Dhan_Awak />} />
+            <Route path="/View_RiceDeposit" element={<View_RiceDeposit />} />
           </Routes>
         </Sidebar>
       ) : (

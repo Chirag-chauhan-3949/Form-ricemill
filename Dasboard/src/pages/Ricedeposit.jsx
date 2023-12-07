@@ -21,26 +21,26 @@ const Ricedeposit = () => {
     rst_number: 0,
     date: "",
     lot_number: 0,
-    ware_house_id: 0,
-    rice_mill_name_id: 0,
+    ware_house_id: "",
+    rice_mill_name_id: "",
     weight: 0,
-    truck_number_id: 0,
+    truck_number_id: "",
     bags: 0,
     transporting_total: 0,
-    transporter_name_id: 0,
+    transporter_name_id: "",
     transporting_type: "",
     transporting_status: "",
     rate: 0,
+    hamali: 0,
     variety: "",
     halting: 0,
-    rrga_wt: 0,
+    variety_weight: 0,
     data_2022_23: 0,
     data_2021_22: 0,
     pds: 0,
     old: 0,
     amount: 0,
     status: "",
-    hamali: 0,
   });
 
   const [RiceDeopsitOptions, setRiceDeposit] = useState([]);
@@ -117,6 +117,7 @@ const Ricedeposit = () => {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
+    // console.log(value);
     setRicedepositData({
       ...RicedepositData,
       [name]: value,
@@ -125,7 +126,7 @@ const Ricedeposit = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // console.log(RicedepositData);
+    console.log(RicedepositData);
     try {
       const response = await axios.post(
         "http://localhost:8000/rice-deposite/",
@@ -549,7 +550,7 @@ const Ricedeposit = () => {
                 <div>
                   <div className="flex justify-between">
                     <label
-                      htmlFor="Hamali"
+                      htmlFor="hamali"
                       className="block text-sm font-medium leading-6 text-gray-900"
                     >
                       Hamali
@@ -559,10 +560,10 @@ const Ricedeposit = () => {
                     <input
                       disabled
                       type="number"
-                      name="Hamali"
+                      name="hamali"
                       className="block w-full  px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                       onChange={handleInputChange}
-                      value={RicedepositData.rate}
+                      value={RicedepositData.hamali}
                     />
                   </div>
                 </div>
@@ -655,7 +656,7 @@ const Ricedeposit = () => {
                 <div>
                   <div className="flex justify-between">
                     <label
-                      htmlFor="rrga_wt"
+                      htmlFor="variety_weight"
                       className="block text-sm font-medium leading-6 text-gray-900"
                     >
                       Variety weight
@@ -664,10 +665,10 @@ const Ricedeposit = () => {
                   <div className="mt-1">
                     <input
                       type="number"
-                      name="rrga_wt"
+                      name="variety_weight"
                       className="block w-full px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                       onChange={handleInputChange}
-                      value={RicedepositData.rrga_wt}
+                      value={RicedepositData.variety_weight}
                     />
                   </div>
                 </div>

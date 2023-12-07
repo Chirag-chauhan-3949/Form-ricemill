@@ -36,6 +36,7 @@ const navigation = [
       { name: "View Transporter", href: "/View_Transporter" },
       { name: "View Societies", href: "/View_Societies" },
       { name: "View_Dhan_Awak", href: "/View_Dhan_Awak" },
+      { name: "View_RiceDeposit", href: "/View_RiceDeposit" },
     ],
   },
 ];
