@@ -1,13 +1,15 @@
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import React, { useState, useEffect } from "react";
+import DateInput from "../inputelement/Dateinput";
 import axios from "axios";
-import Select from "react-select";
-const capitalizeFirstLetter = (str) => {
-  return str.charAt(0).toUpperCase() + str.slice(1);
-};
+import SelectInput from "../inputelement/Selectinput";
+// import Select from "react-select";
+// const capitalizeFirstLetter = (str) => {
+//   return str.charAt(0).toUpperCase() + str.slice(1);
+// };
 const Dalalidhan = () => {
-  const [selectedPaddyType, setSelectedPaddyType] = useState("");
+  // const [selectedPaddyType, setSelectedPaddyType] = useState("");
   const [DalaliData, setDalaliData] = useState({
     rst_number: 0,
     date: "",
@@ -37,39 +39,24 @@ const Dalalidhan = () => {
   });
 
   const [kochiaData, setkochiaData] = useState([]);
-  useEffect(() => {
-    async function fetchkochia() {
-      try {
-        const kochia_response = await axios.get(
-          "http://localhost:8000/kochia-data"
-        );
-
-        const data = kochia_response.data;
-        setkochiaData(data);
-        // console.log(data);
-      } catch (error) {
-        console.error("Error:", error);
-      }
-    }
-    fetchkochia();
-  }, []);
   const [trucks, setTrucks] = useState([]);
   useEffect(() => {
-    async function fetchTransporter() {
+    async function fetchData() {
       try {
-        const transporter_response = await axios.get(
-          "http://localhost:8000/trucks/"
-        );
+        const [kochiaResponse, truckResponse] = await Promise.all([
+          axios.get("http://localhost:8000/kochia-data"),
+          axios.get("http://localhost:8000/trucks/"),
+        ]);
 
-        const data = transporter_response.data;
-        setTrucks(data);
-        // console.log(data);
+        setKochiaData(kochiaResponse.data);
+        setTrucks(truckResponse.data);
       } catch (error) {
         console.error("Error:", error);
       }
     }
-    fetchTransporter();
+    fetchData();
   }, []);
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setDalaliData({
@@ -77,17 +64,17 @@ const Dalalidhan = () => {
       [name]: value,
     });
   };
-  const handlePaddyTypeChange = (e) => {
-    const { value } = e.target;
-    setSelectedPaddyType(value);
+  // const handlePaddyTypeChange = (e) => {
+  //   const { value } = e.target;
+  //   setSelectedPaddyType(value);
 
-    // Optionally, you can reset the corresponding fields when the paddy type changes
-    setDalaliData((prevData) => ({
-      ...prevData,
-      [`${value}_bags`]: 0,
-      [`${value}_weight`]: 0,
-    }));
-  };
+  //   // Optionally, you can reset the corresponding fields when the paddy type changes
+  //   setDalaliData((prevData) => ({
+  //     ...prevData,
+  //     [`${value}_bags`]: 0,
+  //     [`${value}_weight`]: 0,
+  //   }));
+  // };
 
   const handleSubmit = async (e) => {
     console.log(DalaliData);
@@ -183,60 +170,45 @@ const Dalalidhan = () => {
               <div>
                 <div className="flex justify-between">
                   <div className="my-2.5">
-                    <label
-                      htmlFor="kochia_id"
-                      className="block text-sm font-medium leading-6 text-gray-900"
-                    >
-                      Kochia
-                    </label>
-
-                    <div className="mt-1">
-                      <select
-                        name="kochia_id"
-                        type="text"
-                        value={DalaliData.kochia_id}
-                        className=" bg-white min-w-[250px] block w-full px-1.5 rounded-md border-0 py-2.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                        onChange={handleInputChange}
-                      >
-                        <option value="">Select Kochia</option>
-                        {kochiaData.map((option) => (
-                          <option
-                            key={option.kochia_id}
-                            value={option.kochia_id}
-                          >
-                            {option.kochia_name}
-                          </option>
-                        ))}
-                      </select>
-                      <p className="mt-1.5 text-sm text-gray-500">
-                        Cannot Find Kochia?{" "}
-                        <a
-                          href="/Add_kochia"
-                          className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
-                        >
-                          Add New Kochia...
-                        </a>
-                      </p>
-                    </div>
+                    <SelectInput
+                      label="Kochia"
+                      name="kochia_id"
+                      options={
+                        kochiaData.kochiaData &&
+                        kochiaData.kochiaData.map((option) => ({
+                          label: option.kochia_name,
+                          value: option.kochia_id,
+                        }))
+                      }
+                      value={
+                        DalaliData.kochia_id
+                          ? {
+                              label: kochiaData.kochiaData.find(
+                                (option) =>
+                                  option.truck_id === DalaliData.kochia_id
+                              ).kochia_name,
+                              value: DalaliData.kochia_id,
+                            }
+                          : null
+                      }
+                      onChange={(selectedOption) =>
+                        handleInputChange({
+                          target: {
+                            name: "kochia_id",
+                            value: selectedOption ? selectedOption.value : "",
+                          },
+                        })
+                      }
+                      placeholder="Enter Kochia name.."
+                      linkText="Add New Kochia..."
+                      linkHref="/Add_kochia"
+                    />
                   </div>
-                  <div className="my-2.5">
-                    <div className="flex justify-between">
-                      <label
-                        htmlFor="date"
-                        className="block text-sm font-medium leading-6 text-gray-900"
-                      >
-                        Date
-                      </label>
-                    </div>
-                    <div className="mt-1">
-                      <input
-                        value={DalaliData.date}
-                        onChange={handleInputChange}
-                        type="date"
-                        name="date"
-                        className="block min-w-[250px] w-full px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                      />
-                    </div>
+                  <div className="mt-1">
+                    <DateInput
+                      value={DalaliData.date}
+                      onChange={handleInputChange}
+                    />
                   </div>
                 </div>
 
@@ -261,21 +233,9 @@ const Dalalidhan = () => {
                 </div>
 
                 <div className="my-2.5">
-                  <label
-                    htmlFor="vehicale_number_id"
-                    className="block text-sm font-medium leading-6 text-gray-900"
-                  >
-                    Truck Number
-                  </label>
-
                   <div className="mt-1">
-                    <Select
-                      styles={{
-                        indicatorSeparator: () => ({
-                          display: "none",
-                        }),
-                      }}
-                      placeholder="Enter Truck Number.."
+                    <SelectInput
+                      label="Truck Number"
                       name="vehicale_number_id"
                       options={
                         trucks.truck_data &&
@@ -304,308 +264,10 @@ const Dalalidhan = () => {
                           },
                         })
                       }
+                      placeholder="Enter Truck Number.."
+                      linkText="Add New Truck."
+                      linkHref="/Add_NEw_Truck"
                     />
-                  </div>
-                  <p className="mt-1.5 text-sm text-gray-500">
-                    Cannot Find Truck?{" "}
-                    <a
-                      href="/Add_NEw_Truck"
-                      className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
-                    >
-                      Add New Truck.
-                    </a>
-                  </p>
-                </div>
-                <div className="mt-3">
-                  <div className="flex justify-between">
-                    <label
-                      htmlFor="paddy_type"
-                      className="block text-sm font-medium leading-6 text-gray-900"
-                    >
-                      Type Of Paddy
-                    </label>
-                  </div>
-                  <div className="mt-1">
-                    <select
-                      value={DalaliData.paddy_type}
-                      onChange={(e) => {
-                        handleInputChange(e);
-                        handlePaddyTypeChange(e);
-                      }}
-                      type="text"
-                      name="paddy_type"
-                      className="bg-white min-w-[250px] block w-full px-1.5 rounded-md border-0 py-2.5 text-gray-500 focus:text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                    >
-                      <option className="text-gray-500" value="">
-                        Select Type of Paddy....
-                      </option>
-                      <option value="white_sarna">White Sarna</option>
-                      <option value="ir">IR</option>
-                      <option value="rb_gold">RB Gold</option>
-                      <option value="sarna">Sarna</option>
-                      <option value="sambha_new">Sambha New</option>
-                    </select>
-                  </div>
-                </div>
-                <div className="flex justify-between my-3">
-                  <div>
-                    <div className="flex justify-between">
-                      <label
-                        htmlFor={`${selectedPaddyType}_bags`}
-                        className="block text-sm font-medium leading-6 text-gray-900"
-                      >
-                        {capitalizeFirstLetter(selectedPaddyType)} Bags
-                      </label>
-                    </div>
-                    <div className="mt-1">
-                      <input
-                        type="number"
-                        name={`${selectedPaddyType}_bags`}
-                        value={DalaliData[`${selectedPaddyType}_bags`]}
-                        disabled={!selectedPaddyType}
-                        className="block min-w-[250px] w-full px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                        onChange={handleInputChange}
-                      />
-                    </div>
-                  </div>
-                  <div>
-                    <div className="flex justify-between">
-                      <label
-                        htmlFor={`${selectedPaddyType}_weight`}
-                        className="block text-sm font-medium leading-6 text-gray-900"
-                      >
-                        {capitalizeFirstLetter(selectedPaddyType)} Weight
-                      </label>
-                    </div>
-                    <div className="mt-1">
-                      <input
-                        type="number"
-                        name={`${selectedPaddyType}_weight`}
-                        value={DalaliData[`${selectedPaddyType}_weight`]}
-                        disabled={!selectedPaddyType}
-                        className="block min-w-[250px] w-full px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                        onChange={handleInputChange}
-                      />
-                    </div>
-                  </div>
-                </div>
-                <div className="flex justify-between my-3">
-                  <div className="mt-3">
-                    <div className="flex justify-between">
-                      <label
-                        htmlFor="total_bags"
-                        className="block text-sm font-medium leading-6 text-gray-900"
-                      >
-                        Total Bags
-                      </label>
-                    </div>
-                    <div className="mt-1">
-                      <input
-                        disabled
-                        type="number"
-                        placeholder="Enter bags"
-                        name="total_bags"
-                        value={
-                          (DalaliData.total_bags =
-                            DalaliData[`${selectedPaddyType}_bags`])
-                        }
-                        className="block min-w-[250px] w-full px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                        onChange={handleInputChange}
-                      />
-                    </div>
-                  </div>
-                  <div className="mt-3">
-                    <div className="flex justify-between">
-                      <label
-                        htmlFor="total_weight"
-                        className="block text-sm font-medium leading-6 text-gray-900"
-                      >
-                        Total Weights
-                      </label>
-                    </div>
-                    <div className="mt-1">
-                      <input
-                        disabled
-                        type="number"
-                        placeholder="Enter Total Weight"
-                        name="total_weight"
-                        value={
-                          (DalaliData.total_weight =
-                            DalaliData[`${selectedPaddyType}_weight`])
-                        }
-                        className="block min-w-[250px] w-full px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                        onChange={handleInputChange}
-                      />
-                    </div>
-                  </div>
-                </div>
-                <div className="flex justify-between my-3">
-                  <div className="mt-3">
-                    <div className="flex justify-between">
-                      <label
-                        htmlFor="hamali"
-                        className="block text-sm font-medium leading-6 text-gray-900"
-                      >
-                        Hamali
-                      </label>
-                    </div>
-                    <div className="mt-1">
-                      <input
-                        disabled
-                        type="number"
-                        placeholder="Enter Hamali"
-                        name="hamali"
-                        value={
-                          (DalaliData.hamali =
-                            DalaliData[`${selectedPaddyType}_bags`] * 3)
-                        }
-                        className="block min-w-[250px] w-full px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                        onChange={handleInputChange}
-                      />
-                    </div>
-                  </div>
-                </div>
-                <div className="flex justify-between my-3">
-                  <div className="mt-3">
-                    <div className="flex justify-between">
-                      <label
-                        htmlFor="weight_less_plastic"
-                        className="block text-sm font-medium leading-6 text-gray-900"
-                      >
-                        Weight Less Plastics
-                      </label>
-                    </div>
-                    <div className="mt-1">
-                      <input
-                        type="number"
-                        placeholder="Enter bags"
-                        name="weight_less_plastic"
-                        value={DalaliData.weight_less_plastic}
-                        className="block min-w-[250px] w-full px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                        onChange={handleInputChange}
-                      />
-                    </div>
-                  </div>
-                  <div className="mt-3">
-                    <div className="flex justify-between">
-                      <label
-                        htmlFor="weight_less_jute"
-                        className="block text-sm font-medium leading-6 text-gray-900"
-                      >
-                        Weight Less Jute
-                      </label>
-                    </div>
-                    <div className="mt-1">
-                      <input
-                        type="number"
-                        placeholder="Enter Weight Less Jute"
-                        name="weight_less_jute"
-                        value={DalaliData.weight_less_jute}
-                        className="block min-w-[250px] w-full px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                        onChange={handleInputChange}
-                      />
-                    </div>
-                  </div>
-                </div>
-                <div className="flex justify-between my-3">
-                  <div className="mt-3">
-                    <div className="flex justify-between">
-                      <label
-                        htmlFor="weight_less_kata_difference"
-                        className="block text-sm font-medium leading-6 text-gray-900"
-                      >
-                        Weight Less Kata Difference
-                      </label>
-                    </div>
-                    <div className="mt-1">
-                      <input
-                        disabled
-                        type="text"
-                        placeholder="Enter Weight less Kata Difference"
-                        name="weight_less_kata_difference"
-                        value={
-                          (DalaliData.weight_less_kata_difference =
-                            calculateKataDifference())
-                        }
-                        className="block min-w-[250px] w-full px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                        onChange={handleInputChange}
-                      />
-                    </div>
-                  </div>
-
-                  <div className="mt-3">
-                    <div className="flex justify-between">
-                      <label
-                        htmlFor="net_weight"
-                        className="block text-sm font-medium leading-6 text-gray-900"
-                      >
-                        Net Weight
-                      </label>
-                    </div>
-                    <div className="mt-1">
-                      <input
-                        disabled
-                        type="number"
-                        placeholder="Enter Net Weight"
-                        name="net_weight"
-                        value={(DalaliData.net_weight =
-                          DalaliData.total_weight -
-                          DalaliData.weight_less_plastic * 0.002 -
-                          DalaliData.weight_less_jute * 0.007 -
-                          DalaliData.weight_less_kata_difference).toFixed(3)}
-                        className="block min-w-[250px] w-full px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                        onChange={handleInputChange}
-                      />
-                    </div>
-                  </div>
-                </div>
-                <div className="flex justify-between my-3">
-                  <div className="mt-3">
-                    <div className="flex justify-between">
-                      <label
-                        htmlFor="rate"
-                        className="block text-sm font-medium leading-6 text-gray-900"
-                      >
-                        Rate
-                      </label>
-                    </div>
-                    <div className="mt-1">
-                      <input
-                        type="number"
-                        placeholder="Enter Rate"
-                        name="rate"
-                        value={DalaliData.rate}
-                        className="block min-w-[250px] w-full px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                        onChange={handleInputChange}
-                      />
-                    </div>
-                  </div>
-                  <div className="mt-3">
-                    <div className="flex justify-between">
-                      <label
-                        htmlFor="ammount"
-                        className="block text-sm font-medium leading-6 text-gray-900"
-                      >
-                        Amount
-                      </label>
-                    </div>
-                    <div className="mt-1">
-                      <input
-                        disabled
-                        type="number"
-                        placeholder="Enter Amount"
-                        name="ammount"
-                        value={
-                          (DalaliData.ammount =
-                            (DalaliData.net_weight -
-                              DalaliData.weight_less_kata_difference) *
-                              DalaliData.rate -
-                            DalaliData.hamali)
-                        }
-                        className="block min-w-[250px] w-full px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                        onChange={handleInputChange}
-                      />
-                    </div>
                   </div>
                 </div>
 
