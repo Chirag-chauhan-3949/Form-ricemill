@@ -1,8 +1,6 @@
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import React, { useState, useEffect } from "react";
-import Variety from "../select_dropdown/Variety";
-import Warehouse from "../select_dropdown/Warehouse";
 import Select from "react-select";
 import axios from "axios";
 const Ricedeposit = () => {
@@ -22,7 +20,7 @@ const Ricedeposit = () => {
     rst_number: 0,
     date: "",
     lot_number: 0,
-    ware_house: "",
+    ware_house_id: 0,
     rice_mill_name_id: 0,
     weight: 0,
     truck_number_id: 0,
@@ -108,13 +106,6 @@ const Ricedeposit = () => {
     }
   }, [DhanAwakData.transporter_name_id]);
 
-  const handleSelectChange = (selectedOption) => {
-    setRicedepositData({
-      ...RicedepositData,
-      ware_house: selectedOption.value,
-      variety: selectedOption.value,
-    });
-  };
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setRicedepositData({
@@ -256,10 +247,49 @@ const Ricedeposit = () => {
                     />
                   </div>
                 </div>
-                <div className="mt-3">
-                  <Warehouse
-                    value={RicedepositData.ware_house}
-                    onSelectChange={handleSelectChange}
+                <div className="mt-1">
+                  <div className="flex justify-between">
+                    <label
+                      htmlFor="ware_house_id"
+                      className="block text-sm font-medium leading-6 text-gray-900"
+                    >
+                      Warehouse
+                    </label>
+                  </div>
+                  <Select
+                    styles={{
+                      indicatorSeparator: () => ({
+                        display: "none",
+                      }),
+                    }}
+                    name="ware_house_id"
+                    options={
+                      DoOptionswarehouse.ware_house_data &&
+                      DoOptionswarehouse.ware_house_data.map((option) => ({
+                        label: option.ware_house_name,
+                        value: option.ware_house_id,
+                      }))
+                    }
+                    value={
+                      DhanAwakData.ware_house_id
+                        ? {
+                            label: DoOptionswarehouse.ware_house_data.find(
+                              (option) =>
+                                option.ware_house_id ===
+                                DhanAwakData.ware_house_id
+                            ).ware_house_name,
+                            value: DhanAwakData.ware_house_id,
+                          }
+                        : null
+                    }
+                    onChange={(selectedOption) =>
+                      handleInputChange({
+                        target: {
+                          name: "ware_house_id",
+                          value: selectedOption ? selectedOption.value : "",
+                        },
+                      })
+                    }
                   />
                 </div>
               </div>
@@ -414,8 +444,8 @@ const Ricedeposit = () => {
                       placeholder="Enter Truck Number.."
                       name="truck_number_id"
                       options={
-                        RiceDeopsitOptions.truck_data &&
-                        RiceDeopsitOptions.truck_data.map((option) => ({
+                        DoOptionstrucktransporter.truck_data &&
+                        DoOptionstrucktransporter.truck_data.map((option) => ({
                           label: option.truck_number,
                           value: option.truck_id,
                         }))
@@ -423,7 +453,7 @@ const Ricedeposit = () => {
                       value={
                         RicedepositData.truck_number_id
                           ? {
-                              label: RiceDeopsitOptions.truck_data.find(
+                              label: DoOptionstrucktransporter.truck_data.find(
                                 (option) =>
                                   option.truck_id ===
                                   RicedepositData.truck_number_id
@@ -488,11 +518,15 @@ const Ricedeposit = () => {
                   </div>
                   <div className="mt-1">
                     <input
+                      disabled
                       type="number"
                       name="rate"
                       className="block w-full min-w-[250px] px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                       onChange={handleInputChange}
-                      value={RicedepositData.rate}
+                      value={
+                        (RicedepositData.rate =
+                          DoOptionswarehouse.ware_house_transporing_rate || "")
+                      }
                     />
                   </div>
                 </div>
