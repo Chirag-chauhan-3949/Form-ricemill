@@ -292,7 +292,7 @@ const Ricedeposit = () => {
                               (option) =>
                                 option.ware_houes_id ===
                                 RicedepositData.ware_house_id
-                            ).ware_house_name,
+                            ).ware_houes_name,
                             value: RicedepositData.ware_house_id,
                           }
                         : null
