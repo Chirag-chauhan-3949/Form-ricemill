@@ -3,6 +3,7 @@ import "react-toastify/dist/ReactToastify.css";
 import React, { useState, useEffect } from "react";
 import Select from "react-select";
 import axios from "axios";
+import Variety from "../select_dropdown/Variety";
 const Ricedeposit = () => {
   const customStyles = {
     control: (base) => ({
@@ -67,7 +68,7 @@ const Ricedeposit = () => {
     async function fetchwarehouseid() {
       try {
         const warehouse = await axios.get(
-          `http://localhost:8000/ware-house-data/${RicedepositData.ware_house}`
+          `http://localhost:8000/ware-house-data/${RicedepositData.ware_house_id}`
         );
 
         const data = warehouse.data;
@@ -78,10 +79,10 @@ const Ricedeposit = () => {
       }
     }
 
-    if (RicedepositData.ware_house) {
+    if (RicedepositData.ware_house_id) {
       fetchwarehouseid();
     }
-  }, [RicedepositData.ware_house]);
+  }, [RicedepositData.ware_house_id]);
 
   const [DoOptionstrucktransporter, setDoOptionsTruckTransporter] = useState(
     []
@@ -101,10 +102,17 @@ const Ricedeposit = () => {
       }
     }
 
-    if (DhanAwakData.transporter_name_id) {
+    if (RicedepositData.transporter_name_id) {
       fetchtrucktransporter();
     }
-  }, [DhanAwakData.transporter_name_id]);
+  }, [RicedepositData.transporter_name_id]);
+
+  const handleSelectChange = (selectedOption) => {
+    setFormData({
+      ...RicedepositData,
+      variety: selectedOption.value,
+    });
+  };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -264,21 +272,21 @@ const Ricedeposit = () => {
                     }}
                     name="ware_house_id"
                     options={
-                      DoOptionswarehouse.ware_house_data &&
-                      DoOptionswarehouse.ware_house_data.map((option) => ({
-                        label: option.ware_house_name,
-                        value: option.ware_house_id,
+                      RiceDeopsitOptions.ware_house_data &&
+                      RiceDeopsitOptions.ware_house_data.map((option) => ({
+                        label: option.ware_houes_name,
+                        value: option.ware_houes_id,
                       }))
                     }
                     value={
-                      DhanAwakData.ware_house_id
+                      RicedepositData.ware_house_id
                         ? {
-                            label: DoOptionswarehouse.ware_house_data.find(
+                            label: RiceDeopsitOptions.ware_house_data.find(
                               (option) =>
-                                option.ware_house_id ===
-                                DhanAwakData.ware_house_id
+                                option.ware_houes_id ===
+                                RicedepositData.ware_house_id
                             ).ware_house_name,
-                            value: DhanAwakData.ware_house_id,
+                            value: RicedepositData.ware_house_id,
                           }
                         : null
                     }
@@ -525,7 +533,7 @@ const Ricedeposit = () => {
                       onChange={handleInputChange}
                       value={
                         (RicedepositData.rate =
-                          DoOptionswarehouse.ware_house_transporing_rate || "")
+                          DoOptionswarehouse.ware_house_transporting_rate || "")
                       }
                     />
                   </div>
