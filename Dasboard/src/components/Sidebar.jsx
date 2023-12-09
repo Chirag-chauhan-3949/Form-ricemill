@@ -37,6 +37,7 @@ const navigation = [
       { name: "View Societies", href: "/View_Societies" },
       { name: "View_Dhan_Awak", href: "/View_Dhan_Awak" },
       { name: "View_RiceDeposit", href: "/View_RiceDeposit" },
+      { name: "View_Dalali_Dhan", href: "/View_Dalali_Dhan" },
     ],
   },
 ];

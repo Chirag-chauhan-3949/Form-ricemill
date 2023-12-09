@@ -60,23 +60,24 @@ const Dalalidhan = () => {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    console.log(value);
+    // console.log(value);
     setDalaliData({
       ...DalaliData,
       [name]: value,
     });
   };
-  // const handlePaddyTypeChange = (e) => {
-  //   const { value } = e.target;
-  //   setSelectedPaddyType(value);
+  const handlePaddyTypeChange = (e) => {
+    const { value } = e.target;
+    setSelectedPaddyType(value);
+    console.log(value);
 
-  //   // Optionally, you can reset the corresponding fields when the paddy type changes
-  //   setDalaliData((prevData) => ({
-  //     ...prevData,
-  //     [${value}_bags]: 0,
-  //     [${value}_weight]: 0,
-  //   }));
-  // };
+    // Optionally, you can reset the corresponding fields when the paddy type changes
+    setDalaliData((prevData) => ({
+      ...prevData,
+      [`${value}_bags`]: 0,
+      [`${value}_weight`]: 0,
+    }));
+  };
 
   const handleSubmit = async (e) => {
     console.log(DalaliData);
