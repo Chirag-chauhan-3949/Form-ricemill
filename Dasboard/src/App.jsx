@@ -33,7 +33,6 @@ import View_Dalali_Dhan from "./pages/View_Dalali_Dhan.jsx";
 import Brokenjawak from "./pages/Brokenjawak.jsx";
 import Branjawak from "./pages/Branjawak.jsx";
 import Nakkhijawak from "./pages/Nakkhijawak.jsx";
-import { Link } from "react-router-dom";
 
 const App = () => {
   const [isLoggedIn, setLoggedIn] = useState(true);
