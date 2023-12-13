@@ -28,19 +28,15 @@ const Brokenjawak = () => {
     payment_difference: 0,
     remarks: "",
   });
-  const [Ricemilldata, setRicemilldata] = useState([]);
-  const [Partydata, setPartydata] = useState([]);
-  const [Brokerdata, setBrokerdata] = useState([]);
-  const [Truckdata, setTruckdata] = useState([]);
+  const [Alldata, setAlldata] = useState([]);
+
   useEffect(() => {
     async function fetchMillData() {
       try {
-        const rice_mill_data = await axios.get(
-          "http://localhost:8000/rice-mill"
-        );
+        const All_data = await axios.get("http://localhost:8000/rice-mill");
 
-        const data = rice_mill_data.data;
-        setRicemilldata(data);
+        const data = All_data.data;
+        setAlldata(data);
         console.log(data);
       } catch (error) {
         console.error("Error:", error);
@@ -48,53 +44,6 @@ const Brokenjawak = () => {
     }
 
     fetchMillData();
-  }, []);
-  useEffect(() => {
-    async function fetchPartyData() {
-      try {
-        const party_data = await axios.get("http://localhost:8000/party-data");
-
-        const data = party_data.data;
-        setPartydata(data);
-        // console.log(data);
-      } catch (error) {
-        console.error("Error:", error);
-      }
-    }
-
-    fetchPartyData();
-  }, []);
-  useEffect(() => {
-    async function fetchbrokerData() {
-      try {
-        const broker_data = await axios.get(
-          "http://localhost:8000/broker-data"
-        );
-
-        const data = broker_data.data;
-        setBrokerdata(data);
-        // console.log(data);
-      } catch (error) {
-        console.error("Error:", error);
-      }
-    }
-
-    fetchbrokerData();
-  }, []);
-  useEffect(() => {
-    async function fetchtruckData() {
-      try {
-        const truck_data = await axios.get("http://localhost:8000/trucks");
-
-        const data = truck_data.data;
-        setTruckdata(data);
-        // console.log(data);
-      } catch (error) {
-        console.error("Error:", error);
-      }
-    }
-
-    fetchtruckData();
   }, []);
 
   const initialBrokenjawakData = {
@@ -219,8 +168,8 @@ const Brokenjawak = () => {
                 name="party_id"
                 placeholder="Select Party"
                 options={
-                  Partydata.party_data &&
-                  Partydata.party_data.map((option) => ({
+                  Alldata.All_data &&
+                  Alldata.All_data.map((option) => ({
                     label: option.party_name,
                     value: option.party_id,
                   }))
@@ -228,7 +177,7 @@ const Brokenjawak = () => {
                 value={
                   BrokenjawakData.party_id
                     ? {
-                        label: Partydata.party_data.find(
+                        label: Alldata.All_data.find(
                           (option) =>
                             option.party_id === BrokenjawakData.party_id
                         ).party_name,
@@ -250,8 +199,8 @@ const Brokenjawak = () => {
                   label="Select Rice Mill"
                   name="rice_mill_name_id"
                   options={
-                    Ricemilldata.rice_mill_data &&
-                    Ricemilldata.rice_mill_data.map((option) => ({
+                    Alldata.All_data &&
+                    Alldata.All_data.map((option) => ({
                       label: option.rice_mill_name,
                       value: option.rice_mill_id,
                     }))
@@ -259,7 +208,7 @@ const Brokenjawak = () => {
                   value={
                     BrokenjawakData.rice_mill_name_id
                       ? {
-                          label: Ricemilldata.rice_mill_data.find(
+                          label: Alldata.All_data.find(
                             (option) =>
                               option.rice_mill_id ===
                               BrokenjawakData.rice_mill_name_id
@@ -282,8 +231,8 @@ const Brokenjawak = () => {
                   label="Broker"
                   name="broker_id"
                   options={
-                    Brokerdata.broker_data &&
-                    Brokerdata.broker_data.map((option) => ({
+                    Alldata.All_data &&
+                    Alldata.All_data.map((option) => ({
                       label: option.broker_name,
                       value: option.broker_id,
                     }))
@@ -291,7 +240,7 @@ const Brokenjawak = () => {
                   value={
                     BrokenjawakData.broker_id
                       ? {
-                          label: Brokerdata.broker_data.find(
+                          label: Alldata.All_data.find(
                             (option) =>
                               option.broker_id === BrokenjawakData.broker_id
                           ).broker_name,
@@ -351,8 +300,8 @@ const Brokenjawak = () => {
                   label="Truck Number"
                   name="truck_number_id"
                   options={
-                    Truckdata.truck_data &&
-                    Truckdata.truck_data.map((option) => ({
+                    Alldata.All_data &&
+                    Alldata.All_data.map((option) => ({
                       label: option.truck_number,
                       value: option.truck_id,
                     }))
@@ -360,7 +309,7 @@ const Brokenjawak = () => {
                   value={
                     Brokenjawak.truck_number_id
                       ? {
-                          label: Truckdata.truck_data.find(
+                          label: Alldata.All_data.find(
                             (option) =>
                               option.truck_id === Brokenjawak.truck_number_id
                           ).truck_number,
