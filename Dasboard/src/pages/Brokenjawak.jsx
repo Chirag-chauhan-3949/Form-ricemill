@@ -35,11 +35,13 @@ const Brokenjawak = () => {
   useEffect(() => {
     async function fetchMillData() {
       try {
-        const rice_mill_data = await axios.get("http://localhost:8000/");
+        const rice_mill_data = await axios.get(
+          "http://localhost:8000/rice-mill"
+        );
 
         const data = rice_mill_data.data;
         setRicemilldata(data);
-        // console.log(data);
+        console.log(data);
       } catch (error) {
         console.error("Error:", error);
       }
@@ -50,7 +52,7 @@ const Brokenjawak = () => {
   useEffect(() => {
     async function fetchPartyData() {
       try {
-        const party_data = await axios.get("http://localhost:8000/");
+        const party_data = await axios.get("http://localhost:8000/party-data");
 
         const data = party_data.data;
         setPartydata(data);
@@ -65,7 +67,9 @@ const Brokenjawak = () => {
   useEffect(() => {
     async function fetchbrokerData() {
       try {
-        const broker_data = await axios.get("http://localhost:8000/");
+        const broker_data = await axios.get(
+          "http://localhost:8000/broker-data"
+        );
 
         const data = broker_data.data;
         setBrokerdata(data);
@@ -80,7 +84,7 @@ const Brokenjawak = () => {
   useEffect(() => {
     async function fetchtruckData() {
       try {
-        const truck_data = await axios.get("http://localhost:8000/");
+        const truck_data = await axios.get("http://localhost:8000/trucks");
 
         const data = truck_data.data;
         setTruckdata(data);
@@ -130,7 +134,7 @@ const Brokenjawak = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:8000/",
+        "http://localhost:8000/broken-jawak",
         BrokenjawakData,
         {
           headers: {
