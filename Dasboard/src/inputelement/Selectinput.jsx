@@ -26,6 +26,13 @@ const SelectInput = ({
             indicatorSeparator: () => ({
               display: "none",
             }),
+            control: (base) => ({
+              ...base,
+              height: 35,
+              minHeight: 35,
+              width: "100%",
+              minWidth: 250,
+            }),
           }}
           placeholder={placeholder}
           name={name}
@@ -33,6 +40,7 @@ const SelectInput = ({
           value={value}
           onChange={onChange}
         />
+
         {linkText && linkHref && (
           <p className="mt-1.5 text-sm text-gray-500">
             {`Cannot Find ${label}? `}

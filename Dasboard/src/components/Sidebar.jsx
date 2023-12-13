@@ -9,6 +9,9 @@ const navigation = [
       { name: "Dhan Awak", href: "/Dhan_Awak" },
       { name: "Rice Deposit", href: "/Ricedeposit" },
       { name: "Dalali Dhan", href: "/Dalalidhan" },
+      { name: "Broken Jawak", href: "/Brokenjawak" },
+      { name: "Nakkhi Jawak", href: "/Nakkhijawak" },
+      { name: "Bran Jawak", href: "/Branjawak" },
       { name: "Add Rice Mill", href: "/Addricemill" },
       { name: "Add New Transporter", href: "/Add_New_Transporter" },
       { name: "Add New Truck", href: "/Add_New_Truck" },
@@ -62,15 +65,15 @@ const Sidebar = ({ children }) => {
             {navigation.map((item) => (
               <li key={item.name}>
                 {!item.children ? (
-                  <a
-                    href={item.href}
+                  <Link
+                    to={item.href}
                     className={classNames(
                       item.current ? "bg-gray-50" : "hover:bg-gray-50",
                       "block rounded-md py-2 pr-2 pl-10 text-sm leading-6 font-semibold text-gray-700"
                     )}
                   >
                     {item.name}
-                  </a>
+                  </Link>
                 ) : (
                   <Disclosure as="div">
                     {({ open }) => (
@@ -95,9 +98,8 @@ const Sidebar = ({ children }) => {
                         <Disclosure.Panel as="ul" className="mt-1 px-2">
                           {item.children.map((subItem) => (
                             <li key={subItem.name}>
-                              <Disclosure.Button
-                                as="a"
-                                href={subItem.href}
+                              <Link
+                                to={subItem.href}
                                 className={classNames(
                                   subItem.current
                                     ? "bg-gray-50"
@@ -106,7 +108,7 @@ const Sidebar = ({ children }) => {
                                 )}
                               >
                                 {subItem.name}
-                              </Disclosure.Button>
+                              </Link>
                             </li>
                           ))}
                         </Disclosure.Panel>

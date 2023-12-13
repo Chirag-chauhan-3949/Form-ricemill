@@ -30,6 +30,10 @@ import Ricedeposit from "./pages/Ricedeposit.jsx";
 import View_Dhan_Awak from "./pages/View_Dhan_Awak.jsx";
 import View_RiceDeposit from "./pages/View_RiceDeposit.jsx";
 import View_Dalali_Dhan from "./pages/View_Dalali_Dhan.jsx";
+import Brokenjawak from "./pages/Brokenjawak.jsx";
+import Branjawak from "./pages/Branjawak.jsx";
+import Nakkhijawak from "./pages/Nakkhijawak.jsx";
+import { Link } from "react-router-dom";
 
 const App = () => {
   const [isLoggedIn, setLoggedIn] = useState(true);
@@ -43,6 +47,9 @@ const App = () => {
       {isLoggedIn ? (
         <Sidebar>
           <Routes>
+            <Route path="/Nakkhijawak" element={<Nakkhijawak />} />
+            <Route path="/Branjawak" element={<Branjawak />} />
+            <Route path="/Brokenjawak" element={<Brokenjawak />} />
             <Route path="/Lotnumbermaster" element={<Lotnumbermaster />} />
             <Route
               path="/Dhanricesocietiesrate"
