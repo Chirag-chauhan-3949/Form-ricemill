@@ -34,6 +34,7 @@ import Brokenjawak from "./pages/Brokenjawak.jsx";
 import Branjawak from "./pages/Branjawak.jsx";
 import Nakkhijawak from "./pages/Nakkhijawak.jsx";
 import Bhusi from "./pages/Bhusi.jsx";
+import Huskjawak from "./pages/Huskjawak.jsx";
 
 const App = () => {
   const [isLoggedIn, setLoggedIn] = useState(true);
@@ -48,6 +49,7 @@ const App = () => {
         <Sidebar>
           <Routes>
             <Route path="/Bhusi" element={<Bhusi />} />
+            <Route path="/Huskjawak" element={<Huskjawak />} />
             <Route path="/Nakkhijawak" element={<Nakkhijawak />} />
             <Route path="/Branjawak" element={<Branjawak />} />
             <Route path="/Brokenjawak" element={<Brokenjawak />} />
