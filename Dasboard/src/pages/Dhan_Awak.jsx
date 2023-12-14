@@ -116,27 +116,6 @@ const Dhan_Awak = () => {
     }
   }, [DhanAwakData.transporter_name_id]);
 
-  const [DoOptionssocietyid, setDoOptionsSocietyid] = useState([]);
-  useEffect(() => {
-    async function fetchsocietyid() {
-      try {
-        const rice_do_number = await axios.get(
-          `http://localhost:8000/society-data/${DhanAwakData.society_id}`
-        );
-
-        const data = rice_do_number.data;
-        setDoOptionsSocietyid(data);
-        // console.log(data);
-      } catch (error) {
-        console.error("Error:", error);
-      }
-    }
-
-    if (DhanAwakData.society_id) {
-      fetchsocietyid();
-    }
-  }, [DhanAwakData.society_id]);
-
   const handleSelectChange = (selectedOption) => {
     setFormData({
       ...DhanAwakData,

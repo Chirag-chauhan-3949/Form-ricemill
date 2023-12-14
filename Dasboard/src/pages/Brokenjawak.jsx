@@ -10,9 +10,9 @@ const Brokenjawak = () => {
   const [BrokenjawakData, setBrokenjawakData] = useState({
     rst_number: 0,
     date: "",
-    party_id: "",
+    party: "",
     rice_mill_name_id: "",
-    broker_id: "",
+    broker: "",
     brokerage_percentage: 0,
     weight: 0,
     rate: 0,
@@ -33,7 +33,9 @@ const Brokenjawak = () => {
   useEffect(() => {
     async function fetchMillData() {
       try {
-        const All_data = await axios.get("http://localhost:8000/rice-mill");
+        const All_data = await axios.get(
+          "http://localhost:8000/rice-truck-party-brokers"
+        );
 
         const data = All_data.data;
         setAlldata(data);
@@ -49,9 +51,9 @@ const Brokenjawak = () => {
   const initialBrokenjawakData = {
     rst_number: 0,
     date: "",
-    party_id: "",
+    party: "",
     rice_mill_name_id: "",
-    broker_id: "",
+    broker: "",
     brokerage_percentage: 0,
     weight: 0,
     rate: 0,
@@ -73,6 +75,7 @@ const Brokenjawak = () => {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
+    console.log(value);
     setBrokenjawakData((prevData) => ({
       ...prevData,
       [name]: value,
@@ -165,30 +168,29 @@ const Brokenjawak = () => {
               </div>
               <SelectInput
                 label="Party"
-                name="party_id"
+                name="party"
                 placeholder="Select Party"
                 options={
-                  Alldata.All_data &&
-                  Alldata.All_data.map((option) => ({
+                  Alldata.party_data &&
+                  Alldata.party_data.map((option) => ({
                     label: option.party_name,
                     value: option.party_id,
                   }))
                 }
                 value={
-                  BrokenjawakData.party_id
+                  BrokenjawakData.party
                     ? {
-                        label: Alldata.All_data.find(
-                          (option) =>
-                            option.party_id === BrokenjawakData.party_id
+                        label: Alldata.party_data.find(
+                          (option) => option.party_id === BrokenjawakData.party
                         ).party_name,
-                        value: BrokenjawakData.party_id,
+                        value: BrokenjawakData.party,
                       }
                     : null
                 }
                 onChange={(selectedOption) =>
                   handleInputChange({
                     target: {
-                      name: "party_id",
+                      name: "party",
                       value: selectedOption ? selectedOption.value : "",
                     },
                   })
@@ -199,8 +201,8 @@ const Brokenjawak = () => {
                   label="Select Rice Mill"
                   name="rice_mill_name_id"
                   options={
-                    Alldata.All_data &&
-                    Alldata.All_data.map((option) => ({
+                    Alldata.rice_mill_data &&
+                    Alldata.rice_mill_data.map((option) => ({
                       label: option.rice_mill_name,
                       value: option.rice_mill_id,
                     }))
@@ -208,7 +210,7 @@ const Brokenjawak = () => {
                   value={
                     BrokenjawakData.rice_mill_name_id
                       ? {
-                          label: Alldata.All_data.find(
+                          label: Alldata.rice_mill_data.find(
                             (option) =>
                               option.rice_mill_id ===
                               BrokenjawakData.rice_mill_name_id
@@ -229,29 +231,29 @@ const Brokenjawak = () => {
                 />
                 <SelectInput
                   label="Broker"
-                  name="broker_id"
+                  name="broker"
                   options={
-                    Alldata.All_data &&
-                    Alldata.All_data.map((option) => ({
+                    Alldata.brokers_data &&
+                    Alldata.brokers_data.map((option) => ({
                       label: option.broker_name,
                       value: option.broker_id,
                     }))
                   }
                   value={
-                    BrokenjawakData.broker_id
+                    BrokenjawakData.broker
                       ? {
-                          label: Alldata.All_data.find(
+                          label: Alldata.brokers_data.find(
                             (option) =>
-                              option.broker_id === BrokenjawakData.broker_id
+                              option.broker_id === BrokenjawakData.broker
                           ).broker_name,
-                          value: BrokenjawakData.broker_id,
+                          value: BrokenjawakData.broker,
                         }
                       : null
                   }
                   onChange={(selectedOption) =>
                     handleInputChange({
                       target: {
-                        name: "broker_id",
+                        name: "broker",
                         value: selectedOption ? selectedOption.value : "",
                       },
                     })
@@ -298,29 +300,29 @@ const Brokenjawak = () => {
               <div className="flex justify-between">
                 <SelectInput
                   label="Truck Number"
-                  name="truck_number_id"
+                  name="truck_number"
                   options={
-                    Alldata.All_data &&
-                    Alldata.All_data.map((option) => ({
+                    Alldata.truck_data &&
+                    Alldata.truck_data.map((option) => ({
                       label: option.truck_number,
                       value: option.truck_id,
                     }))
                   }
                   value={
-                    Brokenjawak.truck_number_id
+                    BrokenjawakData.truck_number
                       ? {
-                          label: Alldata.All_data.find(
+                          label: Alldata.truck_data.find(
                             (option) =>
-                              option.truck_id === Brokenjawak.truck_number_id
+                              option.truck_id === BrokenjawakData.truck_number
                           ).truck_number,
-                          value: Brokenjawak.truck_number_id,
+                          value: BrokenjawakData.truck_number,
                         }
                       : null
                   }
                   onChange={(selectedOption) =>
                     handleInputChange({
                       target: {
-                        name: "truck_number_id",
+                        name: "truck_number",
                         value: selectedOption ? selectedOption.value : "",
                       },
                     })
@@ -389,19 +391,11 @@ const Brokenjawak = () => {
                   placeholder="Enter Payment Recieved"
                 />
                 <Inputbox
-                  disabled={true}
+                  // disabled={true}
                   label="Number of Days"
                   name="number_of_days"
-                  type="text"
-                  value={
-                    (BrokenjawakData.number_of_days =
-                      ((BrokenjawakData.recieved_date -
-                        BrokenjawakData.loading_date) /
-                        1000) *
-                      60 *
-                      60 *
-                      24)
-                  }
+                  type="number"
+                  value={BrokenjawakData.number_of_days}
                   onChange={handleInputChange}
                   placeholder="Enter Number of Days "
                 />
