@@ -7,10 +7,11 @@ import axios from "axios";
 import SelectInput from "../inputelement/Selectinput";
 const Huskjawak = () => {
   const [HuskjawakData, setHuskjawakData] = useState({
-    rst: 0,
+    rst_number: 0,
     date: "",
     party: "",
-    mill: "",
+    rice_mill_name_id: "",
+    remarks: "",
     broker: "",
     brokerage_percent: 0,
     weight: 0,
@@ -19,21 +20,63 @@ const Huskjawak = () => {
     truck_number: "",
     total: 0,
     brokerage: 0,
-    net_recievable: 0,
+    net_receivable: 0,
+    received_date: "",
     loading_date: "",
-    recieved_date: "",
-    payment_recieved: 0,
+    payment_received: 0,
     number_of_days: 0,
     payment_difference: 0,
-    remarks: "",
   });
+  const [Alldata, setAlldata] = useState([]);
+
+  useEffect(() => {
+    async function fetchMillData() {
+      try {
+        const All_data = await axios.get(
+          "http://localhost:8000/rice-truck-party-brokers"
+        );
+
+        const data = All_data.data;
+        setAlldata(data);
+        console.log(data);
+      } catch (error) {
+        console.error("Error:", error);
+      }
+    }
+
+    fetchMillData();
+  }, []);
+  const initialHuskjawakData = {
+    rst_number: 0,
+    date: "",
+    party: "",
+    mill: "",
+    remarks: "",
+    broker: "",
+    brokerage_percent: 0,
+    weight: 0,
+    rate: 0,
+    number_of_bags: 0,
+    truck_number: "",
+    total: 0,
+    brokerage: 0,
+    net_receivable: 0,
+    received_date: "",
+    payment_received: 0,
+    number_of_days: 0,
+    payment_difference: 0,
+  };
+  const resetForm = () => {
+    setHuskjawakData(initialHuskjawakData);
+  };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setHuskjawakData({
-      ...HuskjawakData,
+    console.log(value);
+    setHuskjawakData((prevData) => ({
+      ...prevData,
       [name]: value,
-    });
+    }));
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -60,6 +103,7 @@ const Huskjawak = () => {
           draggable: true,
           progress: undefined,
         });
+        resetForm();
       } else {
         console.error("Failed to add Husk Jawak");
         toast.error("Failed to add Husk Jawak", {
@@ -106,9 +150,9 @@ const Huskjawak = () => {
               <div className="flex justify-between flex-wrap ">
                 <Inputbox
                   label="RST"
-                  name="rst"
+                  name="rst_number"
                   type="number"
-                  value={Huskjawak.rst}
+                  value={Huskjawak.rst_number}
                   onChange={handleInputChange}
                   placeholder="Enter rst number"
                 />
@@ -122,26 +166,95 @@ const Huskjawak = () => {
               <SelectInput
                 label="Party"
                 name="party"
-                options=""
-                value=""
-                onChange=""
                 placeholder="Select Party"
+                options={
+                  Alldata.party_data &&
+                  Alldata.party_data.map((option) => ({
+                    label: option.party_name,
+                    value: option.party_id,
+                  }))
+                }
+                value={
+                  HuskjawakData.party
+                    ? {
+                        label: Alldata.party_data.find(
+                          (option) => option.party_id === HuskjawakData.party
+                        ).party_name,
+                        value: HuskjawakData.party,
+                      }
+                    : null
+                }
+                onChange={(selectedOption) =>
+                  handleInputChange({
+                    target: {
+                      name: "party",
+                      value: selectedOption ? selectedOption.value : "",
+                    },
+                  })
+                }
               />
               <div className="flex justify-between">
                 <SelectInput
-                  label="Rice Mill"
-                  name="mill"
-                  options=""
-                  value=""
-                  onChange=""
+                  label="Select Rice Mill"
+                  name="rice_mill_name_id"
+                  options={
+                    Alldata.rice_mill_data &&
+                    Alldata.rice_mill_data.map((option) => ({
+                      label: option.rice_mill_name,
+                      value: option.rice_mill_id,
+                    }))
+                  }
+                  value={
+                    HuskjawakData.rice_mill_name_id
+                      ? {
+                          label: Alldata.rice_mill_data.find(
+                            (option) =>
+                              option.rice_mill_id ===
+                              HuskjawakData.rice_mill_name_id
+                          ).rice_mill_name,
+                          value: HuskjawakData.rice_mill_name_id,
+                        }
+                      : null
+                  }
+                  onChange={(selectedOption) =>
+                    handleInputChange({
+                      target: {
+                        name: "rice_mill_name_id",
+                        value: selectedOption ? selectedOption.value : "",
+                      },
+                    })
+                  }
                   placeholder="Select Mill"
                 />
                 <SelectInput
                   label="Broker"
                   name="broker"
-                  options=""
-                  value=""
-                  onChange=""
+                  options={
+                    Alldata.brokers_data &&
+                    Alldata.brokers_data.map((option) => ({
+                      label: option.broker_name,
+                      value: option.broker_id,
+                    }))
+                  }
+                  value={
+                    HuskjawakData.broker
+                      ? {
+                          label: Alldata.brokers_data.find(
+                            (option) =>
+                              option.broker_id === HuskjawakData.broker
+                          ).broker_name,
+                          value: HuskjawakData.broker,
+                        }
+                      : null
+                  }
+                  onChange={(selectedOption) =>
+                    handleInputChange({
+                      target: {
+                        name: "broker",
+                        value: selectedOption ? selectedOption.value : "",
+                      },
+                    })
+                  }
                   placeholder="Select Broker"
                 />
               </div>
@@ -185,16 +298,42 @@ const Huskjawak = () => {
                 <SelectInput
                   label="Truck Number"
                   name="truck_number"
-                  options=""
-                  value=""
-                  onChange=""
+                  options={
+                    Alldata.truck_data &&
+                    Alldata.truck_data.map((option) => ({
+                      label: option.truck_number,
+                      value: option.truck_id,
+                    }))
+                  }
+                  value={
+                    HuskjawakData.truck_number
+                      ? {
+                          label: Alldata.truck_data.find(
+                            (option) =>
+                              option.truck_id === HuskjawakData.truck_number
+                          ).truck_number,
+                          value: HuskjawakData.truck_number,
+                        }
+                      : null
+                  }
+                  onChange={(selectedOption) =>
+                    handleInputChange({
+                      target: {
+                        name: "truck_number",
+                        value: selectedOption ? selectedOption.value : "",
+                      },
+                    })
+                  }
                   placeholder="Select Truck Number"
                 />
                 <Inputbox
                   label="Total"
                   name="total"
                   type="number"
-                  value={HuskjawakData.total}
+                  value={
+                    (HuskjawakData.total =
+                      HuskjawakData.rate * HuskjawakData.weight)
+                  }
                   onChange={handleInputChange}
                   placeholder="Enter total "
                 />
@@ -204,17 +343,20 @@ const Huskjawak = () => {
                   label="Brokerage"
                   name="brokerage"
                   type="number"
-                  value={HuskjawakData.brokerage}
+                  value={(HuskjawakData.brokerage = HuskjawakData.weight * 7)}
                   onChange={handleInputChange}
                   placeholder="Enter Brokerage "
                 />
                 <Inputbox
-                  label=" Net Recievable"
-                  name="net_recievable"
+                  label=" Net Receivable"
+                  name="net_receivable"
                   type="number"
-                  value={HuskjawakData.net_recievable}
+                  value={
+                    (HuskjawakData.net_receivable =
+                      HuskjawakData.total - HuskjawakData.brokerage)
+                  }
                   onChange={handleInputChange}
-                  placeholder="Enter Net Recievable "
+                  placeholder="Enter Net Receivable "
                 />
               </div>
               <div className="flex justify-between">
@@ -225,20 +367,20 @@ const Huskjawak = () => {
                   onChange={handleInputChange}
                 />
                 <Dateinput
-                  label="Recieved Date"
-                  name="recieved_date"
-                  value={HuskjawakData.recieved_date}
+                  label="Received Date"
+                  name="received_date"
+                  value={HuskjawakData.received_date}
                   onChange={handleInputChange}
                 />
               </div>
               <div className="flex justify-between">
                 <Inputbox
-                  label="Payment Recieved"
-                  name="payment_recieved"
+                  label="Payment Received"
+                  name="payment_received"
                   type="number"
-                  value={HuskjawakData.payment_recieved}
+                  value={HuskjawakData.payment_received}
                   onChange={handleInputChange}
-                  placeholder="Enter Payment Recieved"
+                  placeholder="Enter Payment Received"
                 />
                 <Inputbox
                   label="Number of Days"
@@ -254,7 +396,10 @@ const Huskjawak = () => {
                   label="Payment Difference"
                   name="payment_difference"
                   type="number"
-                  value={HuskjawakData.payment_difference}
+                  value={
+                    (HuskjawakData.payment_difference =
+                      HuskjawakData.total - HuskjawakData.payment_received)
+                  }
                   onChange={handleInputChange}
                   placeholder="Enter Payment Difference "
                 />
