@@ -12,6 +12,7 @@ const navigation = [
       { name: "Broken Jawak", href: "/Brokenjawak" },
       { name: "Nakkhi Jawak", href: "/Nakkhijawak" },
       { name: "Bran Jawak", href: "/Branjawak" },
+      { name: "Bhusi", href: "/Bhusi" },
       { name: "Add Rice Mill", href: "/Addricemill" },
       { name: "Add New Transporter", href: "/Add_New_Transporter" },
       { name: "Add New Truck", href: "/Add_New_Truck" },
