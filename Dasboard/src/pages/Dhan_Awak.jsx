@@ -577,10 +577,11 @@ const Dhan_Awak = () => {
                   <div>
                     <input
                       disabled
-                      value={
-                        (DhanAwakData.transporting_rate =
-                          DoOptionssocietyid.transporting_rate || "")
-                      }
+                      // value={
+                      //   (DhanAwakData.transporting_rate =
+                      //     DoOptionssocietyid.transporting_rate || "")
+                      // }
+                      value={DhanAwakData.transporting_rate}
                       onChange={handleInputChange}
                       type="number"
                       name="transporting_rate"
