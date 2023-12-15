@@ -13,7 +13,7 @@ const Huskjawak = () => {
     rice_mill_name_id: "",
     remarks: "",
     broker: "",
-    brokerage_percent: 0,
+    brokerage_percentage: 0,
     weight: 0,
     rate: 0,
     number_of_bags: 0,
@@ -50,10 +50,10 @@ const Huskjawak = () => {
     rst_number: 0,
     date: "",
     party: "",
-    mill: "",
+    rice_mill_name_id: "",
     remarks: "",
     broker: "",
-    brokerage_percent: 0,
+    brokerage_percentage: 0,
     weight: 0,
     rate: 0,
     number_of_bags: 0,
@@ -62,6 +62,7 @@ const Huskjawak = () => {
     brokerage: 0,
     net_receivable: 0,
     received_date: "",
+    loading_date: "",
     payment_received: 0,
     number_of_days: 0,
     payment_difference: 0,
@@ -72,7 +73,7 @@ const Huskjawak = () => {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    console.log(value);
+    // console.log(value);
     setHuskjawakData((prevData) => ({
       ...prevData,
       [name]: value,
@@ -80,10 +81,11 @@ const Huskjawak = () => {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log(HuskjawakData);
 
     try {
       const response = await axios.post(
-        "http://localhost:8000/",
+        "http://localhost:8000/husk-jawak/",
         HuskjawakData,
         {
           headers: {
@@ -152,7 +154,7 @@ const Huskjawak = () => {
                   label="RST"
                   name="rst_number"
                   type="number"
-                  value={Huskjawak.rst_number}
+                  value={HuskjawakData.rst_number}
                   onChange={handleInputChange}
                   placeholder="Enter rst number"
                 />
@@ -261,9 +263,9 @@ const Huskjawak = () => {
               <div className="flex justify-between">
                 <Inputbox
                   label="Brokerage Percent"
-                  name="brokerage_percent"
+                  name="brokerage_percentage"
                   type="number"
-                  value={HuskjawakData.brokerage_percent}
+                  value={HuskjawakData.brokerage_percentage}
                   onChange={handleInputChange}
                   placeholder="Enter Brokerage Percent"
                 />
@@ -404,7 +406,7 @@ const Huskjawak = () => {
                   placeholder="Enter Payment Difference "
                 />
                 <Inputbox
-                  label=" Remarks "
+                  label="Remarks "
                   name="remarks"
                   type="text"
                   value={HuskjawakData.remarks}
