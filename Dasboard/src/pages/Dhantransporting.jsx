@@ -11,6 +11,7 @@ const Dhantransporting = () => {
     rice_mill_name_id: "",
     dm_weight: 0,
     truck_number_id: "",
+    transporting_rate: 0,
     numbers_of_bags: 0,
     transporting_total: 0,
     transporter_name_id: "",
@@ -352,46 +353,67 @@ const Dhantransporting = () => {
                   </div>
                 </div>
               </div>
-              <div>
-                <label
-                  htmlFor="truck_number_id"
-                  className="block text-sm font-medium leading-6 text-gray-900"
-                >
-                  truck Number
-                </label>
+              <div className="flex justify-between">
+                <div>
+                  <label
+                    htmlFor="truck_number_id"
+                    className="block text-sm font-medium leading-6 text-gray-900"
+                  >
+                    truck Number
+                  </label>
 
-                <div className="mt-2">
-                  <select
-                    name="truck_number_id"
-                    type="text"
-                    value={dhantransportingData.truck_number_id}
-                    className=" bg-white block w-full px-1.5 rounded-md border-0 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                    onChange={handleInputChange}
-                  >
-                    <option value="">Select a Truck</option>
-                    {DoOptionstrucktransporter.truck_data &&
-                      DoOptionstrucktransporter.truck_data.map((truck) => (
-                        <option key={truck.truck_id} value={truck.truck_id}>
-                          {truck.truck_number}
-                        </option>
-                      ))}
-                  </select>
+                  <div className="mt-2">
+                    <select
+                      name="truck_number_id"
+                      type="text"
+                      value={dhantransportingData.truck_number_id}
+                      className=" bg-white block w-full px-1.5 rounded-md border-0 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                      onChange={handleInputChange}
+                    >
+                      <option value="">Select a Truck</option>
+                      {DoOptionstrucktransporter.truck_data &&
+                        DoOptionstrucktransporter.truck_data.map((truck) => (
+                          <option key={truck.truck_id} value={truck.truck_id}>
+                            {truck.truck_number}
+                          </option>
+                        ))}
+                    </select>
+                  </div>
+                  <p className="mt-2 text-sm text-gray-500">
+                    Cannot Find Truck?{" "}
+                    <a
+                      href="/Add_NEw_Truck"
+                      className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
+                    >
+                      Add New Truck.
+                    </a>
+                  </p>
                 </div>
-                <p className="mt-2 text-sm text-gray-500">
-                  Cannot Find Truck?{" "}
-                  <a
-                    href="/Add_NEw_Truck"
-                    className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
-                  >
-                    Add New Truck.
-                  </a>
-                </p>
+                <div>
+                  <div className="flex justify-between">
+                    <label
+                      htmlFor="transporting_rate"
+                      className="block text-sm font-medium leading-6 text-gray-900"
+                    >
+                      Rate
+                    </label>
+                  </div>
+                  <div className="mt-1">
+                    <input
+                      type="number"
+                      name="transporting_rate"
+                      value={dhantransportingData.transporting_rate}
+                      className="block min-w-[250px] px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                      onChange={handleInputChange}
+                    />
+                  </div>
+                </div>
               </div>
               <div className="flex justify-between">
                 <div>
                   <div className="flex justify-between">
                     <label
-                      htmlFor="dm_weight"
+                      htmlFor="transporting_rate"
                       className="block text-sm font-medium leading-6 text-gray-900"
                     >
                       DM Weight
