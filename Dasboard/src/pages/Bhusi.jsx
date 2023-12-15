@@ -7,11 +7,11 @@ import axios from "axios";
 import SelectInput from "../inputelement/Selectinput";
 const Bhusi = () => {
   const [BhusiData, setBhusiData] = useState({
-    rst: 0,
+    rst_number: 0,
     date: "",
     party: "",
     rice_mill_name_id: "",
-    bags: 0,
+    number_of_bags: 0,
     weight: 0,
     truck_number: "",
     rate: 0,
@@ -62,11 +62,15 @@ const Bhusi = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post("http://localhost:8000/", BhusiData, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      const response = await axios.post(
+        "http://localhost:8000/bhushi",
+        BhusiData,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
 
       if (response.status >= 201 || response.status < 300) {
         console.log("Bhusi  added successfully");
@@ -126,9 +130,9 @@ const Bhusi = () => {
               <div className="flex justify-between flex-wrap ">
                 <Inputbox
                   label="RST"
-                  name="rst"
+                  name="rst_number"
                   type="number"
-                  value={Bhusi.rst}
+                  value={BhusiData.rst_number}
                   onChange={handleInputChange}
                   placeholder="Enter rst number"
                 />
@@ -206,9 +210,9 @@ const Bhusi = () => {
               <div className="flex justify-between">
                 <Inputbox
                   label="Bags "
-                  name="bags"
+                  name="number_of_bags"
                   type="number"
-                  value={BhusiData.bags}
+                  value={BhusiData.number_of_bags}
                   onChange={handleInputChange}
                   placeholder="Enter Number of bags"
                 />
@@ -265,7 +269,7 @@ const Bhusi = () => {
               </div>
 
               <Inputbox
-                label=" Amount "
+                label="Amount "
                 name="amount"
                 type="number"
                 value={BhusiData.amount}

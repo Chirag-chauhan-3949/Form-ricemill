@@ -8,12 +8,12 @@ import SelectInput from "../inputelement/Selectinput";
 import Brokenjawak from "./Brokenjawak";
 const Branjawak = () => {
   const [BranjawakData, setBranjawakData] = useState({
-    rst: 0,
+    rst_number: 0,
     date: "",
     party: "",
-    mill: "",
+    rice_mill_name_id: "",
     broker: "",
-    brokerage_percent: 0,
+    brokerage_percentage: 0,
     weight: 0,
     rate: 0,
     number_of_bags: 0,
@@ -46,10 +46,10 @@ const Branjawak = () => {
     fetchMillData();
   }, []);
   const initialBranjawakData = {
-    rst: 0,
+    rst_number: 0,
     date: "",
     party: "",
-    mill: "",
+    rice_mill_name_id: "",
     broker: "",
     brokerage_percent: 0,
     weight: 0,
@@ -80,7 +80,7 @@ const Branjawak = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:8000/",
+        "http://localhost:8000/bran-jawak",
         BranjawakData,
         {
           headers: {
@@ -147,9 +147,9 @@ const Branjawak = () => {
               <div className="flex justify-between flex-wrap ">
                 <Inputbox
                   label="RST"
-                  name="rst"
+                  name="rst_number"
                   type="number"
-                  value={Branjawak.rst}
+                  value={BranjawakData.rst_number}
                   onChange={handleInputChange}
                   placeholder="Enter rst number"
                 />
@@ -258,9 +258,9 @@ const Branjawak = () => {
               <div className="flex justify-between">
                 <Inputbox
                   label="Brokerage Percent"
-                  name="brokerage_percent"
+                  name="brokerage_percentage"
                   type="number"
-                  value={BranjawakData.brokerage_percent}
+                  value={BranjawakData.brokerage_percentage}
                   onChange={handleInputChange}
                   placeholder="Enter Brokerage Percent"
                 />

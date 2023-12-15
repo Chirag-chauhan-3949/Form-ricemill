@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import Dateinput from "../inputelement/Dateinput";
 import "react-toastify/dist/ReactToastify.css";
@@ -7,10 +7,10 @@ import axios from "axios";
 import SelectInput from "../inputelement/Selectinput";
 const Nakkhijawak = () => {
   const [NakkhijawakData, setNakkhijawakData] = useState({
-    rst: 0,
+    rst_number: 0,
     date: "",
     party: "",
-    mill: "",
+    rice_mill_name_id: "",
     broker: "",
     brokerage_percent: 0,
     weight: 0,
@@ -28,6 +28,26 @@ const Nakkhijawak = () => {
     remarks: "",
   });
 
+  const [Alldata, setAlldata] = useState([]);
+
+  useEffect(() => {
+    async function fetchMillData() {
+      try {
+        const All_data = await axios.get(
+          "http://localhost:8000/rice-truck-party-brokers"
+        );
+
+        const data = All_data.data;
+        setAlldata(data);
+        console.log(data);
+      } catch (error) {
+        console.error("Error:", error);
+      }
+    }
+
+    fetchMillData();
+  }, []);
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setNakkhijawakData({
@@ -37,10 +57,11 @@ const Nakkhijawak = () => {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log(NakkhijawakData);
 
     try {
       const response = await axios.post(
-        "http://localhost:8000/",
+        "http://localhost:8000/nakkhi-jawak",
         NakkhijawakData,
         {
           headers: {
@@ -106,9 +127,9 @@ const Nakkhijawak = () => {
               <div className="flex justify-between flex-wrap ">
                 <Inputbox
                   label="RST"
-                  name="rst"
+                  name="rst_number"
                   type="number"
-                  value={Nakkhijawak.rst}
+                  value={Nakkhijawak.rst_number}
                   onChange={handleInputChange}
                   placeholder="Enter rst number"
                 />
@@ -122,26 +143,95 @@ const Nakkhijawak = () => {
               <SelectInput
                 label="Party"
                 name="party"
-                options=""
-                value=""
-                onChange=""
                 placeholder="Select Party"
+                options={
+                  Alldata.party_data &&
+                  Alldata.party_data.map((option) => ({
+                    label: option.party_name,
+                    value: option.party_id,
+                  }))
+                }
+                value={
+                  NakkhijawakData.party
+                    ? {
+                        label: Alldata.party_data.find(
+                          (option) => option.party_id === NakkhijawakData.party
+                        ).party_name,
+                        value: NakkhijawakData.party,
+                      }
+                    : null
+                }
+                onChange={(selectedOption) =>
+                  handleInputChange({
+                    target: {
+                      name: "party",
+                      value: selectedOption ? selectedOption.value : "",
+                    },
+                  })
+                }
               />
               <div className="flex justify-between">
                 <SelectInput
-                  label="Rice Mill"
-                  name="mill"
-                  options=""
-                  value=""
-                  onChange=""
+                  label="Select Rice Mill"
+                  name="rice_mill_name_id"
+                  options={
+                    Alldata.rice_mill_data &&
+                    Alldata.rice_mill_data.map((option) => ({
+                      label: option.rice_mill_name,
+                      value: option.rice_mill_id,
+                    }))
+                  }
+                  value={
+                    NakkhijawakData.rice_mill_name_id
+                      ? {
+                          label: Alldata.rice_mill_data.find(
+                            (option) =>
+                              option.rice_mill_id ===
+                              NakkhijawakData.rice_mill_name_id
+                          ).rice_mill_name,
+                          value: NakkhijawakData.rice_mill_name_id,
+                        }
+                      : null
+                  }
+                  onChange={(selectedOption) =>
+                    handleInputChange({
+                      target: {
+                        name: "rice_mill_name_id",
+                        value: selectedOption ? selectedOption.value : "",
+                      },
+                    })
+                  }
                   placeholder="Select Mill"
                 />
                 <SelectInput
                   label="Broker"
                   name="broker"
-                  options=""
-                  value=""
-                  onChange=""
+                  options={
+                    Alldata.brokers_data &&
+                    Alldata.brokers_data.map((option) => ({
+                      label: option.broker_name,
+                      value: option.broker_id,
+                    }))
+                  }
+                  value={
+                    NakkhijawakData.broker
+                      ? {
+                          label: Alldata.brokers_data.find(
+                            (option) =>
+                              option.broker_id === NakkhijawakData.broker
+                          ).broker_name,
+                          value: NakkhijawakData.broker,
+                        }
+                      : null
+                  }
+                  onChange={(selectedOption) =>
+                    handleInputChange({
+                      target: {
+                        name: "broker",
+                        value: selectedOption ? selectedOption.value : "",
+                      },
+                    })
+                  }
                   placeholder="Select Broker"
                 />
               </div>
@@ -185,9 +275,32 @@ const Nakkhijawak = () => {
                 <SelectInput
                   label="Truck Number"
                   name="truck_number"
-                  options=""
-                  value=""
-                  onChange=""
+                  options={
+                    Alldata.truck_data &&
+                    Alldata.truck_data.map((option) => ({
+                      label: option.truck_number,
+                      value: option.truck_id,
+                    }))
+                  }
+                  value={
+                    NakkhijawakData.truck_number
+                      ? {
+                          label: Alldata.truck_data.find(
+                            (option) =>
+                              option.truck_id === NakkhijawakData.truck_number
+                          ).truck_number,
+                          value: NakkhijawakData.truck_number,
+                        }
+                      : null
+                  }
+                  onChange={(selectedOption) =>
+                    handleInputChange({
+                      target: {
+                        name: "truck_number",
+                        value: selectedOption ? selectedOption.value : "",
+                      },
+                    })
+                  }
                   placeholder="Select Truck Number"
                 />
                 <Inputbox
