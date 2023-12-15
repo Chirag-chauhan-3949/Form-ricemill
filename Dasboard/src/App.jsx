@@ -35,6 +35,7 @@ import Branjawak from "./pages/Branjawak.jsx";
 import Nakkhijawak from "./pages/Nakkhijawak.jsx";
 import Bhusi from "./pages/Bhusi.jsx";
 import Huskjawak from "./pages/Huskjawak.jsx";
+import ViewBrokenjawak from "./pages/View_broken_jawak.jsx";
 
 const App = () => {
   const [isLoggedIn, setLoggedIn] = useState(true);
@@ -85,6 +86,7 @@ const App = () => {
             <Route path="/View_Dhan_Awak" element={<View_Dhan_Awak />} />
             <Route path="/View_RiceDeposit" element={<View_RiceDeposit />} />
             <Route path="/View_Dalali_Dhan" element={<View_Dalali_Dhan />} />
+            <Route path="/View_broken_jawak" element={<ViewBrokenjawak />} />
           </Routes>
         </Sidebar>
       ) : (
