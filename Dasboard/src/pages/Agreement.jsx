@@ -40,7 +40,7 @@ const Add_Agreement = () => {
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     // console.log(value);
-    setHuskjawakData((prevData) => ({
+    setAgreementData((prevData) => ({
       ...prevData,
       [name]: value,
     }));
@@ -97,10 +97,7 @@ const Add_Agreement = () => {
       });
     }
   };
-  const options = [
-    { value: "NAN", label: "NAN" },
-    { value: "FCI", label: "FCI" },
-  ];
+
   return (
     <>
       <div className="flex min-h-full flex-1 flex-col justify-center py-12 sm:px-6 lg:px-8">
@@ -128,7 +125,7 @@ const Add_Agreement = () => {
                   <select
                     required
                     name="rice_mill_id"
-                    className="block  w-full bg-white rounded-md  border-0 px-1.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    className="block  w-full bg-white rounded-md  border-0 px-1.5 py-2 text-gray-500 focus:text-gray-900  shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     value={agreementData.rice_mill_id}
                     onChange={handleInputChange}
                   >
@@ -153,13 +150,29 @@ const Add_Agreement = () => {
                   </p>
                 </div>
               </div>
-              <Selectinput
-                label="Select Agreement Type"
-                name="type_of_agreement"
-                options={options}
-                value={agreementData.type_of_agreement}
-                onChange={handleInputChange}
-              />
+              <div>
+                <div className="flex justify-between">
+                  <label
+                    htmlFor="type_of_agreement"
+                    className="block text-sm font-medium leading-6 text-gray-900"
+                  >
+                    Select Agreement Type
+                  </label>
+                </div>
+                <div className="mt-1">
+                  <select
+                    value={agreementData.type_of_agreement}
+                    onChange={handleInputChange}
+                    type="text"
+                    name="type_of_agreement"
+                    className="bg-white block w-full px-1.5 rounded-md border-0 py-2.5 text-gray-500 focus:text-gray-900   shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  >
+                    <option value="">-Select Agreement Type-</option>
+                    <option value="FCI">FCI</option>
+                    <option value="NAN">NAN</option>
+                  </select>
+                </div>
+              </div>
               <div>
                 <label className="block text-sm font-medium leading-6 text-gray-900">
                   Agreement Number
