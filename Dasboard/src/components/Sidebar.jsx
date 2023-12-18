@@ -13,19 +13,30 @@ const navigation = [
       { name: "Add Agreement", href: "/Add_Agreement" },
     ],
   },
-
   {
-    name: "Forms",
+    name: "Awak Forms",
+    current: false,
+    children: [{ name: "Dhan Awak", href: "/Dhan_Awak" }],
+  },
+  {
+    name: "Jawak Forms",
     current: false,
     children: [
       { name: "Dhan Awak", href: "/Dhan_Awak" },
-      { name: "Rice Deposit", href: "/Ricedeposit" },
-      { name: "Dalali Dhan", href: "/Dalalidhan" },
       { name: "Broken Jawak", href: "/Brokenjawak" },
       { name: "Husk Jawak", href: "/Huskjawak" },
       { name: "Nakkhi Jawak", href: "/Nakkhijawak" },
       { name: "Bran Jawak", href: "/Branjawak" },
       { name: "Bhusi", href: "/Bhusi" },
+    ],
+  },
+
+  {
+    name: "Forms",
+    current: false,
+    children: [
+      { name: "Rice Deposit", href: "/Ricedeposit" },
+      { name: "Dalali Dhan", href: "/Dalalidhan" },
       { name: "Lot Number Master", href: "/Lotnumbermaster" },
       { name: "Dhan Rice Sociesties Rate", href: "/Dhanricesocietiesrate" },
       { name: "Frk", href: "/Frk" },
