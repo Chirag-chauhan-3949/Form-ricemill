@@ -53,6 +53,7 @@ const navigation = [
     name: "View Data",
     current: false,
     children: [
+      { name: "View Rice Mill", href: "/View_RiceMill" },
       { name: "View Agreement", href: "/View_Agreement" },
       { name: "View Trucks", href: "/View_Truck" },
       { name: "View Transporter", href: "/View_Transporter" },
