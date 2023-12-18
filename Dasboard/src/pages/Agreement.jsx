@@ -2,17 +2,18 @@ import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Selectinput from "../inputelement/Selectinput";
 
 const Add_Agreement = () => {
   const [agreementData, setAgreementData] = useState({
     rice_mill_id: 0,
     agreement_number: "",
-    mota: 0,
-    patla: 0,
-    sarna: 0,
+    // mota: 0,
+    // patla: 0,
+    // sarna: 0,
     lot_from: 0,
     lot_to: 0,
-    total: 0,
+    type_of_agreement: 0,
   });
 
   const [AgreementOptions, setAgreementOptions] = useState([]);
@@ -96,6 +97,10 @@ const Add_Agreement = () => {
       });
     }
   };
+  const options = [
+    { value: "NAN", label: "NAN" },
+    { value: "FCI", label: "FCI" },
+  ];
   return (
     <>
       <div className="flex min-h-full flex-1 flex-col justify-center py-12 sm:px-6 lg:px-8">
@@ -148,6 +153,13 @@ const Add_Agreement = () => {
                   </p>
                 </div>
               </div>
+              <Selectinput
+                label="Select Agreement Type"
+                name="type_of_agreement"
+                options={options}
+                value={agreementData.a}
+                onChange={handleInputChange}
+              />
               <div>
                 <label className="block text-sm font-medium leading-6 text-gray-900">
                   Agreement Number
@@ -225,7 +237,7 @@ const Add_Agreement = () => {
                       onChange={handleInputChange}
                     />
                   </div>
-                  <div>
+                  {/* <div>
                     <label className="block text-sm font-medium leading-6 text-gray-900">
                       total
                     </label>
@@ -242,7 +254,7 @@ const Add_Agreement = () => {
                       }
                       onChange={handleInputChange}
                     />
-                  </div>
+                  </div> */}
                 </div>
               </fieldset>
               <button

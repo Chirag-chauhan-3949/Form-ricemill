@@ -22,7 +22,6 @@ const navigation = [
     name: "Jawak Forms",
     current: false,
     children: [
-      { name: "Dhan Awak", href: "/Dhan_Awak" },
       { name: "Broken Jawak", href: "/Brokenjawak" },
       { name: "Husk Jawak", href: "/Huskjawak" },
       { name: "Nakkhi Jawak", href: "/Nakkhijawak" },
