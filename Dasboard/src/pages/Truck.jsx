@@ -58,7 +58,7 @@ const Add_New_Truck = () => {
       // console.log(response.data);
 
       if (response.status === 201) {
-        console.log("Truck added successfully");
+        // console.log("Truck added successfully");
         toast.success("Truck added successfully", { autoClose: 2000 });
       } else {
         console.error("Failed to add truck");

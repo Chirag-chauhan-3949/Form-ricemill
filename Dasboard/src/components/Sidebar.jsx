@@ -3,6 +3,18 @@ import { ChevronRightIcon } from "@heroicons/react/20/solid";
 import { Link } from "react-router-dom";
 const navigation = [
   {
+    name: "Add Forms",
+    current: false,
+    children: [
+      { name: "Add Rice Mill", href: "/Addricemill" },
+      { name: "Add New Transporter", href: "/Add_New_Transporter" },
+      { name: "Add New Truck", href: "/Add_New_Truck" },
+      { name: "Add New Society", href: "/Add_New_Society" },
+      { name: "Add Agreement", href: "/Add_Agreement" },
+    ],
+  },
+
+  {
     name: "Forms",
     current: false,
     children: [
@@ -14,11 +26,6 @@ const navigation = [
       { name: "Nakkhi Jawak", href: "/Nakkhijawak" },
       { name: "Bran Jawak", href: "/Branjawak" },
       { name: "Bhusi", href: "/Bhusi" },
-      { name: "Add Rice Mill", href: "/Addricemill" },
-      { name: "Add New Transporter", href: "/Add_New_Transporter" },
-      { name: "Add New Truck", href: "/Add_New_Truck" },
-      { name: "Add New Society", href: "/Add_New_Society" },
-      { name: "Add Agreement", href: "/Add_Agreement" },
       { name: "Lot Number Master", href: "/Lotnumbermaster" },
       { name: "Dhan Rice Sociesties Rate", href: "/Dhanricesocietiesrate" },
       { name: "Frk", href: "/Frk" },

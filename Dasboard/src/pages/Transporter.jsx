@@ -9,26 +9,6 @@ const Add_New_Transporter = () => {
     transporter_name: "",
     transporter_phone_number: 0,
   });
-  const [DoOptions, setDoOptions] = useState([]);
-
-  // // Fetch data for the "Select Rice Mill" dropdown
-  // useEffect(() => {
-  //   async function fetchMillData() {
-  //     try {
-  //       const Mill_response = await axios.get(
-  //         "http://localhost:8000/rice-mill"
-  //       );
-
-  //       const data = Mill_response.data;
-  //       setDoOptions(data);
-  //       // console.log(data);
-  //     } catch (error) {
-  //       console.error("Error:", error);
-  //     }
-  //   }
-
-  //   fetchMillData();
-  // }, []);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -51,7 +31,7 @@ const Add_New_Transporter = () => {
       });
 
       if (response.ok) {
-        console.log("Transporter added successfully");
+        // console.log("Transporter added successfully");
         toast.success("Transporter added successfully", {
           position: "top-right",
           autoClose: 3000,
