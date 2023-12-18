@@ -39,11 +39,11 @@ const Add_Agreement = () => {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-
-    setAgreementData({
-      ...agreementData,
+    // console.log(value);
+    setHuskjawakData((prevData) => ({
+      ...prevData,
       [name]: value,
-    });
+    }));
   };
 
   const handleSubmit = async (e) => {
@@ -157,7 +157,7 @@ const Add_Agreement = () => {
                 label="Select Agreement Type"
                 name="type_of_agreement"
                 options={options}
-                value={agreementData.a}
+                value={agreementData.type_of_agreement}
                 onChange={handleInputChange}
               />
               <div>
