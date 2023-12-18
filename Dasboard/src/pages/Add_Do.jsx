@@ -32,7 +32,7 @@ const Add_Do = () => {
 
         const data = Mill_response.data;
         setDoOptions(data);
-        console.log(data);
+        // console.log(data);
       } catch (error) {
         console.error("Error:", error);
       }
@@ -51,7 +51,7 @@ const Add_Do = () => {
 
         const data = agremennt_data.data;
         setDoOptionsAgreement(data);
-        console.log(data);
+        // console.log(data);
       } catch (error) {
         console.error("Error:", error);
       }
@@ -72,7 +72,7 @@ const Add_Do = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(DoData);
+    // console.log(DoData);
     try {
       const response = await axios.post(
         "http://localhost:8000/add-do/",
@@ -83,9 +83,9 @@ const Add_Do = () => {
           },
         }
       );
-      console.log("Response:", response);
+      // console.log("Response:", response);
       if (response.status === 201) {
-        console.log("Form data sent successfully");
+        // console.log("Form data sent successfully");
         toast.success("Do added successfully", {
           position: "top-right",
           autoClose: 3000,

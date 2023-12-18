@@ -5,6 +5,7 @@ import "react-toastify/dist/ReactToastify.css";
 const Dopanding = () => {
   const [DopandingData, setDopandingData] = useState({
     do_number_id: "",
+    rice_mill_id: "",
     date: "",
     mota: "",
     patla: "",
@@ -12,20 +13,47 @@ const Dopanding = () => {
     Total: 0,
   });
 
-  const [dopandingData, setdopandingData] = useState([]);
+  const [DoOptions, setDoOptions] = useState([]);
+
+  // Fetch data for the "Select Rice Mill" dropdown
   useEffect(() => {
-    async function fetchData() {
+    async function fetchMillData() {
       try {
-        const response = await axios.get("http://localhost:8000/add-do-data");
-        const data = response.data;
-        setdopandingData(data);
-        console.log(data);
+        const Mill_response = await axios.get(
+          "http://localhost:8000/rice-do-society-truck-transporter"
+        );
+
+        const data = Mill_response.data;
+        setDoOptions(data);
+        // console.log(data);
       } catch (error) {
         console.error("Error:", error);
       }
     }
-    fetchData();
+
+    fetchMillData();
   }, []);
+
+  const [DoOptionsricedonumber, setDoOptionsRiceDoNumber] = useState([]);
+  useEffect(() => {
+    async function fetchricedonumberData() {
+      try {
+        const truck_transporter = await axios.get(
+          ` http://localhost:8000/rice-do-number/${DoOptions.rice_mill_id}`
+        );
+
+        const data = truck_transporter.data;
+        setDoOptionsRiceDoNumber(data);
+        // console.log(data);
+      } catch (error) {
+        console.error("Error:", error);
+      }
+    }
+
+    if (DoOptions.rice_mill_id) {
+      fetchricedonumberData();
+    }
+  }, [DoOptions.rice_mill_id]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -97,6 +125,44 @@ const Dopanding = () => {
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-[480px]">
           <div className="bg-white px-6 py-12 shadow sm:rounded-lg sm:px-12">
             <form className="space-y-6" onSubmit={handleSubmit}>
+              <div>
+                <label
+                  htmlFor="select_mill_id"
+                  className="block text-sm font-medium leading-6 text-gray-900"
+                >
+                  Select Rice Mill
+                </label>
+                <div className="mt-2">
+                  <select
+                    required
+                    type="text"
+                    name="select_mill_id"
+                    className="block  w-full bg-white rounded-md  border-0 px-1.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    value={DoOptions.select_mill_id}
+                    onChange={handleInputChange}
+                  >
+                    <option value="">-Select Rice Mill-</option>
+                    {DoOptions.rice_mill_data &&
+                      DoOptions.rice_mill_data.map((option) => (
+                        <option
+                          key={option.rice_mill_id}
+                          value={option.rice_mill_id}
+                        >
+                          {option.rice_mill_name}
+                        </option>
+                      ))}
+                  </select>
+                  <p className="mt-2 text-sm text-gray-500">
+                    Cannot Find Rice Mill?{" "}
+                    <a
+                      href="/Addricemill"
+                      className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
+                    >
+                      Add New Rice Mill..
+                    </a>
+                  </p>
+                </div>
+              </div>
               <div className="flex justify-between">
                 <div>
                   <div className="flex justify-between">
@@ -135,7 +201,7 @@ const Dopanding = () => {
                       onChange={handleInputChange}
                     >
                       <option value="">-Select Do Number-</option>
-                      {dopandingData.map((option) => (
+                      {DoOptionsricedonumber.map((option) => (
                         <option key={option.do_id} value={option.do_id}>
                           {option.do_number}
                         </option>

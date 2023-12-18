@@ -1,10 +1,10 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
-function View_Agreement() {
+function View_Frk() {
   const [data, setdata] = useState([]);
   useEffect(() => {
     axios
-      .get("http://localhost:8000/agreements")
+      .get("http://localhost:8000/frk-data")
       .then((res) => setdata(res.data))
       .catch((err) => console.log(err));
   }, []);
@@ -13,7 +13,7 @@ function View_Agreement() {
       <div className="sm:flex sm:items-center">
         <div className="sm:flex-auto">
           <h1 className="text-base font-semibold leading-6 text-gray-900">
-            Agreements
+            FRK
           </h1>
           <p className="mt-2 text-sm text-gray-700">
             A table of placeholder stock market data that does not make any
@@ -39,36 +39,60 @@ function View_Agreement() {
                     Rice Mill Name
                   </th>
                   <th className="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900">
-                    Agreement Number
+                    Date
                   </th>
                   <th className="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900">
-                    Type of Agreement
+                    Party
                   </th>
                   <th className="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900">
-                    Lot From
+                    Bags
                   </th>
                   <th className="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900">
-                    Lot To
+                    Weight
+                  </th>
+                  <th className="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900">
+                    Truck Number
+                  </th>
+                  <th className="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900">
+                    Bill Number
+                  </th>
+                  <th className="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900">
+                    Rate
+                  </th>
+                  <th className="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900">
+                    Batch Number
                   </th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-200 bg-white">
-                {data.map((Agreement, index) => (
-                  <tr key={index} className="bg-gray-50">
+                {data.map((user, index) => (
+                  <tr key={index}>
                     <td className="whitespace-nowrap py-2 pl-4 pr-3 text-sm text-gray-500 sm:pl-0">
-                      {Agreement.rice_mill_id}
+                      {user.rice_mill_name_id}
                     </td>
-                    <td className="py-2 px-4 border-b subpixel-antialiased leading-6 text-gray-900">
-                      {Agreement.agreement_number}
+                    <td className="whitespace-nowrap px-2 py-2 text-sm font-medium text-gray-900">
+                      {user.date}
                     </td>
-                    <td className="whitespace-nowrap py-2 pl-4 pr-3 text-sm text-gray-500 sm:pl-0">
-                      {Agreement.type_of_agreement}
+                    <td className="whitespace-nowrap px-2 py-2 text-sm font-medium text-gray-900">
+                      {user.party}
                     </td>
-                    <td className="whitespace-nowrap py-2 pl-4 pr-3 text-sm text-gray-500 sm:pl-0">
-                      {Agreement.lot_from}
+                    <td className="whitespace-nowrap px-2 py-2 text-sm font-medium text-gray-900">
+                      {user.bags}
                     </td>
-                    <td className="whitespace-nowrap py-2 pl-4 pr-3 text-sm text-gray-500 sm:pl-0">
-                      {Agreement.lot_to}
+                    <td className="whitespace-nowrap px-2 py-2 text-sm font-medium text-gray-900">
+                      {user.weight}
+                    </td>
+                    <td className="whitespace-nowrap px-2 py-2 text-sm font-medium text-gray-900">
+                      {user.truck_number_id}
+                    </td>
+                    <td className="whitespace-nowrap px-2 py-2 text-sm font-medium text-gray-900">
+                      {user.bill_number}
+                    </td>
+                    <td className="whitespace-nowrap px-2 py-2 text-sm font-medium text-gray-900">
+                      {user.rate}
+                    </td>
+                    <td className="whitespace-nowrap px-2 py-2 text-sm font-medium text-gray-900">
+                      {user.batch_number}
                     </td>
                   </tr>
                 ))}
@@ -81,4 +105,4 @@ function View_Agreement() {
   );
 }
 
-export default View_Agreement;
+export default View_Frk;

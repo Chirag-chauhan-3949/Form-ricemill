@@ -27,7 +27,7 @@ const Frk = () => {
 
         const data = Mill_response.data;
         setmillData(data);
-        console.log(data);
+        // console.log(data);
       } catch (error) {
         console.error("Error:", error);
       }
@@ -46,7 +46,7 @@ const Frk = () => {
 
         const data = transporter_response.data;
         setTrucks(data);
-        console.log(data);
+        // console.log(data);
       } catch (error) {
         console.error("Error:", error);
       }
@@ -65,7 +65,7 @@ const Frk = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(frkData);
+    // console.log(frkData);
 
     try {
       const response = await axios.post("http://localhost:8000/frk", frkData, {
@@ -75,7 +75,7 @@ const Frk = () => {
       });
 
       if (response.status === 201 || response.status === 300) {
-        console.log("frk added successfully");
+        // console.log("frk added successfully");
         toast.success("frk added successfully", {
           position: "top-right",
           autoClose: 3000,

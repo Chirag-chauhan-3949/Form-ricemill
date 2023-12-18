@@ -1,10 +1,10 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
-function ViewTruck() {
+function View_Warehouse() {
   const [data, setdata] = useState([]);
   useEffect(() => {
     axios
-      .get("http://localhost:8000/trucks")
+      .get("http://localhost:8000/get-ware-house-data")
       .then((res) => setdata(res.data))
       .catch((err) => console.log(err));
   }, []);
@@ -13,7 +13,7 @@ function ViewTruck() {
       <div className="sm:flex sm:items-center">
         <div className="sm:flex-auto">
           <h1 className="text-base font-semibold leading-6 text-gray-900">
-            Trucks
+            Ware House
           </h1>
           <p className="mt-2 text-sm text-gray-700">
             A table of placeholder stock market data that does not make any
@@ -36,10 +36,13 @@ function ViewTruck() {
               <thead>
                 <tr>
                   <th className="whitespace-nowrap py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-0">
-                    Truck Number
+                    Ware House Name
                   </th>
                   <th className="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900">
-                    Transporter
+                    Transporting Rate
+                  </th>
+                  <th className="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900">
+                    Hamali Rate
                   </th>
                 </tr>
               </thead>
@@ -47,10 +50,13 @@ function ViewTruck() {
                 {data.map((user, index) => (
                   <tr key={index}>
                     <td className="whitespace-nowrap py-2 pl-4 pr-3 text-sm text-gray-500 sm:pl-0">
-                      {user.truck_number}
+                      {user.ware_houes_name}
                     </td>
                     <td className="whitespace-nowrap px-2 py-2 text-sm font-medium text-gray-900">
-                      {user.transport_id}
+                      {user.ware_house_transporting_rate}
+                    </td>
+                    <td className="whitespace-nowrap px-2 py-2 text-sm font-medium text-gray-900">
+                      {user.hamalirate}
                     </td>
                   </tr>
                 ))}
@@ -63,4 +69,4 @@ function ViewTruck() {
   );
 }
 
-export default ViewTruck;
+export default View_Warehouse;

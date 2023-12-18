@@ -37,6 +37,12 @@ import Bhusi from "./pages/Bhusi.jsx";
 import Huskjawak from "./pages/Huskjawak.jsx";
 import ViewBrokenjawak from "./pages/View_broken_jawak.jsx";
 import View_RiceMill from "./pages/View_RiceMill.jsx";
+import View_AddDo from "./pages/View_AddDo.jsx";
+import Add_Warehouse from "./pages/Add_Warehouse.jsx";
+import View_Warehouse from "./pages/View_Warehouse.jsx";
+import View_Kochia from "./pages/View_Kochia.jsx";
+import View_Frk from "./pages/View_Frk.jsx";
+import View_SudaPatrak from "./pages/View_SudaPatrak";
 
 const App = () => {
   const [isLoggedIn, setLoggedIn] = useState(true);
@@ -89,6 +95,12 @@ const App = () => {
             <Route path="/View_Dalali_Dhan" element={<View_Dalali_Dhan />} />
             <Route path="/View_broken_jawak" element={<ViewBrokenjawak />} />
             <Route path="/View_RiceMill" element={<View_RiceMill />} />
+            <Route path="/View_AddDo" element={<View_AddDo />} />
+            <Route path="/Add_Warehouse" element={<Add_Warehouse />} />
+            <Route path="/View_Warehouse" element={<View_Warehouse />} />
+            <Route path="/View_Kochia" element={<View_Kochia />} />
+            <Route path="/View_Frk" element={<View_Frk />} />
+            <Route path="/View_SudaPatrak" element={<View_SudaPatrak />} />
           </Routes>
         </Sidebar>
       ) : (

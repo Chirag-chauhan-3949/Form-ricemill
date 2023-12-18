@@ -1,57 +1,39 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import axios from "axios";
-const Kochia = () => {
-  const [kochiaData, setkochiaData] = useState({
-    rice_mill_name_id: "",
-    kochia_name: "",
-    kochia_phone_number: 0,
+
+const Add_Warehouse = () => {
+  const [Addwarehouse, Addwarehousedata] = useState({
+    ware_houes_name: "",
+    ware_house_transporting_rate: 0,
+    hamalirate: 0,
   });
-  const [DoOptions, setDoOptions] = useState([]);
-
-  // Fetch data for the "Select Rice Mill" dropdown
-  useEffect(() => {
-    async function fetchMillData() {
-      try {
-        const Mill_response = await axios.get(
-          "http://localhost:8000/rice-mill"
-        );
-
-        const data = Mill_response.data;
-        setDoOptions(data);
-        // console.log(data);
-      } catch (error) {
-        console.error("Error:", error);
-      }
-    }
-
-    fetchMillData();
-  }, []);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setkochiaData({
-      ...kochiaData,
+    Addwarehousedata({
+      ...Addwarehouse,
       [name]: value,
     });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     try {
-      const response = await fetch("http://localhost:8000/kochia", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(kochiaData),
-      });
+      const response = await fetch(
+        "http://localhost:8000/ware-house-transporting/",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(Addwarehouse),
+        }
+      );
 
       if (response.ok) {
-        // console.log("Kochia added successfully");
-        toast.success("Kochia added successfully", {
+        // console.log("Rice mill added successfully");
+        toast.success("Ware House added successfully", {
           position: "top-right",
           autoClose: 3000,
           hideProgressBar: false,
@@ -61,8 +43,8 @@ const Kochia = () => {
           progress: undefined,
         });
       } else {
-        console.error("Failed to add Kochia");
-        toast.error("Failed to add Kochia", {
+        // console.error("Failed to add rice mill");
+        toast.error("Failed to add Ware House", {
           position: "top-right",
           autoClose: 3000,
           hideProgressBar: false,
@@ -73,8 +55,8 @@ const Kochia = () => {
         });
       }
     } catch (error) {
-      console.error("Error:", error);
-      toast.error("Error adding Kochia", {
+      // console.error("Error:", error);
+      toast.error("Error adding Ware House", {
         position: "top-right",
         autoClose: 3000,
         hideProgressBar: false,
@@ -97,56 +79,19 @@ const Kochia = () => {
           />
 
           <h2 className="mt-6 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
-            Add New Kochia
+            Add Ware House
           </h2>
         </div>
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-[480px]">
           <div className="bg-white px-6 py-12 shadow sm:rounded-lg sm:px-12">
             <form className="space-y-6" onSubmit={handleSubmit}>
               <div>
-                <label
-                  htmlFor="rice_mill_name_id"
-                  className="block text-sm font-medium leading-6 text-gray-900"
-                >
-                  Select Rice Mill
-                </label>
-                <div className="mt-2">
-                  <select
-                    // required
-                    type="text"
-                    name="rice_mill_name_id"
-                    className="block  w-full bg-white rounded-md  border-0 px-1.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                    value={kochiaData.rice_mill_name_id}
-                    onChange={handleInputChange}
-                  >
-                    <option value="">-Select Rice Mill-</option>
-                    {DoOptions.map((option) => (
-                      <option
-                        key={option.rice_mill_id}
-                        value={option.rice_mill_id}
-                      >
-                        {option.rice_mill_name}
-                      </option>
-                    ))}
-                  </select>
-                  <p className="mt-2 text-sm text-gray-500">
-                    Cannot Find Rice Mill?{" "}
-                    <a
-                      href="/Addricemill"
-                      className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
-                    >
-                      Add New Rice Mill..
-                    </a>
-                  </p>
-                </div>
-              </div>
-              <div>
                 <div className="flex justify-between">
                   <label
-                    htmlFor="kochia_name"
+                    htmlFor="mill_address"
                     className="block text-sm font-medium leading-6 text-gray-900"
                   >
-                    Kochia Name
+                    Ware House Name
                   </label>
                   <span className="text-sm leading-6 text-red-500">
                     Required
@@ -155,22 +100,23 @@ const Kochia = () => {
                 <div className="mt-2">
                   <input
                     type="text"
-                    name="kochia_name"
+                    name="ware_houes_name"
                     className="block w-full rounded-md border-0 px-1.5 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                    placeholder="Enter transporter name"
-                    value={kochiaData.kochia_name}
+                    placeholder="Enter Ware House Name"
+                    value={Addwarehouse.ware_houes_name}
                     onChange={handleInputChange}
                     required
                   />
                 </div>
               </div>
+
               <div>
                 <div className="flex justify-between">
                   <label
-                    htmlFor="kochia_phone_number"
+                    htmlFor="gst_number"
                     className="block text-sm font-medium leading-6 text-gray-900"
                   >
-                    Kochia Phone Nu.
+                    Transporting Rate
                   </label>
                   <span className="text-sm leading-6 text-red-500">
                     Required
@@ -178,23 +124,47 @@ const Kochia = () => {
                 </div>
                 <div className="mt-2">
                   <input
-                    pattern="[0-9]{10}"
+                    placeholder="Enter Transporting Rate"
                     type="number"
-                    name="kochia_phone_number"
+                    name="ware_house_transporting_rate"
                     className="block w-full rounded-md border-0 px-1.5 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                    placeholder="6234873298"
-                    value={kochiaData.kochia_phone_number}
+                    value={Addwarehouse.ware_house_transporting_rate}
                     onChange={handleInputChange}
                     required
                   />
                 </div>
               </div>
+              <div>
+                <div className="flex justify-between">
+                  <label
+                    htmlFor="mill_address"
+                    className="block text-sm font-medium leading-6 text-gray-900"
+                  >
+                    Hamali Rate
+                  </label>
+                  <span className="text-sm leading-6 text-red-500">
+                    Required
+                  </span>
+                </div>
+                <div className="mt-2">
+                  <input
+                    type="number"
+                    name="hamalirate"
+                    className="block w-full rounded-md border-0 px-1.5 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    placeholder="Enter Hamali Rate"
+                    value={Addwarehouse.hamalirate}
+                    onChange={handleInputChange}
+                    required
+                  />
+                </div>
+              </div>
+
               <div>
                 <button
                   type="submit"
                   className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                 >
-                  Add New Kochia
+                  Add Rice Mill
                 </button>
               </div>
             </form>
@@ -206,4 +176,4 @@ const Kochia = () => {
   );
 };
 
-export default Kochia;
+export default Add_Warehouse;

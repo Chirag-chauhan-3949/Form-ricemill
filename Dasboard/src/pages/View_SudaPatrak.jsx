@@ -1,10 +1,10 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
-function ViewTruck() {
+function View_SudaPatrak() {
   const [data, setdata] = useState([]);
   useEffect(() => {
     axios
-      .get("http://localhost:8000/trucks")
+      .get("http://localhost:8000/sauda-patrak-data")
       .then((res) => setdata(res.data))
       .catch((err) => console.log(err));
   }, []);
@@ -13,7 +13,7 @@ function ViewTruck() {
       <div className="sm:flex sm:items-center">
         <div className="sm:flex-auto">
           <h1 className="text-base font-semibold leading-6 text-gray-900">
-            Trucks
+            Societies
           </h1>
           <p className="mt-2 text-sm text-gray-700">
             A table of placeholder stock market data that does not make any
@@ -36,10 +36,28 @@ function ViewTruck() {
               <thead>
                 <tr>
                   <th className="whitespace-nowrap py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-0">
-                    Truck Number
+                    Name
                   </th>
                   <th className="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900">
-                    Transporter
+                    Address
+                  </th>
+                  <th className="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900">
+                    Vehical Number
+                  </th>
+                  <th className="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900">
+                    Paddy
+                  </th>
+                  <th className="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900">
+                    Bags
+                  </th>
+                  <th className="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900">
+                    Weight
+                  </th>
+                  <th className="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900">
+                    Rate
+                  </th>
+                  <th className="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900">
+                    Amount
                   </th>
                 </tr>
               </thead>
@@ -47,10 +65,28 @@ function ViewTruck() {
                 {data.map((user, index) => (
                   <tr key={index}>
                     <td className="whitespace-nowrap py-2 pl-4 pr-3 text-sm text-gray-500 sm:pl-0">
-                      {user.truck_number}
+                      {user.name}
+                    </td>
+                    <td className="whitespace-nowrap py-2 pl-4 pr-3 text-sm text-gray-500 sm:pl-0">
+                      {user.address}
+                    </td>
+                    <td className="whitespace-nowrap py-2 pl-4 pr-3 text-sm text-gray-500 sm:pl-0">
+                      {user.vechicle_number_id}
                     </td>
                     <td className="whitespace-nowrap px-2 py-2 text-sm font-medium text-gray-900">
-                      {user.transport_id}
+                      {user.paddy}
+                    </td>
+                    <td className="whitespace-nowrap px-2 py-2 text-sm font-medium text-gray-900">
+                      {user.bags}
+                    </td>
+                    <td className="whitespace-nowrap px-2 py-2 text-sm font-medium text-gray-900">
+                      {user.weight}
+                    </td>
+                    <td className="whitespace-nowrap px-2 py-2 text-sm font-medium text-gray-900">
+                      {user.rate}
+                    </td>
+                    <td className="whitespace-nowrap px-2 py-2 text-sm font-medium text-gray-900">
+                      {user.amount}
                     </td>
                   </tr>
                 ))}
@@ -63,4 +99,4 @@ function ViewTruck() {
   );
 }
 
-export default ViewTruck;
+export default View_SudaPatrak;

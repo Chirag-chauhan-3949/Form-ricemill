@@ -21,13 +21,13 @@ const Ricedeposit = () => {
     rst_number: 0,
     date: "",
     lot_number: 0,
-    ware_house_id: 0,
-    rice_mill_name_id: 0,
+    ware_house_id: "",
+    rice_mill_name_id: "",
     weight: 0,
-    truck_number_id: 0,
+    truck_number_id: "",
     bags: 0,
     transporting_total: 0,
-    transporter_name_id: 0,
+    transporter_name_id: "",
     transporting_type: "",
     transporting_status: "",
     rate: 0,
@@ -136,9 +136,9 @@ const Ricedeposit = () => {
           },
         }
       );
-      console.log("Response:", response);
+      // console.log("Response:", response);
       if (response.status === 201) {
-        console.log("Form data sent successfully");
+        // console.log("Form data sent successfully");
         toast.success("Rice Deposit added successfully", {
           position: "top-right",
           autoClose: 3000,
@@ -562,7 +562,10 @@ const Ricedeposit = () => {
                       name="hamali"
                       className="block w-full  px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                       onChange={handleInputChange}
-                      value={RicedepositData.hamali}
+                      value={
+                        (RicedepositData.hamali =
+                          DoOptionswarehouse.hamalirate || "")
+                      }
                     />
                   </div>
                 </div>
@@ -658,7 +661,7 @@ const Ricedeposit = () => {
                       htmlFor="rrga_wt"
                       className="block text-sm font-medium leading-6 text-gray-900"
                     >
-                      Variety weight
+                      RRGA Weight
                     </label>
                   </div>
                   <div className="mt-1">

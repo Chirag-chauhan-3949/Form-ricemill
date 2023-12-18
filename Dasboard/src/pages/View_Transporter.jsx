@@ -4,7 +4,7 @@ function ViewTransporter() {
   const [data, setdata] = useState([]);
   useEffect(() => {
     axios
-      .get("https://localhost:8000/transporters")
+      .get("http://localhost:8000/transporters")
       .then((res) => setdata(res.data))
       .catch((err) => console.log(err));
   }, []);
@@ -47,10 +47,10 @@ function ViewTransporter() {
                 {data.map((user, index) => (
                   <tr key={index}>
                     <td className="whitespace-nowrap py-2 pl-4 pr-3 text-sm text-gray-500 sm:pl-0">
-                      {user.transpoter_name}
+                      {user.transporter_name}
                     </td>
                     <td className="whitespace-nowrap px-2 py-2 text-sm font-medium text-gray-900">
-                      {user.transpoter_phone_number}
+                      {user.transporter_phone_number}
                     </td>
                   </tr>
                 ))}

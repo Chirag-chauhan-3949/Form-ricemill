@@ -4,7 +4,7 @@ function ViewSocieties() {
   const [data, setdata] = useState([]);
   useEffect(() => {
     axios
-      .get("https://localhost:8000/societies")
+      .get("http://localhost:8000/societies")
       .then((res) => setdata(res.data))
       .catch((err) => console.log(err));
   }, []);
@@ -39,6 +39,12 @@ function ViewSocieties() {
                     Society Name
                   </th>
                   <th className="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900">
+                    Google Distance
+                  </th>
+                  <th className="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900">
+                    Actual Distance
+                  </th>
+                  <th className="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900">
                     Distance From Mill
                   </th>
                   <th className="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900">
@@ -52,8 +58,14 @@ function ViewSocieties() {
                     <td className="whitespace-nowrap py-2 pl-4 pr-3 text-sm text-gray-500 sm:pl-0">
                       {user.society_name}
                     </td>
+                    <td className="whitespace-nowrap py-2 pl-4 pr-3 text-sm text-gray-500 sm:pl-0">
+                      {user.google_distance}
+                    </td>
+                    <td className="whitespace-nowrap py-2 pl-4 pr-3 text-sm text-gray-500 sm:pl-0">
+                      {user.actual_distance}
+                    </td>
                     <td className="whitespace-nowrap px-2 py-2 text-sm font-medium text-gray-900">
-                      {user.Distance_from_mill}
+                      {user.distance_from_mill}
                     </td>
                     <td className="whitespace-nowrap px-2 py-2 text-sm font-medium text-gray-900">
                       {user.transporting_rate}

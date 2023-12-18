@@ -23,7 +23,7 @@ const Saudapatrak = () => {
 
         const data = transporter_response.data;
         setTrucks(data);
-        console.log(data);
+        // console.log(data);
       } catch (error) {
         console.error("Error:", error);
       }
@@ -41,7 +41,7 @@ const Saudapatrak = () => {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(saudapatrakData);
+    // console.log(saudapatrakData);
 
     try {
       const response = await axios.post(
@@ -55,7 +55,7 @@ const Saudapatrak = () => {
       );
 
       if (response.status === 201 || response.status === 300) {
-        console.log("Sauda Patrak added successfully");
+        // console.log("Sauda Patrak added successfully");
         toast.success("Sauda Patrak added successfully", {
           position: "top-right",
           autoClose: 3000,
