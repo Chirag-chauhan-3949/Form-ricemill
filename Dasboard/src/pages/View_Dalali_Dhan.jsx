@@ -21,7 +21,7 @@ function View_Dalali_Dhan() {
       <div className="sm:flex sm:items-center">
         <div className="sm:flex-auto">
           <h1 className="text-base font-semibold leading-6 text-gray-900">
-            Dhan Awak
+            Dalali Dhan
           </h1>
           <p className="mt-2 text-sm text-gray-700">
             A table of placeholder stock market data that does not make any
@@ -98,10 +98,10 @@ function View_Dalali_Dhan() {
                     Hamali
                   </th>
                   <th className="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900">
-                    Weight Less Plastic
+                    Plastic Bags
                   </th>
                   <th className="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900">
-                    Weight Less Jute
+                    Jute Bags
                   </th>
                   <th className="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900">
                     Weight Less Kata Difference
@@ -126,9 +126,7 @@ function View_Dalali_Dhan() {
                     <td className="py-2 px-4 border-b subpixel-antialiased leading-6 text-gray-900">
                       {Agreement.date}
                     </td>
-                    <td className="whitespace-nowrap py-2 pl-4 pr-3 text-sm text-gray-500 sm:pl-0">
-                      {Agreement.date}
-                    </td>
+
                     <td className="whitespace-nowrap py-2 pl-4 pr-3 text-sm text-gray-500 sm:pl-0">
                       {Agreement.kochia_id}
                     </td>
@@ -160,7 +158,7 @@ function View_Dalali_Dhan() {
                       {Agreement.sarna_weight}
                     </td>
                     <td className="whitespace-nowrap py-2 pl-4 pr-3 text-sm text-gray-500 sm:pl-0">
-                      {Agreement.sambha_new_bag}
+                      {Agreement.sambha_new_bags}
                     </td>
                     <td className="whitespace-nowrap py-2 pl-4 pr-3 text-sm text-gray-500 sm:pl-0">
                       {Agreement.sambha_new_weight}
@@ -178,10 +176,10 @@ function View_Dalali_Dhan() {
                       {Agreement.hamali}
                     </td>
                     <td className="whitespace-nowrap py-2 pl-4 pr-3 text-sm text-gray-500 sm:pl-0">
-                      {Agreement.weight_less_plastic}
+                      {Agreement.plastic_bag}
                     </td>
                     <td className="whitespace-nowrap py-2 pl-4 pr-3 text-sm text-gray-500 sm:pl-0">
-                      {Agreement.weight_less_jute}
+                      {Agreement.jute_bag}
                     </td>
                     <td className="whitespace-nowrap py-2 pl-4 pr-3 text-sm text-gray-500 sm:pl-0">
                       {Agreement.weight_less_kata_difference}

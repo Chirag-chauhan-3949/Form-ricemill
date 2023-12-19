@@ -21,6 +21,7 @@ const navigation = [
     name: "Forms",
     current: false,
     children: [
+      { name: "Dalali Dhan", href: "/Dalalidhan" },
       { name: "Add Do", href: "/Add_Do" },
       { name: "Rice Deposit", href: "/Ricedeposit" },
       { name: "Frk", href: "/Frk" },
@@ -53,7 +54,6 @@ const navigation = [
     name: "Error Forms",
     current: false,
     children: [
-      { name: "Dalali Dhan", href: "/Dalalidhan" },
       { name: "Paddy Sales", href: "/Paddysales" },
       { name: "Lot Number Master", href: "/Lotnumbermaster" },
       { name: "Dhan Rice Sociesties Rate", href: "/Dhanricesocietiesrate" },

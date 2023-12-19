@@ -99,7 +99,7 @@ const Dalalidhan = () => {
   const handlePaddyTypeChange = (e) => {
     const { value } = e.target;
     setSelectedPaddyType(value);
-    console.log(value);
+    // console.log(value);
 
     // Optionally, you can reset the corresponding fields when the paddy type changes
     setDalaliData((prevData) => ({
@@ -110,7 +110,7 @@ const Dalalidhan = () => {
   };
 
   const handleSubmit = async (e) => {
-    console.log(DalaliData);
+    // console.log(DalaliData);
     e.preventDefault();
     try {
       const response = await axios.post(
@@ -124,7 +124,7 @@ const Dalalidhan = () => {
       );
 
       if (response.status === 201) {
-        console.log("Form data sent successfully");
+        // console.log("Form data sent successfully");
         toast.success("Dalali Dhan added successfully", {
           position: "top-right",
           autoClose: 3000,
@@ -510,7 +510,7 @@ const Dalalidhan = () => {
                     <div className="mt-1">
                       <input
                         disabled
-                        type="text"
+                        type=""
                         placeholder="Enter Weight less Kata Difference"
                         name="weight_less_kata_difference"
                         value={
