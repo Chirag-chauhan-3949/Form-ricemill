@@ -8,7 +8,8 @@ const capitalizeFirstLetter = (str) => {
   return str.charAt(0).toUpperCase() + str.slice(1);
 };
 const Dalalidhan = () => {
-  const [selectedPaddyType, setSelectedPaddyType] = useState("");
+  const [selectedPaddyType, setSelectedPaddyType] = useState("white_sarna");
+
   const [DalaliData, setDalaliData] = useState({
     rst_number: 0,
     date: "",
@@ -28,13 +29,42 @@ const Dalalidhan = () => {
     total_bags: 0,
     total_weight: 0,
     hamali: 0,
-    weight_less_plastic: 0,
-    weight_less_jute: 0,
+    jute_bag: 0,
+    plastic_bag: 0,
     weight_less_kata_difference: 0,
     net_weight: 0,
     rate: 0,
     ammount: 0,
   });
+  const initialDalaliData = {
+    rst_number: 0,
+    date: "",
+    kochia_id: "",
+    vehicale_number_id: 0,
+    white_sarna_bags: 0,
+    white_sarna_weight: 0,
+    ir_bags: 0,
+    ir_weight: 0,
+    rb_gold_bags: 0,
+    rb_gold_weight: 0,
+    sarna_bags: 0,
+    sarna_weight: 0,
+    sambha_new_bag: 0,
+    sambha_new_weight: 0,
+    paddy_type: "",
+    total_bags: 0,
+    total_weight: 0,
+    hamali: 0,
+    jute_bag: 0,
+    plastic_bag: 0,
+    weight_less_kata_difference: 0,
+    net_weight: 0,
+    rate: 0,
+    ammount: 0,
+  };
+  const resetForm = () => {
+    setDalaliData(initialDalaliData);
+  };
 
   const [kochiaData, setkochiaData] = useState([]);
   const [trucks, setTrucks] = useState([]);
@@ -104,6 +134,7 @@ const Dalalidhan = () => {
           draggable: true,
           progress: undefined,
         });
+        resetForm();
       } else {
         console.error("Failed to send form data");
         toast.error("Failed to add Dalali Dhan", {
@@ -209,6 +240,8 @@ const Dalalidhan = () => {
                   </div>
                   <div className="mt-1">
                     <DateInput
+                      label="Date"
+                      name="date"
                       value={DalaliData.date}
                       onChange={handleInputChange}
                     />
@@ -364,7 +397,7 @@ const Dalalidhan = () => {
                         name="total_bags"
                         value={
                           (DalaliData.total_bags =
-                            DalaliData[`${selectedPaddyType}_bags`])
+                            DalaliData[`${selectedPaddyType}_bags`] || 0)
                         }
                         className="block min-w-[250px] w-full px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                         onChange={handleInputChange}
@@ -388,7 +421,7 @@ const Dalalidhan = () => {
                         name="total_weight"
                         value={
                           (DalaliData.total_weight =
-                            DalaliData[`${selectedPaddyType}_weight`])
+                            DalaliData[`${selectedPaddyType}_weight`] || 0)
                         }
                         className="block min-w-[250px] w-full px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                         onChange={handleInputChange}
@@ -414,7 +447,7 @@ const Dalalidhan = () => {
                         name="hamali"
                         value={
                           (DalaliData.hamali =
-                            DalaliData[`${selectedPaddyType}_bags`] * 3)
+                            DalaliData[`${selectedPaddyType}_bags`] * 3 || 0)
                         }
                         className="block min-w-[250px] w-full px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                         onChange={handleInputChange}
@@ -426,18 +459,18 @@ const Dalalidhan = () => {
                   <div className="mt-3">
                     <div className="flex justify-between">
                       <label
-                        htmlFor="weight_less_plastic"
+                        htmlFor="plastic_bag"
                         className="block text-sm font-medium leading-6 text-gray-900"
                       >
-                        Weight Less Plastics
+                        Plastics bag
                       </label>
                     </div>
                     <div className="mt-1">
                       <input
                         type="number"
                         placeholder="Enter bags"
-                        name="weight_less_plastic"
-                        value={DalaliData.weight_less_plastic}
+                        name="plastic_bag"
+                        value={DalaliData.plastic_bag}
                         className="block min-w-[250px] w-full px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                         onChange={handleInputChange}
                       />
@@ -446,18 +479,18 @@ const Dalalidhan = () => {
                   <div className="mt-3">
                     <div className="flex justify-between">
                       <label
-                        htmlFor="weight_less_jute"
+                        htmlFor="jute_bag"
                         className="block text-sm font-medium leading-6 text-gray-900"
                       >
-                        Weight Less Jute
+                        Jute bag
                       </label>
                     </div>
                     <div className="mt-1">
                       <input
                         type="number"
                         placeholder="Enter Weight Less Jute"
-                        name="weight_less_jute"
-                        value={DalaliData.weight_less_jute}
+                        name="jute_bag"
+                        value={DalaliData.jute_bag}
                         className="block min-w-[250px] w-full px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                         onChange={handleInputChange}
                       />
@@ -507,8 +540,8 @@ const Dalalidhan = () => {
                         name="net_weight"
                         value={(DalaliData.net_weight =
                           DalaliData.total_weight -
-                          DalaliData.weight_less_plastic * 0.002 -
-                          DalaliData.weight_less_jute * 0.007 -
+                          DalaliData.plastic_bag * 0.002 -
+                          DalaliData.jute_bag * 0.007 -
                           DalaliData.weight_less_kata_difference).toFixed(3)}
                         className="block min-w-[250px] w-full px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                         onChange={handleInputChange}
