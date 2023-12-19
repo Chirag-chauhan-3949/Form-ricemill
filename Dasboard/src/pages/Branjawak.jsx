@@ -51,7 +51,7 @@ const Branjawak = () => {
     party: "",
     rice_mill_name_id: "",
     broker: "",
-    brokerage_percent: 0,
+    brokerage_percentage: 0,
     weight: 0,
     rate: 0,
     number_of_bags: 0,

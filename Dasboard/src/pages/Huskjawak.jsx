@@ -38,7 +38,7 @@ const Huskjawak = () => {
 
         const data = All_data.data;
         setAlldata(data);
-        console.log(data);
+        // console.log(data);
       } catch (error) {
         console.error("Error:", error);
       }
@@ -81,7 +81,7 @@ const Huskjawak = () => {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(HuskjawakData);
+    // console.log(HuskjawakData);
 
     try {
       const response = await axios.post(
@@ -95,7 +95,7 @@ const Huskjawak = () => {
       );
 
       if (response.status >= 201 || response.status < 300) {
-        console.log("Husk Jawak added successfully");
+        // console.log("Husk Jawak added successfully");
         toast.success("Husk Jawak added successfully", {
           position: "top-right",
           autoClose: 3000,

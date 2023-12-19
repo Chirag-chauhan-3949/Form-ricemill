@@ -53,6 +53,7 @@ import View_OtherAwak from "./pages/View_OtherAwak.jsx";
 import View_OtherJawak from "./pages/View_OtherJawak.jsx";
 import Add_Broker from "./pages/Add_Broker.jsx";
 import View_Broker from "./pages/View_Broker.jsx";
+import View_Husk from "./pages/View_husk.jsx";
 const App = () => {
   const [isLoggedIn, setLoggedIn] = useState(true);
 
@@ -123,6 +124,7 @@ const App = () => {
             <Route path="/View_OtherJawak" element={<View_OtherJawak />} />
             <Route path="/Add_Broker" element={<Add_Broker />} />
             <Route path="/View_Broker" element={<View_Broker />} />
+            <Route path="/View_Husk" element={<View_Husk />} />
           </Routes>
         </Sidebar>
       ) : (

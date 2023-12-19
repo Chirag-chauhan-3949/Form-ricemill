@@ -28,7 +28,7 @@ const Bhusi = () => {
 
         const data = All_data.data;
         setAlldata(data);
-        console.log(data);
+        // console.log(data);
       } catch (error) {
         console.error("Error:", error);
       }
@@ -37,11 +37,11 @@ const Bhusi = () => {
     fetchMillData();
   }, []);
   const initialBhusiData = {
-    rst: 0,
+    rst_number: 0,
     date: "",
     party: "",
     rice_mill_name_id: "",
-    bags: 0,
+    number_of_bags: 0,
     weight: 0,
     truck_number: "",
     rate: 0,
@@ -52,7 +52,7 @@ const Bhusi = () => {
   };
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    console.log(value);
+    // console.log(value);
     setBhusiData((prevData) => ({
       ...prevData,
       [name]: value,
@@ -73,7 +73,7 @@ const Bhusi = () => {
       );
 
       if (response.status >= 201 || response.status < 300) {
-        console.log("Bhusi  added successfully");
+        // console.log("Bhusi  added successfully");
         toast.success(" Bhusi added successfully", {
           position: "top-right",
           autoClose: 3000,

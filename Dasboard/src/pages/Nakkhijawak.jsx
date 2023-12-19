@@ -39,7 +39,7 @@ const Nakkhijawak = () => {
 
         const data = All_data.data;
         setAlldata(data);
-        console.log(data);
+        // console.log(data);
       } catch (error) {
         console.error("Error:", error);
       }
@@ -57,7 +57,7 @@ const Nakkhijawak = () => {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(NakkhijawakData);
+    // console.log(NakkhijawakData);
 
     try {
       const response = await axios.post(
@@ -71,7 +71,7 @@ const Nakkhijawak = () => {
       );
 
       if (response.status >= 201 || response.status < 300) {
-        console.log("Nakkhi Jawak added successfully");
+        // console.log("Nakkhi Jawak added successfully");
         toast.success("Nakkhi Jawak added successfully", {
           position: "top-right",
           autoClose: 3000,

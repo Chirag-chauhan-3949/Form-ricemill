@@ -89,6 +89,7 @@ const navigation = [
 
       { name: "View_Dalali_Dhan", href: "/View_Dalali_Dhan" },
       { name: "View Broken Jawak", href: "/View_broken_jawak" },
+      { name: "View Husk Jawak", href: "/View_Husk" },
     ],
   },
 ];
