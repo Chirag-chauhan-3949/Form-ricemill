@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import Dateinput from "../inputelement/Dateinput";
 import "react-toastify/dist/ReactToastify.css";
@@ -10,23 +10,46 @@ const Otherjawak = () => {
     rst: 0,
     date: "",
     party: "",
-    mill: "",
-    broker: "",
-    brokerage_percent: 0,
-    weight: 0,
-    rate: 0,
-    number_of_bags: 0,
+    rice_mill_name_id: "",
     truck_number: "",
-    total: 0,
-    brokerage: 0,
-    net_recievable: 0,
-    loading_date: "",
-    recieved_date: "",
-    payment_recieved: 0,
-    number_of_days: 0,
-    payment_difference: 0,
-    remarks: "",
+    material: "",
+    nos: 0,
+    reason: "",
+    weight: 0,
   });
+  const [Alldata, setAlldata] = useState([]);
+
+  useEffect(() => {
+    async function fetchMillData() {
+      try {
+        const All_data = await axios.get(
+          "http://localhost:8000/rice-truck-party-brokers"
+        );
+
+        const data = All_data.data;
+        setAlldata(data);
+        console.log(data);
+      } catch (error) {
+        console.error("Error:", error);
+      }
+    }
+
+    fetchMillData();
+  }, []);
+  const initialOtherjawakData = {
+    rst: 0,
+    date: "",
+    party: "",
+    rice_mill_name_id: "",
+    truck_number: "",
+    material: "",
+    nos: 0,
+    reason: "",
+    weight: 0,
+  };
+  const resetForm = () => {
+    setOtherjawakData(initialOtherjawakData);
+  };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -60,6 +83,7 @@ const Otherjawak = () => {
           draggable: true,
           progress: undefined,
         });
+        resetForm();
       } else {
         console.error("Failed to add Other Jawak");
         toast.error("Failed to add Other Jawak", {
@@ -97,7 +121,7 @@ const Otherjawak = () => {
           />
 
           <h2 className="mt-6 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
-            Add Broken Jawak
+            Add Other Jawak
           </h2>
         </div>
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-[740px]">
@@ -108,7 +132,7 @@ const Otherjawak = () => {
                   label="RST"
                   name="rst"
                   type="number"
-                  value={Otherjawak.rst}
+                  value={OtherjawakData.rst}
                   onChange={handleInputChange}
                   placeholder="Enter rst number"
                 />
@@ -122,149 +146,133 @@ const Otherjawak = () => {
               <SelectInput
                 label="Party"
                 name="party"
-                options=""
-                value=""
-                onChange=""
                 placeholder="Select Party"
+                options={
+                  Alldata.party_data &&
+                  Alldata.party_data.map((option) => ({
+                    label: option.party_name,
+                    value: option.party_id,
+                  }))
+                }
+                value={
+                  OtherjawakData.party
+                    ? {
+                        label: Alldata.party_data.find(
+                          (option) => option.party_id === OtherjawakData.party
+                        ).party_name,
+                        value: OtherjawakData.party,
+                      }
+                    : null
+                }
+                onChange={(selectedOption) =>
+                  handleInputChange({
+                    target: {
+                      name: "party",
+                      value: selectedOption ? selectedOption.value : "",
+                    },
+                  })
+                }
               />
               <div className="flex justify-between">
                 <SelectInput
-                  label="Rice Mill"
-                  name="mill"
-                  options=""
-                  value=""
-                  onChange=""
+                  label="Select Rice Mill"
+                  name="rice_mill_name_id"
+                  options={
+                    Alldata.rice_mill_data &&
+                    Alldata.rice_mill_data.map((option) => ({
+                      label: option.rice_mill_name,
+                      value: option.rice_mill_id,
+                    }))
+                  }
+                  value={
+                    OtherjawakData.rice_mill_name_id
+                      ? {
+                          label: Alldata.rice_mill_data.find(
+                            (option) =>
+                              option.rice_mill_id ===
+                              OtherjawakData.rice_mill_name_id
+                          ).rice_mill_name,
+                          value: OtherjawakData.rice_mill_name_id,
+                        }
+                      : null
+                  }
+                  onChange={(selectedOption) =>
+                    handleInputChange({
+                      target: {
+                        name: "rice_mill_name_id",
+                        value: selectedOption ? selectedOption.value : "",
+                      },
+                    })
+                  }
                   placeholder="Select Mill"
                 />
                 <SelectInput
-                  label="Broker"
-                  name="broker"
-                  options=""
-                  value=""
-                  onChange=""
-                  placeholder="Select Broker"
+                  label="Truck Number"
+                  name="truck_number"
+                  options={
+                    Alldata.truck_data &&
+                    Alldata.truck_data.map((option) => ({
+                      label: option.truck_number,
+                      value: option.truck_id,
+                    }))
+                  }
+                  value={
+                    OtherjawakData.truck_number
+                      ? {
+                          label: Alldata.truck_data.find(
+                            (option) =>
+                              option.truck_id === OtherjawakData.truck_number
+                          ).truck_number,
+                          value: OtherjawakData.truck_number,
+                        }
+                      : null
+                  }
+                  onChange={(selectedOption) =>
+                    handleInputChange({
+                      target: {
+                        name: "truck_number",
+                        value: selectedOption ? selectedOption.value : "",
+                      },
+                    })
+                  }
+                  placeholder="Select Truck Number"
                 />
               </div>
-              <div className="flex justify-between">
-                <Inputbox
-                  label="Brokerage Percent"
-                  name="brokerage_percent"
-                  type="number"
-                  value={OtherjawakData.brokerage_percent}
-                  onChange={handleInputChange}
-                  placeholder="Enter Brokerage Percent"
-                />
-                <Inputbox
-                  label=" Weight"
-                  name="weight"
-                  type="number"
-                  value={OtherjawakData.weight}
-                  onChange={handleInputChange}
-                  placeholder="Enter Weight "
-                />
-              </div>
+
               <div className="flex justify-between flex-wrap">
                 <Inputbox
-                  label="Rate"
-                  name="rate"
+                  label="Material"
+                  name="material"
                   type="number"
                   value={OtherjawakData.rate}
                   onChange={handleInputChange}
                   placeholder="Enter Rate "
                 />
                 <Inputbox
-                  label="Number of Bags"
-                  name="number_of_bags"
+                  label="NOS"
+                  name="nos"
                   type="number"
-                  value={OtherjawakData.number_of_bags}
+                  value={OtherjawakData.nos}
                   onChange={handleInputChange}
-                  placeholder="Enter Number of Bags "
-                />
-              </div>
-              <div className="flex justify-between">
-                <SelectInput
-                  label="Truck Number"
-                  name="truck_number"
-                  options=""
-                  value=""
-                  onChange=""
-                  placeholder="Select Truck Number"
-                />
-                <Inputbox
-                  label="Total"
-                  name="total"
-                  type="number"
-                  value={OtherjawakData.total}
-                  onChange={handleInputChange}
-                  placeholder="Enter total "
+                  placeholder="Enter Number NOS "
                 />
               </div>
               <div className="flex justify-between">
                 <Inputbox
-                  label="Brokerage"
-                  name="brokerage"
+                  label="Weight"
+                  name="weight"
                   type="number"
-                  value={OtherjawakData.brokerage}
+                  value={OtherjawakData.weight}
                   onChange={handleInputChange}
-                  placeholder="Enter Brokerage "
+                  placeholder="Enter weight "
                 />
                 <Inputbox
-                  label=" Net Recievable"
-                  name="net_recievable"
+                  label="Reason"
+                  name="reason"
                   type="number"
-                  value={OtherjawakData.net_recievable}
+                  value={OtherjawakData.reason}
                   onChange={handleInputChange}
-                  placeholder="Enter Net Recievable "
-                />
-              </div>
-              <div className="flex justify-between">
-                <Dateinput
-                  label="Loading Date"
-                  name="loading_date"
-                  value={OtherjawakData.loading_date}
-                  onChange={handleInputChange}
-                />
-                <Dateinput
-                  label="Recieved Date"
-                  name="recieved_date"
-                  value={OtherjawakData.recieved_date}
-                  onChange={handleInputChange}
-                />
-              </div>
-              <div className="flex justify-between">
-                <Inputbox
-                  label="Payment Recieved"
-                  name="payment_recieved"
-                  type="number"
-                  value={OtherjawakData.payment_recieved}
-                  onChange={handleInputChange}
-                  placeholder="Enter Payment Recieved"
-                />
-                <Inputbox
-                  label="Number of Days"
-                  name="number_of_days"
-                  type="number"
-                  value={OtherjawakData.number_of_days}
-                  onChange={handleInputChange}
-                  placeholder="Enter Number of Days "
-                />
-              </div>
-              <div className="flex justify-between">
-                <Inputbox
-                  label="Payment Difference"
-                  name="payment_difference"
-                  type="number"
-                  value={OtherjawakData.payment_difference}
-                  onChange={handleInputChange}
-                  placeholder="Enter Payment Difference "
-                />
-                <Inputbox
-                  label=" Remarks "
-                  name="remarks"
-                  type="text"
-                  value={OtherjawakData.remarks}
-                  onChange={handleInputChange}
-                  placeholder="Enter  Remarks "
+                  placeholder="Enter reason "
                 />
               </div>
               {/* Submit Button */}
@@ -273,7 +281,7 @@ const Otherjawak = () => {
                   type="submit"
                   className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                 >
-                  Add Broken Jawak
+                  Add Other Jawak
                 </button>
               </div>
             </form>

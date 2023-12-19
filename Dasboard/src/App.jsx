@@ -43,7 +43,8 @@ import View_Warehouse from "./pages/View_Warehouse.jsx";
 import View_Kochia from "./pages/View_Kochia.jsx";
 import View_Frk from "./pages/View_Frk.jsx";
 import View_SudaPatrak from "./pages/View_SudaPatrak";
-
+import Otherjawak from "./pages/Otherjawak.jsx";
+import Otherawak from "./pages/Otherawak.jsx";
 const App = () => {
   const [isLoggedIn, setLoggedIn] = useState(true);
 
@@ -56,6 +57,8 @@ const App = () => {
       {isLoggedIn ? (
         <Sidebar>
           <Routes>
+            <Route path="/Otherawak" element={<Otherawak />} />
+            <Route path="/Otherjawak" element={<Otherjawak />} />
             <Route path="/Bhusi" element={<Bhusi />} />
             <Route path="/Huskjawak" element={<Huskjawak />} />
             <Route path="/Nakkhijawak" element={<Nakkhijawak />} />
