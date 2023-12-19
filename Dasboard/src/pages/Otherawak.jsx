@@ -7,7 +7,7 @@ import axios from "axios";
 import SelectInput from "../inputelement/Selectinput";
 const Otherawak = () => {
   const [OtherawakData, setOtherawakData] = useState({
-    rst: 0,
+    rst_number: 0,
     date: "",
     party: "",
     rice_mill_name_id: "",
@@ -28,7 +28,7 @@ const Otherawak = () => {
 
         const data = All_data.data;
         setAlldata(data);
-        console.log(data);
+        // console.log(data);
       } catch (error) {
         console.error("Error:", error);
       }
@@ -37,7 +37,7 @@ const Otherawak = () => {
     fetchMillData();
   }, []);
   const initialOtherawakData = {
-    rst: 0,
+    rst_number: 0,
     date: "",
     party: "",
     rice_mill_name_id: "",
@@ -60,10 +60,11 @@ const Otherawak = () => {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
+    // console.log(OtherawakData);
 
     try {
       const response = await axios.post(
-        "http://localhost:8000/",
+        "http://localhost:8000/other-awak",
         OtherawakData,
         {
           headers: {
@@ -73,7 +74,7 @@ const Otherawak = () => {
       );
 
       if (response.status >= 201 || response.status < 300) {
-        console.log("Other Awak added successfully");
+        // console.log("Other Awak added successfully");
         toast.success("Other Awak added successfully", {
           position: "top-right",
           autoClose: 3000,
@@ -130,9 +131,9 @@ const Otherawak = () => {
               <div className="flex justify-between flex-wrap ">
                 <Inputbox
                   label="RST"
-                  name="rst"
+                  name="rst_number"
                   type="number"
-                  value={OtherawakData.rst}
+                  value={OtherawakData.rst_number}
                   onChange={handleInputChange}
                   placeholder="Enter rst number"
                 />
@@ -243,7 +244,7 @@ const Otherawak = () => {
                 <Inputbox
                   label="Material"
                   name="material"
-                  type="number"
+                  type="text"
                   value={OtherawakData.rate}
                   onChange={handleInputChange}
                   placeholder="Enter Rate "
@@ -269,7 +270,7 @@ const Otherawak = () => {
                 <Inputbox
                   label="Reason"
                   name="reason"
-                  type="number"
+                  type="text"
                   value={OtherawakData.reason}
                   onChange={handleInputChange}
                   placeholder="Enter reason "

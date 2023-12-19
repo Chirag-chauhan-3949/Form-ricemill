@@ -12,7 +12,9 @@ const navigation = [
       { name: "Add New Society", href: "/Add_New_Society" },
       { name: "Add Agreement", href: "/Add_Agreement" },
       { name: "Add Warehouse", href: "/Add_Warehouse" },
-      { name: "Kochia", href: "/Add_kochia" },
+      { name: "Add Kochia", href: "/Add_kochia" },
+      { name: "Add Party", href: "/Add_party" },
+      { name: "Add Broker", href: "/Add_Broker" },
     ],
   },
   {
@@ -71,10 +73,15 @@ const navigation = [
       { name: "View Agreement", href: "/View_Agreement" },
       { name: "View Ware House", href: "/View_Warehouse" },
       { name: "View Kochia", href: "/View_Kochia" },
+      { name: "View Party", href: "/View_party" },
+      { name: "View Broker", href: "/View_Broker" },
       { name: "View FRK", href: "/View_Frk" },
 
       { name: "View Add Do", href: "/View_AddDo" },
       { name: "View_Dhan_Awak", href: "/View_Dhan_Awak" },
+      { name: "View_OtherAwak", href: "/View_OtherAwak" },
+      { name: "View Other Jawak", href: "/View_OtherJawak" },
+
       { name: "View_RiceDeposit", href: "/View_RiceDeposit" },
       { name: "View Suda Patrak", href: "/View_SudaPatrak" },
       { name: "View Do Pending", href: "/View_Dopending" },

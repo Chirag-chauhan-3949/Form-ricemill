@@ -1,11 +1,11 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
-function ViewBrokenjawak() {
+function View_OtherJawak() {
   const [data, setdata] = useState([]);
 
   useEffect(() => {
     axios
-      .get("http://localhost:8000/other-broken-jawak-data")
+      .get("http://localhost:8000/other-jawak-data")
       .then((res) => {
         setdata(res.data);
       })
@@ -21,7 +21,7 @@ function ViewBrokenjawak() {
       <div className="sm:flex sm:items-center">
         <div className="sm:flex-auto">
           <h1 className="text-base font-semibold leading-6 text-gray-900">
-            Broken Jawak
+            Dhan Awak
           </h1>
           <p className="mt-2 text-sm text-gray-700">
             A table of placeholder stock market data that does not make any
@@ -50,55 +50,25 @@ function ViewBrokenjawak() {
                     Date
                   </th>
                   <th className="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900">
-                    Party
-                  </th>
-                  <th className="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900">
-                    Rice Mill
-                  </th>
-                  <th className="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900">
-                    Broker
-                  </th>
-                  <th className="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900">
-                    Brokerage Percentage
-                  </th>
-                  <th className="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900">
-                    Weight
-                  </th>
-                  <th className="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900">
-                    Rate
-                  </th>
-                  <th className="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900">
-                    Number of Bags
+                    Party Name
                   </th>
                   <th className="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900">
                     Truck Number
                   </th>
                   <th className="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900">
-                    Total
+                    Material
                   </th>
                   <th className="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900">
-                    Brokerage
+                    Nos
                   </th>
                   <th className="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900">
-                    Net Receivable
+                    Reason
                   </th>
                   <th className="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900">
-                    Loading Date
+                    Weight
                   </th>
                   <th className="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900">
-                    Received Date
-                  </th>
-                  <th className="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900">
-                    Payment Recieved
-                  </th>
-                  <th className="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900">
-                    Number of Days
-                  </th>
-                  <th className="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900">
-                    Payment Difference
-                  </th>
-                  <th className="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900">
-                    Remarks
+                    Rice Mill Name
                   </th>
                 </tr>
               </thead>
@@ -115,52 +85,22 @@ function ViewBrokenjawak() {
                       {Agreement.party}
                     </td>
                     <td className="whitespace-nowrap py-2 pl-4 pr-3 text-sm text-gray-500 sm:pl-0">
-                      {Agreement.rice_mill_name_id}
+                      {Agreement.truck_number}
                     </td>
                     <td className="whitespace-nowrap py-2 pl-4 pr-3 text-sm text-gray-500 sm:pl-0">
-                      {Agreement.broker}
+                      {Agreement.material}
                     </td>
                     <td className="whitespace-nowrap py-2 pl-4 pr-3 text-sm text-gray-500 sm:pl-0">
-                      {Agreement.brokerage_percentage}
+                      {Agreement.nos}
+                    </td>
+                    <td className="whitespace-nowrap py-2 pl-4 pr-3 text-sm text-gray-500 sm:pl-0">
+                      {Agreement.reason}
                     </td>
                     <td className="whitespace-nowrap py-2 pl-4 pr-3 text-sm text-gray-500 sm:pl-0">
                       {Agreement.weight}
                     </td>
                     <td className="whitespace-nowrap py-2 pl-4 pr-3 text-sm text-gray-500 sm:pl-0">
-                      {Agreement.rate}
-                    </td>
-                    <td className="whitespace-nowrap py-2 pl-4 pr-3 text-sm text-gray-500 sm:pl-0">
-                      {Agreement.number_of_bags}
-                    </td>
-                    <td className="whitespace-nowrap py-2 pl-4 pr-3 text-sm text-gray-500 sm:pl-0">
-                      {Agreement.truck_number}
-                    </td>
-                    <td className="whitespace-nowrap py-2 pl-4 pr-3 text-sm text-gray-500 sm:pl-0">
-                      {Agreement.total}
-                    </td>
-                    <td className="whitespace-nowrap py-2 pl-4 pr-3 text-sm text-gray-500 sm:pl-0">
-                      {Agreement.brokerage}
-                    </td>
-                    <td className="whitespace-nowrap py-2 pl-4 pr-3 text-sm text-gray-500 sm:pl-0">
-                      {Agreement.net_recievable}
-                    </td>
-                    <td className="whitespace-nowrap py-2 pl-4 pr-3 text-sm text-gray-500 sm:pl-0">
-                      {Agreement.loading_date}
-                    </td>
-                    <td className="whitespace-nowrap py-2 pl-4 pr-3 text-sm text-gray-500 sm:pl-0">
-                      {Agreement.recieved_date}
-                    </td>
-                    <td className="whitespace-nowrap py-2 pl-4 pr-3 text-sm text-gray-500 sm:pl-0">
-                      {Agreement.payment_recieved}
-                    </td>
-                    <td className="whitespace-nowrap py-2 pl-4 pr-3 text-sm text-gray-500 sm:pl-0">
-                      {Agreement.number_of_days}
-                    </td>
-                    <td className="whitespace-nowrap py-2 pl-4 pr-3 text-sm text-gray-500 sm:pl-0">
-                      {Agreement.payment_difference}
-                    </td>
-                    <td className="whitespace-nowrap py-2 pl-4 pr-3 text-sm text-gray-500 sm:pl-0">
-                      {Agreement.remarks}
+                      {Agreement.rice_mill_name_id}
                     </td>
                   </tr>
                 ))}
@@ -173,4 +113,4 @@ function ViewBrokenjawak() {
   );
 }
 
-export default ViewBrokenjawak;
+export default View_OtherJawak;

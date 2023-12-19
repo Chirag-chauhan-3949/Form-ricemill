@@ -47,6 +47,12 @@ import Otherjawak from "./pages/Otherjawak.jsx";
 import Otherawak from "./pages/Otherawak.jsx";
 import View_Dopending from "./pages/View_Dopending.jsx";
 import View_DhanTransporting from "./pages/View_DhanTransporting.jsx";
+import Add_Party from "./pages/Add_Party.jsx";
+import View_Party from "./pages/View_party.jsx";
+import View_OtherAwak from "./pages/View_OtherAwak.jsx";
+import View_OtherJawak from "./pages/View_OtherJawak.jsx";
+import Add_Broker from "./pages/Add_Broker.jsx";
+import View_Broker from "./pages/View_Broker.jsx";
 const App = () => {
   const [isLoggedIn, setLoggedIn] = useState(true);
 
@@ -111,6 +117,12 @@ const App = () => {
               path="/View_DhanTransporting"
               element={<View_DhanTransporting />}
             />
+            <Route path="/Add_Party" element={<Add_Party />} />
+            <Route path="/View_Party" element={<View_Party />} />
+            <Route path="/View_OtherAwak" element={<View_OtherAwak />} />
+            <Route path="/View_OtherJawak" element={<View_OtherJawak />} />
+            <Route path="/Add_Broker" element={<Add_Broker />} />
+            <Route path="/View_Broker" element={<View_Broker />} />
           </Routes>
         </Sidebar>
       ) : (
