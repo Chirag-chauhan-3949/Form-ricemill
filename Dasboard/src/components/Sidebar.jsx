@@ -90,6 +90,9 @@ const navigation = [
       { name: "View_Dalali_Dhan", href: "/View_Dalali_Dhan" },
       { name: "View Broken Jawak", href: "/View_broken_jawak" },
       { name: "View Husk Jawak", href: "/View_Husk" },
+      { name: "View Nakkhi", href: "/View_Nakkhi" },
+      { name: "View Bran", href: "/View_Bran" },
+      { name: "View Bhushi", href: "/View_Bhushi" },
     ],
   },
 ];

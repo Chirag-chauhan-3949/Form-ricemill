@@ -1,11 +1,11 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
-function View_Nakkhi() {
+function View_Bran() {
   const [data, setdata] = useState([]);
 
   useEffect(() => {
     axios
-      .get("http://localhost:8000/other-nakkhi-jawak-data")
+      .get("http://localhost:8000/other-bran-jawak-data")
       .then((res) => {
         setdata(res.data);
       })
@@ -21,7 +21,7 @@ function View_Nakkhi() {
       <div className="sm:flex sm:items-center">
         <div className="sm:flex-auto">
           <h1 className="text-base font-semibold leading-6 text-gray-900">
-            NakKhi Jawak
+            Bran Jawak
           </h1>
           <p className="mt-2 text-sm text-gray-700">
             A table of placeholder stock market data that does not make any
@@ -82,13 +82,6 @@ function View_Nakkhi() {
                   <th className="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900">
                     Net Recievable
                   </th>
-
-                  <th className="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900">
-                    Loading Date
-                  </th>
-                  <th className="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900">
-                    Recieved Date
-                  </th>
                   <th className="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900">
                     Payment Recieved
                   </th>
@@ -100,6 +93,9 @@ function View_Nakkhi() {
                   </th>
                   <th className="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900">
                     Remarks
+                  </th>
+                  <th className="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900">
+                    Oil
                   </th>
                 </tr>
               </thead>
@@ -122,7 +118,7 @@ function View_Nakkhi() {
                       {Agreement.broker}
                     </td>
                     <td className="whitespace-nowrap py-2 pl-4 pr-3 text-sm text-gray-500 sm:pl-0">
-                      {Agreement.brokerage_percent}
+                      {Agreement.brokerage_percentage}
                     </td>
                     <td className="whitespace-nowrap py-2 pl-4 pr-3 text-sm text-gray-500 sm:pl-0">
                       {Agreement.weight}
@@ -143,25 +139,21 @@ function View_Nakkhi() {
                       {Agreement.total}
                     </td>
                     <td className="whitespace-nowrap py-2 pl-4 pr-3 text-sm text-gray-500 sm:pl-0">
-                      {Agreement.net_recievable}
+                      {Agreement.net_receivable}
                     </td>
+
                     <td className="whitespace-nowrap py-2 pl-4 pr-3 text-sm text-gray-500 sm:pl-0">
-                      {Agreement.loading_date}
+                      {Agreement.payment_received}
                     </td>
-                    <td className="whitespace-nowrap py-2 pl-4 pr-3 text-sm text-gray-500 sm:pl-0">
-                      {Agreement.recieved_date}
-                    </td>
-                    <td className="whitespace-nowrap py-2 pl-4 pr-3 text-sm text-gray-500 sm:pl-0">
-                      {Agreement.payment_recieved}
-                    </td>
-                    <td className="whitespace-nowrap py-2 pl-4 pr-3 text-sm text-gray-500 sm:pl-0">
-                      {Agreement.number_of_days}
-                    </td>
+
                     <td className="whitespace-nowrap py-2 pl-4 pr-3 text-sm text-gray-500 sm:pl-0">
                       {Agreement.payment_difference}
                     </td>
                     <td className="whitespace-nowrap py-2 pl-4 pr-3 text-sm text-gray-500 sm:pl-0">
                       {Agreement.remarks}
+                    </td>
+                    <td className="whitespace-nowrap py-2 pl-4 pr-3 text-sm text-gray-500 sm:pl-0">
+                      {Agreement.oil}
                     </td>
                   </tr>
                 ))}
@@ -174,4 +166,4 @@ function View_Nakkhi() {
   );
 }
 
-export default View_Nakkhi;
+export default View_Bran;
