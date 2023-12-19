@@ -29,7 +29,7 @@ const Dhantransporting = () => {
         );
         const data = response.data;
         setdopandingData(data);
-        console.log(data);
+        // console.log(data);
       } catch (error) {
         console.error("Error:", error);
       }
@@ -47,7 +47,7 @@ const Dhantransporting = () => {
 
         const data = rst_data.data;
         setDoOptionsRst(data);
-        console.log(data);
+        // console.log(data);
       } catch (error) {
         console.error("Error:", error);
       }
@@ -88,7 +88,7 @@ const Dhantransporting = () => {
     });
   };
   const handleSubmit = async (e) => {
-    console.log(dhantransportingData);
+    // console.log(dhantransportingData);
     e.preventDefault();
     try {
       const response = await axios.post(
@@ -102,7 +102,7 @@ const Dhantransporting = () => {
       );
 
       if (response.status === 201) {
-        console.log("Form data sent successfully");
+        // console.log("Form data sent successfully");
         toast.success("Dhan Transporting added successfully", {
           position: "top-right",
           autoClose: 3000,

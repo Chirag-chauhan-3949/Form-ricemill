@@ -45,6 +45,8 @@ import View_Frk from "./pages/View_Frk.jsx";
 import View_SudaPatrak from "./pages/View_SudaPatrak";
 import Otherjawak from "./pages/Otherjawak.jsx";
 import Otherawak from "./pages/Otherawak.jsx";
+import View_Dopending from "./pages/View_Dopending.jsx";
+import View_DhanTransporting from "./pages/View_DhanTransporting.jsx";
 const App = () => {
   const [isLoggedIn, setLoggedIn] = useState(true);
 
@@ -104,6 +106,11 @@ const App = () => {
             <Route path="/View_Kochia" element={<View_Kochia />} />
             <Route path="/View_Frk" element={<View_Frk />} />
             <Route path="/View_SudaPatrak" element={<View_SudaPatrak />} />
+            <Route path="/View_Dopending" element={<View_Dopending />} />
+            <Route
+              path="/View_DhanTransporting"
+              element={<View_DhanTransporting />}
+            />
           </Routes>
         </Sidebar>
       ) : (

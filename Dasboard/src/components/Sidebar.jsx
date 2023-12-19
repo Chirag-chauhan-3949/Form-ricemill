@@ -24,10 +24,7 @@ const navigation = [
       { name: "Frk", href: "/Frk" },
       { name: "Suda Patrak", href: "/Sudapatrak" },
       { name: "Do Panding", href: "/Dopanding" },
-      { name: "Transporter Master", href: "/Transportermaster" },
-      { name: "Paddy Sales", href: "/Paddysales" },
       { name: "Dhan Transporting", href: "/Dhantransporting" },
-      { name: "Mohan Food Paddy", href: "/Mohanfoodpaddy" },
     ],
   },
   {
@@ -55,8 +52,11 @@ const navigation = [
     current: false,
     children: [
       { name: "Dalali Dhan", href: "/Dalalidhan" },
+      { name: "Paddy Sales", href: "/Paddysales" },
       { name: "Lot Number Master", href: "/Lotnumbermaster" },
       { name: "Dhan Rice Sociesties Rate", href: "/Dhanricesocietiesrate" },
+      { name: "Transporter Master", href: "/Transportermaster" },
+      { name: "Mohan Food Paddy", href: "/Mohanfoodpaddy" },
     ],
   },
 
@@ -77,6 +77,8 @@ const navigation = [
       { name: "View_Dhan_Awak", href: "/View_Dhan_Awak" },
       { name: "View_RiceDeposit", href: "/View_RiceDeposit" },
       { name: "View Suda Patrak", href: "/View_SudaPatrak" },
+      { name: "View Do Pending", href: "/View_Dopending" },
+      { name: "View Dhan Transporting", href: "/View_Dhantransporting" },
 
       { name: "View_Dalali_Dhan", href: "/View_Dalali_Dhan" },
       { name: "View Broken Jawak", href: "/View_broken_jawak" },

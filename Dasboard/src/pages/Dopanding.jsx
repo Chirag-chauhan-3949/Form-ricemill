@@ -39,21 +39,21 @@ const Dopanding = () => {
     async function fetchricedonumberData() {
       try {
         const truck_transporter = await axios.get(
-          ` http://localhost:8000/rice-do-number/${DoOptions.rice_mill_id}`
+          `http://localhost:8000/rice-do-number/${DopandingData.rice_mill_id}`
         );
 
         const data = truck_transporter.data;
         setDoOptionsRiceDoNumber(data);
-        // console.log(data);
+        console.log(data);
       } catch (error) {
         console.error("Error:", error);
       }
     }
 
-    if (DoOptions.rice_mill_id) {
+    if (DopandingData.rice_mill_id) {
       fetchricedonumberData();
     }
-  }, [DoOptions.rice_mill_id]);
+  }, [DopandingData.rice_mill_id]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -65,6 +65,7 @@ const Dopanding = () => {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log(DopandingData);
 
     try {
       const response = await axios.post(
@@ -127,7 +128,7 @@ const Dopanding = () => {
             <form className="space-y-6" onSubmit={handleSubmit}>
               <div>
                 <label
-                  htmlFor="select_mill_id"
+                  htmlFor="rice_mill_id"
                   className="block text-sm font-medium leading-6 text-gray-900"
                 >
                   Select Rice Mill
@@ -136,7 +137,7 @@ const Dopanding = () => {
                   <select
                     required
                     type="text"
-                    name="select_mill_id"
+                    name="rice_mill_id"
                     className="block  w-full bg-white rounded-md  border-0 px-1.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     value={DoOptions.select_mill_id}
                     onChange={handleInputChange}
@@ -201,11 +202,12 @@ const Dopanding = () => {
                       onChange={handleInputChange}
                     >
                       <option value="">-Select Do Number-</option>
-                      {DoOptionsricedonumber.map((option) => (
-                        <option key={option.do_id} value={option.do_id}>
-                          {option.do_number}
-                        </option>
-                      ))}
+                      {DoOptionsricedonumber.do_number_data &&
+                        DoOptionsricedonumber.do_number_data.map((option) => (
+                          <option key={option.do_id} value={option.do_id}>
+                            {option.do_number}
+                          </option>
+                        ))}
                     </select>
                     <p className="mt-2 text-sm text-gray-500">
                       Cannot Find Do?{" "}
