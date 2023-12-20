@@ -9,9 +9,9 @@ const Otherawak = () => {
   const [OtherawakData, setOtherawakData] = useState({
     rst_number: 0,
     date: "",
-    party: "",
+    party_id: "",
     rice_mill_name_id: "",
-    truck_number: "",
+    truck_number_id: "",
     material: "",
     nos: 0,
     reason: "",
@@ -39,9 +39,9 @@ const Otherawak = () => {
   const initialOtherawakData = {
     rst_number: 0,
     date: "",
-    party: "",
+    party_id: "",
     rice_mill_name_id: "",
-    truck_number: "",
+    truck_number_id: "",
     material: "",
     nos: 0,
     reason: "",
@@ -146,7 +146,7 @@ const Otherawak = () => {
               </div>
               <SelectInput
                 label="Party"
-                name="party"
+                name="party_id"
                 placeholder="Select Party"
                 options={
                   Alldata.party_data &&
@@ -156,19 +156,19 @@ const Otherawak = () => {
                   }))
                 }
                 value={
-                  OtherawakData.party
+                  OtherawakData.party_id
                     ? {
                         label: Alldata.party_data.find(
-                          (option) => option.party_id === OtherawakData.party
+                          (option) => option.party_id === OtherawakData.party_id
                         ).party_name,
-                        value: OtherawakData.party,
+                        value: OtherawakData.party_id,
                       }
                     : null
                 }
                 onChange={(selectedOption) =>
                   handleInputChange({
                     target: {
-                      name: "party",
+                      name: "party_id",
                       value: selectedOption ? selectedOption.value : "",
                     },
                   })
@@ -209,7 +209,7 @@ const Otherawak = () => {
                 />
                 <SelectInput
                   label="Truck Number"
-                  name="truck_number"
+                  name="truck_number_id"
                   options={
                     Alldata.truck_data &&
                     Alldata.truck_data.map((option) => ({
@@ -218,20 +218,20 @@ const Otherawak = () => {
                     }))
                   }
                   value={
-                    OtherawakData.truck_number
+                    OtherawakData.truck_number_id
                       ? {
                           label: Alldata.truck_data.find(
                             (option) =>
-                              option.truck_id === OtherawakData.truck_number
+                              option.truck_id === OtherawakData.truck_number_id
                           ).truck_number,
-                          value: OtherawakData.truck_number,
+                          value: OtherawakData.truck_number_id,
                         }
                       : null
                   }
                   onChange={(selectedOption) =>
                     handleInputChange({
                       target: {
-                        name: "truck_number",
+                        name: "truck_number_id",
                         value: selectedOption ? selectedOption.value : "",
                       },
                     })

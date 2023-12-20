@@ -21,7 +21,7 @@ function View_RiceDeposit() {
       <div className="sm:flex sm:items-center">
         <div className="sm:flex-auto">
           <h1 className="text-base font-semibold leading-6 text-gray-900">
-            Dhan Awak
+            Rice Deposit
           </h1>
           <p className="mt-2 text-sm text-gray-700">
             A table of placeholder stock market data that does not make any
@@ -127,16 +127,16 @@ function View_RiceDeposit() {
                       {Agreement.lot_number}
                     </td>
                     <td className="whitespace-nowrap py-2 pl-4 pr-3 text-sm text-gray-500 sm:pl-0">
-                      {Agreement.ware_house_id}
+                      {Agreement.ware_houes_name}
                     </td>
                     <td className="whitespace-nowrap py-2 pl-4 pr-3 text-sm text-gray-500 sm:pl-0">
-                      {Agreement.rice_mill_name_id}
+                      {Agreement.rice_mill_name}
                     </td>
                     <td className="whitespace-nowrap py-2 pl-4 pr-3 text-sm text-gray-500 sm:pl-0">
                       {Agreement.weight}
                     </td>
                     <td className="whitespace-nowrap py-2 pl-4 pr-3 text-sm text-gray-500 sm:pl-0">
-                      {Agreement.truck_number_id}
+                      {Agreement.truck_number}
                     </td>
                     <td className="whitespace-nowrap py-2 pl-4 pr-3 text-sm text-gray-500 sm:pl-0">
                       {Agreement.bags}
@@ -145,7 +145,7 @@ function View_RiceDeposit() {
                       {Agreement.transporting_total}
                     </td>
                     <td className="whitespace-nowrap py-2 pl-4 pr-3 text-sm text-gray-500 sm:pl-0">
-                      {Agreement.transporter_name_id}
+                      {Agreement.transporter_name}
                     </td>
                     <td className="whitespace-nowrap py-2 pl-4 pr-3 text-sm text-gray-500 sm:pl-0">
                       {Agreement.transporting_type}
@@ -166,7 +166,7 @@ function View_RiceDeposit() {
                       {Agreement.halting}
                     </td>
                     <td className="whitespace-nowrap py-2 pl-4 pr-3 text-sm text-gray-500 sm:pl-0">
-                      {Agreement.variety_weight}
+                      {Agreement.rrga_wt}
                     </td>
                     <td className="whitespace-nowrap py-2 pl-4 pr-3 text-sm text-gray-500 sm:pl-0">
                       {Agreement.data_2022_23}

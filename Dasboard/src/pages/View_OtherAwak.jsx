@@ -21,7 +21,7 @@ function View_OtherAwak() {
       <div className="sm:flex sm:items-center">
         <div className="sm:flex-auto">
           <h1 className="text-base font-semibold leading-6 text-gray-900">
-            Dhan Awak
+            Other Awak
           </h1>
           <p className="mt-2 text-sm text-gray-700">
             A table of placeholder stock market data that does not make any
@@ -82,7 +82,7 @@ function View_OtherAwak() {
                       {Agreement.date}
                     </td>
                     <td className="whitespace-nowrap py-2 pl-4 pr-3 text-sm text-gray-500 sm:pl-0">
-                      {Agreement.party}
+                      {Agreement.party_name}
                     </td>
                     <td className="whitespace-nowrap py-2 pl-4 pr-3 text-sm text-gray-500 sm:pl-0">
                       {Agreement.truck_number}
@@ -100,7 +100,7 @@ function View_OtherAwak() {
                       {Agreement.weight}
                     </td>
                     <td className="whitespace-nowrap py-2 pl-4 pr-3 text-sm text-gray-500 sm:pl-0">
-                      {Agreement.rice_mill_name_id}
+                      {Agreement.rice_mill_name}
                     </td>
                   </tr>
                 ))}

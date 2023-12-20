@@ -13,7 +13,7 @@ function View_SudaPatrak() {
       <div className="sm:flex sm:items-center">
         <div className="sm:flex-auto">
           <h1 className="text-base font-semibold leading-6 text-gray-900">
-            Societies
+            Suda Patrak
           </h1>
           <p className="mt-2 text-sm text-gray-700">
             A table of placeholder stock market data that does not make any
@@ -71,7 +71,7 @@ function View_SudaPatrak() {
                       {user.address}
                     </td>
                     <td className="whitespace-nowrap py-2 pl-4 pr-3 text-sm text-gray-500 sm:pl-0">
-                      {user.vechicle_number_id}
+                      {user.truck_number}
                     </td>
                     <td className="whitespace-nowrap px-2 py-2 text-sm font-medium text-gray-900">
                       {user.paddy}

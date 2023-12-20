@@ -56,7 +56,7 @@ function View_Agreement() {
                 {data.map((Agreement, index) => (
                   <tr key={index} className="bg-gray-50">
                     <td className="whitespace-nowrap py-2 pl-4 pr-3 text-sm text-gray-500 sm:pl-0">
-                      {Agreement.rice_mill_id}
+                      {Agreement.rice_mill_name}
                     </td>
                     <td className="py-2 px-4 border-b subpixel-antialiased leading-6 text-gray-900">
                       {Agreement.agreement_number}

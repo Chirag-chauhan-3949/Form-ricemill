@@ -83,7 +83,7 @@ function View_AddDo() {
                 {data.map((DoData, index) => (
                   <tr key={index} className="bg-gray-50">
                     <td className="whitespace-nowrap py-2 pl-4 pr-3 text-sm text-gray-500 sm:pl-0">
-                      {DoData.select_mill_id}
+                      {DoData.rice_mill_name}
                     </td>
                     <td className="py-2 px-4 border-b subpixel-antialiased leading-6 text-gray-900">
                       {DoData.date}
@@ -92,7 +92,7 @@ function View_AddDo() {
                       {DoData.do_number}
                     </td>
                     <td className="whitespace-nowrap py-2 pl-4 pr-3 text-sm text-gray-500 sm:pl-0">
-                      {DoData.select_argeement_id}
+                      {DoData.agreement_number}
                     </td>
                     <td className="whitespace-nowrap py-2 pl-4 pr-3 text-sm text-gray-500 sm:pl-0">
                       {DoData.moto_weight}
@@ -119,10 +119,10 @@ function View_AddDo() {
                       {DoData.total_bardana}
                     </td>
                     <td className="whitespace-nowrap py-2 pl-4 pr-3 text-sm text-gray-500 sm:pl-0">
-                      {DoData.society_name_id}
+                      {DoData.society_name}
                     </td>
                     <td className="whitespace-nowrap py-2 pl-4 pr-3 text-sm text-gray-500 sm:pl-0">
-                      {DoData.truck_number_id}
+                      {DoData.truck_number}
                     </td>
                   </tr>
                 ))}
