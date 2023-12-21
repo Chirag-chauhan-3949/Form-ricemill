@@ -50,25 +50,55 @@ function View_Husk() {
                     Date
                   </th>
                   <th className="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900">
-                    Party Name
+                    Party
                   </th>
                   <th className="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900">
-                    Truck Number
+                    Rice Mill
                   </th>
                   <th className="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900">
-                    Material
+                    Broker
                   </th>
                   <th className="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900">
-                    Nos
-                  </th>
-                  <th className="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900">
-                    Reason
+                    Brokerage Percentage
                   </th>
                   <th className="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900">
                     Weight
                   </th>
                   <th className="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900">
-                    Rice Mill Name
+                    Rate
+                  </th>
+                  <th className="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900">
+                    Number of Bags
+                  </th>
+                  <th className="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900">
+                    Truck Number
+                  </th>
+                  <th className="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900">
+                    Total
+                  </th>
+                  <th className="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900">
+                    Brokerage
+                  </th>
+                  <th className="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900">
+                    Net Receivable
+                  </th>
+                  <th className="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900">
+                    Loading Date
+                  </th>
+                  <th className="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900">
+                    Received Date
+                  </th>
+                  <th className="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900">
+                    Payment Recieved
+                  </th>
+                  <th className="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900">
+                    Number of Days
+                  </th>
+                  <th className="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900">
+                    Payment Difference
+                  </th>
+                  <th className="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900">
+                    Remarks
                   </th>
                 </tr>
               </thead>
@@ -82,10 +112,13 @@ function View_Husk() {
                       {Agreement.date}
                     </td>
                     <td className="whitespace-nowrap py-2 pl-4 pr-3 text-sm text-gray-500 sm:pl-0">
-                      {Agreement.party}
+                      {Agreement.party_name}
                     </td>
                     <td className="whitespace-nowrap py-2 pl-4 pr-3 text-sm text-gray-500 sm:pl-0">
-                      {Agreement.rice_mill_name_id}
+                      {Agreement.rice_mill_name}
+                    </td>
+                    <td className="whitespace-nowrap py-2 pl-4 pr-3 text-sm text-gray-500 sm:pl-0">
+                      {Agreement.broker_name}
                     </td>
                     <td className="whitespace-nowrap py-2 pl-4 pr-3 text-sm text-gray-500 sm:pl-0">
                       {Agreement.brokerage_percentage}

@@ -9,7 +9,7 @@ const Huskjawak = () => {
   const [HuskjawakData, setHuskjawakData] = useState({
     rst_number: 0,
     date: "",
-    party: "",
+    party_id: "",
     rice_mill_name_id: "",
     remarks: "",
     broker: "",
@@ -17,7 +17,7 @@ const Huskjawak = () => {
     weight: 0,
     rate: 0,
     number_of_bags: 0,
-    truck_number: "",
+    truck_number_id: "",
     total: 0,
     brokerage: 0,
     net_receivable: 0,
@@ -49,7 +49,7 @@ const Huskjawak = () => {
   const initialHuskjawakData = {
     rst_number: 0,
     date: "",
-    party: "",
+    party_id: "",
     rice_mill_name_id: "",
     remarks: "",
     broker: "",
@@ -57,7 +57,7 @@ const Huskjawak = () => {
     weight: 0,
     rate: 0,
     number_of_bags: 0,
-    truck_number: "",
+    truck_number_id: "",
     total: 0,
     brokerage: 0,
     net_receivable: 0,
@@ -167,7 +167,7 @@ const Huskjawak = () => {
               </div>
               <SelectInput
                 label="Party"
-                name="party"
+                name="party_id"
                 placeholder="Select Party"
                 options={
                   Alldata.party_data &&
@@ -177,19 +177,19 @@ const Huskjawak = () => {
                   }))
                 }
                 value={
-                  HuskjawakData.party
+                  HuskjawakData.party_id
                     ? {
                         label: Alldata.party_data.find(
-                          (option) => option.party_id === HuskjawakData.party
+                          (option) => option.party_id === HuskjawakData.party_id
                         ).party_name,
-                        value: HuskjawakData.party,
+                        value: HuskjawakData.party_id,
                       }
                     : null
                 }
                 onChange={(selectedOption) =>
                   handleInputChange({
                     target: {
-                      name: "party",
+                      name: "party_id",
                       value: selectedOption ? selectedOption.value : "",
                     },
                   })
@@ -299,7 +299,7 @@ const Huskjawak = () => {
               <div className="flex justify-between">
                 <SelectInput
                   label="Truck Number"
-                  name="truck_number"
+                  name="truck_number_id"
                   options={
                     Alldata.truck_data &&
                     Alldata.truck_data.map((option) => ({
@@ -308,20 +308,20 @@ const Huskjawak = () => {
                     }))
                   }
                   value={
-                    HuskjawakData.truck_number
+                    HuskjawakData.truck_number_id
                       ? {
                           label: Alldata.truck_data.find(
                             (option) =>
-                              option.truck_id === HuskjawakData.truck_number
+                              option.truck_id === HuskjawakData.truck_number_id
                           ).truck_number,
-                          value: HuskjawakData.truck_number,
+                          value: HuskjawakData.truck_number_id,
                         }
                       : null
                   }
                   onChange={(selectedOption) =>
                     handleInputChange({
                       target: {
-                        name: "truck_number",
+                        name: "truck_number_id",
                         value: selectedOption ? selectedOption.value : "",
                       },
                     })

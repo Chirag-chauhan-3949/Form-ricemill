@@ -128,10 +128,10 @@ function View_Dalali_Dhan() {
                     </td>
 
                     <td className="whitespace-nowrap py-2 pl-4 pr-3 text-sm text-gray-500 sm:pl-0">
-                      {Agreement.kochia_id}
+                      {Agreement.kochia_name}
                     </td>
                     <td className="whitespace-nowrap py-2 pl-4 pr-3 text-sm text-gray-500 sm:pl-0">
-                      {Agreement.vehicale_number_id}
+                      {Agreement.truck_number}
                     </td>
                     <td className="whitespace-nowrap py-2 pl-4 pr-3 text-sm text-gray-500 sm:pl-0">
                       {Agreement.white_sarna_bags}

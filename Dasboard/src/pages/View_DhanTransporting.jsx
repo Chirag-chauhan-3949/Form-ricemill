@@ -83,25 +83,25 @@ function View_DhanTransporting() {
                 {data.map((user, index) => (
                   <tr key={index}>
                     <td className="whitespace-nowrap py-2 pl-4 pr-3 text-sm text-gray-500 sm:pl-0">
-                      {user.rst_number_id}
+                      {user.rst_number}
                     </td>
                     <td className="whitespace-nowrap py-2 pl-4 pr-3 text-sm text-gray-500 sm:pl-0">
                       {user.date}
                     </td>
                     <td className="whitespace-nowrap px-2 py-2 text-sm font-medium text-gray-900">
-                      {user.do_number_id}
+                      {user.do_number}
                     </td>
                     <td className="whitespace-nowrap px-2 py-2 text-sm font-medium text-gray-900">
-                      {user.society_name_id}
+                      {user.society_name}
                     </td>
                     <td className="whitespace-nowrap px-2 py-2 text-sm font-medium text-gray-900">
-                      {user.rice_mill_name_id}
+                      {user.rice_mill_name}
                     </td>
                     <td className="whitespace-nowrap px-2 py-2 text-sm font-medium text-gray-900">
                       {user.dm_weight}
                     </td>
                     <td className="whitespace-nowrap px-2 py-2 text-sm font-medium text-gray-900">
-                      {user.truck_number_id}
+                      {user.truck_number}
                     </td>
                     <td className="whitespace-nowrap px-2 py-2 text-sm font-medium text-gray-900">
                       {user.transporting_rate}
@@ -113,7 +113,7 @@ function View_DhanTransporting() {
                       {user.transporting_total}
                     </td>
                     <td className="whitespace-nowrap px-2 py-2 text-sm font-medium text-gray-900">
-                      {user.transporter_name_id}
+                      {user.transporter_name}
                     </td>
                     <td className="whitespace-nowrap px-2 py-2 text-sm font-medium text-gray-900">
                       {user.status}
