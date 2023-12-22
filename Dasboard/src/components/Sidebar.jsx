@@ -95,6 +95,19 @@ const navigation = [
       { name: "View Bhushi", href: "/View_Bhushi" },
     ],
   },
+
+  {
+    name: "Real Time Inventory",
+    current: false,
+    children: [
+      { name: "Rice By Type", href: "/" },
+      { name: "Paddy By Type", href: "/" },
+      { name: "Raw Material By Type", href: "/" },
+      { name: "Bardana By Type", href: "/" },
+      { name: "Total Paddy Processed", href: "/" },
+      { name: "Reports", href: "/" },
+    ],
+  },
 ];
 
 function classNames(...classes) {
