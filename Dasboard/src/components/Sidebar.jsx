@@ -15,6 +15,7 @@ const navigation = [
       { name: "Add Kochia", href: "/Add_kochia" },
       { name: "Add Party", href: "/Add_party" },
       { name: "Add Broker", href: "/Add_Broker" },
+      { name: "Add Do", href: "/Add_Do" },
     ],
   },
   {
@@ -22,7 +23,6 @@ const navigation = [
     current: false,
     children: [
       { name: "Dalali Dhan", href: "/Dalalidhan" },
-      { name: "Add Do", href: "/Add_Do" },
       { name: "Rice Deposit", href: "/Ricedeposit" },
       { name: "Frk", href: "/Frk" },
       { name: "Suda Patrak", href: "/Sudapatrak" },

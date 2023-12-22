@@ -41,6 +41,18 @@ const Add_New_Transporter = () => {
           draggable: true,
           progress: undefined,
         });
+      } else if (response.status === 400) {
+        const errorResponse = await response.json();
+        // console.log(errorResponse.detail);
+        toast.error(errorResponse.detail, {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
       } else {
         console.error("Failed to add transporter");
         toast.error("Failed to add transporter", {
