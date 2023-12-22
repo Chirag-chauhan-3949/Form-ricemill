@@ -9,11 +9,11 @@ const Bhusi = () => {
   const [BhusiData, setBhusiData] = useState({
     rst_number: 0,
     date: "",
-    party: "",
+    party_id: "",
     rice_mill_name_id: "",
     number_of_bags: 0,
     weight: 0,
-    truck_number: "",
+    truck_number_id: "",
     rate: 0,
     amount: 0,
   });
@@ -39,11 +39,11 @@ const Bhusi = () => {
   const initialBhusiData = {
     rst_number: 0,
     date: "",
-    party: "",
+    party_id: "",
     rice_mill_name_id: "",
     number_of_bags: 0,
     weight: 0,
-    truck_number: "",
+    truck_number_id: "",
     rate: 0,
     amount: 0,
   };
@@ -146,7 +146,7 @@ const Bhusi = () => {
               <div className="flex justify-between">
                 <SelectInput
                   label="Party"
-                  name="party"
+                  name="party_id"
                   placeholder="Select Party"
                   options={
                     Alldata.party_data &&
@@ -156,19 +156,19 @@ const Bhusi = () => {
                     }))
                   }
                   value={
-                    BhusiData.party
+                    BhusiData.party_id
                       ? {
                           label: Alldata.party_data.find(
-                            (option) => option.party_id === BhusiData.party
+                            (option) => option.party_id === BhusiData.party_id
                           ).party_name,
-                          value: BhusiData.party,
+                          value: BhusiData.party_id,
                         }
                       : null
                   }
                   onChange={(selectedOption) =>
                     handleInputChange({
                       target: {
-                        name: "party",
+                        name: "party_id",
                         value: selectedOption ? selectedOption.value : "",
                       },
                     })
@@ -229,7 +229,7 @@ const Bhusi = () => {
               <div className="flex justify-between">
                 <SelectInput
                   label="Truck Number"
-                  name="truck_number"
+                  name="truck_number_id"
                   options={
                     Alldata.truck_data &&
                     Alldata.truck_data.map((option) => ({
@@ -238,20 +238,20 @@ const Bhusi = () => {
                     }))
                   }
                   value={
-                    BhusiData.truck_number
+                    BhusiData.truck_number_id
                       ? {
                           label: Alldata.truck_data.find(
                             (option) =>
-                              option.truck_id === BhusiData.truck_number
+                              option.truck_id === BhusiData.truck_number_id
                           ).truck_number,
-                          value: BhusiData.truck_number,
+                          value: BhusiData.truck_number_id,
                         }
                       : null
                   }
                   onChange={(selectedOption) =>
                     handleInputChange({
                       target: {
-                        name: "truck_number",
+                        name: "truck_number_id",
                         value: selectedOption ? selectedOption.value : "",
                       },
                     })
