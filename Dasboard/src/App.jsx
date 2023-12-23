@@ -57,6 +57,8 @@ import View_Husk from "./pages/View_husk.jsx";
 import View_Nakkhi from "./pages/View_Nakkhi.jsx";
 import View_Bran from "./pages/View_Bran.jsx";
 import View_Bhushi from "./pages/View_Bhushi.jsx";
+import View_RiceByType from "./pages/View_RiceByType.jsx";
+import View_PaddyByType from "./pages/View_PaddyByType.jsx";
 const App = () => {
   const [isLoggedIn, setLoggedIn] = useState(true);
 
@@ -131,6 +133,8 @@ const App = () => {
             <Route path="/View_Nakkhi" element={<View_Nakkhi />} />
             <Route path="/View_Bran" element={<View_Bran />} />
             <Route path="/View_Bhushi" element={<View_Bhushi />} />
+            <Route path="/View_RiceByType" element={<View_RiceByType />} />
+            <Route path="/View_PaddyByType" element={<View_PaddyByType />} />
           </Routes>
         </Sidebar>
       ) : (
