@@ -100,8 +100,8 @@ const navigation = [
     name: "Real Time Inventory",
     current: false,
     children: [
-      { name: "Rice By Type", href: "/View_RiceByType" },
       { name: "Paddy By Type", href: "/View_PaddyByType" },
+      { name: "Rice By Type", href: "/View_RiceByType" },
       { name: "Raw Material By Type", href: "/" },
       { name: "Bardana By Type", href: "/" },
       { name: "Total Paddy Processed", href: "/" },

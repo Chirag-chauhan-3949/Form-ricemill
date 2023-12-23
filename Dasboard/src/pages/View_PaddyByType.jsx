@@ -4,9 +4,10 @@ function View_PaddyByType() {
   const [data, setdata] = useState([]);
   useEffect(() => {
     axios
-      .get("http://localhost:8000/add-do-data")
+      .get("http://localhost:8000/paddy-data")
       .then((res) => setdata(res.data))
       .catch((err) => console.log(err));
+    console.log(data);
   }, []);
   return (
     <div className="px-4 sm:px-6 lg:px-8">
@@ -50,9 +51,6 @@ function View_PaddyByType() {
                   <th className="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900">
                     Total Paddy
                   </th>
-                  <th className="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900">
-                    Date
-                  </th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-200 bg-white">
@@ -74,9 +72,6 @@ function View_PaddyByType() {
                       {user.mota_Bardana +
                         user.patla_bardana +
                         user.sarna_bardana}
-                    </td>
-                    <td className="whitespace-nowrap px-2 py-2 text-sm font-medium text-gray-900">
-                      {user.created_at}
                     </td>
                   </tr>
                 ))}
