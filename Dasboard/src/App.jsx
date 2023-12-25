@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Sidebar from "./components/Sidebar";
+import Sidebar from "./components/Sidebar.jsx";
 import Add_Do from "./pages/Add_Do.jsx";
 import Add_Agreement from "./pages/Agreement.jsx";
 import Add_New_Society from "./pages/Society.jsx";
