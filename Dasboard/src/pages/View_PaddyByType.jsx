@@ -147,22 +147,56 @@ function View_PaddyByType() {
                       : 0}
                   </td>
                   <td className="whitespace-nowrap px-2 py-2 text-sm font-medium text-gray-900">
-                    {data.Paddy_deposite_data &&
-                    data.Paddy_deposite_data.length > 0
-                      ? data.Paddy_deposite_data.reduce(
-                          (sum, entry) => sum + entry.weight,
+                    {data.Dhan_data && data.Dhan_data.length > 0
+                      ? data.Dhan_data.reduce(
+                          (sum, entry) => sum + entry.dm_weight,
                           0
                         )
                       : 0}
                   </td>
                   <td className="whitespace-nowrap px-2 py-2 text-sm font-medium text-gray-900">
-                    {data.Paddy_data && data.Paddy_data.length > 0
-                      ? data.Paddy_data[0].weight
+                    {data.Paddy_sale_data && data.Paddy_sale_data.length > 0
+                      ? data.Paddy_sale_data.reduce(
+                          (sum, entry) => sum + entry.bags,
+                          0
+                        ) * 0.4
                       : 0}
                   </td>
                   <td className="whitespace-nowrap px-2 py-2 text-sm font-medium text-gray-900">
                     {data.Dhan_data && data.Dhan_data.length > 0
-                      ? data.Dhan_data[0].miller_purana
+                      ? data.Dhan_data.reduce(
+                          (sum, entry) => sum + entry.miller_purana,
+                          0
+                        )
+                      : 0}
+                  </td>
+                  <td className="whitespace-nowrap px-2 py-2 text-sm font-medium text-gray-900">
+                    {data.total_weight
+                      ? (
+                          data.total_weight.reduce(
+                            (sum, value) => sum + value,
+                            0
+                          ) +
+                          (data.Dhan_data && data.Dhan_data.length > 0
+                            ? data.Dhan_data.reduce(
+                                (sum, entry) => sum + +entry.dm_weight,
+                                0
+                              )
+                            : 0) -
+                          (data.Paddy_sale_data &&
+                          data.Paddy_sale_data.length > 0
+                            ? data.Paddy_sale_data.reduce(
+                                (sum, entry) => sum + entry.bags,
+                                0
+                              ) * 0.4
+                            : 0) -
+                          (data.Dhan_data && data.Dhan_data.length > 0
+                            ? data.Dhan_data.reduce(
+                                (sum, entry) => sum + entry.miller_purana,
+                                0
+                              )
+                            : 0)
+                        ).toFixed(2)
                       : 0}
                   </td>
                 </tr>
