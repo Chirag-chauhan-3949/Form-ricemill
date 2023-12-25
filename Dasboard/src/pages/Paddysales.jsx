@@ -2,18 +2,20 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-
+import SelectInput from "../inputelement/Selectinput";
+import Inputbox from "../inputelement/Inputbox";
 const Paddysales = () => {
   const [paddysalesData, setpaddysalesData] = useState({
     rst_number_id: "",
     party: "",
     date: "",
+    rice_mill_name_id: "",
     broker: "",
     loading_form_address: "",
     vehicle_number_id: "",
     paddy_name: "",
+    party_weight: 0,
     weight: "",
-    party_weight: "",
     rate: 0,
     ammount: 0,
     plastic: 0,
@@ -22,6 +24,25 @@ const Paddysales = () => {
     joot_22_23: 0,
     average_bag_wt: 0,
   });
+  const [Alldata, setAlldata] = useState([]);
+
+  useEffect(() => {
+    async function fetchMillData() {
+      try {
+        const All_data = await axios.get(
+          "http://localhost:8000/rice-truck-party-brokers"
+        );
+
+        const data = All_data.data;
+        setAlldata(data);
+        // console.log(data);
+      } catch (error) {
+        console.error("Error:", error);
+      }
+    }
+
+    fetchMillData();
+  }, []);
   const [rstData, setrstData] = useState([]);
   useEffect(() => {
     async function fetchrst() {
@@ -133,6 +154,38 @@ const Paddysales = () => {
           <div className="bg-white px-6 py-12 shadow sm:rounded-lg sm:px-12">
             <form className="space-y-6" onSubmit={handleSubmit}>
               <div>
+                <SelectInput
+                  label="Select Rice Mill"
+                  name="rice_mill_name_id"
+                  options={
+                    Alldata.rice_mill_data &&
+                    Alldata.rice_mill_data.map((option) => ({
+                      label: option.rice_mill_name,
+                      value: option.rice_mill_id,
+                    }))
+                  }
+                  value={
+                    paddysalesData.rice_mill_name_id
+                      ? {
+                          label: Alldata.rice_mill_data.find(
+                            (option) =>
+                              option.rice_mill_id ===
+                              paddysalesData.rice_mill_name_id
+                          ).rice_mill_name,
+                          value: paddysalesData.rice_mill_name_id,
+                        }
+                      : null
+                  }
+                  onChange={(selectedOption) =>
+                    handleInputChange({
+                      target: {
+                        name: "rice_mill_name_id",
+                        value: selectedOption ? selectedOption.value : "",
+                      },
+                    })
+                  }
+                  placeholder="Select Mill"
+                />
                 <div className="flex justify-between my-3 flex-wrap">
                   <div className="my-2.5">
                     <label
@@ -258,6 +311,14 @@ const Paddysales = () => {
                     </a>
                   </p>
                 </div>
+                <Inputbox
+                  label="Party Weight"
+                  name="party_weight"
+                  type="number"
+                  value={paddysalesData.party_weight}
+                  onChange={handleInputChange}
+                  placeholder="Enter Brokerage Percent"
+                />
                 <div className="flex justify-between my-3 flex-wrap">
                   <div>
                     <div className="flex justify-between">
@@ -279,6 +340,7 @@ const Paddysales = () => {
                       />
                     </div>
                   </div>
+
                   <div>
                     <div className="flex justify-between">
                       <label
