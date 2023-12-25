@@ -1,14 +1,72 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
+// ... (previous imports)
+
 function View_PaddyByType() {
-  const [data, setdata] = useState([]);
+  const [Riceid, setRiceid] = useState({
+    select_mill_id: "",
+  });
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    console.log(value);
+    setRiceid({
+      ...Riceid,
+      [name]: value,
+    });
+  };
+
+  const [ricemill, setRicemill] = useState([]);
   useEffect(() => {
-    axios
-      .get("http://localhost:8000/paddy-data")
-      .then((res) => setdata(res.data))
-      .catch((err) => console.log(err));
-    console.log(data);
+    async function fetchData() {
+      try {
+        const Ricemil_response = await axios.get(
+          "http://localhost:8000/rice-mill"
+        );
+
+        const data = Ricemil_response.data;
+        setRicemill(data);
+      } catch (error) {
+        console.error("Error:", error);
+      }
+    }
+
+    fetchData();
   }, []);
+
+  const [data, setData] = useState({
+    total_weight: 0,
+    dm_weight: 0,
+    weight: 0,
+    miller_purana: 0,
+    // Add other properties as needed based on your API response structure
+  });
+
+  useEffect(() => {
+    async function fetchMillData() {
+      try {
+        const All_Mix_Data_response = await axios.get(
+          `http://localhost:8000/paddy-data/${Riceid.select_mill_id}`
+        );
+
+        const responseData = All_Mix_Data_response.data;
+        setData(responseData);
+        console.log(responseData);
+      } catch (error) {
+        console.error("Error:", error);
+        // Set default values or handle the error appropriately
+        setData({
+          total_weight: 0,
+          // Add other default values as needed
+        });
+      }
+    }
+
+    if (Riceid.select_mill_id) {
+      fetchMillData();
+    }
+  }, [Riceid.select_mill_id]);
+
   return (
     <div className="px-4 sm:px-6 lg:px-8">
       <div className="sm:flex sm:items-center">
@@ -40,41 +98,74 @@ function View_PaddyByType() {
                     Rice Mill Name
                   </th>
                   <th className="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900">
-                    Mota
+                    Paddy Purchase
                   </th>
                   <th className="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900">
-                    Patla
+                    Paddy In
                   </th>
+
                   <th className="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900">
-                    Sarna
+                    Paddy Sale
                   </th>
+
                   <th className="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900">
-                    Total Paddy
+                    Paddy Processed
+                  </th>
+
+                  <th className="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900">
+                    Paddy Stacked
                   </th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-200 bg-white">
-                {data.map((user, index) => (
-                  <tr key={index}>
-                    <td className="whitespace-nowrap py-2 pl-4 pr-3 text-sm text-gray-500 sm:pl-0">
-                      {user.rice_mill_name}
-                    </td>
-                    <td className="whitespace-nowrap px-2 py-2 text-sm font-medium text-gray-900">
-                      {user.mota_Bardana}
-                    </td>
-                    <td className="whitespace-nowrap px-2 py-2 text-sm font-medium text-gray-900">
-                      {user.patla_bardana}
-                    </td>
-                    <td className="whitespace-nowrap px-2 py-2 text-sm font-medium text-gray-900">
-                      {user.sarna_bardana}
-                    </td>
-                    <td className="whitespace-nowrap px-2 py-2 text-sm font-medium text-gray-900">
-                      {user.mota_Bardana +
-                        user.patla_bardana +
-                        user.sarna_bardana}
-                    </td>
-                  </tr>
-                ))}
+                <tr>
+                  <td className="whitespace-nowrap py-2 pl-4 pr-3 text-sm text-gray-500 sm:pl-0">
+                    <select
+                      name="select_mill_id"
+                      value={Riceid.select_mill_id}
+                      onChange={handleInputChange}
+                    >
+                      <option value="">Select Rice Mill</option>
+                      {ricemill.map((rice) => (
+                        <option
+                          key={rice.rice_mill_id}
+                          value={rice.rice_mill_id}
+                        >
+                          {rice.rice_mill_name}
+                        </option>
+                      ))}
+                    </select>
+                  </td>
+                  <td className="whitespace-nowrap px-2 py-2 text-sm font-medium text-gray-900">
+                    {data.total_weight
+                      ? (
+                          data.total_weight.reduce(
+                            (sum, value) => sum + value,
+                            0
+                          ) / 3
+                        ).toFixed(2)
+                      : 0}
+                  </td>
+                  <td className="whitespace-nowrap px-2 py-2 text-sm font-medium text-gray-900">
+                    {data.Paddy_deposite_data &&
+                    data.Paddy_deposite_data.length > 0
+                      ? data.Paddy_deposite_data.reduce(
+                          (sum, entry) => sum + entry.weight,
+                          0
+                        )
+                      : 0}
+                  </td>
+                  <td className="whitespace-nowrap px-2 py-2 text-sm font-medium text-gray-900">
+                    {data.Paddy_data && data.Paddy_data.length > 0
+                      ? data.Paddy_data[0].weight
+                      : 0}
+                  </td>
+                  <td className="whitespace-nowrap px-2 py-2 text-sm font-medium text-gray-900">
+                    {data.Dhan_data && data.Dhan_data.length > 0
+                      ? data.Dhan_data[0].miller_purana
+                      : 0}
+                  </td>
+                </tr>
               </tbody>
             </table>
           </div>
