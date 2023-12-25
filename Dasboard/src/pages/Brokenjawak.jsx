@@ -197,7 +197,7 @@ const Brokenjawak = () => {
                   })
                 }
               />
-              <div className="flex justify-between">
+              <div className="flex justify-between flex-wrap ">
                 <SelectInput
                   label="Select Rice Mill"
                   name="rice_mill_name_id"
@@ -262,7 +262,7 @@ const Brokenjawak = () => {
                   placeholder="Select Broker"
                 />
               </div>
-              <div className="flex justify-between">
+              <div className="flex justify-between flex-wrap">
                 <Inputbox
                   label="Brokerage Percent"
                   name="brokerage_percentage"
@@ -298,7 +298,7 @@ const Brokenjawak = () => {
                   placeholder="Enter Number of Bags "
                 />
               </div>
-              <div className="flex justify-between">
+              <div className="flex justify-between flex-wrap">
                 <SelectInput
                   label="Truck Number"
                   name="truck_number_id"
@@ -344,7 +344,7 @@ const Brokenjawak = () => {
                   placeholder="Enter total "
                 />
               </div>
-              <div className="flex justify-between">
+              <div className="flex justify-between flex-wrap">
                 <Inputbox
                   disabled={true}
                   label="Brokerage"
@@ -369,7 +369,7 @@ const Brokenjawak = () => {
                   placeholder="Enter Net Recievable "
                 />
               </div>
-              <div className="flex justify-between">
+              <div className="flex justify-between flex-wrap">
                 <Dateinput
                   label="Loading Date"
                   name="loading_date"
@@ -383,7 +383,7 @@ const Brokenjawak = () => {
                   onChange={handleInputChange}
                 />
               </div>
-              <div className="flex justify-between">
+              <div className="flex justify-between flex-wrap">
                 <Inputbox
                   label="Payment Recieved"
                   name="payment_recieved"
@@ -402,7 +402,7 @@ const Brokenjawak = () => {
                   placeholder="Enter Number of Days "
                 />
               </div>
-              <div className="flex justify-between">
+              <div className="flex justify-between flex-wrap">
                 <Inputbox
                   disabled={true}
                   label="Payment Difference"

@@ -175,7 +175,7 @@ const Otherjawak = () => {
                   })
                 }
               />
-              <div className="flex justify-between">
+              <div className="flex justify-between flex-wrap">
                 <SelectInput
                   label="Select Rice Mill"
                   name="rice_mill_name_id"
@@ -259,7 +259,7 @@ const Otherjawak = () => {
                   placeholder="Enter Number NOS "
                 />
               </div>
-              <div className="flex justify-between">
+              <div className="flex justify-between flex-wrap">
                 <Inputbox
                   label="Weight"
                   name="weight"

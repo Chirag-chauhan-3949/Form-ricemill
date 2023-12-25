@@ -164,7 +164,7 @@ const Dopanding = () => {
                   </p>
                 </div>
               </div>
-              <div className="flex justify-between">
+              <div className="flex justify-between flex-wrap ">
                 <div>
                   <div className="flex justify-between">
                     <label
@@ -221,7 +221,7 @@ const Dopanding = () => {
                   </div>
                 </div>
               </div>
-              <div className="flex justify-between">
+              <div className="flex justify-between flex-wrap">
                 <div>
                   <label className="block text-sm font-medium leading-6 text-gray-900">
                     mota
@@ -247,7 +247,7 @@ const Dopanding = () => {
                   />
                 </div>
               </div>
-              <div className="flex justify-between">
+              <div className="flex justify-between flex-wrap">
                 <div>
                   <label className="block text-sm font-medium leading-6 text-gray-900">
                     sarna

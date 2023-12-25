@@ -103,7 +103,7 @@ const Saudapatrak = () => {
           <div className="bg-white px-6 py-12 shadow sm:rounded-lg sm:px-12">
             <form className="space-y-6" onSubmit={handleSubmit}>
               <div>
-                <div className="flex justify-between  my-3.5">
+                <div className="flex justify-between  my-3.5 flex-wrap">
                   <div>
                     <div className="flex justify-between">
                       <label
@@ -205,7 +205,7 @@ const Saudapatrak = () => {
                   </div>
                 </div>
 
-                <div className="flex justify-between my-3.5">
+                <div className="flex justify-between my-3.5 flex-wrap">
                   <div>
                     <div className="flex justify-between">
                       <label
@@ -252,7 +252,7 @@ const Saudapatrak = () => {
                     </div>
                   </div>
                 </div>
-                <div className="flex justify-between my-3.5">
+                <div className="flex justify-between my-3.5 flex-wrap">
                   <div>
                     <div className="flex justify-between">
                       <label

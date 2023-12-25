@@ -175,7 +175,7 @@ const Transportermaster = () => {
                   />
                 </div>
               </div>
-              <div className="flex justify-between">
+              <div className="flex justify-between flex-wrap">
                 <div>
                   <div className="flex justify-between">
                     <label

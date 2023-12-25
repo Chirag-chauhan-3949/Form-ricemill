@@ -123,7 +123,7 @@ const Frk = () => {
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-[480px]">
           <div className="bg-white px-6 py-12 shadow sm:rounded-lg sm:px-12">
             <form className="space-y-6" onSubmit={handleSubmit}>
-              <div className="flex justify-between">
+              <div className="flex justify-between flex-wrap">
                 <div>
                   <div className="flex justify-between">
                     <label
@@ -163,7 +163,7 @@ const Frk = () => {
                   </div>
                 </div>
               </div>
-              <div className="flex justify-between">
+              <div className="flex justify-between flex-wrap">
                 <div>
                   <label className="block text-sm font-medium leading-6 text-gray-900">
                     Weight
@@ -260,7 +260,7 @@ const Frk = () => {
                   </a>
                 </p>
               </div>
-              <div className="flex justify-between">
+              <div className="flex justify-between flex-wrap">
                 <div>
                   <label className="block text-sm font-medium leading-6 text-gray-900">
                     Bill Number

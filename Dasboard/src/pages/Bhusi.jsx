@@ -143,7 +143,7 @@ const Bhusi = () => {
                   name="date"
                 />
               </div>
-              <div className="flex justify-between">
+              <div className="flex justify-between flex-wrap ">
                 <SelectInput
                   label="Party"
                   name="party_id"
@@ -207,7 +207,7 @@ const Bhusi = () => {
                   placeholder="Select Mill"
                 />
               </div>
-              <div className="flex justify-between">
+              <div className="flex justify-between flex-wrap ">
                 <Inputbox
                   label="Bags "
                   name="number_of_bags"
@@ -226,7 +226,7 @@ const Bhusi = () => {
                 />
               </div>
 
-              <div className="flex justify-between">
+              <div className="flex justify-between flex-wrap ">
                 <SelectInput
                   label="Truck Number"
                   name="truck_number_id"
