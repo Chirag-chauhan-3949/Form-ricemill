@@ -112,7 +112,7 @@ const AddNewSociety = () => {
                 </div>
               </div>
               {/* Distance Input */}
-              <div className="flex justify-between">
+              <div className="flex justify-between flex-wrap">
                 <div>
                   <div className="flex justify-between">
                     <label

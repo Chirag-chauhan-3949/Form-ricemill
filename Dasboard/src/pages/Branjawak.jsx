@@ -190,7 +190,7 @@ const Branjawak = () => {
                   })
                 }
               />
-              <div className="flex justify-between">
+              <div className="flex justify-between flex-wrap ">
                 <SelectInput
                   label="Select Rice Mill"
                   name="rice_mill_name_id"
@@ -255,7 +255,7 @@ const Branjawak = () => {
                   placeholder="Select Broker"
                 />
               </div>
-              <div className="flex justify-between">
+              <div className="flex justify-between flex-wrap ">
                 <Inputbox
                   label="Brokerage Percent"
                   name="brokerage_percentage"
@@ -291,7 +291,7 @@ const Branjawak = () => {
                   placeholder="Enter Number of Bags "
                 />
               </div>
-              <div className="flex justify-between">
+              <div className="flex justify-between flex-wrap ">
                 <SelectInput
                   label="Truck Number"
                   name="truck_number_id"
@@ -335,7 +335,7 @@ const Branjawak = () => {
                   placeholder="Enter total "
                 />
               </div>
-              <div className="flex justify-between">
+              <div className="flex justify-between flex-wrap ">
                 <Inputbox
                   label="Brokerage"
                   name="brokerage"
@@ -356,8 +356,8 @@ const Branjawak = () => {
                   placeholder="Enter Net Receivable "
                 />
               </div>
-              \
-              <div className="flex justify-between">
+
+              <div className="flex justify-between flex-wrap ">
                 <Inputbox
                   label="Payment Received"
                   name="payment_received"
@@ -375,7 +375,7 @@ const Branjawak = () => {
                   placeholder="Enter Oil Percentage "
                 />
               </div>
-              <div className="flex justify-between">
+              <div className="flex justify-between flex-wrap ">
                 <Inputbox
                   label="Payment Difference"
                   name="payment_difference"

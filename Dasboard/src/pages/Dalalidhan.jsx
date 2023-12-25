@@ -202,7 +202,7 @@ const Dalalidhan = () => {
           <div className="bg-white px-6 py-12 shadow sm:rounded-lg sm:px-12">
             <form className="space-y-6" onSubmit={handleSubmit}>
               <div>
-                <div className="flex justify-between">
+                <div className="flex justify-between flex-wrap">
                   <div className="my-2.5">
                     <SelectInput
                       label="Kochia"
@@ -337,7 +337,7 @@ const Dalalidhan = () => {
                     </select>
                   </div>
                 </div>
-                <div className="flex justify-between my-3">
+                <div className="flex justify-between my-3 flex-wrap">
                   <div>
                     <div className="flex justify-between">
                       <label
@@ -379,7 +379,7 @@ const Dalalidhan = () => {
                     </div>
                   </div>
                 </div>
-                <div className="flex justify-between my-3">
+                <div className="flex justify-between my-3 flex-wrap">
                   <div className="mt-3">
                     <div className="flex justify-between">
                       <label
@@ -429,7 +429,7 @@ const Dalalidhan = () => {
                     </div>
                   </div>
                 </div>
-                <div className="flex justify-between my-3">
+                <div className="flex justify-between my-3 ">
                   <div className="mt-3">
                     <div className="flex justify-between">
                       <label
@@ -455,7 +455,7 @@ const Dalalidhan = () => {
                     </div>
                   </div>
                 </div>
-                <div className="flex justify-between my-3">
+                <div className="flex justify-between my-3 flex-wrap">
                   <div className="mt-3">
                     <div className="flex justify-between">
                       <label
@@ -497,7 +497,7 @@ const Dalalidhan = () => {
                     </div>
                   </div>
                 </div>
-                <div className="flex justify-between my-3">
+                <div className="flex justify-between my-3 flex-wrap">
                   <div className="mt-3">
                     <div className="flex justify-between">
                       <label
@@ -549,7 +549,7 @@ const Dalalidhan = () => {
                     </div>
                   </div>
                 </div>
-                <div className="flex justify-between my-3">
+                <div className="flex justify-between my-3 flex-wrap">
                   <div className="mt-3">
                     <div className="flex justify-between">
                       <label

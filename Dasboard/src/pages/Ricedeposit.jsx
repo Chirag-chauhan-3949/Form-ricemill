@@ -196,7 +196,7 @@ const Ricedeposit = () => {
               action="#"
               method="POST"
             >
-              <div className="flex justify-between">
+              <div className="flex justify-between flex-wrap">
                 <div>
                   <div className="flex justify-between">
                     <label
@@ -236,7 +236,7 @@ const Ricedeposit = () => {
                   </div>
                 </div>
               </div>
-              <div className="flex justify-between">
+              <div className="flex justify-between flex-wrap">
                 <div>
                   <div className="flex justify-between">
                     <label
@@ -309,7 +309,7 @@ const Ricedeposit = () => {
                   />
                 </div>
               </div>
-              <div className="flex justify-between">
+              <div className="flex justify-between flex-wrap">
                 <div>
                   <label
                     htmlFor="rice_mill_name_id"
@@ -381,7 +381,7 @@ const Ricedeposit = () => {
                   </div>
                 </div>
               </div>
-              <div className="flex justify-between">
+              <div className="flex justify-between flex-wrap">
                 <div>
                   <label
                     htmlFor="transporter_name_id"
@@ -713,7 +713,7 @@ const Ricedeposit = () => {
                   </div>
                 </div>
               </div>
-              <div className="flex justify-between">
+              <div className="flex justify-between flex-wrap">
                 <div>
                   <div className="flex justify-between">
                     <label
@@ -753,7 +753,7 @@ const Ricedeposit = () => {
                   </div>
                 </div>
               </div>
-              <div className="flex justify-between">
+              <div className="flex justify-between flex-wrap">
                 <div>
                   <div className="flex justify-between">
                     <label

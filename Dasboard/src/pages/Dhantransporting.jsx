@@ -207,7 +207,7 @@ const Dhantransporting = () => {
                   />
                 </div>
               </div>
-              <div className="flex justify-between">
+              <div className="flex justify-between flex-wrap ">
                 <div className="my-2.5">
                   <label
                     htmlFor="rst_number_id"
@@ -274,7 +274,7 @@ const Dhantransporting = () => {
                   </div>
                 </div>
               </div>
-              <div className="flex justify-between">
+              <div className="flex justify-between flex-wrap ">
                 <div>
                   <div className="flex justify-between">
                     <label
@@ -353,7 +353,7 @@ const Dhantransporting = () => {
                   </div>
                 </div>
               </div>
-              <div className="flex justify-between">
+              <div className="flex justify-between flex-wrap ">
                 <div>
                   <label
                     htmlFor="truck_number_id"
@@ -409,7 +409,7 @@ const Dhantransporting = () => {
                   </div>
                 </div>
               </div>
-              <div className="flex justify-between">
+              <div className="flex justify-between flex-wrap ">
                 <div>
                   <div className="flex justify-between">
                     <label
@@ -454,7 +454,7 @@ const Dhantransporting = () => {
                 </div>
               </div>
 
-              <div className="flex justify-between">
+              <div className="flex justify-between flex-wrap ">
                 <div>
                   <div className="flex justify-between">
                     <label
@@ -498,7 +498,7 @@ const Dhantransporting = () => {
                 </div>
               </div>
 
-              <div className="flex justify-between">
+              <div className="flex justify-between flex-wrap ">
                 <div>
                   <div className="flex justify-between">
                     <label

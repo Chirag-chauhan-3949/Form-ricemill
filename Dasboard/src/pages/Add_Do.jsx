@@ -201,7 +201,7 @@ const Add_Do = () => {
                 </div>
               </div>
 
-              <div className="flex justify-between">
+              <div className="flex justify-between flex-wrap">
                 <div>
                   <div className="flex justify-between">
                     <label
@@ -262,7 +262,7 @@ const Add_Do = () => {
                   </p>
                 </div>
               </div>
-              <div className="flex justify-between">
+              <div className="flex justify-between flex-wrap">
                 <div>
                   <div className="flex justify-between">
                     <label
@@ -303,7 +303,7 @@ const Add_Do = () => {
                   </div>
                 </div>
               </div>
-              <div className="flex justify-between">
+              <div className="flex justify-between flex-wrap">
                 <div>
                   <div className="flex justify-between">
                     <label
@@ -346,7 +346,7 @@ const Add_Do = () => {
                   </div>
                 </div>
               </div>
-              <div className="flex justify-between">
+              <div className="flex justify-between flex-wrap">
                 <div>
                   <div className="flex justify-between">
                     <label
@@ -389,9 +389,9 @@ const Add_Do = () => {
                   </div>
                 </div>
               </div>
-              <div className="flex justify-between">
+              <div className="flex justify-between flex-wrap ">
                 <div>
-                  <div className="flex justify-between">
+                  <div className="flex justify-between ">
                     <label
                       htmlFor="total_weight"
                       className="block text-sm font-medium leading-6 text-gray-900"
@@ -442,7 +442,7 @@ const Add_Do = () => {
                 </div>
               </div>
               <div>
-                <div className="flex justify-between">
+                <div className="flex justify-between ">
                   <label
                     htmlFor="society_name_id"
                     className="block text-sm font-medium leading-6 text-gray-900"

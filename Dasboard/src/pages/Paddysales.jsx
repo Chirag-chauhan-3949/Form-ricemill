@@ -133,7 +133,7 @@ const Paddysales = () => {
           <div className="bg-white px-6 py-12 shadow sm:rounded-lg sm:px-12">
             <form className="space-y-6" onSubmit={handleSubmit}>
               <div>
-                <div className="flex justify-between my-3">
+                <div className="flex justify-between my-3 flex-wrap">
                   <div className="my-2.5">
                     <label
                       htmlFor="rst_number_id"
@@ -182,7 +182,7 @@ const Paddysales = () => {
                     </div>
                   </div>
                 </div>
-                <div className="flex justify-between my-3">
+                <div className="flex justify-between my-3 flex-wrap">
                   <div>
                     <div className="flex justify-between">
                       <label
@@ -258,7 +258,7 @@ const Paddysales = () => {
                     </a>
                   </p>
                 </div>
-                <div className="flex justify-between my-3">
+                <div className="flex justify-between my-3 flex-wrap">
                   <div>
                     <div className="flex justify-between">
                       <label
@@ -304,7 +304,7 @@ const Paddysales = () => {
                     </div>
                   </div>
                 </div>
-                <div className="flex justify-between my-3">
+                <div className="flex justify-between my-3 flex-wrap">
                   <div>
                     <div className="flex justify-between">
                       <label
@@ -346,7 +346,7 @@ const Paddysales = () => {
                     </div>
                   </div>
                 </div>
-                <div className="flex justify-between my-3">
+                <div className="flex justify-between my-3 flex-wrap">
                   <div>
                     <div className="flex justify-between">
                       <label
@@ -393,7 +393,7 @@ const Paddysales = () => {
                     </div>
                   </div>
                 </div>
-                <div className="flex justify-between my-3">
+                <div className="flex justify-between my-3 flex-wrap">
                   <div>
                     <div className="flex justify-between">
                       <label
@@ -436,7 +436,7 @@ const Paddysales = () => {
                   </div>
                 </div>
 
-                <div className="flex justify-between my-3">
+                <div className="flex justify-between my-3 flex-wrap">
                   <div>
                     <div className="flex justify-between">
                       <label

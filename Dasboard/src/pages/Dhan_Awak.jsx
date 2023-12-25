@@ -205,7 +205,7 @@ const Dhan_Awak = () => {
               method="POST"
               onSubmit={handleSubmit}
             >
-              <div className="flex justify-between ">
+              <div className="flex justify-between flex-wrap">
                 <div>
                   <div className="flex justify-between">
                     <label
@@ -278,7 +278,7 @@ const Dhan_Awak = () => {
                   </p>
                 </div>
               </div>
-              <div className="flex justify-between">
+              <div className="flex justify-between flex-wrap">
                 <div>
                   <div className="flex justify-between">
                     <label
@@ -351,7 +351,7 @@ const Dhan_Awak = () => {
               </div>
 
               <div>
-                <div className="flex justify-between">
+                <div className="flex justify-between ">
                   <label
                     htmlFor="society_id"
                     className="block text-sm font-medium leading-6 text-gray-900"
@@ -407,7 +407,7 @@ const Dhan_Awak = () => {
                 </div>
               </div>
 
-              <div className="flex justify-between">
+              <div className="flex justify-between flex-wrap">
                 <div>
                   <div className="flex justify-between">
                     <label
@@ -563,7 +563,7 @@ const Dhan_Awak = () => {
                 </p>
               </div>
 
-              <div className="flex justify-between">
+              <div className="flex justify-between flex-wrap">
                 <div>
                   <div className="flex justify-between">
                     <label
@@ -615,7 +615,7 @@ const Dhan_Awak = () => {
                 </div>
               </div>
               <h2 className=" text-2xl font-black  ">Bardana Details</h2>
-              <div className="flex justify-between">
+              <div className="flex justify-between flex-wrap">
                 <div>
                   <div className="flex justify-between">
                     <label
@@ -674,7 +674,7 @@ const Dhan_Awak = () => {
                   </div>
                 </div>
               </div>
-              <div className="flex justify-between">
+              <div className="flex justify-between flex-wrap">
                 <div>
                   <div className="flex justify-between">
                     <label
@@ -733,7 +733,7 @@ const Dhan_Awak = () => {
                   </div>
                 </div>
               </div>
-              <div className="flex justify-between">
+              <div className="flex justify-between flex-wrap">
                 <div>
                   <div className="flex justify-between">
                     <label
@@ -842,7 +842,7 @@ const Dhan_Awak = () => {
                   />
                 </div>
               </div>
-              <div className="flex justify-between">
+              <div className="flex justify-between flex-wrap">
                 <div>
                   <div className="flex justify-between">
                     <label
@@ -888,7 +888,7 @@ const Dhan_Awak = () => {
               </div>
               <h2 className=" text-2xl font-black  ">Stack Details</h2>
 
-              <fieldset className="flex justify-between">
+              <fieldset className="flex justify-between flex-wrap">
                 <legend>Bags Put In Hopper</legend>
                 <div>
                   <div className="flex justify-between">
@@ -952,7 +952,7 @@ const Dhan_Awak = () => {
                 </div>
               </fieldset>
 
-              <fieldset className="flex justify-between">
+              <fieldset className="flex justify-between flex-wrap">
                 <legend className="my-5">Bags Put In Stack</legend>
                 <div>
                   <div className="flex justify-between">
