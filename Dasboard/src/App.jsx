@@ -60,6 +60,7 @@ import View_Bhushi from "./pages/View_Bhushi.jsx";
 import View_RiceByType from "./pages/View_RiceByType.jsx";
 import View_PaddyByType from "./pages/View_PaddyByType.jsx";
 import Ricepurchased from "./pages/Ricepurchased.jsx";
+import Cashdetail from "./pages/Cashdetail.jsx";
 const App = () => {
   const [isLoggedIn, setLoggedIn] = useState(true);
 
@@ -72,6 +73,7 @@ const App = () => {
       {isLoggedIn ? (
         <Sidebar>
           <Routes>
+            <Route path="/Cashdetail" element={<Cashdetail />} />
             <Route path="/Ricepurchased" element={<Ricepurchased />} />
             <Route path="/Otherawak" element={<Otherawak />} />
             <Route path="/Otherjawak" element={<Otherjawak />} />

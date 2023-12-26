@@ -33,6 +33,7 @@ const navigation = [
     name: "Forms",
     current: false,
     children: [
+      { name: "Cash Detail", href: "/Cashdetail" },
       { name: "Rice Purchased", href: "/Ricepurchased" },
       { name: "Dalali Dhan", href: "/Dalalidhan" },
       { name: "Rice Deposit", href: "/Ricedeposit" },
