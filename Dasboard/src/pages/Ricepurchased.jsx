@@ -8,23 +8,26 @@ import SelectInput from "../inputelement/Selectinput";
 const Ricepurchased = () => {
   const [RicepurchaseData, setRicepurchaseData] = useState({
     rst_number: 0,
-    date: 0,
+    date: "",
+    party_id: "",
     broker_id: "",
     truck_number_id: "",
-    party_id: "",
     bags: 0,
     mill_weight: 0,
     party_weight: 0,
-    bill_to_rice_mill: 0,
+    bill_to_rice_mill: "",
   });
   const [Alldata, setAlldata] = useState([]);
 
   useEffect(() => {
     async function fetchMillData() {
       try {
-        const All_data = await axios.get("http://localhost:8000/");
+        const All_data = await axios.get(
+          "http://localhost:8000/rice-truck-party-brokers"
+        );
 
         const data = All_data.data;
+        console.log(data);
         setAlldata(data);
       } catch (error) {
         console.error("Error:", error);
@@ -35,7 +38,8 @@ const Ricepurchased = () => {
   }, []);
   const initialRicepurchaseData = {
     rst_number: 0,
-    date: 0,
+    date: "",
+    party_id: "",
     broker_id: "",
     truck_number_id: "",
     bags: 0,
@@ -48,7 +52,7 @@ const Ricepurchased = () => {
   };
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    // console.log(value);
+    console.log(value);
     setRicepurchaseData((prevData) => ({
       ...prevData,
       [name]: value,
@@ -59,7 +63,7 @@ const Ricepurchased = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:8000/",
+        "http://localhost:8000/rice-purchase",
         RicepurchaseData,
         {
           headers: {
