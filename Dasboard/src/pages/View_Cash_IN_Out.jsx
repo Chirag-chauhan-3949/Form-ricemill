@@ -1,31 +1,19 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
-function View_RiceMill() {
+function View_Cash_In_Out() {
   const [data, setdata] = useState([]);
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        // Replace 'YOUR_API_KEY' with your actual API key
-        const response = await axios.get("http://localhost:8000/rice-mill/", {
-          headers: {
-            "api-key": "your_secret_api_key",
-          },
-        });
-
-        setdata(response.data);
-      } catch (error) {
-        console.error("Error fetching rice mill data:", error);
-      }
-    };
-
-    fetchData();
+    axios
+      .get("http://localhost:8000/cash-in-out-data")
+      .then((res) => setdata(res.data))
+      .catch((err) => console.log(err));
   }, []);
   return (
     <div className="px-4 sm:px-6 lg:px-8">
       <div className="sm:flex sm:items-center">
         <div className="sm:flex-auto">
           <h1 className="text-base font-semibold leading-6 text-gray-900">
-            Rice Mill
+            Cash In
           </h1>
           <p className="mt-2 text-sm text-gray-700">
             A table of placeholder stock market data that does not make any
@@ -47,20 +35,50 @@ function View_RiceMill() {
             <table className="min-w-full divide-y divide-gray-300">
               <thead>
                 <tr>
-                  <th className="whitespace-nowrap py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-0">
-                    Rice Mill Name
+                  <th className="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900">
+                    CASH
                   </th>
                   <th className="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900">
-                    Gst Number Mill
+                    Paddy Purchase
                   </th>
                   <th className="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900">
-                    Rice Mill Address
+                    Paddy In
                   </th>
                   <th className="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900">
-                    Phone Number
+                    Paddy Sale
                   </th>
                   <th className="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900">
-                    Rice Mill Capacity
+                    Paddy Processed
+                  </th>
+                  <th className="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900">
+                    Paddy Stacked
+                  </th>
+                  <th className="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900">
+                    Rice Purchased
+                  </th>
+                  <th className="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900">
+                    Rice Dispatched
+                  </th>
+                  <th className="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900">
+                    Broken Sold
+                  </th>
+                  <th className="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900">
+                    Bran Sold
+                  </th>
+                  <th className="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900">
+                    Nakkhi Sold
+                  </th>
+                  <th className="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900">
+                    Bhusa Sold
+                  </th>
+                  <th className="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900">
+                    Transporting Bill
+                  </th>
+                  <th className="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900">
+                    Bardana
+                  </th>
+                  <th className="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900">
+                    Total
                   </th>
                 </tr>
               </thead>
@@ -68,19 +86,13 @@ function View_RiceMill() {
                 {data.map((user, index) => (
                   <tr key={index}>
                     <td className="whitespace-nowrap py-2 pl-4 pr-3 text-sm text-gray-500 sm:pl-0">
-                      {user.rice_mill_name}
+                      Cash In
+                    </td>
+                    <td className="whitespace-nowrap py-2 pl-4 pr-3 text-sm text-gray-500 sm:pl-0">
+                      {user.broker_name}
                     </td>
                     <td className="whitespace-nowrap px-2 py-2 text-sm font-medium text-gray-900">
-                      {user.gst_number}
-                    </td>
-                    <td className="whitespace-nowrap px-2 py-2 text-sm font-medium text-gray-900">
-                      {user.mill_address}
-                    </td>
-                    <td className="whitespace-nowrap px-2 py-2 text-sm font-medium text-gray-900">
-                      {user.phone_number}
-                    </td>
-                    <td className="whitespace-nowrap px-2 py-2 text-sm font-medium text-gray-900">
-                      {user.rice_mill_capacity}
+                      {user.broker_phone_number}
                     </td>
                   </tr>
                 ))}
@@ -93,4 +105,4 @@ function View_RiceMill() {
   );
 }
 
-export default View_RiceMill;
+export default View_Cash_In_Out;

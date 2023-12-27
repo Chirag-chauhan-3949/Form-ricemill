@@ -61,6 +61,9 @@ import View_RiceByType from "./pages/View_RiceByType.jsx";
 import View_PaddyByType from "./pages/View_PaddyByType.jsx";
 import Ricepurchased from "./pages/Ricepurchased.jsx";
 import Cashdetail from "./pages/Cashdetail.jsx";
+import View_BardanaType from "./pages/View_BardanaType.jsx";
+import View_Cash_In_Out from "./pages/View_Cash_IN_Out.jsx";
+
 const App = () => {
   const [isLoggedIn, setLoggedIn] = useState(true);
 
@@ -139,6 +142,8 @@ const App = () => {
             <Route path="/View_Bhushi" element={<View_Bhushi />} />
             <Route path="/View_RiceByType" element={<View_RiceByType />} />
             <Route path="/View_PaddyByType" element={<View_PaddyByType />} />
+            <Route path="/View_BardanaType" element={<View_BardanaType />} />
+            <Route path="/View_Cash_In_Out" element={<View_Cash_In_Out />} />
           </Routes>
         </Sidebar>
       ) : (
