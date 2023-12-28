@@ -24,7 +24,7 @@ const Add_Do = () => {
   });
 
   const [DoOptions, setDoOptions] = useState([]);
-  const [apiKey] = useState(process.env.Api_key);
+  const [apiKey] = useState(process.env.API_KEY);
 
   // Fetch data for the "Select Rice Mill" dropdown
   useEffect(() => {
