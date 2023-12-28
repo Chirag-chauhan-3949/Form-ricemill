@@ -67,7 +67,7 @@ const Add_Do = () => {
     truck_number_id: "",
   };
   const resetForm = () => {
-    setinitialDoData(initialDoData);
+    setDoData(initialDoData);
   };
 
   const [DoOptionsagreement, setDoOptionsAgreement] = useState([]);
