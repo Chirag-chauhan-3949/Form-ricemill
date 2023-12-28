@@ -18,7 +18,7 @@ const Addricemill = () => {
       [name]: value,
     });
   };
-
+  const apiKey = import.meta.env.VITE_API_KEY;
   const validateGST = (gstNumber) => {
     // Define a regular expression pattern for GST number validation
     const gstPattern =
@@ -40,16 +40,14 @@ const Addricemill = () => {
       return;
     }
     try {
-      const response = await fetch(
-        "http://139.84.133.223:3000/add-rice-mill/",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(Addricedata),
-        }
-      );
+      const response = await fetch("http://mill.dappfolk.com/add-rice-mill/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "api-key": apiKey,
+        },
+        body: JSON.stringify(Addricedata),
+      });
 
       if (response.ok) {
         // console.log("Rice mill added successfully");

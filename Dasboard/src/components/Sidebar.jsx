@@ -1,6 +1,5 @@
 import { Fragment, useState } from "react";
 import { Dialog, Menu, Transition, Disclosure } from "@headlessui/react";
-
 import {
   Bars3Icon,
   BellIcon,
@@ -133,7 +132,40 @@ function classNames(...classes) {
 
 const Sidebar = ({ children }) => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
 
+  const filteredNavigation = navigation
+    .map((item) => {
+      if (!item.children) {
+        return item;
+      }
+
+      const filteredChildren = item.children.filter((subItem) =>
+        subItem.name.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+
+      return {
+        ...item,
+        children: filteredChildren,
+      };
+    })
+    .filter((item) => !item.children || item.children.length > 0);
+
+  const handleSearchKeyDown = (e) => {
+    if (e.key === "Enter" && filteredNavigation.length > 0) {
+      const firstItem = filteredNavigation[0];
+      if (firstItem.children) {
+        const firstChild = firstItem.children[0];
+        window.location.href = firstChild.href;
+      } else {
+        window.location.href = firstItem.href;
+      }
+    }
+  };
+
+  const handleSearchItemClick = (href) => {
+    window.location.href = href;
+  };
   return (
     <>
       <div>
@@ -380,8 +412,47 @@ const Sidebar = ({ children }) => {
                   placeholder="Search..."
                   type="search"
                   name="search"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  onKeyDown={handleSearchKeyDown} // Add this line
                 />
+                {searchQuery && (
+                  <div className="absolute mt-16 mr-40 ml-30 z-50 bg-white shadow-lg w-full border border-gray-200">
+                    <ul role="list" className="py-2">
+                      {filteredNavigation.map((item) => (
+                        <li key={item.name}>
+                          {!item.children ? (
+                            <button
+                              type="button"
+                              className={classNames(
+                                "block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100",
+                                "focus:border-blue-300 active:bg-gray-200"
+                              )}
+                              onClick={() => handleSearchItemClick(item.href)}
+                            >
+                              {item.name}
+                            </button>
+                          ) : (
+                            <button
+                              type="button"
+                              className={classNames(
+                                "block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100",
+                                "focus:border-blue-300 active:bg-gray-200"
+                              )}
+                              onClick={() =>
+                                handleSearchItemClick(item.children[0].href)
+                              }
+                            >
+                              {item.name}
+                            </button>
+                          )}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
               </form>
+
               <div className="flex items-center gap-x-4 lg:gap-x-6">
                 <button
                   type="button"
