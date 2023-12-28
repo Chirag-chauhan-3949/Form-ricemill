@@ -24,7 +24,7 @@ const Add_Do = () => {
   });
 
   const [DoOptions, setDoOptions] = useState([]);
-  const [apiKey] = useState(process.env.API_KEY);
+  const [apiKey] = useState(process.env.REACT_APP_API_KEY);
   // Fetch data for the "Select Rice Mill" dropdown
   // Fetch data for the "Select Rice Mill" dropdown
   useEffect(() => {
@@ -325,7 +325,7 @@ const Add_Do = () => {
                   name="total_weight"
                   value={
                     (DoData.total_weight =
-                      +DoData.moto_weight +
+                      +DoData.mota_weight +
                       +DoData.patla_weight +
                       +DoData.sarna_weight)
                   }
