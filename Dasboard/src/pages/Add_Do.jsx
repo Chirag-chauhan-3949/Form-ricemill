@@ -34,7 +34,8 @@ const Add_Do = () => {
           "http://localhost:8000/rice-agreement-transporter-truck-society-data",
           {
             headers: {
-              Authorization: `Bearer ${apiKey}`,
+              "api-key": apiKey,
+              // Authorization: `Bearer ${apiKey}`,
             },
           }
         );
@@ -78,7 +79,8 @@ const Add_Do = () => {
           `http://localhost:8000/rice-agreement-data/${DoData.select_mill_id}`,
           {
             headers: {
-              Authorization: `Bearer ${apiKey}`,
+              "api-key": apiKey,
+              // Authorization: `Bearer ${apiKey}`,
             },
           }
         );
@@ -114,7 +116,8 @@ const Add_Do = () => {
         {
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${apiKey}`,
+            // Authorization: `Bearer ${apiKey}`,
+            "api-key": apiKey,
           },
         }
       );
