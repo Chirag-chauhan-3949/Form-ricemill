@@ -24,7 +24,7 @@ const Add_Do = () => {
   });
 
   const [DoOptions, setDoOptions] = useState([]);
-  const [apiKey] = useState(process.env.REACT_APP_API_KEY);
+  const apiKey = import.meta.env.VITE_API_KEY;
   // Fetch data for the "Select Rice Mill" dropdown
   // Fetch data for the "Select Rice Mill" dropdown
   useEffect(() => {
