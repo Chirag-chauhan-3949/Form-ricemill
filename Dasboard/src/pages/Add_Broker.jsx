@@ -9,7 +9,13 @@ const Add_Broker = () => {
     broker_name: "",
     broker_phone_number: 0,
   });
-
+  const initialData = {
+    broker_name: "",
+    broker_phone_number: 0,
+  };
+  const resetForm = () => {
+    setbrokerdata(initialData);
+  };
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setbrokerdata({
@@ -44,6 +50,7 @@ const Add_Broker = () => {
           draggable: true,
           progress: undefined,
         });
+        resetForm();
       } else {
         console.error("Failed to add transporter");
         toast.error("Failed to add transporter", {
@@ -90,7 +97,6 @@ const Add_Broker = () => {
               <Inputbox
                 label="Broker Name"
                 name="broker_name"
-                respan="Required"
                 value={brokerdata.broker_name}
                 onChange={handleInputChange}
                 placeholder="Enter Broker name"
@@ -99,7 +105,6 @@ const Add_Broker = () => {
               <Inputbox
                 label="Phone Number"
                 name="broker_phone_number"
-                respan="Required"
                 value={brokerdata.broker_phone_number}
                 onChange={handleInputChange}
                 placeholder="Enter Broker Phone Number"

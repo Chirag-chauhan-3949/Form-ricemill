@@ -8,6 +8,14 @@ const Kochia = () => {
     kochia_name: "",
     kochia_phone_number: 0,
   });
+  const initialData = {
+    rice_mill_name_id: "",
+    kochia_name: "",
+    kochia_phone_number: 0,
+  };
+  const resetForm = () => {
+    setkochiaData(initialData);
+  };
   const [DoOptions, setDoOptions] = useState([]);
 
   // Fetch data for the "Select Rice Mill" dropdown
@@ -15,7 +23,12 @@ const Kochia = () => {
     async function fetchMillData() {
       try {
         const Mill_response = await axios.get(
-          "http://localhost:8000/rice-mill"
+          "http://139.84.133.223:3000/rice-mill",
+          {
+            headers: {
+              "api-key": apiKey,
+            },
+          }
         );
 
         const data = Mill_response.data;
@@ -41,15 +54,18 @@ const Kochia = () => {
     e.preventDefault();
 
     try {
-      const response = await fetch("http://localhost:8000/kochia", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(kochiaData),
-      });
+      const response = await axios.post(
+        "http://139.84.133.223:3000/kochia",
+        kochiaData,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            "api-key": apiKey,
+          },
+        }
+      );
 
-      if (response.ok) {
+      if (response.status === 200) {
         // console.log("Kochia added successfully");
         toast.success("Kochia added successfully", {
           position: "top-right",
@@ -60,6 +76,7 @@ const Kochia = () => {
           draggable: true,
           progress: undefined,
         });
+        resetForm();
       } else {
         console.error("Failed to add Kochia");
         toast.error("Failed to add Kochia", {
@@ -74,7 +91,7 @@ const Kochia = () => {
       }
     } catch (error) {
       console.error("Error:", error);
-      toast.error("Error adding Kochia", {
+      toast.error(`Error adding Kochia: ${error.message}`, {
         position: "top-right",
         autoClose: 3000,
         hideProgressBar: false,

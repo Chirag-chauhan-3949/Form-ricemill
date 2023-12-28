@@ -40,13 +40,16 @@ const Addricemill = () => {
       return;
     }
     try {
-      const response = await fetch("http://localhost:8000/add-rice-mill/", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(Addricedata),
-      });
+      const response = await fetch(
+        "http://139.84.133.223:3000/add-rice-mill/",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(Addricedata),
+        }
+      );
 
       if (response.ok) {
         // console.log("Rice mill added successfully");

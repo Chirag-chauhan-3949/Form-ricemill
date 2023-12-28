@@ -228,7 +228,6 @@ const Add_Do = () => {
                   placeholder="Enter DO Number"
                   pattern="DO\d{13}"
                   required={true}
-                  Respan="Required"
                 />
                 <SelectInput
                   label="Agreement Number"

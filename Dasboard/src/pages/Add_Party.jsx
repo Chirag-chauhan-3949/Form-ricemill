@@ -9,7 +9,13 @@ const Add_Party = () => {
     party_name: "",
     party_phone_number: 0,
   });
-
+  const initialData = {
+    party_name: "",
+    party_phone_number: 0,
+  };
+  const resetForm = () => {
+    setpartydata(initialData);
+  };
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setpartydata({
@@ -17,20 +23,23 @@ const Add_Party = () => {
       [name]: value,
     });
   };
-
+  const apiKey = import.meta.env.VITE_API_KEY;
   const handleSubmit = async (e) => {
     e.preventDefault();
     // console.log(partydata);
     try {
-      const response = await fetch("http://localhost:8000/party/", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(partydata),
-      });
+      const response = await axios.post(
+        "http://139.84.133.223:3000/party/",
+        partydata,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            "api-key": apiKey,
+          },
+        }
+      );
 
-      if (response.ok) {
+      if (response.status === 200) {
         // console.log("Transporter added successfully");
         toast.success("Transporter added successfully", {
           position: "top-right",
@@ -41,6 +50,7 @@ const Add_Party = () => {
           draggable: true,
           progress: undefined,
         });
+        resetForm();
       } else {
         console.error("Failed to add transporter");
         toast.error("Failed to add transporter", {
@@ -84,55 +94,23 @@ const Add_Party = () => {
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-[480px]">
           <div className="bg-white px-6 py-12 shadow sm:rounded-lg sm:px-12">
             <form className="space-y-6" onSubmit={handleSubmit}>
-              <div>
-                <div className="flex justify-between">
-                  <label
-                    htmlFor="party_name"
-                    className="block text-sm font-medium leading-6 text-gray-900"
-                  >
-                    Party Name
-                  </label>
-                  <span className="text-sm leading-6 text-red-500">
-                    Required
-                  </span>
-                </div>
-                <div className="mt-2">
-                  <input
-                    type="text"
-                    name="party_name"
-                    className="block w-full rounded-md border-0 px-1.5 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                    placeholder="Enter Party name"
-                    value={partydata.party_name}
-                    onChange={handleInputChange}
-                    required
-                  />
-                </div>
-              </div>
-              <div>
-                <div className="flex justify-between">
-                  <label
-                    htmlFor="party_phone_number"
-                    className="block text-sm font-medium leading-6 text-gray-900"
-                  >
-                    Party Phone
-                  </label>
-                  <span className="text-sm leading-6 text-red-500">
-                    Required
-                  </span>
-                </div>
-                <div className="mt-2">
-                  <input
-                    pattern="[0-9]{10}"
-                    type="number"
-                    name="party_phone_number"
-                    className="block w-full rounded-md border-0 px-1.5 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                    placeholder="Enter Party Phone Number"
-                    value={partydata.party_phone_number}
-                    onChange={handleInputChange}
-                    required
-                  />
-                </div>
-              </div>
+              <Inputbox
+                label="Party Name"
+                name="party_name"
+                value={partydata.party_name}
+                onChange={handleInputChange}
+                placeholder="Enter Party name"
+                required={true}
+              />
+              <Inputbox
+                label="Phone Number"
+                name="party_phone_number"
+                value={partydata.party_phone_number}
+                onChange={handleInputChange}
+                placeholder="Enter Party Phone Number"
+                required={true}
+                pattern="[0-9]{10}"
+              />
               <div>
                 <button
                   type="submit"
