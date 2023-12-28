@@ -272,7 +272,7 @@ const Add_Do = () => {
                 <Inputbox
                   label="Mota Bardana"
                   name="mota_Bardana"
-                  value={(DoData.mota_Bardana = 2.5 * +DoData.moto_weight)}
+                  value={(DoData.mota_Bardana = 2.5 * +DoData.mota_weight)}
                   onChange={handleInputChange}
                   placeholder="Enter Mota Bardana"
                   type="number"
