@@ -115,9 +115,8 @@ const navigation = [
     children: [
       { name: "Paddy By Type", href: "/View_PaddyByType" },
       { name: "Rice By Type", href: "/View_RiceByType" },
-      { name: "Raw Material By Type", href: "/" },
-      { name: "Bardana By Type", href: "/" },
-      { name: "Total Paddy Processed", href: "/" },
+      { name: "Bardana By Type", href: "/View_BardanaType" },
+      { name: "Cash Detail", href: "/View_Cash_In_Out" },
       { name: "Reports", href: "/" },
     ],
   },

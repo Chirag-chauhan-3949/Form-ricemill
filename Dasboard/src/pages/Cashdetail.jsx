@@ -32,7 +32,7 @@ const Cashdetail = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:8000/bhushi",
+        "http://localhost:8000/cash-in-out",
         CashdetailData,
         {
           headers: {

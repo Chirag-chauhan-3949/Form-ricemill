@@ -21,7 +21,12 @@ function View_PaddyByType() {
     async function fetchData() {
       try {
         const Ricemil_response = await axios.get(
-          "http://localhost:8000/rice-mill"
+          "http://localhost:8000/rice-mill",
+          {
+            headers: {
+              "api-key": "your_secret_api_key",
+            },
+          }
         );
 
         const data = Ricemil_response.data;
@@ -46,7 +51,12 @@ function View_PaddyByType() {
     async function fetchMillData() {
       try {
         const All_Mix_Data_response = await axios.get(
-          `http://localhost:8000/rice-data/${Riceid.select_mill_id}`
+          `http://localhost:8000/rice-data/${Riceid.select_mill_id}`,
+          {
+            headers: {
+              "api-key": "your_secret_api_key",
+            },
+          }
         );
 
         const responseData = All_Mix_Data_response.data;
@@ -72,7 +82,7 @@ function View_PaddyByType() {
       <div className="sm:flex sm:items-center">
         <div className="sm:flex-auto">
           <h1 className="text-base font-semibold leading-6 text-gray-900">
-            Paddy By Type
+            Rice By Type
           </h1>
           <p className="mt-2 text-sm text-gray-700">
             A table of placeholder stock market data that does not make any

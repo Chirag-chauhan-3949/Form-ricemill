@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useState, useEffect } from "react";
 // ... (previous imports)
 
-function View_PaddyByType() {
+function View_BardanaType() {
   const [Riceid, setRiceid] = useState({
     select_mill_id: "",
   });
@@ -10,10 +10,10 @@ function View_PaddyByType() {
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     console.log(value);
-    setRiceid((prevRiceid) => ({
-      ...prevRiceid,
+    setRiceid({
+      ...Riceid,
       [name]: value,
-    }));
+    });
   };
 
   const [ricemill, setRicemill] = useState([]);
@@ -40,11 +40,15 @@ function View_PaddyByType() {
   }, []);
 
   const [data, setData] = useState({
-    total_weight: 0,
-    dm_weight: 0,
-    weight: 0,
+    jama_jute_22_23: 0,
+    ek_bharti_21_22: 0,
+    pds: 0,
     miller_purana: 0,
-    bags_put_in_hopper: 0,
+    kisan: 0,
+    bardana_society: 0,
+    hdpe_22_23: 0,
+    hdpe_21_22: 0,
+    hdpe_21_22_one_use: 0,
     // Add other properties as needed based on your API response structure
   });
 
@@ -52,7 +56,7 @@ function View_PaddyByType() {
     async function fetchMillData() {
       try {
         const All_Mix_Data_response = await axios.get(
-          `http://localhost:8000/paddy-data/${Riceid.select_mill_id}`,
+          `http://localhost:8000/bardaha-data/${Riceid.select_mill_id}`,
           {
             headers: {
               "api-key": "your_secret_api_key",
@@ -83,7 +87,7 @@ function View_PaddyByType() {
       <div className="sm:flex sm:items-center">
         <div className="sm:flex-auto">
           <h1 className="text-base font-semibold leading-6 text-gray-900">
-            Paddy By Type
+            Bardana By Type
           </h1>
           <p className="mt-2 text-sm text-gray-700">
             A table of placeholder stock market data that does not make any
@@ -109,25 +113,34 @@ function View_PaddyByType() {
                     Rice Mill Name
                   </th>
                   <th className="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900">
-                    Paddy Purchase
+                    Jama Jute 22-23
                   </th>
                   <th className="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900">
-                    Paddy In
-                  </th>
-
-                  <th className="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900">
-                    Paddy Sale
+                    Ek Bharti 21-22
                   </th>
 
                   <th className="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900">
-                    Paddy Processed
+                    PDS
                   </th>
 
                   <th className="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900">
-                    Paddy Stacked
+                    Miller Purana
+                  </th>
+
+                  <th className="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900">
+                    Kisan
                   </th>
                   <th className="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900">
-                    Paddy to Hopper
+                    Bardana Society
+                  </th>
+                  <th className="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900">
+                    HDPE 22-23
+                  </th>
+                  <th className="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900">
+                    HDPE 21-22 New
+                  </th>
+                  <th className="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900">
+                    HDPE 21-22 One Use
                   </th>
                 </tr>
               </thead>
@@ -151,71 +164,75 @@ function View_PaddyByType() {
                     </select>
                   </td>
                   <td className="whitespace-nowrap px-2 py-2 text-sm font-medium text-gray-900">
-                    {data.total_weight
-                      ? (
-                          data.total_weight.reduce(
-                            (sum, value) => sum + value,
-                            0
-                          ) / 3
-                        ).toFixed(2)
-                      : 0}
-                  </td>
-                  <td className="whitespace-nowrap px-2 py-2 text-sm font-medium text-gray-900">
-                    {data.Dhan_data && data.Dhan_data.length > 0
-                      ? data.Dhan_data.reduce(
-                          (sum, entry) => sum + entry.dm_weight,
+                    {data.Dhan_Awak_Data && data.Dhan_Awak_Data.length > 0
+                      ? data.Dhan_Awak_Data.reduce(
+                          (sum, entry) => sum + entry.jama_jute_22_23,
                           0
                         )
                       : 0}
                   </td>
                   <td className="whitespace-nowrap px-2 py-2 text-sm font-medium text-gray-900">
-                    {data.Paddy_sale_data && data.Paddy_sale_data.length > 0
-                      ? data.Paddy_sale_data.reduce(
-                          (sum, entry) => sum + entry.bags,
+                    {data.Dhan_Awak_Data && data.Dhan_Awak_Data.length > 0
+                      ? data.Dhan_Awak_Data.reduce(
+                          (sum, entry) => sum + entry.ek_bharti_21_22,
                           0
-                        ) * 0.4
+                        )
                       : 0}
                   </td>
                   <td className="whitespace-nowrap px-2 py-2 text-sm font-medium text-gray-900">
-                    {data.Dhan_data && data.Dhan_data.length > 0
-                      ? data.Dhan_data.reduce(
+                    {data.Dhan_Awak_Data && data.Dhan_Awak_Data.length > 0
+                      ? data.Dhan_Awak_Data.reduce(
+                          (sum, entry) => sum + entry.pds,
+                          0
+                        )
+                      : 0}
+                  </td>
+                  <td className="whitespace-nowrap px-2 py-2 text-sm font-medium text-gray-900">
+                    {data.Dhan_Awak_Data && data.Dhan_Awak_Data.length > 0
+                      ? data.Dhan_Awak_Data.reduce(
                           (sum, entry) => sum + entry.miller_purana,
                           0
                         )
                       : 0}
                   </td>
                   <td className="whitespace-nowrap px-2 py-2 text-sm font-medium text-gray-900">
-                    {data.total_weight
-                      ? (
-                          data.total_weight.reduce(
-                            (sum, value) => sum + value,
-                            0
-                          ) +
-                          (data.Dhan_data && data.Dhan_data.length > 0
-                            ? data.Dhan_data.reduce(
-                                (sum, entry) => sum + +entry.dm_weight,
-                                0
-                              )
-                            : 0) -
-                          (data.Paddy_sale_data &&
-                          data.Paddy_sale_data.length > 0
-                            ? data.Paddy_sale_data.reduce(
-                                (sum, entry) => sum + entry.bags,
-                                0
-                              ) * 0.4
-                            : 0) -
-                          (data.Dhan_data && data.Dhan_data.length > 0
-                            ? data.Dhan_data.reduce(
-                                (sum, entry) => sum + entry.miller_purana,
-                                0
-                              )
-                            : 0)
-                        ).toFixed(2)
+                    {data.Dhan_Awak_Data && data.Dhan_Awak_Data.length > 0
+                      ? data.Dhan_Awak_Data.reduce(
+                          (sum, entry) => sum + entry.kisan,
+                          0
+                        )
                       : 0}
                   </td>
                   <td className="whitespace-nowrap px-2 py-2 text-sm font-medium text-gray-900">
-                    {data.Dhan_data && data.Dhan_data.length > 0
-                      ? data.Dhan_data[0].bags_put_in_hopper // Assuming you want the value from the first entry
+                    {data.Dhan_Awak_Data && data.Dhan_Awak_Data.length > 0
+                      ? data.Dhan_Awak_Data.reduce(
+                          (sum, entry) => sum + entry.bardana_society,
+                          0
+                        )
+                      : 0}
+                  </td>
+                  <td className="whitespace-nowrap px-2 py-2 text-sm font-medium text-gray-900">
+                    {data.Dhan_Awak_Data && data.Dhan_Awak_Data.length > 0
+                      ? data.Dhan_Awak_Data.reduce(
+                          (sum, entry) => sum + entry.hdpe_22_23,
+                          0
+                        )
+                      : 0}
+                  </td>
+                  <td className="whitespace-nowrap px-2 py-2 text-sm font-medium text-gray-900">
+                    {data.Dhan_Awak_Data && data.Dhan_Awak_Data.length > 0
+                      ? data.Dhan_Awak_Data.reduce(
+                          (sum, entry) => sum + entry.hdpe_21_22,
+                          0
+                        )
+                      : 0}
+                  </td>
+                  <td className="whitespace-nowrap px-2 py-2 text-sm font-medium text-gray-900">
+                    {data.Dhan_Awak_Data && data.Dhan_Awak_Data.length > 0
+                      ? data.Dhan_Awak_Data.reduce(
+                          (sum, entry) => sum + entry.hdpe_21_22_one_use,
+                          0
+                        )
                       : 0}
                   </td>
                 </tr>
@@ -228,4 +245,4 @@ function View_PaddyByType() {
   );
 }
 
-export default View_PaddyByType;
+export default View_BardanaType;
