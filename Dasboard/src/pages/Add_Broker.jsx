@@ -16,20 +16,23 @@ const Add_Broker = () => {
       [name]: value,
     });
   };
-
+  const [apiKey] = useState(process.env.Api_key);
   const handleSubmit = async (e) => {
     e.preventDefault();
     // console.log(brokerdata);
     try {
-      const response = await fetch("http://localhost:8000/broker/", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(brokerdata),
-      });
+      const response = await axios.post(
+        "http://localhost:8000/broker/",
+        brokerdata,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${apiKey}`,
+          },
+        }
+      );
 
-      if (response.ok) {
+      if (response.status === 200) {
         // console.log("Transporter added successfully");
         toast.success("Transporter added successfully", {
           position: "top-right",

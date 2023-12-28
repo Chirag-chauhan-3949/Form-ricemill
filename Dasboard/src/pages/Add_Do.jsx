@@ -2,6 +2,9 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import SelectInput from "../inputelement/Selectinput";
+import Dateinput from "../inputelement/Dateinput";
+import Inputbox from "../inputelement/Inputbox";
 const Add_Do = () => {
   const [DoData, setDoData] = useState({
     select_mill_id: "",
@@ -40,6 +43,26 @@ const Add_Do = () => {
 
     fetchMillData();
   }, []);
+
+  const initialDoData = {
+    select_mill_id: "",
+    date: "",
+    do_number: "",
+    select_argeement_id: "",
+    mota_weight: 0,
+    mota_Bardana: 0,
+    patla_weight: 0,
+    patla_bardana: 0,
+    sarna_weight: 0,
+    sarna_bardana: 0,
+    total_weight: 0,
+    total_bardana: 0,
+    society_name_id: "",
+    truck_number_id: "",
+  };
+  const resetForm = () => {
+    setinitialDoData(initialDoData);
+  };
 
   const [DoOptionsagreement, setDoOptionsAgreement] = useState([]);
   useEffect(() => {
@@ -95,6 +118,7 @@ const Add_Do = () => {
           draggable: true,
           progress: undefined,
         });
+        resetForm();
       } else {
         console.error("Failed to send form data");
         toast.error("Failed to add Do", {
@@ -143,378 +167,238 @@ const Add_Do = () => {
               action="#"
               method="POST"
             >
+              <SelectInput
+                label="Select Rice Mill"
+                name="select_mill_id"
+                options={
+                  DoOptions.rice_mill_data &&
+                  DoOptions.rice_mill_data.map((option) => ({
+                    label: option.rice_mill_name,
+                    value: option.rice_mill_id,
+                  }))
+                }
+                value={
+                  DoData.select_mill_id
+                    ? {
+                        label: DoOptions.rice_mill_data.find(
+                          (option) =>
+                            option.rice_mill_id === DoData.select_mill_id
+                        ).rice_mill_name,
+                        value: DoData.select_mill_id,
+                      }
+                    : null
+                }
+                onChange={(selectedOption) =>
+                  handleInputChange({
+                    target: {
+                      name: "select_mill_id",
+                      value: selectedOption ? selectedOption.value : "",
+                    },
+                  })
+                }
+                placeholder="Select Mill"
+              />
               <div>
-                <label
-                  htmlFor="select_mill_id"
-                  className="block text-sm font-medium leading-6 text-gray-900"
-                >
-                  Select Rice Mill
-                </label>
-                <div className="mt-2">
-                  <select
-                    required
-                    type="text"
-                    name="select_mill_id"
-                    className="block  w-full bg-white rounded-md  border-0 px-1.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                    value={DoData.select_mill_id}
-                    onChange={handleInputChange}
-                  >
-                    <option value="">-Select Rice Mill-</option>
-                    {DoOptions.rice_mill_data &&
-                      DoOptions.rice_mill_data.map((option) => (
-                        <option
-                          key={option.rice_mill_id}
-                          value={option.rice_mill_id}
-                        >
-                          {option.rice_mill_name}
-                        </option>
-                      ))}
-                  </select>
-                  <p className="mt-2 text-sm text-gray-500">
-                    Cannot Find Rice Mill?{" "}
-                    <a
-                      href="/Addricemill"
-                      className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
-                    >
-                      Add New Rice Mill..
-                    </a>
-                  </p>
-                </div>
-              </div>
-              <div>
-                <div className="flex justify-between">
-                  <label
-                    htmlFor="date"
-                    className="block text-sm font-medium leading-6 text-gray-900"
-                  >
-                    Do Date
-                  </label>
-                </div>
-                <div className="mt-1">
-                  <input
-                    type="date"
-                    name="date"
-                    className="block min-w-[250px] px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                    onChange={handleInputChange}
-                    value={DoData.date}
-                  />
-                </div>
+                <Dateinput
+                  value={DoData.date}
+                  onChange={handleInputChange}
+                  label="Date"
+                  name="date"
+                />
               </div>
 
               <div className="flex justify-between flex-wrap">
-                <div>
-                  <div className="flex justify-between">
-                    <label
-                      htmlFor="do_number"
-                      className="block text-sm font-medium leading-6 text-gray-900"
-                    >
-                      DO Numbar
-                    </label>
-                  </div>
-                  <div className="mt-1">
-                    <input
-                      type="text"
-                      pattern="DO\d{13}"
-                      name="do_number"
-                      value={DoData.do_number}
-                      className="block min-w-[250px] px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                      onChange={handleInputChange}
-                    />
-                  </div>
-                </div>
-                <div>
-                  <div className="flex justify-between">
-                    <label
-                      htmlFor="select_argeement_id"
-                      className="block text-sm font-medium leading-6 text-gray-900"
-                    >
-                      Select Agreement
-                    </label>
-                  </div>
-                  <div className="mt-1">
-                    <select
-                      type="text"
-                      name="select_argeement_id"
-                      value={DoData.select_argeement_id}
-                      className=" bg-white block min-w-[250px] px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                      onChange={handleInputChange}
-                    >
-                      <option value="">Select Agreement</option>
-                      {DoOptionsagreement.agreement_data &&
-                        DoOptionsagreement.agreement_data.map((agreement) => (
-                          <option
-                            key={agreement.agremennt_id}
-                            value={agreement.agremennt_id}
-                          >
-                            {agreement.agreement_number}
-                          </option>
-                        ))}
-                    </select>
-                  </div>
-                  <p className="mt-2 text-center text-sm text-gray-500">
-                    Cannot Find agreement?{" "}
-                    <a
-                      href="/Add_Agreement"
-                      className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
-                    >
-                      Add Agreement..
-                    </a>
-                  </p>
-                </div>
+                <Inputbox
+                  label="Do Number"
+                  name="do_number"
+                  value={DoData.do_number}
+                  onChange={handleInputChange}
+                  placeholder="Enter DO Number"
+                  pattern="DO\d{13}"
+                />
+                <SelectInput
+                  label="Agreement Number"
+                  name="select_argeement_id"
+                  placeholder="Select Agreement"
+                  options={
+                    DoOptionsagreement.agreement_data &&
+                    DoOptionsagreement.agreement_data.map((option) => ({
+                      label: option.agreement_number,
+                      value: option.agremennt_id,
+                    }))
+                  }
+                  value={
+                    DoData.select_argeement_id
+                      ? {
+                          label: DoOptionsagreement.agreement_data.find(
+                            (option) =>
+                              option.agremennt_id === DoData.select_argeement_id
+                          ).agreement_number,
+                          value: DoData.select_argeement_id,
+                        }
+                      : null
+                  }
+                  onChange={(selectedOption) =>
+                    handleInputChange({
+                      target: {
+                        name: "select_argeement_id",
+                        value: selectedOption ? selectedOption.value : "",
+                      },
+                    })
+                  }
+                />
               </div>
               <div className="flex justify-between flex-wrap">
-                <div>
-                  <div className="flex justify-between">
-                    <label
-                      htmlFor="moto_weight"
-                      className="block text-sm font-medium leading-6 text-gray-900"
-                    >
-                      Mota Weight
-                    </label>
-                  </div>
-                  <div className="mt-1">
-                    <input
-                      type="number"
-                      name="moto_weight"
-                      value={DoData.moto_weight}
-                      className="block min-w-[250px] px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                      onChange={handleInputChange}
-                    />
-                  </div>
-                </div>
-                <div>
-                  <div className="flex justify-between">
-                    <label
-                      htmlFor="mota_Bardana"
-                      className="block text-sm font-medium leading-6 text-gray-900"
-                    >
-                      Mota Bardana
-                    </label>
-                  </div>
-                  <div className="mt-1">
-                    <input
-                      disabled
-                      type="number"
-                      name="mota_Bardana"
-                      value={(DoData.mota_Bardana = 2.5 * +DoData.moto_weight)}
-                      className="block min-w-[250px] px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                      onChange={handleInputChange}
-                    />
-                  </div>
-                </div>
+                <Inputbox
+                  label="Mota Weight"
+                  name="mota_weight"
+                  value={DoData.mota_weight}
+                  onChange={handleInputChange}
+                  placeholder="Enter Mota Weight"
+                  type="number"
+                />
+                <Inputbox
+                  label="Mota Bardana"
+                  name="mota_Bardana"
+                  value={(DoData.mota_Bardana = 2.5 * +DoData.moto_weight)}
+                  onChange={handleInputChange}
+                  placeholder="Enter Mota Bardana"
+                  type="number"
+                  disabled={true}
+                />
               </div>
               <div className="flex justify-between flex-wrap">
-                <div>
-                  <div className="flex justify-between">
-                    <label
-                      htmlFor="patla_weight"
-                      className="block text-sm font-medium leading-6 text-gray-900"
-                    >
-                      Patla Weight
-                    </label>
-                  </div>
-                  <div className="mt-1">
-                    <input
-                      type="number"
-                      name="patla_weight"
-                      value={DoData.patla_weight}
-                      className="block min-w-[250px] px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                      onChange={handleInputChange}
-                    />
-                  </div>
-                </div>
-                <div>
-                  <div className="flex justify-between">
-                    <label
-                      htmlFor="patla_bardana"
-                      className="block text-sm font-medium leading-6 text-gray-900"
-                    >
-                      Patla Bardana
-                    </label>
-                  </div>
-                  <div className="mt-1">
-                    <input
-                      disabled
-                      type="number"
-                      name="patla_bardana"
-                      value={
-                        (DoData.patla_bardana = 2.5 * +DoData.patla_weight)
-                      }
-                      className="block min-w-[250px] px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                      onChange={handleInputChange}
-                    />
-                  </div>
-                </div>
+                <Inputbox
+                  label="Patla Weight"
+                  name="patla_weight"
+                  value={DoData.patla_weight}
+                  onChange={handleInputChange}
+                  placeholder="Enter Patla Weight"
+                  type="number"
+                  disabled={false}
+                />
+                <Inputbox
+                  label="Patla Bardana"
+                  name="patla_bardana"
+                  value={(DoData.patla_bardana = 2.5 * +DoData.patla_weight)}
+                  onChange={handleInputChange}
+                  placeholder="Enter Patla Bardana"
+                  type="number"
+                  disabled={true}
+                />
               </div>
               <div className="flex justify-between flex-wrap">
-                <div>
-                  <div className="flex justify-between">
-                    <label
-                      htmlFor="sarna_weight"
-                      className="block text-sm font-medium leading-6 text-gray-900"
-                    >
-                      Sarna weight
-                    </label>
-                  </div>
-                  <div className="mt-1">
-                    <input
-                      type="number"
-                      name="sarna_weight"
-                      value={DoData.sarna_weight}
-                      className="block min-w-[250px] px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                      onChange={handleInputChange}
-                    />
-                  </div>
-                </div>
-                <div>
-                  <div className="flex justify-between">
-                    <label
-                      htmlFor="sarna_bardana"
-                      className="block text-sm font-medium leading-6 text-gray-900"
-                    >
-                      Sarna Bardana
-                    </label>
-                  </div>
-                  <div className="mt-1">
-                    <input
-                      disabled
-                      type="number"
-                      name="sarna_bardana"
-                      value={
-                        (DoData.sarna_bardana = 2.5 * +DoData.sarna_weight)
-                      }
-                      className="block min-w-[250px] px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                      onChange={handleInputChange}
-                    />
-                  </div>
-                </div>
+                <Inputbox
+                  label="Sarna Weight"
+                  name="sarna_weight"
+                  value={DoData.sarna_weight}
+                  onChange={handleInputChange}
+                  placeholder="Enter Sarna Weight"
+                  type="number"
+                  disabled={false}
+                />
+                <Inputbox
+                  label="Sarna Bardana"
+                  name="sarna_bardana"
+                  value={(DoData.sarna_bardana = 2.5 * +DoData.sarna_weight)}
+                  onChange={handleInputChange}
+                  placeholder="Enter Sarna Bardana"
+                  type="number"
+                  disabled={true}
+                />
               </div>
               <div className="flex justify-between flex-wrap ">
-                <div>
-                  <div className="flex justify-between ">
-                    <label
-                      htmlFor="total_weight"
-                      className="block text-sm font-medium leading-6 text-gray-900"
-                    >
-                      Total Weight
-                    </label>
-                  </div>
-                  <div className="mt-1">
-                    <input
-                      disabled
-                      type="number"
-                      name="total_weight"
-                      value={
-                        (DoData.total_weight =
-                          +DoData.moto_weight +
-                          +DoData.patla_weight +
-                          +DoData.sarna_weight)
-                      }
-                      className="block min-w-[250px] px-1.5 rounded-md py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 bg-gray-200 sm:text-sm sm:leading-6"
-                      onChange={handleInputChange}
-                    />
-                  </div>
-                </div>
-                <div>
-                  <div className="flex justify-between">
-                    <label
-                      htmlFor="total_bardana"
-                      className="block text-sm font-medium leading-6 text-gray-900"
-                    >
-                      Total Bardana
-                    </label>
-                  </div>
-                  <div className="mt-1">
-                    <input
-                      disabled
-                      type="number"
-                      name="total_bardana"
-                      value={
-                        (DoData.total_bardana =
-                          +DoData.mota_Bardana +
-                          +DoData.patla_bardana +
-                          +DoData.sarna_bardana)
-                      }
-                      className="block min-w-[250px] px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300  bg-gray-200 placeholder:text-gray-400 sm:text-sm sm:leading-6"
-                      onChange={handleInputChange}
-                    />
-                  </div>
-                </div>
+                <Inputbox
+                  label="Total Weight"
+                  name="total_weight"
+                  value={
+                    (DoData.total_weight =
+                      +DoData.moto_weight +
+                      +DoData.patla_weight +
+                      +DoData.sarna_weight)
+                  }
+                  onChange={handleInputChange}
+                  placeholder="Enter Total Weight"
+                  type="number"
+                  disabled={true}
+                />
+                <Inputbox
+                  label="Total Bardana"
+                  name="total_bardana"
+                  value={
+                    (DoData.total_bardana =
+                      +DoData.mota_Bardana +
+                      +DoData.patla_bardana +
+                      +DoData.sarna_bardana)
+                  }
+                  onChange={handleInputChange}
+                  placeholder="Enter Total Bardana"
+                  type="number"
+                  disabled={true}
+                />
               </div>
-              <div>
-                <div className="flex justify-between ">
-                  <label
-                    htmlFor="society_name_id"
-                    className="block text-sm font-medium leading-6 text-gray-900"
-                  >
-                    Society
-                  </label>
-                </div>
-                <div className="mt-1">
-                  <select
-                    name="society_name_id"
-                    type="number"
-                    value={DoData.society_name_id}
-                    className="bg-white block w-full px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                    onChange={handleInputChange}
-                  >
-                    <option value="">Select a society</option>
-                    {DoOptions.society_data &&
-                      DoOptions.society_data.map((societie) => (
-                        <option
-                          key={societie.society_id}
-                          value={societie.society_id}
-                        >
-                          {societie.society_name}
-                        </option>
-                      ))}
-                  </select>
-                  <p className="mt-2  text-sm text-gray-500">
-                    Cannot Find Society?{" "}
-                    <a
-                      href="/Add_New_Society"
-                      className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
-                    >
-                      Add New Society.
-                    </a>
-                  </p>
-                </div>
-              </div>
-              <div>
-                <label
-                  htmlFor="truck_number_id"
-                  className="block text-sm font-medium leading-6 text-gray-900"
-                >
-                  truck Number
-                </label>
 
-                <div className="mt-1">
-                  <select
-                    name="truck_number_id"
-                    type="number"
-                    value={DoData.truck_number_id}
-                    className=" bg-white block w-full px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                    onChange={handleInputChange}
-                  >
-                    <option value="">Select a Truck</option>
-                    {DoOptions.truck_data &&
-                      DoOptions.truck_data.map((truck) => (
-                        <option key={truck.truck_id} value={truck.truck_id}>
-                          {truck.truck_number}
-                        </option>
-                      ))}
-                  </select>
-                </div>
-                <p className="mt-2 text-sm text-gray-500">
-                  Cannot Find Truck?{" "}
-                  <a
-                    href="/Add_NEw_Truck"
-                    className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
-                  >
-                    Add New Truck.
-                  </a>
-                </p>
-              </div>
+              <SelectInput
+                label="Society"
+                name="society_name_id"
+                options={
+                  DoOptions.society_data &&
+                  DoOptions.society_data.map((option) => ({
+                    label: option.society_name,
+                    value: option.society_id,
+                  }))
+                }
+                value={
+                  DoData.society_name_id
+                    ? {
+                        label: DoOptions.society_data.find(
+                          (option) =>
+                            option.society_id === DoData.society_name_id
+                        ).society_name,
+                        value: DoData.society_name_id,
+                      }
+                    : null
+                }
+                onChange={(selectedOption) =>
+                  handleInputChange({
+                    target: {
+                      name: "society_name_id",
+                      value: selectedOption ? selectedOption.value : "",
+                    },
+                  })
+                }
+                placeholder="Select Society"
+              />
+              <SelectInput
+                label="Truck Number"
+                name="truck_number_id"
+                options={
+                  DoOptions.truck_data &&
+                  DoOptions.truck_data.map((option) => ({
+                    label: option.truck_number,
+                    value: option.truck_id,
+                  }))
+                }
+                value={
+                  DoData.truck_number_id
+                    ? {
+                        label: DoOptions.truck_data.find(
+                          (option) => option.truck_id === DoData.truck_number_id
+                        ).truck_number,
+                        value: DoData.truck_number_id,
+                      }
+                    : null
+                }
+                onChange={(selectedOption) =>
+                  handleInputChange({
+                    target: {
+                      name: "truck_number_id",
+                      value: selectedOption ? selectedOption.value : "",
+                    },
+                  })
+                }
+                placeholder="Select Truck Number"
+              />
 
               <div>
                 <button
