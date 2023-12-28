@@ -1,5 +1,7 @@
-import { Fragment, useState } from "react";
+import { Fragment, useState, useEffect } from "react";
 import { Dialog, Menu, Transition, Disclosure } from "@headlessui/react";
+import { useNavigate } from "react-router-dom";
+
 import {
   Bars3Icon,
   BellIcon,
@@ -11,6 +13,7 @@ import {
   MagnifyingGlassIcon,
 } from "@heroicons/react/20/solid";
 import { Link } from "react-router-dom";
+
 const navigation = [
   {
     name: "Add Forms",
@@ -115,7 +118,7 @@ const navigation = [
       { name: "Paddy By Type", href: "/View_PaddyByType" },
       { name: "Rice By Type", href: "/View_RiceByType" },
       { name: "Bardana By Type", href: "/View_BardanaType" },
-      { name: "Cash Detail", href: "/View_Cash_In_Out" },
+      { name: "View Cash Detail", href: "/View_Cash_In_Out" },
       { name: "Reports", href: "/" },
     ],
   },
@@ -131,40 +134,33 @@ function classNames(...classes) {
 }
 
 const Sidebar = ({ children }) => {
-  const [sidebarOpen, setSidebarOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
+  const [searchResults, setSearchResults] = useState([]);
 
-  const filteredNavigation = navigation
-    .map((item) => {
-      if (!item.children) {
-        return item;
+  const handleSearch = (query, items) => {
+    const results = items.reduce((acc, item) => {
+      if (item.name.toLowerCase().includes(query.toLowerCase())) {
+        acc.push(item);
+      }
+      if (item.children) {
+        const childrenResults = handleSearch(query, item.children);
+        acc.push(...childrenResults);
       }
 
-      const filteredChildren = item.children.filter((subItem) =>
-        subItem.name.toLowerCase().includes(searchQuery.toLowerCase())
-      );
+      return acc;
+    }, []);
 
-      return {
-        ...item,
-        children: filteredChildren,
-      };
-    })
-    .filter((item) => !item.children || item.children.length > 0);
-
-  const handleSearchKeyDown = (e) => {
-    if (e.key === "Enter" && filteredNavigation.length > 0) {
-      const firstItem = filteredNavigation[0];
-      if (firstItem.children) {
-        const firstChild = firstItem.children[0];
-        window.location.href = firstChild.href;
-      } else {
-        window.location.href = firstItem.href;
-      }
-    }
+    return results;
   };
-
-  const handleSearchItemClick = (href) => {
-    window.location.href = href;
+  const navigate = useNavigate();
+  useEffect(() => {
+    const results = handleSearch(searchQuery, navigation);
+    setSearchResults(results);
+  }, [searchQuery]);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const handleResultClick = (href) => {
+    navigate(href);
+    setSearchQuery("");
   };
   return (
     <>
@@ -398,7 +394,14 @@ const Sidebar = ({ children }) => {
             />
 
             <div className="flex flex-1 gap-x-4 self-stretch lg:gap-x-6">
-              <form className="relative flex flex-1" action="#" method="GET">
+              <form
+                className="relative flex flex-1"
+                action="#"
+                method="GET"
+                onSubmit={(e) => {
+                  e.preventDefault();
+                }}
+              >
                 <label htmlFor="search-field" className="sr-only">
                   Search
                 </label>
@@ -406,53 +409,36 @@ const Sidebar = ({ children }) => {
                   className="pointer-events-none absolute inset-y-0 left-0 h-full w-5 text-gray-400"
                   aria-hidden="true"
                 />
+
                 <input
                   id="search-field"
-                  className="block h-full w-full border-0 py-0 pl-8 pr-0 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm"
+                  className="block h-full w-full border-0 py-0 pl-8 pr-0 text-gray-900 placeholder-text-gray-400 focus:ring-0 sm:text-sm focus:outline-none"
                   placeholder="Search..."
                   type="search"
                   name="search"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  onKeyDown={handleSearchKeyDown} // Add this line
+                  autoComplete="off"
                 />
-                {searchQuery && (
-                  <div className="absolute mt-16 mr-40 ml-30 z-50 bg-white shadow-lg w-full border border-gray-200">
-                    <ul role="list" className="py-2">
-                      {filteredNavigation.map((item) => (
-                        <li key={item.name}>
-                          {!item.children ? (
-                            <button
-                              type="button"
-                              className={classNames(
-                                "block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100",
-                                "focus:border-blue-300 active:bg-gray-200"
-                              )}
-                              onClick={() => handleSearchItemClick(item.href)}
-                            >
-                              {item.name}
-                            </button>
-                          ) : (
-                            <button
-                              type="button"
-                              className={classNames(
-                                "block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100",
-                                "focus:border-blue-300 active:bg-gray-200"
-                              )}
-                              onClick={() =>
-                                handleSearchItemClick(item.children[0].href)
-                              }
-                            >
-                              {item.name}
-                            </button>
-                          )}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                )}
               </form>
-
+              {searchResults.length > 0 && searchQuery && (
+                <div className="z-50 mt-16  mr-20 bg-white border border-gray-200 w-full rounded-md shadow-lg h-60 overflow-y-auto">
+                  <ul>
+                    {searchResults.map((result) => (
+                      <li key={result.name}>
+                        <button
+                          className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full text-left"
+                          onClick={() => {
+                            handleResultClick(result.href);
+                          }}
+                        >
+                          {result.name}
+                        </button>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
               <div className="flex items-center gap-x-4 lg:gap-x-6">
                 <button
                   type="button"
@@ -530,5 +516,4 @@ const Sidebar = ({ children }) => {
     </>
   );
 };
-
 export default Sidebar;
