@@ -11,7 +11,7 @@ const Add_Do = () => {
     date: "",
     do_number: "",
     select_argeement_id: "",
-    moto_weight: 0,
+    mota_weight: 0,
     mota_Bardana: 0,
     patla_weight: 0,
     patla_bardana: 0,
@@ -24,13 +24,19 @@ const Add_Do = () => {
   });
 
   const [DoOptions, setDoOptions] = useState([]);
+  const [apiKey] = useState(process.env.Api_key);
 
   // Fetch data for the "Select Rice Mill" dropdown
   useEffect(() => {
     async function fetchMillData() {
       try {
         const Mill_response = await axios.get(
-          "http://localhost:8000/rice-agreement-transporter-truck-society-data"
+          "http://localhost:8000/rice-agreement-transporter-truck-society-data",
+          {
+            headers: {
+              Authorization: `Bearer ${apiKey}`,
+            },
+          }
         );
 
         const data = Mill_response.data;
@@ -69,7 +75,12 @@ const Add_Do = () => {
     async function fetchagrementData() {
       try {
         const agremennt_data = await axios.get(
-          `http://localhost:8000/rice-agreement-data/${DoData.select_mill_id}`
+          `http://localhost:8000/rice-agreement-data/${DoData.select_mill_id}`,
+          {
+            headers: {
+              Authorization: `Bearer ${apiKey}`,
+            },
+          }
         );
 
         const data = agremennt_data.data;
@@ -103,6 +114,7 @@ const Add_Do = () => {
         {
           headers: {
             "Content-Type": "application/json",
+            Authorization: `Bearer ${apiKey}`,
           },
         }
       );
