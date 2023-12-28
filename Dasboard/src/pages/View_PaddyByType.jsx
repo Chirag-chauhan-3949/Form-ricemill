@@ -44,6 +44,7 @@ function View_PaddyByType() {
     dm_weight: 0,
     weight: 0,
     miller_purana: 0,
+    bags_put_in_hopper: 0,
     // Add other properties as needed based on your API response structure
   });
 
@@ -124,6 +125,9 @@ function View_PaddyByType() {
 
                   <th className="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900">
                     Paddy Stacked
+                  </th>
+                  <th className="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900">
+                    Paddy to Hopper
                   </th>
                 </tr>
               </thead>
@@ -207,6 +211,11 @@ function View_PaddyByType() {
                               )
                             : 0)
                         ).toFixed(2)
+                      : 0}
+                  </td>
+                  <td className="whitespace-nowrap px-2 py-2 text-sm font-medium text-gray-900">
+                    {data.Dhan_data && data.Dhan_data.length > 0
+                      ? data.Dhan_data[0].bags_put_in_hopper // Assuming you want the value from the first entry
                       : 0}
                   </td>
                 </tr>
