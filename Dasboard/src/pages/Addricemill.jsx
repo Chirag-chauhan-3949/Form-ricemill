@@ -40,7 +40,7 @@ const Addricemill = () => {
       return;
     }
     try {
-      const response = await fetch("https://mill.dappfolk.com/add-rice-mill/", {
+      const response = await fetch("http://mill.dappfolk.com/add-rice-mill/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
