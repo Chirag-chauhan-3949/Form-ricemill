@@ -35,7 +35,6 @@ const Add_Do = () => {
           {
             headers: {
               "api-key": apiKey,
-              // Authorization: `Bearer ${apiKey}`,
             },
           }
         );
@@ -80,7 +79,6 @@ const Add_Do = () => {
           {
             headers: {
               "api-key": apiKey,
-              // Authorization: `Bearer ${apiKey}`,
             },
           }
         );
@@ -116,7 +114,6 @@ const Add_Do = () => {
         {
           headers: {
             "Content-Type": "application/json",
-            // Authorization: `Bearer ${apiKey}`,
             "api-key": apiKey,
           },
         }
@@ -230,6 +227,8 @@ const Add_Do = () => {
                   onChange={handleInputChange}
                   placeholder="Enter DO Number"
                   pattern="DO\d{13}"
+                  required={true}
+                  Respan="Required"
                 />
                 <SelectInput
                   label="Agreement Number"

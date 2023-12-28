@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
+import Inputbox from "../inputelement/Inputbox";
 
 const Add_Broker = () => {
   const [brokerdata, setbrokerdata] = useState({
@@ -16,7 +17,7 @@ const Add_Broker = () => {
       [name]: value,
     });
   };
-  const [apiKey] = useState(process.env.Api_key);
+  const apiKey = import.meta.env.VITE_API_KEY;
   const handleSubmit = async (e) => {
     e.preventDefault();
     // console.log(brokerdata);
@@ -27,7 +28,7 @@ const Add_Broker = () => {
         {
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${apiKey}`,
+            "api-key": apiKey,
           },
         }
       );
@@ -86,55 +87,26 @@ const Add_Broker = () => {
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-[480px]">
           <div className="bg-white px-6 py-12 shadow sm:rounded-lg sm:px-12">
             <form className="space-y-6" onSubmit={handleSubmit}>
-              <div>
-                <div className="flex justify-between">
-                  <label
-                    htmlFor="broker_name"
-                    className="block text-sm font-medium leading-6 text-gray-900"
-                  >
-                    Broker Name
-                  </label>
-                  <span className="text-sm leading-6 text-red-500">
-                    Required
-                  </span>
-                </div>
-                <div className="mt-2">
-                  <input
-                    type="text"
-                    name="broker_name"
-                    className="block w-full rounded-md border-0 px-1.5 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                    placeholder="Enter Broker name"
-                    value={brokerdata.broker_name}
-                    onChange={handleInputChange}
-                    required
-                  />
-                </div>
-              </div>
-              <div>
-                <div className="flex justify-between">
-                  <label
-                    htmlFor="broker_phone_number"
-                    className="block text-sm font-medium leading-6 text-gray-900"
-                  >
-                    Broker Phone Number
-                  </label>
-                  <span className="text-sm leading-6 text-red-500">
-                    Required
-                  </span>
-                </div>
-                <div className="mt-2">
-                  <input
-                    pattern="[0-9]{10}"
-                    type="number"
-                    name="broker_phone_number"
-                    className="block w-full rounded-md border-0 px-1.5 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                    placeholder="Enter Broker Phone Number"
-                    value={brokerdata.broker_phone_number}
-                    onChange={handleInputChange}
-                    required
-                  />
-                </div>
-              </div>
+              <Inputbox
+                label="Broker Name"
+                name="broker_name"
+                respan="Required"
+                value={brokerdata.broker_name}
+                onChange={handleInputChange}
+                placeholder="Enter Broker name"
+                required={true}
+              />
+              <Inputbox
+                label="Phone Number"
+                name="broker_phone_number"
+                respan="Required"
+                value={brokerdata.broker_phone_number}
+                onChange={handleInputChange}
+                placeholder="Enter Broker Phone Number"
+                required={true}
+                pattern="[0-9]{10}"
+              />
+
               <div>
                 <button
                   type="submit"
