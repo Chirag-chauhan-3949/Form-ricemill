@@ -2,6 +2,9 @@ import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import SelectInput from "../inputelement/Selectinput";
+import DateInput from "../inputelement/Dateinput";
+import Inputbox from "../inputelement/Inputbox";
 const Dopanding = () => {
   const [DopandingData, setDopandingData] = useState({
     do_number_id: "",
@@ -13,14 +16,31 @@ const Dopanding = () => {
     Total: 0,
   });
 
+  const initialDoData = {
+    do_number_id: "",
+    rice_mill_id: "",
+    date: "",
+    mota: "",
+    patla: "",
+    sarna: "",
+    Total: 0,
+  };
+  const resetForm = () => {
+    setDopandingData(initialDoData);
+  };
   const [DoOptions, setDoOptions] = useState([]);
-
+  const apiKey = import.meta.env.VITE_API_KEY;
   // Fetch data for the "Select Rice Mill" dropdown
   useEffect(() => {
     async function fetchMillData() {
       try {
         const Mill_response = await axios.get(
-          "http://localhost:8000/rice-do-society-truck-transporter"
+          "http://localhost:8000/rice-do-society-truck-transporter",
+          {
+            headers: {
+              "api-key": apiKey,
+            },
+          }
         );
 
         const data = Mill_response.data;
@@ -39,7 +59,12 @@ const Dopanding = () => {
     async function fetchricedonumberData() {
       try {
         const truck_transporter = await axios.get(
-          `http://localhost:8000/rice-do-number/${DopandingData.rice_mill_id}`
+          `http://localhost:8000/rice-do-number/${DopandingData.rice_mill_id}`,
+          {
+            headers: {
+              "api-key": apiKey,
+            },
+          }
         );
 
         const data = truck_transporter.data;
@@ -74,6 +99,7 @@ const Dopanding = () => {
         {
           headers: {
             "Content-Type": "application/json",
+            "api-key": apiKey,
           },
         }
       );
@@ -89,6 +115,7 @@ const Dopanding = () => {
           draggable: true,
           progress: undefined,
         });
+        resetForm();
       } else {
         console.error("Failed to add Do Panding");
         toast.error("Failed to add Do Panding", {
@@ -123,168 +150,117 @@ const Dopanding = () => {
           </h2>
         </div>
 
-        <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-[480px]">
+        <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-[680px]">
           <div className="bg-white px-6 py-12 shadow sm:rounded-lg sm:px-12">
             <form className="space-y-6" onSubmit={handleSubmit}>
-              <div>
-                <label
-                  htmlFor="rice_mill_id"
-                  className="block text-sm font-medium leading-6 text-gray-900"
-                >
-                  Select Rice Mill
-                </label>
-                <div className="mt-2">
-                  <select
-                    required
-                    type="text"
-                    name="rice_mill_id"
-                    className="block  w-full bg-white rounded-md  border-0 px-1.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                    value={DoOptions.select_mill_id}
-                    onChange={handleInputChange}
-                  >
-                    <option value="">-Select Rice Mill-</option>
-                    {DoOptions.rice_mill_data &&
-                      DoOptions.rice_mill_data.map((option) => (
-                        <option
-                          key={option.rice_mill_id}
-                          value={option.rice_mill_id}
-                        >
-                          {option.rice_mill_name}
-                        </option>
-                      ))}
-                  </select>
-                  <p className="mt-2 text-sm text-gray-500">
-                    Cannot Find Rice Mill?{" "}
-                    <a
-                      href="/Addricemill"
-                      className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
-                    >
-                      Add New Rice Mill..
-                    </a>
-                  </p>
-                </div>
-              </div>
-              <div className="flex justify-between flex-wrap ">
-                <div>
-                  <div className="flex justify-between">
-                    <label
-                      htmlFor="date"
-                      className="block text-sm font-medium leading-6 text-gray-900"
-                    >
-                      Do Date
-                    </label>
-                  </div>
-                  <div className="mt-1">
-                    <input
-                      type="date"
-                      name="date"
-                      className="block w-full px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                      onChange={handleInputChange}
-                      value={DopandingData.date}
-                    />
-                  </div>
-                </div>
-                <div>
-                  <div className="flex justify-between">
-                    <label
-                      htmlFor="do_number_id"
-                      className="block text-sm font-medium leading-6 text-gray-900"
-                    >
-                      DO Numbar
-                    </label>
-                  </div>
-                  <div className="mt-1">
-                    <select
-                      type="text"
-                      name="do_number_id"
-                      value={DopandingData.do_number_id}
-                      className="block  w-full bg-white rounded-md  border-0 px-1.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                      onChange={handleInputChange}
-                    >
-                      <option value="">-Select Do Number-</option>
-                      {DoOptionsricedonumber.do_number_data &&
-                        DoOptionsricedonumber.do_number_data.map((option) => (
-                          <option key={option.do_id} value={option.do_id}>
-                            {option.do_number}
-                          </option>
-                        ))}
-                    </select>
-                    <p className="mt-2 text-sm text-gray-500">
-                      Cannot Find Do?{" "}
-                      <a
-                        href="/Add_Do"
-                        className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
-                      >
-                        Add New Do..
-                      </a>
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <div className="flex justify-between flex-wrap">
-                <div>
-                  <label className="block text-sm font-medium leading-6 text-gray-900">
-                    mota
-                  </label>
-                  <input
-                    type="text"
-                    name="mota"
-                    className="block w-full rounded-md border-0 px-1.5 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                    value={DopandingData.mota}
-                    onChange={handleInputChange}
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium leading-6 text-gray-900">
-                    patla
-                  </label>
-                  <input
-                    type="text"
-                    name="patla"
-                    className="block w-full rounded-md border-0 px-1.5 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                    value={DopandingData.patla}
-                    onChange={handleInputChange}
-                  />
-                </div>
-              </div>
-              <div className="flex justify-between flex-wrap">
-                <div>
-                  <label className="block text-sm font-medium leading-6 text-gray-900">
-                    sarna
-                  </label>
-                  <input
-                    type="text"
-                    name="sarna"
-                    className="block w-full rounded-md border-0 px-1.5 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                    value={DopandingData.sarna}
-                    onChange={handleInputChange}
-                  />
-                </div>
-                <div>
-                  <div className="flex justify-between">
-                    <label
-                      htmlFor="Total"
-                      className="block text-sm font-medium leading-6 text-gray-900"
-                    >
-                      Total
-                    </label>
-                  </div>
-                  <div className="mt-1">
-                    <input
-                      disabled
-                      type="number"
-                      name="Total"
-                      value={
-                        (DopandingData.Total =
-                          +DopandingData.mota +
-                          +DopandingData.patla +
-                          +DopandingData.sarna)
+              <SelectInput
+                label="Select Rice Mill"
+                name="rice_mill_id"
+                options={
+                  DoOptions.rice_mill_data &&
+                  DoOptions.rice_mill_data.map((option) => ({
+                    label: option.rice_mill_name,
+                    value: option.rice_mill_id,
+                  }))
+                }
+                value={
+                  DopandingData.rice_mill_id
+                    ? {
+                        label: DoOptions.rice_mill_data.find(
+                          (option) =>
+                            option.rice_mill_id === DopandingData.rice_mill_id
+                        ).rice_mill_name,
+                        value: DopandingData.rice_mill_id,
                       }
-                      className="block w-full px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                      onChange={handleInputChange}
-                    />
-                  </div>
-                </div>
+                    : null
+                }
+                onChange={(selectedOption) =>
+                  handleInputChange({
+                    target: {
+                      name: "rice_mill_id",
+                      value: selectedOption ? selectedOption.value : "",
+                    },
+                  })
+                }
+                placeholder="Select Mill"
+              />
+              <div className="flex justify-between flex-wrap ">
+                <DateInput
+                  label="DO Date"
+                  name="date"
+                  value={DopandingData.date}
+                  onChange={handleInputChange}
+                />
+
+                <SelectInput
+                  label="DO Number"
+                  name="do_number_id"
+                  options={
+                    DoOptionsricedonumber.do_number_data &&
+                    DoOptionsricedonumber.do_number_data.map((option) => ({
+                      label: option.do_number,
+                      value: option.do_id,
+                    }))
+                  }
+                  value={
+                    DopandingData.do_number_id
+                      ? {
+                          label: DoOptionsricedonumber.do_number_data.find(
+                            (option) =>
+                              option.do_id === DopandingData.do_number_id
+                          ).do_number,
+                          value: DopandingData.do_number_id,
+                        }
+                      : null
+                  }
+                  onChange={(selectedOption) =>
+                    handleInputChange({
+                      target: {
+                        name: "do_number_id",
+                        value: selectedOption ? selectedOption.value : "",
+                      },
+                    })
+                  }
+                  placeholder="Select DO Number"
+                />
+              </div>
+              <div className="flex justify-between flex-wrap">
+                <Inputbox
+                  label="Mota"
+                  type="text"
+                  name="mota"
+                  value={DopandingData.mota}
+                  onChange={handleInputChange}
+                />
+                <Inputbox
+                  label="Patla"
+                  type="text"
+                  name="patla"
+                  value={DopandingData.patla}
+                  onChange={handleInputChange}
+                />
+              </div>
+              <div className="flex justify-between flex-wrap">
+                <Inputbox
+                  label="sarna"
+                  type="text"
+                  name="sarna"
+                  value={DopandingData.sarna}
+                  onChange={handleInputChange}
+                />
+                <Inputbox
+                  label="Total"
+                  disabled={true}
+                  type="number"
+                  name="Total"
+                  value={
+                    (DopandingData.Total =
+                      +DopandingData.mota +
+                      +DopandingData.patla +
+                      +DopandingData.sarna)
+                  }
+                  onChange={handleInputChange}
+                />
               </div>
               <div>
                 <button

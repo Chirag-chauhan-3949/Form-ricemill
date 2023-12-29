@@ -25,8 +25,6 @@ const Add_Do = () => {
 
   const [DoOptions, setDoOptions] = useState([]);
   const apiKey = import.meta.env.VITE_API_KEY;
-  // Fetch data for the "Select Rice Mill" dropdown
-  // Fetch data for the "Select Rice Mill" dropdown
   useEffect(() => {
     async function fetchMillData() {
       try {

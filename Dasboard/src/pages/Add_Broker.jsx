@@ -23,6 +23,7 @@ const Add_Broker = () => {
       [name]: value,
     });
   };
+
   const apiKey = import.meta.env.VITE_API_KEY;
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -33,7 +34,6 @@ const Add_Broker = () => {
         brokerdata,
         {
           headers: {
-            "Content-Type": "application/json",
             "api-key": apiKey,
           },
         }

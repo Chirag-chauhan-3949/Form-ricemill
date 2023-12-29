@@ -2,7 +2,10 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-
+import DateInput from "../inputelement/Dateinput";
+import SelectInput from "../inputelement/Selectinput";
+import Inputbox from "../inputelement/Inputbox";
+import Input from "postcss/lib/input";
 const Frk = () => {
   const [frkData, setfrskData] = useState({
     batch_number: 0,
@@ -15,14 +18,32 @@ const Frk = () => {
     bill_number: 0,
     rate: 0,
   });
-
+  const initialData = {
+    batch_number: 0,
+    date: "",
+    party: "",
+    bags: 0,
+    weight: "",
+    truck_number_id: "",
+    rice_mill_name_id: "",
+    bill_number: 0,
+    rate: 0,
+  };
+  const resetForm = () => {
+    setfrskData(initialData);
+  };
   // Fetch data for the "Select Rice Mill" dropdown
   const [millData, setmillData] = useState([]);
   useEffect(() => {
     async function fetchMillData() {
       try {
         const Mill_response = await axios.get(
-          "http://localhost:8000/rice-mill"
+          "http://localhost:8000/rice-mill",
+          {
+            headers: {
+              "api-key": apiKey,
+            },
+          }
         );
 
         const data = Mill_response.data;
@@ -41,7 +62,12 @@ const Frk = () => {
     async function fetchTransporter() {
       try {
         const transporter_response = await axios.get(
-          "http://localhost:8000/trucks/"
+          "http://localhost:8000/trucks/",
+          {
+            headers: {
+              "api-key": apiKey,
+            },
+          }
         );
 
         const data = transporter_response.data;
@@ -53,7 +79,7 @@ const Frk = () => {
     }
     fetchTransporter();
   }, []);
-
+  const apiKey = import.meta.env.VITE_API_KEY;
   const handleInputChange = (e) => {
     const { name, value } = e.target;
 
@@ -71,6 +97,7 @@ const Frk = () => {
       const response = await axios.post("http://localhost:8000/frk", frkData, {
         headers: {
           "Content-Type": "application/json",
+          "api-key": apiKey,
         },
       });
 
@@ -85,6 +112,7 @@ const Frk = () => {
           draggable: true,
           progress: undefined,
         });
+        resetForm();
       } else {
         console.error("Failed to add frk");
         toast.error("Failed to add frk", {
@@ -120,198 +148,127 @@ const Frk = () => {
           </h2>
         </div>
 
-        <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-[480px]">
+        <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-[680px]">
           <div className="bg-white px-6 py-12 shadow sm:rounded-lg sm:px-12">
             <form className="space-y-6" onSubmit={handleSubmit}>
               <div className="flex justify-between flex-wrap">
-                <div>
-                  <div className="flex justify-between">
-                    <label
-                      htmlFor="date"
-                      className="block text-sm font-medium leading-6 text-gray-900"
-                    >
-                      Date
-                    </label>
-                  </div>
-                  <div className="mt-1">
-                    <input
-                      type="date"
-                      name="date"
-                      className="block w-full px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                      onChange={handleInputChange}
-                      value={frkData.date}
-                    />
-                  </div>
-                </div>
-                <div>
-                  <div className="flex justify-between">
-                    <label
-                      htmlFor="party"
-                      className="block text-sm font-medium leading-6 text-gray-900"
-                    >
-                      party
-                    </label>
-                  </div>
-                  <div className="mt-1">
-                    <input
-                      type="text"
-                      name="party"
-                      className="block w-full px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                      onChange={handleInputChange}
-                      value={frkData.party}
-                    />
-                  </div>
-                </div>
+                <DateInput
+                  label="Date"
+                  name="date"
+                  onChange={handleInputChange}
+                  value={frkData.date}
+                />
+                <Inputbox
+                  label="Party"
+                  type="text"
+                  name="party"
+                  onChange={handleInputChange}
+                  value={frkData.party}
+                />
               </div>
               <div className="flex justify-between flex-wrap">
-                <div>
-                  <label className="block text-sm font-medium leading-6 text-gray-900">
-                    Weight
-                  </label>
-                  <input
-                    type="number"
-                    name="weight"
-                    className="block w-full rounded-md border-0 px-1.5 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                    value={frkData.weight}
-                    onChange={handleInputChange}
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium leading-6 text-gray-900">
-                    Bags
-                  </label>
-                  <input
-                    type="number"
-                    name="bags"
-                    className="block w-full rounded-md border-0 px-1.5 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                    value={frkData.bags}
-                    onChange={handleInputChange}
-                  />
-                </div>
+                <Inputbox
+                  label="Weight"
+                  type="number"
+                  name="weight"
+                  value={frkData.weight}
+                  onChange={handleInputChange}
+                />
+                <Inputbox
+                  label="Bags"
+                  type="number"
+                  name="bags"
+                  value={frkData.bags}
+                  onChange={handleInputChange}
+                />
               </div>
-              <div>
-                <label
-                  htmlFor="rice_mill_name_id"
-                  className="block text-sm font-medium leading-6 text-gray-900"
-                >
-                  Select Rice Mill
-                </label>
-                <div className="mt-2">
-                  <select
-                    required
-                    type="number"
-                    name="rice_mill_name_id"
-                    className="block  w-full bg-white rounded-md  border-0 px-1.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                    value={frkData.rice_mill_name_id}
-                    onChange={handleInputChange}
-                  >
-                    <option value="">-Select Rice Mill-</option>
-                    {millData.map((option) => (
-                      <option
-                        key={option.rice_mill_id}
-                        value={option.rice_mill_id}
-                      >
-                        {option.rice_mill_name}
-                      </option>
-                    ))}
-                  </select>
-                  <p className="mt-2 text-sm text-gray-500">
-                    Cannot Find Rice Mill?{" "}
-                    <a
-                      href="/Addricemill"
-                      className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
-                    >
-                      Add New Rice Mill..
-                    </a>
-                  </p>
-                </div>
-              </div>
-              <div>
-                <label
-                  htmlFor="truck_number_id"
-                  className="block text-sm font-medium leading-6 text-gray-900"
-                >
-                  truck Number
-                </label>
+              <SelectInput
+                label="Select Rice Mill"
+                name="rice_mill_name_id"
+                options={
+                  millData.rice_mill_data &&
+                  millData.rice_mill_data.map((option) => ({
+                    label: option.rice_mill_name,
+                    value: option.rice_mill_id,
+                  }))
+                }
+                value={
+                  frkData.rice_mill_name_id
+                    ? {
+                        label: millData.rice_mill_data.find(
+                          (option) =>
+                            option.rice_mill_id === frkData.rice_mill_name_id
+                        ).rice_mill_name,
+                        value: frkData.rice_mill_name_id,
+                      }
+                    : null
+                }
+                onChange={(selectedOption) =>
+                  handleInputChange({
+                    target: {
+                      name: "rice_mill_name_id",
+                      value: selectedOption ? selectedOption.value : "",
+                    },
+                  })
+                }
+                placeholder="Select Mill"
+              />
 
-                <div className="mt-1">
-                  <select
-                    name="truck_number_id"
-                    type="number"
-                    value={frkData.truck_number_id}
-                    className=" bg-white block w-full px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                    onChange={handleInputChange}
-                  >
-                    <option value="">Select a Truck</option>
-                    {trucks.map((truck) => (
-                      <option key={truck.truck_id} value={truck.truck_id}>
-                        {truck.truck_number}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-                <p className="mt-2 text-sm text-gray-500">
-                  Cannot Find Truck?{" "}
-                  <a
-                    href="/Add_NEw_Truck"
-                    className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
-                  >
-                    Add New Truck.
-                  </a>
-                </p>
-              </div>
+              <SelectInput
+                label="Truck Number"
+                name="truck_number_id"
+                options={
+                  trucks.truck_data &&
+                  trucks.truck_data.map((option) => ({
+                    label: option.truck_number,
+                    value: option.truck_id,
+                  }))
+                }
+                value={
+                  frkData.truck_number_id
+                    ? {
+                        label: trucks.truck_data.find(
+                          (option) =>
+                            option.truck_id === frkData.truck_number_id
+                        ).truck_number,
+                        value: frkData.truck_number_id,
+                      }
+                    : null
+                }
+                onChange={(selectedOption) =>
+                  handleInputChange({
+                    target: {
+                      name: "truck_number_id",
+                      value: selectedOption ? selectedOption.value : "",
+                    },
+                  })
+                }
+                placeholder="Select Truck Number"
+              />
               <div className="flex justify-between flex-wrap">
-                <div>
-                  <label className="block text-sm font-medium leading-6 text-gray-900">
-                    Bill Number
-                  </label>
-                  <input
-                    type="number"
-                    name="bill_number"
-                    className="block w-full rounded-md border-0 px-1.5 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                    value={frkData.bill_number}
-                    onChange={handleInputChange}
-                  />
-                </div>
-                <div>
-                  <div className="flex justify-between">
-                    <label
-                      htmlFor="Rate"
-                      className="block text-sm font-medium leading-6 text-gray-900"
-                    >
-                      Rate
-                    </label>
-                  </div>
-                  <div className="mt-1">
-                    <input
-                      type="number"
-                      name="rate"
-                      value={frkData.rate}
-                      className="block w-full px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                      onChange={handleInputChange}
-                    />
-                  </div>
-                </div>
+                <Inputbox
+                  label="Bill Number"
+                  type="number"
+                  name="bill_number"
+                  value={frkData.bill_number}
+                  onChange={handleInputChange}
+                />
+                <Inputbox
+                  label="Rate"
+                  type="number"
+                  name="rate"
+                  value={frkData.rate}
+                  onChange={handleInputChange}
+                />
               </div>
-              <div>
-                <div className="flex justify-between">
-                  <label
-                    htmlFor="batch_number"
-                    className="block text-sm font-medium leading-6 text-gray-900"
-                  >
-                    Batch Number
-                  </label>
-                </div>
-                <div className="mt-1">
-                  <input
-                    type="number"
-                    name="batch_number"
-                    value={frkData.batch_number}
-                    className="block w-full px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                    onChange={handleInputChange}
-                  />
-                </div>
-              </div>
+              <Inputbox
+                label=" Batch Number"
+                type="number"
+                name="batch_number"
+                value={frkData.batch_number}
+                onChange={handleInputChange}
+              />
+
               <div>
                 <button
                   type="submit"

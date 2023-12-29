@@ -2,6 +2,8 @@ import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import SelectInput from "../inputelement/Selectinput";
+import Inputbox from "../inputelement/Inputbox";
 const Saudapatrak = () => {
   const [saudapatrakData, setsaudapatrakData] = useState({
     name: "",
@@ -13,12 +15,31 @@ const Saudapatrak = () => {
     rate: 0,
     amount: 0,
   });
+  const initialDoData = {
+    name: "",
+    address: "",
+    vechicle_number_id: "",
+    paddy: "",
+    bags: "",
+    weight: 0,
+    rate: 0,
+    amount: 0,
+  };
+  const apiKey = import.meta.env.VITE_API_KEY;
+  const resetForm = () => {
+    setsaudapatrakData(initialDoData);
+  };
   const [trucks, setTrucks] = useState([]);
   useEffect(() => {
     async function fetchTransporter() {
       try {
         const transporter_response = await axios.get(
-          "http://localhost:8000/trucks/"
+          "http://localhost:8000/trucks/",
+          {
+            headers: {
+              "api-key": apiKey,
+            },
+          }
         );
 
         const data = transporter_response.data;
@@ -50,6 +71,7 @@ const Saudapatrak = () => {
         {
           headers: {
             "Content-Type": "application/json",
+            "api-key": apiKey,
           },
         }
       );
@@ -65,6 +87,7 @@ const Saudapatrak = () => {
           draggable: true,
           progress: undefined,
         });
+        resetForm();
       } else {
         console.error("Failed to add Sauda patrak");
         toast.error("Failed to add Sauda patrak", {
@@ -99,87 +122,61 @@ const Saudapatrak = () => {
           </h2>
         </div>
 
-        <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-[480px]">
+        <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-[680px]">
           <div className="bg-white px-6 py-12 shadow sm:rounded-lg sm:px-12">
             <form className="space-y-6" onSubmit={handleSubmit}>
               <div>
-                <div className="flex justify-between  my-3.5 flex-wrap">
-                  <div>
-                    <div className="flex justify-between">
-                      <label
-                        htmlFor="name"
-                        className="block text-sm font-medium leading-6 text-gray-900"
-                      >
-                        Name
-                      </label>
-                    </div>
-                    <div className="mt-1">
-                      <input
-                        type="text"
-                        name="name"
-                        placeholder="Enter name"
-                        className="block w-full px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                        onChange={handleInputChange}
-                        value={saudapatrakData.date}
-                      />
-                    </div>
-                  </div>
-                  <div>
-                    <div className="flex justify-between">
-                      <label
-                        htmlFor="address"
-                        className="block text-sm font-medium leading-6 text-gray-900"
-                      >
-                        Address
-                      </label>
-                    </div>
-                    <div className="mt-1">
-                      <input
-                        type="text"
-                        name="address"
-                        placeholder="Enter Address"
-                        value={saudapatrakData.address}
-                        className="block w-full px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                        onChange={handleInputChange}
-                      />
-                    </div>
-                  </div>
+                <div className="flex justify-between flex-wrap">
+                  <Inputbox
+                    label="Name"
+                    type="text"
+                    name="name"
+                    placeholder="Enter name"
+                    onChange={handleInputChange}
+                    value={saudapatrakData.date}
+                  />
+                  <Inputbox
+                    label="Address"
+                    type="text"
+                    name="address"
+                    placeholder="Enter Address"
+                    value={saudapatrakData.address}
+                    onChange={handleInputChange}
+                  />
                 </div>
 
-                <div>
-                  <label
-                    htmlFor="vechicle_number_id"
-                    className="block text-sm font-medium leading-6 text-gray-900"
-                  >
-                    truck Number
-                  </label>
-
-                  <div className="mt-1">
-                    <select
-                      name="vechicle_number_id"
-                      type="number"
-                      value={saudapatrakData.vechicle_number_id}
-                      className=" bg-white block w-full px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                      onChange={handleInputChange}
-                    >
-                      <option value="">Select a Truck</option>
-                      {trucks.map((truck) => (
-                        <option key={truck.truck_id} value={truck.truck_id}>
-                          {truck.truck_number}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
-                  <p className="mt-2 text-sm text-gray-500">
-                    Cannot Find Truck?{" "}
-                    <a
-                      href="/Add_NEw_Truck"
-                      className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
-                    >
-                      Add New Truck.
-                    </a>
-                  </p>
-                </div>
+                <SelectInput
+                  label="Truck Number"
+                  name="vechicle_number_id"
+                  options={
+                    trucks.truck_data &&
+                    trucks.truck_data.map((option) => ({
+                      label: option.truck_number,
+                      value: option.truck_id,
+                    }))
+                  }
+                  value={
+                    saudapatrakData.vechicle_number_id
+                      ? {
+                          label: trucks.truck_data.find(
+                            (option) =>
+                              option.truck_id ===
+                              saudapatrakData.vechicle_number_id
+                          ).truck_number,
+                          value: saudapatrakData.vechicle_number_id,
+                        }
+                      : null
+                  }
+                  onChange={(selectedOption) =>
+                    handleInputChange({
+                      target: {
+                        name: "vechicle_number_id",
+                        value: selectedOption ? selectedOption.value : "",
+                      },
+                    })
+                  }
+                  placeholder="Select Truck Number"
+                />
                 <div className="mt-3">
                   <div className="flex justify-between">
                     <label
@@ -205,99 +202,50 @@ const Saudapatrak = () => {
                   </div>
                 </div>
 
-                <div className="flex justify-between my-3.5 flex-wrap">
-                  <div>
-                    <div className="flex justify-between">
-                      <label
-                        htmlFor="bags"
-                        className="block text-sm font-medium leading-6 text-gray-900"
-                      >
-                        Bags
-                      </label>
-                    </div>
-                    <div className="mt-1">
-                      <input
-                        type="number"
-                        placeholder="Enter bags"
-                        name="bags"
-                        value={saudapatrakData.bags}
-                        className="block w-full px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                        onChange={handleInputChange}
-                      />
-                    </div>
-                  </div>
-                  <div>
-                    <div className="flex justify-between">
-                      <label
-                        htmlFor="weight"
-                        className="block text-sm font-medium leading-6 text-gray-900"
-                      >
-                        Weight
-                      </label>
-                    </div>
-                    <div className="mt-1">
-                      <input
-                        disabled
-                        type="number"
-                        name="weight"
-                        placeholder="Enter Weight"
-                        value={
-                          (saudapatrakData.weight = parseFloat(
-                            (saudapatrakData.bags * 0.4).toFixed(1)
-                          ))
-                        }
-                        className="block w-full px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                        onChange={handleInputChange}
-                      />
-                    </div>
-                  </div>
+                <div className="flex justify-between flex-wrap">
+                  <Inputbox
+                    label="Bags"
+                    type="number"
+                    placeholder="Enter bags"
+                    name="bags"
+                    value={saudapatrakData.bags}
+                    onChange={handleInputChange}
+                  />
+                  <Inputbox
+                    label="weight"
+                    disabled={true}
+                    type="number"
+                    name="weight"
+                    placeholder="Enter Weight"
+                    value={
+                      (saudapatrakData.weight = parseFloat(
+                        (saudapatrakData.bags * 0.4).toFixed(1)
+                      ))
+                    }
+                    onChange={handleInputChange}
+                  />
                 </div>
-                <div className="flex justify-between my-3.5 flex-wrap">
-                  <div>
-                    <div className="flex justify-between">
-                      <label
-                        htmlFor="rate"
-                        className="block text-sm font-medium leading-6 text-gray-900"
-                      >
-                        Rate
-                      </label>
-                    </div>
-                    <div className="mt-1">
-                      <input
-                        type="number"
-                        name="rate"
-                        placeholder="Enter Rate"
-                        value={saudapatrakData.rate}
-                        className="block w-full px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                        onChange={handleInputChange}
-                      />
-                    </div>
-                  </div>
-                  <div>
-                    <div className="flex justify-between">
-                      <label
-                        htmlFor="amount"
-                        className="block text-sm font-medium leading-6 text-gray-900"
-                      >
-                        Amount
-                      </label>
-                    </div>
-                    <div className="mt-1">
-                      <input
-                        disabled
-                        required
-                        type="number"
-                        placeholder="Enter Amount"
-                        name="amount"
-                        value={
-                          (saudapatrakData.amount =
-                            saudapatrakData.rate * saudapatrakData.weight)
-                        }
-                        className="block w-full px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                        onChange={handleInputChange}
-                      />
-                    </div>
-                  </div>
+                <div className="flex justify-between flex-wrap">
+                  <Inputbox
+                    label="Rate"
+                    type="number"
+                    name="rate"
+                    placeholder="Enter Rate"
+                    value={saudapatrakData.rate}
+                    onChange={handleInputChange}
+                  />
+                  <Inputbox
+                    label="Amount"
+                    disabled={true}
+                    type="number"
+                    placeholder="Enter Amount"
+                    name="amount"
+                    value={
+                      (saudapatrakData.amount =
+                        saudapatrakData.rate * saudapatrakData.weight)
+                    }
+                    onChange={handleInputChange}
+                  />
                 </div>
                 <button
                   type="submit"

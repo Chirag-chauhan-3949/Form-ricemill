@@ -1,14 +1,22 @@
 import React, { useState } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
+import axios from "axios";
+import Inputbox from "../inputelement/Inputbox";
 const Add_Warehouse = () => {
   const [Addwarehouse, Addwarehousedata] = useState({
     ware_houes_name: "",
     ware_house_transporting_rate: 0,
     hamalirate: 0,
   });
-
+  const initialData = {
+    ware_houes_name: "",
+    ware_house_transporting_rate: 0,
+    hamalirate: 0,
+  };
+  const resetForm = () => {
+    Addwarehousedata(initialData);
+  };
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     Addwarehousedata({
@@ -16,22 +24,22 @@ const Add_Warehouse = () => {
       [name]: value,
     });
   };
-
+  const apiKey = import.meta.env.VITE_API_KEY;
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch(
+      const response = await axios.post(
         "http://localhost:8000/ware-house-transporting/",
+        Addwarehousedata,
         {
-          method: "POST",
           headers: {
             "Content-Type": "application/json",
+            "api-key": apiKey,
           },
-          body: JSON.stringify(Addwarehouse),
         }
       );
 
-      if (response.ok) {
+      if (response.status === 200) {
         // console.log("Rice mill added successfully");
         toast.success("Ware House added successfully", {
           position: "top-right",
@@ -42,6 +50,7 @@ const Add_Warehouse = () => {
           draggable: true,
           progress: undefined,
         });
+        resetForm();
       } else {
         // console.error("Failed to add rice mill");
         toast.error("Failed to add Ware House", {
@@ -85,79 +94,30 @@ const Add_Warehouse = () => {
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-[480px]">
           <div className="bg-white px-6 py-12 shadow sm:rounded-lg sm:px-12">
             <form className="space-y-6" onSubmit={handleSubmit}>
-              <div>
-                <div className="flex justify-between">
-                  <label
-                    htmlFor="mill_address"
-                    className="block text-sm font-medium leading-6 text-gray-900"
-                  >
-                    Ware House Name
-                  </label>
-                  <span className="text-sm leading-6 text-red-500">
-                    Required
-                  </span>
-                </div>
-                <div className="mt-2">
-                  <input
-                    type="text"
-                    name="ware_houes_name"
-                    className="block w-full rounded-md border-0 px-1.5 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                    placeholder="Enter Ware House Name"
-                    value={Addwarehouse.ware_houes_name}
-                    onChange={handleInputChange}
-                    required
-                  />
-                </div>
-              </div>
-
-              <div>
-                <div className="flex justify-between">
-                  <label
-                    htmlFor="gst_number"
-                    className="block text-sm font-medium leading-6 text-gray-900"
-                  >
-                    Transporting Rate
-                  </label>
-                  <span className="text-sm leading-6 text-red-500">
-                    Required
-                  </span>
-                </div>
-                <div className="mt-2">
-                  <input
-                    placeholder="Enter Transporting Rate"
-                    type="number"
-                    name="ware_house_transporting_rate"
-                    className="block w-full rounded-md border-0 px-1.5 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                    value={Addwarehouse.ware_house_transporting_rate}
-                    onChange={handleInputChange}
-                    required
-                  />
-                </div>
-              </div>
-              <div>
-                <div className="flex justify-between">
-                  <label
-                    htmlFor="mill_address"
-                    className="block text-sm font-medium leading-6 text-gray-900"
-                  >
-                    Hamali Rate
-                  </label>
-                  <span className="text-sm leading-6 text-red-500">
-                    Required
-                  </span>
-                </div>
-                <div className="mt-2">
-                  <input
-                    type="number"
-                    name="hamalirate"
-                    className="block w-full rounded-md border-0 px-1.5 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                    placeholder="Enter Hamali Rate"
-                    value={Addwarehouse.hamalirate}
-                    onChange={handleInputChange}
-                    required
-                  />
-                </div>
-              </div>
+              <Inputbox
+                label="Ware House Name"
+                name="ware_houes_name"
+                placeholder="Enter Ware House Name"
+                value={Addwarehouse.ware_houes_name}
+                onChange={handleInputChange}
+                type="text"
+              />
+              <Inputbox
+                label="Ware House Name"
+                name="ware_house_transporting_rate"
+                placeholder="Enter Transporting Rate"
+                type="number"
+                value={Addwarehouse.ware_house_transporting_rate}
+                onChange={handleInputChange}
+              />
+              <Inputbox
+                label=" Hamali Rate"
+                name="hamalirate"
+                placeholder="Enter Hamali Rate"
+                value={Addwarehouse.hamalirate}
+                onChange={handleInputChange}
+                type="number"
+              />
 
               <div>
                 <button

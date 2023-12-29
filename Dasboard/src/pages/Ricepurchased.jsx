@@ -23,7 +23,12 @@ const Ricepurchased = () => {
     async function fetchMillData() {
       try {
         const All_data = await axios.get(
-          "http://localhost:8000/rice-truck-party-brokers"
+          "http://localhost:8000/rice-truck-party-brokers",
+          {
+            headers: {
+              "api-key": apiKey,
+            },
+          }
         );
 
         const data = All_data.data;
@@ -58,6 +63,7 @@ const Ricepurchased = () => {
       [name]: value,
     }));
   };
+  const apiKey = import.meta.env.VITE_API_KEY;
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -68,6 +74,7 @@ const Ricepurchased = () => {
         {
           headers: {
             "Content-Type": "application/json",
+            "api-key": apiKey,
           },
         }
       );

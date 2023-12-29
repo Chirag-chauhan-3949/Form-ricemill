@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
+import Inputbox from "../inputelement/Inputbox";
+// import SelectInput from "../inputelement/Selectinput";
 const AddNewSociety = () => {
   const [societyData, setSocietyData] = useState({
     society_name: "",
@@ -10,7 +12,17 @@ const AddNewSociety = () => {
     actual_distance: 0,
     transporting_rate: 0,
   });
-
+  const initialData = {
+    society_name: "",
+    distance_from_mill: 0,
+    google_distance: 0,
+    actual_distance: 0,
+    transporting_rate: 0,
+  };
+  const resetForm = () => {
+    setSocietyData(initialData);
+  };
+  const apiKey = import.meta.env.VITE_API_KEY;
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setSocietyData({
@@ -28,6 +40,7 @@ const AddNewSociety = () => {
         {
           headers: {
             "Content-Type": "application/json",
+            "api-key": apiKey,
           },
         }
       );
@@ -43,6 +56,7 @@ const AddNewSociety = () => {
           draggable: true,
           progress: undefined,
         });
+        resetForm();
       } else {
         console.error("Failed to add society");
         toast.error("Failed to add society", {
@@ -87,124 +101,52 @@ const AddNewSociety = () => {
           <div className="bg-white px-6 py-12 shadow sm:rounded-lg sm:px-12">
             <form className="space-y-6" onSubmit={handleSubmit}>
               {/* Society Name Input */}
-              <div>
-                <div className="flex justify-between">
-                  <label
-                    htmlFor="society_name"
-                    className="block text-sm font-medium leading-6 text-gray-900"
-                  >
-                    Society Name
-                  </label>
-                  <span className="text-sm leading-6 text-red-500">
-                    Required
-                  </span>
-                </div>
-                <div className="mt-2">
-                  <input
-                    type="text"
-                    name="society_name"
-                    className="block w-full rounded-md border-0 px-1.5 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                    placeholder="Enter society name"
-                    value={societyData.society_name}
-                    onChange={handleInputChange}
-                    required
-                  />
-                </div>
-              </div>
+              <Inputbox
+                label="Society Name"
+                name="society_name"
+                placeholder="Enter society name"
+                value={societyData.society_name}
+                onChange={handleInputChange}
+                type="text"
+              />
+
               {/* Distance Input */}
               <div className="flex justify-between flex-wrap">
-                <div>
-                  <div className="flex justify-between">
-                    <label
-                      htmlFor="google_distance"
-                      className="block text-sm font-medium leading-6 text-gray-900"
-                    >
-                      Google Distance
-                    </label>
-                  </div>
-                  <div className="mt-2">
-                    <input
-                      type="number"
-                      name="google_distance"
-                      className="block w-full rounded-md border-0 px-1.5 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                      placeholder="Enter distance from mill"
-                      value={societyData.google_distance}
-                      onChange={handleInputChange}
-                      required
-                    />
-                  </div>
-                </div>
-                <div>
-                  <div className="flex justify-between">
-                    <label
-                      htmlFor="actual_distance"
-                      className="block text-sm font-medium leading-6 text-gray-900"
-                    >
-                      Actual Distance
-                    </label>
-                  </div>
-                  <div className="mt-2">
-                    <input
-                      type="number"
-                      name="actual_distance"
-                      className="block w-full rounded-md border-0 px-1.5 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                      placeholder="Enter distance from mill"
-                      value={societyData.actual_distance}
-                      onChange={handleInputChange}
-                      required
-                    />
-                  </div>
-                </div>
+                <Inputbox
+                  label="Google Distance"
+                  name="google_distance"
+                  placeholder="Enter distance from mill"
+                  type="number"
+                  value={societyData.google_distance}
+                  onChange={handleInputChange}
+                />
+                <Inputbox
+                  label=" Actual Distance"
+                  name="actual_distance"
+                  type="number"
+                  placeholder="Enter distance from mill"
+                  value={societyData.actual_distance}
+                  onChange={handleInputChange}
+                />
               </div>
               {/* Transporting Input */}
-              <div>
-                <div className="flex justify-between">
-                  <label
-                    htmlFor="transporting_rate"
-                    className="block text-sm font-medium leading-6 text-gray-900"
-                  >
-                    Transporting Rate
-                  </label>
-                  <span className="text-sm leading-6 text-red-500">
-                    Required
-                  </span>
-                </div>
-                <div className="mt-2">
-                  <input
-                    type="text"
-                    name="transporting_rate"
-                    className="block w-full rounded-md border-0 px-1.5 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                    placeholder="Enter transporting rate"
-                    value={societyData.transporting_rate}
-                    onChange={handleInputChange}
-                    required
-                  />
-                </div>
-              </div>
-              <div>
-                <div className="flex justify-between">
-                  <label
-                    htmlFor="distance_from_mill"
-                    className="block text-sm font-medium leading-6 text-gray-900"
-                  >
-                    Distance From Mill
-                  </label>
-                  <span className="text-sm leading-6 text-red-500">
-                    Required
-                  </span>
-                </div>
-                <div className="mt-2">
-                  <input
-                    type="text"
-                    name="distance_from_mill"
-                    className="block w-full rounded-md border-0 px-1.5 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                    placeholder="Enter Distance Form Mill"
-                    value={societyData.distance_from_mill}
-                    onChange={handleInputChange}
-                    required
-                  />
-                </div>
-              </div>
+              <Inputbox
+                label="Transporting Rate"
+                name="transporting_rate"
+                placeholder="Enter transporting rate"
+                type="text"
+                value={societyData.transporting_rate}
+                onChange={handleInputChange}
+              />
+              <Inputbox
+                label="Distance From Mill"
+                name="distance_from_mill"
+                placeholder="Enter Distance Form Mill"
+                type="text"
+                value={societyData.distance_from_mill}
+                onChange={handleInputChange}
+              />
+
               {/* Submit Button */}
               <div>
                 <button

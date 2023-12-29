@@ -2,14 +2,23 @@ import React, { useState, useEffect } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
-
+import Inputbox from "../inputelement/Inputbox";
+// import SelectInput from "../inputelement/Selectinput";
+// import Inputbox from "../inputelement/Inputbox";
 const Add_New_Transporter = () => {
   const [transporterData, setTransporterData] = useState({
     rice_mill_name_id: "",
     transporter_name: "",
     transporter_phone_number: 0,
   });
-
+  const initialData = {
+    rice_mill_name_id: "",
+    transporter_name: "",
+    transporter_phone_number: 0,
+  };
+  const resetForm = () => {
+    setTransporterData(initialData);
+  };
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setTransporterData({
@@ -17,18 +26,20 @@ const Add_New_Transporter = () => {
       [name]: value,
     });
   };
-
+  const apiKey = import.meta.env.VITE_API_KEY;
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      const response = await fetch("http://localhost:8000/transporter/", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(transporterData),
-      });
+      const response = await axios.post(
+        "http://localhost:8000/transporter/",
+        transporterData,
+        {
+          headers: {
+            "api-key": apiKey,
+          },
+        }
+      );
 
       if (response.ok) {
         // console.log("Transporter added successfully");
@@ -41,6 +52,7 @@ const Add_New_Transporter = () => {
           draggable: true,
           progress: undefined,
         });
+        resetForm();
       } else if (response.status === 400) {
         const errorResponse = await response.json();
         // console.log(errorResponse.detail);
@@ -133,55 +145,24 @@ const Add_New_Transporter = () => {
                   </p>
                 </div>
               </div> */}
-              <div>
-                <div className="flex justify-between">
-                  <label
-                    htmlFor="transporter_name"
-                    className="block text-sm font-medium leading-6 text-gray-900"
-                  >
-                    Transporter Name
-                  </label>
-                  <span className="text-sm leading-6 text-red-500">
-                    Required
-                  </span>
-                </div>
-                <div className="mt-2">
-                  <input
-                    type="text"
-                    name="transporter_name"
-                    className="block w-full rounded-md border-0 px-1.5 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                    placeholder="Enter transporter name"
-                    value={transporterData.transporter_name}
-                    onChange={handleInputChange}
-                    required
-                  />
-                </div>
-              </div>
-              <div>
-                <div className="flex justify-between">
-                  <label
-                    htmlFor="transporter_phone_number"
-                    className="block text-sm font-medium leading-6 text-gray-900"
-                  >
-                    Phone
-                  </label>
-                  <span className="text-sm leading-6 text-red-500">
-                    Required
-                  </span>
-                </div>
-                <div className="mt-2">
-                  <input
-                    pattern="[0-9]{10}"
-                    type="number"
-                    name="transporter_phone_number"
-                    className="block w-full rounded-md border-0 px-1.5 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                    placeholder="Enter transporter name"
-                    value={transporterData.transporter_phone_number}
-                    onChange={handleInputChange}
-                    required
-                  />
-                </div>
-              </div>
+              <Inputbox
+                label="Transporter Name"
+                name="transporter_name"
+                placeholder="Enter transporter name"
+                type="text"
+                value={transporterData.transporter_name}
+                onChange={handleInputChange}
+              />
+              <Inputbox
+                label="Transporter Phone Number"
+                name="transporter_phone_number"
+                placeholder="Enter transporter name"
+                pattern="[0-9]{10}"
+                type="number"
+                value={transporterData.transporter_phone_number}
+                onChange={handleInputChange}
+              />
+
               <div>
                 <button
                   type="submit"

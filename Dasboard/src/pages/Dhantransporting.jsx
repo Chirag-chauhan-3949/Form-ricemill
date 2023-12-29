@@ -2,9 +2,12 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import Inputbox from "../inputelement/Inputbox";
+import SelectInput from "../inputelement/Selectinput";
+import DateInput from "../inputelement/Dateinput";
 const Dhantransporting = () => {
   const [dhantransportingData, setdhantransportingData] = useState({
-    rst_number_id: "",
+    rst_number: 0,
     date: "",
     do_number_id: "",
     society_name_id: "",
@@ -19,13 +22,38 @@ const Dhantransporting = () => {
     total_pending: 0,
     total_paid: 0,
   });
+  const initialDoData = {
+    rst_number: 0,
+    date: "",
+    do_number_id: "",
+    society_name_id: "",
+    rice_mill_name_id: "",
+    dm_weight: 0,
+    truck_number_id: "",
+    transporting_rate: 0,
+    numbers_of_bags: 0,
+    transporting_total: 0,
+    transporter_name_id: "",
+    status: "",
+    total_pending: 0,
+    total_paid: 0,
+  };
+  const resetForm = () => {
+    setdhantransportingData(initialDoData);
+  };
   // Fetch data for the "Do" dropdown
+  const apiKey = import.meta.env.VITE_API_KEY;
   const [dopandingData, setdopandingData] = useState([]);
   useEffect(() => {
     async function fetchData() {
       try {
         const response = await axios.get(
-          "http://localhost:8000/rice-rst-society-do-truck-transporter"
+          "http://localhost:8000/rice-rst-society-do-truck-transporter",
+          {
+            headers: {
+              "api-key": apiKey,
+            },
+          }
         );
         const data = response.data;
         setdopandingData(data);
@@ -42,7 +70,12 @@ const Dhantransporting = () => {
     async function fetchagrementData() {
       try {
         const rst_data = await axios.get(
-          ` http://localhost:8000/rice-rst-number-do-number/${dhantransportingData.rice_mill_name_id}`
+          ` http://localhost:8000/rice-rst-number-do-number/${dhantransportingData.rice_mill_name_id}`,
+          {
+            headers: {
+              "api-key": apiKey,
+            },
+          }
         );
 
         const data = rst_data.data;
@@ -65,7 +98,12 @@ const Dhantransporting = () => {
     async function fetchtrucktransporter() {
       try {
         const rice_do_number = await axios.get(
-          ` http://localhost:8000/truck-transporter/${dhantransportingData.transporter_name_id}`
+          ` http://localhost:8000/truck-transporter/${dhantransportingData.transporter_name_id}`,
+          {
+            headers: {
+              "api-key": apiKey,
+            },
+          }
         );
 
         const data = rice_do_number.data;
@@ -97,6 +135,7 @@ const Dhantransporting = () => {
         {
           headers: {
             "Content-Type": "application/json",
+            "api-key": apiKey,
           },
         }
       );
@@ -112,6 +151,7 @@ const Dhantransporting = () => {
           draggable: true,
           progress: undefined,
         });
+        resetForm();
       } else {
         console.error("Failed to send form data");
         toast.error("Failed to add Dhan Transporting", {
@@ -149,331 +189,222 @@ const Dhantransporting = () => {
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-[680px]">
           <div className="bg-white px-6 py-12 shadow sm:rounded-lg sm:px-12">
             <form className="space-y-6" onSubmit={handleSubmit}>
-              <div>
-                <label
-                  htmlFor="rice_mill_name_id"
-                  className="block text-sm font-medium leading-6 text-gray-900"
-                >
-                  Select Rice Mill
-                </label>
-                <div className="mt-2">
-                  <select
-                    required
-                    type="text"
-                    name="rice_mill_name_id"
-                    className="block  w-full bg-white rounded-md  border-0 px-1.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                    value={dhantransportingData.rice_mill_name_id}
-                    onChange={handleInputChange}
-                  >
-                    <option value="">-Select Rice Mill-</option>
-                    {dopandingData.rice_mill_data &&
-                      dopandingData.rice_mill_data.map((option) => (
-                        <option
-                          key={option.rice_mill_id}
-                          value={option.rice_mill_id}
-                        >
-                          {option.rice_mill_name}
-                        </option>
-                      ))}
-                  </select>
-                  <p className="mt-2 flex flex-wrap text-sm text-gray-500">
-                    Cannot Find Rice Mill?{" "}
-                    <a
-                      href="/Addricemill"
-                      className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
-                    >
-                      Add New Rice Mill..
-                    </a>
-                  </p>
-                </div>
-              </div>
-
-              <div>
-                <div className="flex justify-between">
-                  <label
-                    htmlFor="date"
-                    className="block text-sm font-medium leading-6 text-gray-900"
-                  >
-                    Date
-                  </label>
-                </div>
-                <div className="mt-2">
-                  <input
-                    value={dhantransportingData.date}
-                    onChange={handleInputChange}
-                    type="date"
-                    name="date"
-                    className="block px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                  />
-                </div>
-              </div>
-              <div className="flex justify-between flex-wrap ">
-                <div className="my-2.5">
-                  <label
-                    htmlFor="rst_number_id"
-                    className="block text-sm font-medium leading-6 text-gray-900"
-                  >
-                    RST Number
-                  </label>
-
-                  <div className="mt-2">
-                    <select
-                      name="rst_number_id"
-                      type="text"
-                      value={dhantransportingData.rst_number_id}
-                      className=" bg-white min-w-[250px] block w-full px-1.5 rounded-md border-0 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                      onChange={handleInputChange}
-                    >
-                      <option value="">Select rst</option>
-                      {DoOptionsrst.rst_data &&
-                        DoOptionsrst.rst_data.map((option) => (
-                          <option
-                            key={option.dhan_awak_id}
-                            value={option.dhan_awak_id}
-                          >
-                            {option.rst_number}
-                          </option>
-                        ))}
-                    </select>
-                  </div>
-                </div>
-                <div>
-                  <div className="flex justify-between">
-                    <label
-                      htmlFor="do_number_id"
-                      className="block text-sm font-medium leading-6 text-gray-900"
-                    >
-                      DO Numbar
-                    </label>
-                  </div>
-                  <div className="mt-2">
-                    <select
-                      type="text"
-                      name="do_number_id"
-                      value={dhantransportingData.do_number_id}
-                      className="block  min-w-[250px] bg-white rounded-md  border-0 px-1.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                      onChange={handleInputChange}
-                    >
-                      <option value="">-Select Do Number-</option>
-                      {DoOptionsrst.do_number_data &&
-                        DoOptionsrst.do_number_data.map((option) => (
-                          <option key={option.do_id} value={option.do_id}>
-                            {option.do_number}
-                          </option>
-                        ))}
-                    </select>
-                    <p className="mt-2 text-sm text-gray-500">
-                      Cannot Find Do?{" "}
-                      <a
-                        href="/Add_Do"
-                        className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
-                      >
-                        Add New Do..
-                      </a>
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <div className="flex justify-between flex-wrap ">
-                <div>
-                  <div className="flex justify-between">
-                    <label
-                      htmlFor="society_name_id"
-                      className="block text-sm font-medium leading-6 text-gray-900"
-                    >
-                      Society
-                    </label>
-                  </div>
-                  <div className="mt-2">
-                    <select
-                      name="society_name_id"
-                      type="text"
-                      value={dhantransportingData.society_name_id}
-                      className="bg-white block w-full px-1.5 rounded-md border-0 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                      onChange={handleInputChange}
-                    >
-                      <option value="">Select a society</option>
-                      {dopandingData.society_data &&
-                        dopandingData.society_data.map((societie) => (
-                          <option
-                            key={societie.society_id}
-                            value={societie.society_id}
-                          >
-                            {societie.society_name}
-                          </option>
-                        ))}
-                    </select>
-                    <p className="mt-2  text-sm text-gray-500">
-                      Cannot Find Society?{" "}
-                      <a
-                        href="/Add_New_Society"
-                        className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
-                      >
-                        Add New Society.
-                      </a>
-                    </p>
-                  </div>
-                </div>
-                <div>
-                  <label
-                    htmlFor="transporter_name_id"
-                    className="block text-sm font-medium leading-6 text-gray-900"
-                  >
-                    Select Transporter
-                  </label>
-                  <div className="mt-2">
-                    <select
-                      required
-                      name="transporter_name_id"
-                      type="text"
-                      className="block  min-w-[250px] bg-white rounded-md  border-0 px-1.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                      value={dhantransportingData.transporter_name_id}
-                      onChange={handleInputChange}
-                    >
-                      <option value="">-Select a transporter-</option>
-                      {dopandingData.transporter_data &&
-                        dopandingData.transporter_data.map((option) => (
-                          <option
-                            key={option.transporter_id}
-                            value={option.transporter_id}
-                          >
-                            {option.transporter_name}
-                          </option>
-                        ))}
-                    </select>
-                    <p className="mt-2 text-[13px] text-gray-500">
-                      Cannot Find Transporter?{" "}
-                      <a
-                        href="/Add_NEw_Transporter"
-                        className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
-                      >
-                        Add Transporter
-                      </a>
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <div className="flex justify-between flex-wrap ">
-                <div>
-                  <label
-                    htmlFor="truck_number_id"
-                    className="block text-sm font-medium leading-6 text-gray-900"
-                  >
-                    truck Number
-                  </label>
-
-                  <div className="mt-2">
-                    <select
-                      name="truck_number_id"
-                      type="text"
-                      value={dhantransportingData.truck_number_id}
-                      className=" bg-white block w-full px-1.5 rounded-md border-0 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                      onChange={handleInputChange}
-                    >
-                      <option value="">Select a Truck</option>
-                      {DoOptionstrucktransporter.truck_data &&
-                        DoOptionstrucktransporter.truck_data.map((truck) => (
-                          <option key={truck.truck_id} value={truck.truck_id}>
-                            {truck.truck_number}
-                          </option>
-                        ))}
-                    </select>
-                  </div>
-                  <p className="mt-2 text-sm text-gray-500">
-                    Cannot Find Truck?{" "}
-                    <a
-                      href="/Add_NEw_Truck"
-                      className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
-                    >
-                      Add New Truck.
-                    </a>
-                  </p>
-                </div>
-                <div>
-                  <div className="flex justify-between">
-                    <label
-                      htmlFor="transporting_rate"
-                      className="block text-sm font-medium leading-6 text-gray-900"
-                    >
-                      Rate
-                    </label>
-                  </div>
-                  <div className="mt-1">
-                    <input
-                      type="number"
-                      name="transporting_rate"
-                      value={dhantransportingData.transporting_rate}
-                      className="block min-w-[250px] px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                      onChange={handleInputChange}
-                    />
-                  </div>
-                </div>
-              </div>
-              <div className="flex justify-between flex-wrap ">
-                <div>
-                  <div className="flex justify-between">
-                    <label
-                      htmlFor="transporting_rate"
-                      className="block text-sm font-medium leading-6 text-gray-900"
-                    >
-                      DM Weight
-                    </label>
-                  </div>
-                  <div className="mt-1">
-                    <input
-                      type="number"
-                      name="dm_weight"
-                      value={dhantransportingData.dm_weight}
-                      className="block min-w-[250px] px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                      onChange={handleInputChange}
-                    />
-                  </div>
-                </div>
-                <div>
-                  <div className="flex justify-between">
-                    <label
-                      htmlFor="numbers_of_bags"
-                      className="block text-sm font-medium leading-6 text-gray-900"
-                    >
-                      Number of Bags
-                    </label>
-                  </div>
-                  <div className="mt-1">
-                    <input
-                      disabled
-                      type="number"
-                      name="numbers_of_bags"
-                      value={
-                        (dhantransportingData.numbers_of_bags =
-                          dhantransportingData.dm_weight * 2)
+              <SelectInput
+                label="Select Rice Mill"
+                name="rice_mill_name_id"
+                options={
+                  dopandingData.rice_mill_data &&
+                  dopandingData.rice_mill_data.map((option) => ({
+                    label: option.rice_mill_name,
+                    value: option.rice_mill_id,
+                  }))
+                }
+                value={
+                  dhantransportingData.rice_mill_name_id
+                    ? {
+                        label: dopandingData.rice_mill_data.find(
+                          (option) =>
+                            option.rice_mill_id ===
+                            dhantransportingData.rice_mill_name_id
+                        ).rice_mill_name,
+                        value: dhantransportingData.rice_mill_name_id,
                       }
-                      className="block min-w-[250px] px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                      onChange={handleInputChange}
-                    />
-                  </div>
-                </div>
-              </div>
+                    : null
+                }
+                onChange={(selectedOption) =>
+                  handleInputChange({
+                    target: {
+                      name: "rice_mill_name_id",
+                      value: selectedOption ? selectedOption.value : "",
+                    },
+                  })
+                }
+                placeholder="Select Mill"
+              />
+              <DateInput
+                label="Date"
+                value={dhantransportingData.date}
+                onChange={handleInputChange}
+                name="date"
+              />
 
               <div className="flex justify-between flex-wrap ">
-                <div>
-                  <div className="flex justify-between">
-                    <label
-                      htmlFor="transporting_total"
-                      className="block text-sm font-medium leading-6 text-gray-900"
-                    >
-                      Transporting Total
-                    </label>
-                  </div>
-                  <div className="mt-1">
-                    <input
-                      type="number"
-                      name="transporting_total"
-                      value={dhantransportingData.transporting_total}
-                      className="block min-w-[250px] px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                      onChange={handleInputChange}
-                    />
-                  </div>
-                </div>
+                <Inputbox
+                  label="RST Number"
+                  name="rst_number"
+                  type="text"
+                  onChange={handleInputChange}
+                  value={dhantransportingData.rst_number}
+                />
+
+                <SelectInput
+                  label="DO Number"
+                  name="do_number_id"
+                  options={
+                    DoOptionsrst.do_number_data &&
+                    DoOptionsrst.do_number_data.map((option) => ({
+                      label: option.do_number,
+                      value: option.do_id,
+                    }))
+                  }
+                  value={
+                    dhantransportingData.do_number_id
+                      ? {
+                          label: DoOptionsrst.do_number_data.find(
+                            (option) =>
+                              option.do_id === dhantransportingData.do_number_id
+                          ).do_number,
+                          value: dhantransportingData.do_number_id,
+                        }
+                      : null
+                  }
+                  onChange={(selectedOption) =>
+                    handleInputChange({
+                      target: {
+                        name: "do_number_id",
+                        value: selectedOption ? selectedOption.value : "",
+                      },
+                    })
+                  }
+                  placeholder="Select DO Number"
+                />
+              </div>
+              <div className="flex justify-between flex-wrap ">
+                <SelectInput
+                  label="Society"
+                  name="society_name_id"
+                  options={
+                    dopandingData.society_data &&
+                    dopandingData.society_data.map((option) => ({
+                      label: option.society_name,
+                      value: option.society_id,
+                    }))
+                  }
+                  value={
+                    dhantransportingData.society_name_id
+                      ? {
+                          label: dopandingData.society_data.find(
+                            (option) =>
+                              option.society_id ===
+                              dhantransportingData.society_name_id
+                          ).society_name,
+                          value: dhantransportingData.society_name_id,
+                        }
+                      : null
+                  }
+                  onChange={(selectedOption) =>
+                    handleInputChange({
+                      target: {
+                        name: "society_name_id",
+                        value: selectedOption ? selectedOption.value : "",
+                      },
+                    })
+                  }
+                  placeholder="Select Society"
+                />
+                <SelectInput
+                  label="Select Transporter"
+                  name="transporter_name_id"
+                  options={
+                    dopandingData.transporter_data &&
+                    dopandingData.transporter_data.map((option) => ({
+                      label: option.transporter_name,
+                      value: option.transporter_id,
+                    }))
+                  }
+                  value={
+                    dhantransportingData.transporter_name_id
+                      ? {
+                          label: dopandingData.transporter_data.find(
+                            (option) =>
+                              option.transporter_id ===
+                              dhantransportingData.transporter_name_id
+                          ).transporter_name,
+                          value: dhantransportingData.transporter_name_id,
+                        }
+                      : null
+                  }
+                  onChange={(selectedOption) =>
+                    handleInputChange({
+                      target: {
+                        name: "transporter_name_id",
+                        value: selectedOption ? selectedOption.value : "",
+                      },
+                    })
+                  }
+                  placeholder="Select Transporter"
+                />
+              </div>
+              <div className="flex justify-between flex-wrap ">
+                <SelectInput
+                  label="Truck Number"
+                  name="truck_number_id"
+                  options={
+                    DoOptionstrucktransporter.truck_data &&
+                    DoOptionstrucktransporter.truck_data.map((option) => ({
+                      label: option.truck_number,
+                      value: option.truck_id,
+                    }))
+                  }
+                  value={
+                    dhantransportingData.truck_number_id
+                      ? {
+                          label: DoOptionstrucktransporter.truck_data.find(
+                            (option) =>
+                              option.truck_id ===
+                              dhantransportingData.truck_number_id
+                          ).truck_number,
+                          value: dhantransportingData.truck_number_id,
+                        }
+                      : null
+                  }
+                  onChange={(selectedOption) =>
+                    handleInputChange({
+                      target: {
+                        name: "truck_number_id",
+                        value: selectedOption ? selectedOption.value : "",
+                      },
+                    })
+                  }
+                  placeholder="Select Truck Number"
+                />
+                <Inputbox
+                  label="Rate"
+                  type="number"
+                  name="transporting_rate"
+                  value={dhantransportingData.transporting_rate}
+                  onChange={handleInputChange}
+                />
+              </div>
+              <div className="flex justify-between flex-wrap ">
+                <Inputbox
+                  label="DM Weight"
+                  type="number"
+                  name="dm_weight"
+                  value={dhantransportingData.dm_weight}
+                  onChange={handleInputChange}
+                />
+                <Inputbox
+                  label="Number of Bags"
+                  disabled={true}
+                  type="number"
+                  name="numbers_of_bags"
+                  value={
+                    (dhantransportingData.numbers_of_bags =
+                      dhantransportingData.dm_weight * 2)
+                  }
+                  onChange={handleInputChange}
+                />
+              </div>
+              <div className="flex justify-between flex-wrap ">
+                <Inputbox
+                  label="Transporting Total"
+                  type="number"
+                  name="transporting_total"
+                  value={dhantransportingData.transporting_total}
+                  onChange={handleInputChange}
+                />
+
                 <div className="">
                   <div className="flex justify-between">
                     <label
@@ -497,46 +428,21 @@ const Dhantransporting = () => {
                   </div>
                 </div>
               </div>
-
               <div className="flex justify-between flex-wrap ">
-                <div>
-                  <div className="flex justify-between">
-                    <label
-                      htmlFor="total_pending"
-                      className="block text-sm font-medium leading-6 text-gray-900"
-                    >
-                      Total Pending
-                    </label>
-                  </div>
-                  <div className="mt-1">
-                    <input
-                      type="number"
-                      name="total_pending"
-                      value={dhantransportingData.total_pending}
-                      className="block min-w-[250px] px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                      onChange={handleInputChange}
-                    />
-                  </div>
-                </div>
-                <div>
-                  <div className="flex justify-between">
-                    <label
-                      htmlFor="total_paid"
-                      className="block text-sm font-medium leading-6 text-gray-900"
-                    >
-                      Total Paid
-                    </label>
-                  </div>
-                  <div className="mt-1">
-                    <input
-                      type="number"
-                      name="total_paid"
-                      value={dhantransportingData.total_paid}
-                      className="block min-w-[250px] px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                      onChange={handleInputChange}
-                    />
-                  </div>
-                </div>
+                <Inputbox
+                  label="Total Pending"
+                  type="number"
+                  name="total_pending"
+                  value={dhantransportingData.total_pending}
+                  onChange={handleInputChange}
+                />
+                <Inputbox
+                  label="Total Paid"
+                  type="number"
+                  name="total_paid"
+                  value={dhantransportingData.total_paid}
+                  onChange={handleInputChange}
+                />
               </div>
               <div>
                 <button

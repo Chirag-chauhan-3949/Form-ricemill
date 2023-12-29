@@ -50,15 +50,53 @@ const Dhan_Awak = () => {
     hopper_rice_mill_id: "",
     stack_location: "",
   });
-
+  const initialDoData = {
+    rst_number: 0,
+    rice_mill_id: "",
+    date: "",
+    do_id: "",
+    society_id: "",
+    dm_weight: 0,
+    number_of_bags: 0,
+    truck_number_id: "",
+    transporter_name_id: "",
+    transporting_rate: 0,
+    transporting_total: 0,
+    jama_jute_22_23: 0,
+    ek_bharti_21_22: 0,
+    pds: 0,
+    miller_purana: 0,
+    kisan: 0,
+    bardana_society: 0,
+    hdpe_22_23: 0,
+    hdpe_21_22: 0,
+    hdpe_21_22_one_use: 0,
+    total_bag_weight: 0,
+    type_of_paddy: "",
+    actual_paddy: "",
+    mill_weight_quintals: 0,
+    shortage: 0,
+    bags_put_in_hopper: 0,
+    bags_put_in_stack: 0,
+    hopper_rice_mill_id: "",
+    stack_location: "",
+  };
+  const resetForm = () => {
+    setFormData(initialDoData);
+  };
   const [DoOptions, setDoOptions] = useState([]);
-
+  const apiKey = import.meta.env.VITE_API_KEY;
   // Fetch data for the "Select Rice Mill" dropdown
   useEffect(() => {
     async function fetchMillData() {
       try {
         const Mill_response = await axios.get(
-          "http://localhost:8000/rice-do-society-truck-transporter"
+          "http://localhost:8000/rice-do-society-truck-transporter",
+          {
+            headers: {
+              "api-key": apiKey,
+            },
+          }
         );
 
         const data = Mill_response.data;
@@ -77,7 +115,12 @@ const Dhan_Awak = () => {
     async function fetchricedonumberData() {
       try {
         const truck_transporter = await axios.get(
-          ` http://localhost:8000/rice-do-number/${DhanAwakData.rice_mill_id}`
+          ` http://localhost:8000/rice-do-number/${DhanAwakData.rice_mill_id}`,
+          {
+            headers: {
+              "api-key": apiKey,
+            },
+          }
         );
 
         const data = truck_transporter.data;
@@ -100,7 +143,12 @@ const Dhan_Awak = () => {
     async function fetchtrucktransporter() {
       try {
         const rice_do_number = await axios.get(
-          `http://localhost:8000/truck-transporter/${DhanAwakData.transporter_name_id}`
+          `http://localhost:8000/truck-transporter/${DhanAwakData.transporter_name_id}`,
+          {
+            headers: {
+              "api-key": apiKey,
+            },
+          }
         );
 
         const data = rice_do_number.data;
@@ -143,6 +191,7 @@ const Dhan_Awak = () => {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          "api-key": apiKey,
         },
         body: JSON.stringify(DhanAwakData),
       });
@@ -158,6 +207,7 @@ const Dhan_Awak = () => {
           draggable: true,
           progress: undefined,
         });
+        resetForm();
       } else {
         console.error("Failed to send form data");
         toast.error("Failed to send form data", {

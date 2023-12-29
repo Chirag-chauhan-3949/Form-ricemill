@@ -2,8 +2,8 @@ import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import Selectinput from "../inputelement/Selectinput";
-
+import SelectInput from "../inputelement/Selectinput";
+import Inputbox from "../inputelement/Inputbox";
 const Add_Agreement = () => {
   const [agreementData, setAgreementData] = useState({
     rice_mill_id: 0,
@@ -15,7 +15,20 @@ const Add_Agreement = () => {
     lot_to: 0,
     type_of_agreement: 0,
   });
-
+  const initialData = {
+    rice_mill_id: 0,
+    agreement_number: "",
+    // mota: 0,
+    // patla: 0,
+    // sarna: 0,
+    lot_from: 0,
+    lot_to: 0,
+    type_of_agreement: 0,
+  };
+  const resetForm = () => {
+    setAgreementData(initialData);
+  };
+  const apiKey = import.meta.env.VITE_API_KEY;
   const [AgreementOptions, setAgreementOptions] = useState([]);
 
   // Fetch data for the "Select Rice Mill" dropdown
@@ -23,7 +36,12 @@ const Add_Agreement = () => {
     async function fetchData() {
       try {
         const Agreement_response = await axios.get(
-          "http://localhost:8000/rice-mill"
+          "http://localhost:8000/rice-mill",
+          {
+            headers: {
+              "api-key": apiKey,
+            },
+          }
         );
 
         const data = Agreement_response.data;
@@ -57,6 +75,7 @@ const Add_Agreement = () => {
         {
           headers: {
             "Content-Type": "application/json",
+            "api-key": apiKey,
           },
         }
       );
@@ -72,6 +91,7 @@ const Add_Agreement = () => {
           draggable: true,
           progress: undefined,
         });
+        resetForm();
       } else {
         console.error("Failed to add Agreement");
         toast.error("Failed to add Agreement", {
@@ -114,42 +134,37 @@ const Add_Agreement = () => {
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-[480px]">
           <div className="bg-white px-6 py-12 shadow sm:rounded-lg sm:px-12">
             <form className="space-y-6" onSubmit={handleSubmit}>
-              <div>
-                <label
-                  htmlFor="rice_mill_id"
-                  className="block text-sm font-medium leading-6 text-gray-900"
-                >
-                  Select Rice Mill
-                </label>
-                <div className="mt-2">
-                  <select
-                    required
-                    name="rice_mill_id"
-                    className="block  w-full bg-white rounded-md  border-0 px-1.5 py-2 text-gray-500 focus:text-gray-900  shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                    value={agreementData.rice_mill_id}
-                    onChange={handleInputChange}
-                  >
-                    <option value="">-Select Rice Mill-</option>
-                    {AgreementOptions.map((option) => (
-                      <option
-                        key={option.rice_mill_id}
-                        value={option.rice_mill_id}
-                      >
-                        {option.rice_mill_name}
-                      </option>
-                    ))}
-                  </select>
-                  <p className="mt-2 text-sm text-gray-500">
-                    Cannot Find Rice Mill?{" "}
-                    <a
-                      href="/Addricemill"
-                      className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
-                    >
-                      Add New Rice Mill..
-                    </a>
-                  </p>
-                </div>
-              </div>
+              <SelectInput
+                label="Select Rice Mill"
+                name="select_mill_id"
+                options={
+                  AgreementOptions.rice_mill_data &&
+                  AgreementOptions.rice_mill_data.map((option) => ({
+                    label: option.rice_mill_name,
+                    value: option.rice_mill_id,
+                  }))
+                }
+                value={
+                  agreementData.select_mill_id
+                    ? {
+                        label: AgreementOptions.rice_mill_data.find(
+                          (option) =>
+                            option.rice_mill_id === agreementData.select_mill_id
+                        ).rice_mill_name,
+                        value: agreementData.select_mill_id,
+                      }
+                    : null
+                }
+                onChange={(selectedOption) =>
+                  handleInputChange({
+                    target: {
+                      name: "select_mill_id",
+                      value: selectedOption ? selectedOption.value : "",
+                    },
+                  })
+                }
+                placeholder="Select Mill"
+              />
               <div>
                 <div className="flex justify-between">
                   <label
@@ -173,20 +188,16 @@ const Add_Agreement = () => {
                   </select>
                 </div>
               </div>
-              <div>
-                <label className="block text-sm font-medium leading-6 text-gray-900">
-                  Agreement Number
-                </label>
-                <input
-                  type="text"
-                  pattern="AC\d{12}"
-                  name="agreement_number"
-                  className="block w-full rounded-md border-0 px-1.5 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                  value={agreementData.agreement_number}
-                  onChange={handleInputChange}
-                />
-              </div>
-              <fieldset className="flex flex-wrap justify-evenly h-fit p-10">
+              <Inputbox
+                name="agreement_number"
+                label=" Agreement Number"
+                value={agreementData.agreement_number}
+                type="text"
+                pattern="AC\d{12}"
+                onChange={handleInputChange}
+              />
+
+              <fieldset className="flex flex-wrap my-5 mx-16">
                 {/* <div className="flex space-x-4">
                   <div>
                     <label className="block text-sm font-medium leading-6 text-gray-900">
@@ -225,31 +236,22 @@ const Add_Agreement = () => {
                     />
                   </div>
                 </div> */}
-                <div className="flex space-x-4 mt-4">
-                  <div>
-                    <label className="block text-sm font-medium leading-6 text-gray-900">
-                      Lot From
-                    </label>
-                    <input
-                      type="number"
-                      name="lot_from"
-                      className="block w-full rounded-md border-0 px-1.5 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                      value={agreementData.lot_from}
-                      onChange={handleInputChange}
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium leading-6 text-gray-900">
-                      Lot to
-                    </label>
-                    <input
-                      type="number"
-                      name="lot_to"
-                      className="block w-full rounded-md border-0 px-1.5 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                      value={agreementData.lot_to}
-                      onChange={handleInputChange}
-                    />
-                  </div>
+                <div className="flex justify-between flex-wrap ">
+                  <Inputbox
+                    label="Lot From"
+                    name="lot_from"
+                    value={agreementData.lot_from}
+                    type="number"
+                    onChange={handleInputChange}
+                  />
+                  <Inputbox
+                    label="Lot To"
+                    type="number"
+                    name="lot_to"
+                    value={agreementData.lot_to}
+                    onChange={handleInputChange}
+                  />
+
                   {/* <div>
                     <label className="block text-sm font-medium leading-6 text-gray-900">
                       total

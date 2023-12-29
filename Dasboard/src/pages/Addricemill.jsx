@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Inputbox from "../inputelement/Inputbox";
 
 const Addricemill = () => {
   const [Addricedata, setAddricedata] = useState({
@@ -10,7 +11,16 @@ const Addricemill = () => {
     phone_number: "",
     rice_mill_capacity: "",
   });
-
+  const initialData = {
+    gst_number: "",
+    rice_mill_name: "",
+    mill_address: "",
+    phone_number: "",
+    rice_mill_capacity: "",
+  };
+  const resetForm = () => {
+    setAddricedata(initialData);
+  };
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setAddricedata({
@@ -20,7 +30,6 @@ const Addricemill = () => {
   };
   const apiKey = import.meta.env.VITE_API_KEY;
   const validateGST = (gstNumber) => {
-    // Define a regular expression pattern for GST number validation
     const gstPattern =
       /^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[1-9A-Z]{1}[Z]{1}[0-9A-Z]{1}$/;
     return gstPattern.test(gstNumber);
@@ -40,16 +49,17 @@ const Addricemill = () => {
       return;
     }
     try {
-      const response = await fetch("http://mill.dappfolk.com/add-rice-mill/", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "api-key": apiKey,
-        },
-        body: JSON.stringify(Addricedata),
-      });
+      const response = await axios.post(
+        "http://mill.dappfolk.com/add-rice-mill/",
+        Addricedata,
+        {
+          headers: {
+            "api-key": apiKey,
+          },
+        }
+      );
 
-      if (response.ok) {
+      if (response.status === 200) {
         // console.log("Rice mill added successfully");
         toast.success("Rise mill added successfully", {
           position: "top-right",
@@ -60,6 +70,7 @@ const Addricemill = () => {
           draggable: true,
           progress: undefined,
         });
+        resetForm();
       } else if (response.status === 400) {
         const errorResponse = await response.json();
         // console.log(errorResponse.detail);
@@ -144,103 +155,40 @@ const Addricemill = () => {
                 </div>
               </div>
 
-              <div>
-                <div className="flex justify-between">
-                  <label
-                    htmlFor="gst_number"
-                    className="block text-sm font-medium leading-6 text-gray-900"
-                  >
-                    GST Number
-                  </label>
-                  <span className="text-sm leading-6 text-red-500">
-                    Required
-                  </span>
-                </div>
-                <div className="mt-2">
-                  <input
-                    placeholder="Enter GST Number"
-                    type="text"
-                    name="gst_number"
-                    className="block w-full rounded-md border-0 px-1.5 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                    value={Addricedata.gst_number}
-                    onChange={handleInputChange}
-                    required
-                  />
-                </div>
-              </div>
-              <div>
-                <div className="flex justify-between">
-                  <label
-                    htmlFor="mill_address"
-                    className="block text-sm font-medium leading-6 text-gray-900"
-                  >
-                    Mill Address
-                  </label>
-                  <span className="text-sm leading-6 text-red-500">
-                    Required
-                  </span>
-                </div>
-                <div className="mt-2">
-                  <input
-                    type="text"
-                    name="mill_address"
-                    className="block w-full rounded-md border-0 px-1.5 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                    placeholder="Enter Mill Address"
-                    value={Addricedata.mill_address}
-                    onChange={handleInputChange}
-                    required
-                  />
-                </div>
-              </div>
-              <div>
-                <div className="flex justify-between">
-                  <label
-                    htmlFor="phone_number"
-                    className="block text-sm font-medium leading-6 text-gray-900"
-                  >
-                    Phone Number
-                  </label>
-                  <span className="text-sm leading-6 text-red-500">
-                    Required
-                  </span>
-                </div>
-                <div className="mt-2">
-                  <input
-                    pattern="[0-9]{10}"
-                    placeholder="Enter Phone Number"
-                    type="text"
-                    name="phone_number"
-                    className="block w-full rounded-md border-0 px-1.5 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                    value={Addricedata.phone_number}
-                    onChange={handleInputChange}
-                    required
-                  />
-                </div>
-              </div>
-              <div>
-                <div className="flex justify-between">
-                  <label
-                    htmlFor="rice_mill_capacity"
-                    className="block text-sm font-medium leading-6 text-gray-900"
-                  >
-                    Rice Mill Capacity
-                  </label>
-                  <span className="text-sm leading-6 text-red-500">
-                    Required
-                  </span>
-                </div>
-                <div className="mt-2">
-                  <input
-                    placeholder="Enter Rice Mill Capacity"
-                    type="text"
-                    name="rice_mill_capacity"
-                    className="block w-full rounded-md border-0 px-1.5 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                    value={Addricedata.rice_mill_capacity}
-                    onChange={handleInputChange}
-                    required
-                  />
-                </div>
-              </div>
+              <Inputbox
+                label="GST Number"
+                name="gst_number"
+                value={Addricedata.gst_number}
+                type="text"
+                placeholder="Enter GST Number"
+                onChange={handleInputChange}
+              />
+              <Inputbox
+                label="Mill Address"
+                name="mill_address"
+                placeholder="Enter Mill Address"
+                type="text"
+                value={Addricedata.mill_address}
+                onChange={handleInputChange}
+              />
+              <Inputbox
+                label="Phone number"
+                name="phone_number"
+                value={Addricedata.phone_number}
+                onChange={handleInputChange}
+                type="text"
+                placeholder="Enter Phone Number"
+                pattern="[0-9]{10}"
+              />
+              <Inputbox
+                label="Rice Mill Capacity"
+                name="rice_mill_capacity"
+                value={Addricedata.rice_mill_capacity}
+                type="text"
+                onChange={handleInputChange}
+                placeholder="Enter Rice Mill Capacity"
+              />
+
               <div>
                 <button
                   type="submit"

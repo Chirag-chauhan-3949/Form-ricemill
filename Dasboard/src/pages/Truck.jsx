@@ -2,21 +2,33 @@ import React, { useState, useEffect } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
+import Inputbox from "../inputelement/Inputbox";
 
 const Add_New_Truck = () => {
   const [truckData, setTruckData] = useState({
     truck_number: "",
     transport_id: 0,
   });
-
+  const initialData = {
+    broker_name: "",
+    broker_phone_number: 0,
+  };
+  const resetForm = () => {
+    setTruckData(initialData);
+  };
   const [transpoterOptions, setTransporterOptions] = useState([]);
-
+  const apiKey = import.meta.env.VITE_API_KEY;
   // Fetch data for the "Select transporter" dropdown
   useEffect(() => {
     async function fetchData() {
       try {
         const transporter_response = await axios.get(
-          "http://localhost:8000/transporters/"
+          "http://localhost:8000/transporters/",
+          {
+            headers: {
+              "api-key": apiKey,
+            },
+          }
         );
         if (
           transporter_response.status >= 200 &&
@@ -52,14 +64,20 @@ const Add_New_Truck = () => {
     try {
       const response = await axios.post(
         "http://localhost:8000/truck/",
-        truckData
+        truckData,
+        {
+          headers: {
+            "api-key": apiKey,
+          },
+        }
       );
 
       // console.log(response.data);
 
-      if (response.status === 201) {
+      if (response.status === 200) {
         // console.log("Truck added successfully");
         toast.success("Truck added successfully", { autoClose: 2000 });
+        resetForm();
       } else {
         console.error("Failed to add truck");
         toast.error("Failed to add truck");
@@ -82,34 +100,15 @@ const Add_New_Truck = () => {
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-[480px]">
           <div className="bg-white px-6 py-12 shadow sm:rounded-lg sm:px-12">
             <form className="space-y-6" onSubmit={handleSubmit}>
-              <div>
-                <div className="flex justify-between">
-                  <label
-                    htmlFor="truck_number"
-                    className="block text-sm font-medium leading-6 text-gray-900"
-                  >
-                    Truck Number
-                  </label>
-                  <span
-                    className="text-sm leading-6 text-red-500"
-                    id="email-optional"
-                  >
-                    Required
-                  </span>
-                </div>
-                <div className="mt-2">
-                  <input
-                    pattern="[A-Za-z]{2}[0-9]{2}[A-Za-z]{2}[0-9]{4}"
-                    required
-                    type="text"
-                    name="truck_number"
-                    className="block w-full rounded-md border-0 px-1.5 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                    placeholder="CG04KP1234"
-                    value={truckData.truck_number}
-                    onChange={handleInputChange}
-                  />
-                </div>
-              </div>
+              <Inputbox
+                label="Truck Number"
+                name="truck_number"
+                placeholder="CG04KP1234"
+                type="text"
+                pattern="[A-Za-z]{2}[0-9]{2}[A-Za-z]{2}[0-9]{4}"
+                value={truckData.truck_number}
+                onChange={handleInputChange}
+              />
               <div>
                 <label
                   htmlFor="transport_id"

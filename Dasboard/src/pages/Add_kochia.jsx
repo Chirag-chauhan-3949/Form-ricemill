@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import SelectInput from "../inputelement/Selectinput";
+import Inputbox from "../inputelement/Inputbox";
 import axios from "axios";
 const Kochia = () => {
+  const apiKey = import.meta.env.VITE_API_KEY;
   const [kochiaData, setkochiaData] = useState({
     rice_mill_name_id: "",
     kochia_name: "",
@@ -120,92 +123,54 @@ const Kochia = () => {
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-[480px]">
           <div className="bg-white px-6 py-12 shadow sm:rounded-lg sm:px-12">
             <form className="space-y-6" onSubmit={handleSubmit}>
-              <div>
-                <label
-                  htmlFor="rice_mill_name_id"
-                  className="block text-sm font-medium leading-6 text-gray-900"
-                >
-                  Select Rice Mill
-                </label>
-                <div className="mt-2">
-                  <select
-                    // required
-                    type="text"
-                    name="rice_mill_name_id"
-                    className="block  w-full bg-white rounded-md  border-0 px-1.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                    value={kochiaData.rice_mill_name_id}
-                    onChange={handleInputChange}
-                  >
-                    <option value="">-Select Rice Mill-</option>
-                    {DoOptions.map((option) => (
-                      <option
-                        key={option.rice_mill_id}
-                        value={option.rice_mill_id}
-                      >
-                        {option.rice_mill_name}
-                      </option>
-                    ))}
-                  </select>
-                  <p className="mt-2 text-sm text-gray-500">
-                    Cannot Find Rice Mill?{" "}
-                    <a
-                      href="/Addricemill"
-                      className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
-                    >
-                      Add New Rice Mill..
-                    </a>
-                  </p>
-                </div>
-              </div>
-              <div>
-                <div className="flex justify-between">
-                  <label
-                    htmlFor="kochia_name"
-                    className="block text-sm font-medium leading-6 text-gray-900"
-                  >
-                    Kochia Name
-                  </label>
-                  <span className="text-sm leading-6 text-red-500">
-                    Required
-                  </span>
-                </div>
-                <div className="mt-2">
-                  <input
-                    type="text"
-                    name="kochia_name"
-                    className="block w-full rounded-md border-0 px-1.5 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                    placeholder="Enter transporter name"
-                    value={kochiaData.kochia_name}
-                    onChange={handleInputChange}
-                    required
-                  />
-                </div>
-              </div>
-              <div>
-                <div className="flex justify-between">
-                  <label
-                    htmlFor="kochia_phone_number"
-                    className="block text-sm font-medium leading-6 text-gray-900"
-                  >
-                    Kochia Phone Nu.
-                  </label>
-                  <span className="text-sm leading-6 text-red-500">
-                    Required
-                  </span>
-                </div>
-                <div className="mt-2">
-                  <input
-                    pattern="[0-9]{10}"
-                    type="number"
-                    name="kochia_phone_number"
-                    className="block w-full rounded-md border-0 px-1.5 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                    placeholder="6234873298"
-                    value={kochiaData.kochia_phone_number}
-                    onChange={handleInputChange}
-                    required
-                  />
-                </div>
-              </div>
+              <SelectInput
+                label="Select Rice Mill"
+                name="rice_mill_name_id"
+                options={
+                  DoOptions.rice_mill_data &&
+                  DoOptions.rice_mill_data.map((option) => ({
+                    label: option.rice_mill_name,
+                    value: option.rice_mill_id,
+                  }))
+                }
+                value={
+                  kochiaData.rice_mill_name_id
+                    ? {
+                        label: DoOptions.rice_mill_data.find(
+                          (option) =>
+                            option.rice_mill_id === kochiaData.rice_mill_name_id
+                        ).rice_mill_name,
+                        value: kochiaData.rice_mill_name_id,
+                      }
+                    : null
+                }
+                onChange={(selectedOption) =>
+                  handleInputChange({
+                    target: {
+                      name: "rice_mill_name_id",
+                      value: selectedOption ? selectedOption.value : "",
+                    },
+                  })
+                }
+                placeholder="Select Mill"
+              />
+              <Inputbox
+                name="kochia_name"
+                label="Kochia Name"
+                placeholder="Enter transporter name"
+                value={kochiaData.kochia_name}
+                onChange={handleInputChange}
+                type="text"
+              />
+              <Inputbox
+                name="kochia_phone_number"
+                label="Kochia Phone Number"
+                placeholder="6234873298"
+                value={kochiaData.kochia_phone_number}
+                onChange={handleInputChange}
+                pattern="[0-9]{10}"
+                type="number"
+              />
               <div>
                 <button
                   type="submit"

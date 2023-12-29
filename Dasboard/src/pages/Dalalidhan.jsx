@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import DateInput from "../inputelement/Dateinput";
 import axios from "axios";
 import SelectInput from "../inputelement/Selectinput";
+import Inputbox from "../inputelement/Inputbox";
 const capitalizeFirstLetter = (str) => {
   return str.charAt(0).toUpperCase() + str.slice(1);
 };
@@ -34,7 +35,7 @@ const Dalalidhan = () => {
     weight_less_kata_difference: 0,
     net_weight: 0,
     rate: 0,
-    ammount: 0,
+    amount: 0,
   });
   const initialDalaliData = {
     rst_number: 0,
@@ -60,7 +61,7 @@ const Dalalidhan = () => {
     weight_less_kata_difference: 0,
     net_weight: 0,
     rate: 0,
-    ammount: 0,
+    amount: 0,
   };
   const resetForm = () => {
     setDalaliData(initialDalaliData);
@@ -74,6 +75,11 @@ const Dalalidhan = () => {
         const [kochiaResponse, truckResponse] = await Promise.all([
           axios.get("http://localhost:8000/kochia-data"),
           axios.get("http://localhost:8000/trucks/"),
+          {
+            headers: {
+              "api-key": apiKey,
+            },
+          },
         ]);
 
         const kochiadata = kochiaResponse.data;
@@ -119,6 +125,7 @@ const Dalalidhan = () => {
         {
           headers: {
             "Content-Type": "application/json",
+            "api-key": apiKey,
           },
         }
       );
@@ -248,25 +255,13 @@ const Dalalidhan = () => {
                   </div>
                 </div>
 
-                <div>
-                  <div className="flex justify-between">
-                    <label
-                      htmlFor="rst_number"
-                      className="block text-sm font-medium leading-6 text-gray-900"
-                    >
-                      RST Number
-                    </label>
-                  </div>
-                  <div className="mt-1">
-                    <input
-                      type="number"
-                      name="rst_number"
-                      value={DalaliData.rst_number}
-                      className="block min-w-[250px] px-1.5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                      onChange={handleInputChange}
-                    />
-                  </div>
-                </div>
+                <Inputbox
+                  label="RST Number"
+                  type="number"
+                  name="rst_number"
+                  value={DalaliData.rst_number}
+                  onChange={handleInputChange}
+                />
 
                 <div className="my-2.5">
                   <div className="mt-1">
