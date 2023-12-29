@@ -16,6 +16,7 @@ const Otherjawak = () => {
     nos: 0,
     reason: "",
     weight: 0,
+    bill_amount: 0,
   });
   const [Alldata, setAlldata] = useState([]);
 
@@ -46,6 +47,7 @@ const Otherjawak = () => {
     nos: 0,
     reason: "",
     weight: 0,
+    bill_amount: 0,
   };
   const resetForm = () => {
     setOtherjawakData(initialOtherjawakData);
@@ -269,14 +271,22 @@ const Otherjawak = () => {
                   placeholder="Enter weight "
                 />
                 <Inputbox
-                  label="Reason"
-                  name="reason"
-                  type="text"
-                  value={OtherjawakData.reason}
+                  label="Bill Amount"
+                  name="bill_amount"
+                  type="number"
+                  value={OtherjawakData.bill_amount}
                   onChange={handleInputChange}
-                  placeholder="Enter reason "
+                  placeholder="Enter Bill Amount "
                 />
               </div>
+              <Inputbox
+                label="Reason"
+                name="reason"
+                type="text"
+                value={OtherjawakData.reason}
+                onChange={handleInputChange}
+                placeholder="Enter reason "
+              />
               {/* Submit Button */}
               <div>
                 <button
